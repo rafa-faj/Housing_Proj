@@ -1,0 +1,67 @@
+
+
+.icon {
+  margin-top: 0.5rem;
+
+  & svg {
+    fill: $secondary-color;
+    stroke: none;
+  }
+}
+
+.useStroke svg {
+  fill: none;
+  stroke: $secondary-color;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  height: 100%;
+  
+  @include bp-up('lg') {
+    margin-left: 0 !important; // TODO temporary, necessary to override bootstrap's container
+    margin-right: 0 !important;
+  }
+}
+
+.houseTypeWrapper {
+  justify-content: left;
+  flex-grow: 0;
+}
+
+.houseType {
+  @include font-type('title');
+
+  padding: 0.5rem 1rem;
+  background-color: $secondary-1-color;
+  border-radius: 0.25rem;
+}
+
+.priceWrapper {
+  @include font-type('price-related-large');
+}
+
+.priceLabel {
+  @include font-type('subtitle');
+  color: $primary-dark-color;
+}
+
+.subtitle {
+  @include font-type('subtitle');
+}
+
+.primary {
+  @include font-type('primary-text');
+}
+
+.justifyCenter {
+  justify-content: center;
+}
+
+.textCenter {
+  text-align: center;
+}

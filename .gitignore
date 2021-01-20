@@ -11,8 +11,3 @@ BackEnd/env/*
 **/.DS_Store
 **/__pycache__
 FrontEnd/node_modules
-
-# Frontend
-FrontEnd/node_modules
-FrontEnd/coverage
-FrontEnd/package-lock.json

@@ -1,0 +1,66 @@
+
+
+.ellipseButton {
+  width: 54px;
+  height: 54px;
+  padding: 9.2px 21.1px 8.2px 20.1px;
+  background-color: #e7936d;
+}
+
+.infoSectionWrapper {
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  color: $primary-dark-color;
+  font-size: $xl-font-size;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.subtitle {
+  color: $primary-dark-color;
+  font-size: $lg-font-size;
+  margin: auto 0 auto 50px;
+}
+
+.caption {
+  color: $primary-dark-color;
+  font-size: 26px;
+  font-weight: bold;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.text {
+  color: $primary-dark-color;
+  font-size: $sm-font-size;
+  width: 325px;
+}
+
+.textSm {
+  color: $primary-dark-color;
+  font-size: 14px;
+}
+
+.smallImg {
+  height: 100px;
+}
+
+.buttonInner {
+  margin: inherit;
+}
+
+.smallRow {
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.bigRow {
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.center {
+  justify-content: center;
+}

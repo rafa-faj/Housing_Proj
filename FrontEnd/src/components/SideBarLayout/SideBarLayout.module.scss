@@ -1,0 +1,18 @@
+
+
+$sidebar-width: 250px;
+$sidebar-offset: calc(100vw - $sidebar-width);
+
+.layout {
+  margin-right: calc(#{$sidebar-width} + #{$entire-site-margin-x});
+  margin-left: $entire-site-margin-x;
+  margin-top: $filter-top-margin;
+}
+
+.sidebar {
+  position: fixed;
+  width: $sidebar-width;
+  top: $navbar-height;
+  right: $entire-site-margin-x;
+  height: calc(100vh - #{$navbar-height});
+}

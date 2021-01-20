@@ -1,8 +1,3 @@
-const { google } = window;
-
-const priceCenterCoordinates = '32.8797,-117.2362';
-const DistanceMatrixService = new google.maps.DistanceMatrixService();
-
 /**
  * Gets the duration of a trip on an average day from address to Price Center
  * @param address - the address to get duration (from address to Price Center)
@@ -13,9 +8,13 @@ const DistanceMatrixService = new google.maps.DistanceMatrixService();
  *           with transit options)
  * @error - throws an error if the address is not recognizable by Google
  */
-const getDuration = async (
+export const getDuration = async (
   address: string,
 ): Promise<google.maps.Duration | undefined> => {
+  // const { google } = window;
+  const DistanceMatrixService = new window.google.maps.DistanceMatrixService();
+  const priceCenterCoordinates = '32.8797,-117.2362';
+
   return new Promise((resolve, reject) => {
     DistanceMatrixService.getDistanceMatrix(
       {
@@ -23,7 +22,7 @@ const getDuration = async (
         destinations: [priceCenterCoordinates],
         travelMode: google.maps.TravelMode.TRANSIT,
         transitOptions: {
-          arrivalTime: new Date(), // TODO need to put a constant date!
+          arrivalTime: new Date(), // TODO test this as a param (for constant date): 'November 8, 2019 18:00:00'
           modes: [google.maps.TransitMode.BUS],
         },
         unitSystem: google.maps.UnitSystem.IMPERIAL,
@@ -61,7 +60,7 @@ const getDuration = async (
  *           with transit options)
  * @error - throws an error if the address is not recognizable by Google
  */
-const getDurationInMinutes = async (
+export const getDurationInMinutes = async (
   address: string,
 ): Promise<string | undefined> => {
   const result = await getDuration(address);
@@ -75,7 +74,7 @@ const getDurationInMinutes = async (
 /**
  * Function to test getDuration
  */
-const testGetDuration = async () => {
+export const testGetDuration = async () => {
   const tests = [
     '9775 Genesee Ave, San Diego, CA 92121',
     '4313 Cozzens Ct, San Diego, CA 92122',
@@ -95,5 +94,3 @@ const testGetDuration = async () => {
     });
   });
 };
-
-export { getDuration, getDurationInMinutes, testGetDuration };

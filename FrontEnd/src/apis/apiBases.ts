@@ -1,12 +1,15 @@
 import axios from 'axios';
+import { isRunningDev } from '../utils/next';
 
 export const googleMapsAPI = axios.create({
   baseURL: 'https://maps.googleapis.com/maps/api',
 });
 
-// TODO add a middleware to check for an error and throw an error if there is one. Otherwise, extract only the data
+/**
+ * By default, axios will throw an error if the status code is not in the range 200 to 299
+ */
 export const backendAPI = axios.create({
-  baseURL: process.env.REACT_APP_USE_LOCAL_BACKEND
+  baseURL: isRunningDev()
     ? 'http://localhost:3002/'
     : 'https://homehubdope.com:3001/',
 });

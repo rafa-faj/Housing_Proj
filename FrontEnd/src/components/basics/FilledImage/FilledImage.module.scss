@@ -1,0 +1,12 @@
+.image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  overflow: hidden; // necessary for the outline to match the actual size rather than the hidden image's size
+}
+
+.hiddenImage {
+  visibility: hidden;
+}

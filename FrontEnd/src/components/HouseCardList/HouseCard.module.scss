@@ -1,0 +1,20 @@
+
+
+.card {
+  @include thin-border('md');
+  background-color: $secondary-1-color;
+  border-radius: 25px; // TODO make variable
+  overflow: hidden;
+}
+
+.pic {
+  height: 200px;
+  overflow: hidden;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.divider {
+  color: rgba(77, 94, 59, 0.2);
+  font-weight: bold;
+}

@@ -1,0 +1,73 @@
+
+
+$tv-bottom-items-color: $primary-5-color;
+
+.container {
+  display: inline-block;
+  border: none;
+  background-color: $darker-background-color;
+  padding: 12px;
+  border-radius: 22px;
+  width: $bookmarks-list-width;
+}
+
+.content {
+  border: none;
+  background-color: white;
+  padding: 6px;
+  border-radius: 17px 17px 10px 10px;
+  text-align: center;
+
+  & div,
+  & span,
+  & button,
+  & .btn {
+    margin-left: auto;
+    margin-right: auto;
+
+    &:first-child {
+      padding-top: 2vh;
+    }
+
+    &:last-child {
+      padding-bottom: 2vh;
+    }
+  }
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-around;
+  padding-left: 3vh;
+  padding-right: 3vh;
+  padding-top: 12px;
+  padding-bottom: 2x;
+}
+
+.bottomItem {
+  background-color: $tv-bottom-items-color;
+  border: 0;
+  height: 20px;
+}
+
+.bar {
+  min-width: 70%;
+  border-radius: 20px;
+}
+
+.circle {
+  width: 20px;
+  border-radius: 50%;
+}
+
+.title {
+  @include font-type('special');
+  margin-top: 2vh;
+}
+
+.separator {
+  padding-bottom: 1vh;
+  width: 90%;
+  border: 0;
+  border-top: 3px solid $tv-bottom-items-color;
+}

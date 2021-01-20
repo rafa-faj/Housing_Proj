@@ -1,0 +1,12 @@
+export { default as petsFriendly } from './Pets friendly.svg';
+export { default as sharedCommonSpace } from './Shared common space.svg';
+export { default as furnished } from './Furnished.svg';
+export { default as airConditioning } from './Air conditioning.svg';
+export { default as smokeFree } from './Smoke free.svg';
+export { default as indoorWasher } from './Indoor washer.svg';
+export { default as outdoorParking } from './Outdoor Parking.svg';
+export { default as indoorParking } from './Indoor Parking.svg';
+export { default as swimmingPool } from './Swimming pool.svg';
+export { default as hardwoodFloor } from './Hardwood floor.svg';
+export { default as elevator } from './Elevator.svg';
+export { default as gym } from './Gym.svg';

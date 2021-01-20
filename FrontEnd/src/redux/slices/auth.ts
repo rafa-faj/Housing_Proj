@@ -1,31 +1,28 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Cookies from 'universal-cookie';
-import { AppThunk, RootState } from '../store'; // TODO
+import { AppThunk, RootState } from '../store';
 import {
   userLogIn,
   userLogOut,
   userEditProfile,
   createNewUserApi,
-  addHousingBookmarkAPI,
 } from '../../apis/index';
-import { User, UserNameEmail } from '../../assets/models/User';
-import {
-  getHousingFavorites,
-  postAllHousingFavorites,
-  resetHousingFavorites,
-} from './housing';
+import { User, UserNameEmail } from '../../models/User';
+import { useSelector } from 'react-redux';
 
 const cookies = new Cookies();
 
 interface AuthState {
   user?: User;
   userDraft?: User; // TODO change this to not be stored in redux and cookies
+  shouldShowLogin: boolean;
   showNewUserPopup?: UserNameEmail;
 }
 
 const initialState: AuthState = {
   user: cookies.get<User>('user'),
   userDraft: cookies.get<User>('userDraft'),
+  shouldShowLogin: false,
   showNewUserPopup: undefined,
 };
 
@@ -64,18 +61,24 @@ export const authSlice = createSlice({
     endNewUserFlow: (state) => {
       state.showNewUserPopup = undefined;
     },
+    showLogin: (state) => {
+      state.shouldShowLogin = true;
+    },
+    hideLogin: (state) => {
+      state.shouldShowLogin = false;
+    },
   },
 });
 
-// Export actions that were defined with createSlice
 export const {
   setUser,
   setUserDraft,
   startNewUserFlow,
   endNewUserFlow,
+  showLogin,
+  hideLogin,
 } = authSlice.actions;
 
-// Thunks here
 export const login = (name: string, email: string): AppThunk => async (
   dispatch,
 ) => {
@@ -108,8 +111,6 @@ export const login = (name: string, email: string): AppThunk => async (
           phone: response.phone,
         }),
       );
-      await dispatch(postAllHousingFavorites());
-      dispatch(getHousingFavorites());
     }
   }
 };
@@ -124,7 +125,6 @@ export const logout = (): AppThunk => async (dispatch, getState) => {
   if (response) {
     dispatch(setUser(undefined));
     dispatch(setUserDraft(undefined)); // TODO not sure if this is needed
-    dispatch(resetHousingFavorites());
   }
 };
 
@@ -155,11 +155,15 @@ export const editProfile = (
 };
 
 // Selects here
-const selectUser = (state: RootState) => state.auth.user;
-const selectUserDraft = (state: RootState) => state.auth.userDraft;
-const selectShowNewUserPopup = (state: RootState) =>
-  state.auth.showNewUserPopup;
-export { selectUser, selectUserDraft, selectShowNewUserPopup };
+export const selectUser = (state: RootState) => state.auth.user;
+export const selectUserDraft = (state: RootState) => state.auth.userDraft;
+export const selectShouldShowLogin = (state: RootState) =>
+  state.auth.shouldShowLogin;
+export const selectShowNewUserPopup = (state: RootState) => {
+  return state.auth.showNewUserPopup;
+};
+
+export const useUser = () => useSelector(selectUser); // TODO is this good to do? not sure yet for performance reasons
 
 // Export everything
 export default authSlice.reducer;

@@ -1,11 +1,8 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import * as z from 'zod';
-import {
-  largeAmenitiesIcons,
-  amenitiesTranslations,
-} from '../../assets/icons/all';
-import { WizardFormStep } from '../basics/WizardForm';
-import ToggleGroup from '../basics/ToggleGroup';
+import { largeAmenitiesIcons, amenitiesTranslations } from '@icons';
+import { WizardFormStep, ToggleGroup } from '@basics';
+import styles from './HousingPostForm.module.scss';
 
 // TODO this should be in a different file
 type Amenity = keyof typeof largeAmenitiesIcons;
@@ -20,13 +17,13 @@ export const page3InitialStore: Page3Store = {
   amenities: [],
 };
 
-const PostPage3: React.FC<WizardFormStep<Page3Store>> = ({
+const PostPage3: FunctionComponent<WizardFormStep<Page3Store>> = ({
   amenities,
   setStore,
 }) => {
   return (
     <ToggleGroup
-      toggleClassName="house-post-amenities-toggle"
+      toggleClassName={styles.amenitiesToggle}
       label="Please select all the amenities your place offers."
       content={(Object.keys(largeAmenitiesIcons) as [Amenity]).map((key) => ({
         label: amenitiesTranslations[key],
@@ -47,4 +44,4 @@ const PostPage3: React.FC<WizardFormStep<Page3Store>> = ({
   );
 };
 
-export default PostPage3 as React.FC;
+export default PostPage3 as FunctionComponent;

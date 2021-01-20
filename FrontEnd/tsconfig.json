@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -17,10 +13,31 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "preserve",
+    "baseUrl": "./",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@components": ["src/components"],
+      "@pages/*": ["src/pages/*"],
+      "@pages": ["src/pages"],
+      "@constants/*": ["src/constants/*"],
+      "@constants": ["src/constants"],
+      "@hooks/*": ["src/hooks/*"],
+      "@hooks": ["src/hooks"],
+      "@models/*": ["src/models/*"],
+      "@models": ["src/models"],
+      "@basics/*": ["src/components/basics/*"],
+      "@basics": ["src/components/basics"],
+      "@icons/*": ["src/assets/icons/*"],
+      "@icons": ["src/assets/icons"],
+      "@redux/*": ["src/redux/*"],
+      "@redux": ["src/redux"],
+      "@utils/*": ["src/utils/*"],
+      "@utils": ["src/utils"],
+      "@apis/*": ["src/apis/*"],
+      "@apis": ["src/apis"]
+    }
   },
-  "include": [
-    "src",
-    "icons.d.ts"
-  ]
+  "include": ["src", "@types"],
+  "exclude": ["node_modules"]
 }

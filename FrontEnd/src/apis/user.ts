@@ -1,4 +1,4 @@
-import { User } from '../assets/models/User';
+import { User } from '../models/User';
 import { backendAPI } from './apiBases';
 
 export interface UserLoginResponse extends Omit<User, 'token'> {
@@ -14,7 +14,7 @@ export interface UserLoginResponse extends Omit<User, 'token'> {
  * @returns - undefined if error occured, otherwise UserLoginResponse, which includes an access token,
  *            email, message, user, imageUrl
  */
-const userLogIn = async (name: string, email: string) => {
+export const userLogIn = async (name: string, email: string) => {
   try {
     const response = await backendAPI.post<
       UserLoginResponse | { newUser: boolean }
@@ -60,7 +60,7 @@ const userLogIn = async (name: string, email: string) => {
  * @param token - the token for the user's session.
  * @returns - undefined if error occured, string result message otherwise
  */
-const userLogOut = async (token: string) => {
+export const userLogOut = async (token: string) => {
   try {
     const response = await backendAPI.post<string>(
       '/logout',
@@ -89,7 +89,7 @@ const userLogOut = async (token: string) => {
  * @returns - undefined if error occured, otherwise UserLoginResponse, which includes an access token,
  *            email, message, user, imageUrl
  */
-const userEditProfile = async (email: string, kvPairs: any) => {
+export const userEditProfile = async (email: string, kvPairs: any) => {
   try {
     const response = await backendAPI.post(
       '/profile',
@@ -116,7 +116,9 @@ const userEditProfile = async (email: string, kvPairs: any) => {
  * @returns - undefined if error occured, otherwise UserLoginResponse, which includes an access token,
  *            email, message, user, imageUrl
  */
-const createNewUserApi = async (user: Omit<User, 'token' | 'profilePhoto'>) => {
+export const createNewUserApi = async (
+  user: Omit<User, 'token' | 'profilePhoto'>,
+) => {
   try {
     const response = await backendAPI.post<UserLoginResponse>(
       '/createUser',
@@ -147,5 +149,3 @@ const createNewUserApi = async (user: Omit<User, 'token' | 'profilePhoto'>) => {
     return undefined;
   }
 };
-
-export { userLogIn, userLogOut, userEditProfile, createNewUserApi };

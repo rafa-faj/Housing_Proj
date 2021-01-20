@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
-import { roomTypeIconsTemp } from '../../assets/icons/all';
-import AutoComplete from '../PlacesAutoComplete';
-import { RoomType } from '../../assets/constants';
-import { WizardFormStep } from '../basics/WizardForm';
-import Dropdown from '../basics/Dropdown';
-import ToggleGroup from '../basics/ToggleGroup';
+import { roomTypeIconsTemp } from '@icons';
+import AutoComplete from '../PlacesAutoComplete/PlacesAutoComplete';
+import { RoomType } from '../../constants';
+import { WizardFormStep, Dropdown, ToggleGroup } from '@basics';
+import styles from './HousingPostForm.module.scss';
 
 export const page1Schema = z.object({
   locationSearch: z.string(),
@@ -30,7 +29,7 @@ export const page1InitialStore: Page1Store = {
   roomType: RoomType.Single,
 };
 
-const Page1: React.FC<WizardFormStep<Page1Store>> = ({
+const Page1: FunctionComponent<WizardFormStep<Page1Store>> = ({
   locationSearch,
   selectedLocation,
   propertyType,
@@ -43,11 +42,7 @@ const Page1: React.FC<WizardFormStep<Page1Store>> = ({
 }) => {
   return (
     <Container>
-      <Row>
-        <Col>
-          <span className="post-title">Room Information</span>
-        </Col>
-      </Row>
+      <Row className={styles.title}>Room Information</Row>
 
       <Form.Row className="justify-content-center m-2">
         <Col>
@@ -70,8 +65,8 @@ const Page1: React.FC<WizardFormStep<Page1Store>> = ({
       </Form.Row>
 
       <Form.Row className="m-2 align-bottom">
-        <Form.Label className="post-word">
-          Unit Size<span className="required-asterisk"> *</span>
+        <Form.Label className={`${styles.word} w-100`}>
+          Unit Size<span className={styles.requiredAsterisk}> *</span>
         </Form.Label>
         <Col md={5}>
           <Dropdown
@@ -120,4 +115,4 @@ const Page1: React.FC<WizardFormStep<Page1Store>> = ({
   );
 };
 
-export default Page1 as React.FC;
+export default Page1 as FunctionComponent;

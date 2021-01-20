@@ -1,0 +1,25 @@
+.materialUIModal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  @include thin-border('lg');
+
+  display: block;
+  outline: 0;
+  background-color: #fff;
+  max-height: 90vh;
+  border-radius: $lg-border-radius;
+  overflow-y: auto;
+}
+
+// TODO need to add appropriate breakpoints for different screen sizes
+.md {
+  max-width: 600px;
+}
+
+.lg {
+  max-width: 90%;
+}

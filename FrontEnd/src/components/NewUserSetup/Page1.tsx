@@ -1,22 +1,15 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import * as z from 'zod';
-import { Form } from 'react-bootstrap';
-import { WizardFormStep } from '../basics/WizardForm';
-import { SchoolYear, NON_EMPTY_ERR_MSG, majors } from '../../assets/constants';
-import Input from '../basics/Input';
-import Dropdown from '../basics/Dropdown';
-import ToggleGroup from '../basics/ToggleGroup';
-
-const nonSelectStyle = 'post-word-sub';
-const selectStyle = 'post-word-sub post-word-sub-selected';
-const nonSelectBg = 'post-word-sub-bg';
-const SelectBg = 'post-word-sub-bg post-word-sub-bg-selected';
-
-// TODO put in constants
-const phoneRegex = /^([ ]*\+?[ ]*[0-9]{0,4}[ ]*(-|\()?[0-9]{3}[ ]*(-|\))?[ ]*[0-9]{3}[ ]*-?[ ]*[0-9]{4}[ ]*)$/;
+import {
+  SchoolYear,
+  NON_EMPTY_ERR_MSG,
+  majors,
+  phoneRegex,
+} from '../../constants';
+import { WizardFormStep, Input, Dropdown, ToggleGroup } from '@basics';
 
 export const page1Schema = z.object({
   name: z.string().nonempty(NON_EMPTY_ERR_MSG),
@@ -39,7 +32,7 @@ export const page1InitialStore: Page1Store = {
   major: '',
 };
 
-const Page1: React.FC<WizardFormStep<Page1Store>> = ({
+const Page1: FunctionComponent<WizardFormStep<Page1Store>> = ({
   name,
   email,
   phone,
@@ -115,6 +108,6 @@ const Page1: React.FC<WizardFormStep<Page1Store>> = ({
   );
 };
 
-// NOTE: need the "as React.FC" since typescript doesn't know that WizardForm parent component will
+// NOTE: need the "as FunctionComponent" since typescript doesn't know that WizardForm parent component will
 // provide the WizardFormStep props
-export default Page1 as React.FC;
+export default Page1 as FunctionComponent;

@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
-import { Month, Interval } from '../../assets/constants';
-import { moveInSelect } from '../../assets/utils/index';
-import { WizardFormStep } from '../basics/WizardForm';
-import Input from '../basics/Input';
-import Dropdown from '../basics/Dropdown';
+import { Month, Interval } from '../../constants';
+import { moveInSelect } from '../../utils';
+import { WizardFormStep, Input, Dropdown } from '@basics';
+import styles from './HousingPostForm.module.scss';
 
 export const page2Schema = z
   .object({
@@ -20,13 +19,9 @@ export const page2Schema = z
       .max(10000, 'This is not feasible for a college student!'),
   })
   .refine(
-    (data) =>
-      moveInSelect(
-        data.earlyInterval,
-        data.earlyMonth,
-        data.lateInterval,
-        data.lateMonth,
-      ),
+    ({ earlyMonth, earlyInterval, lateMonth, lateInterval }) => {
+      return moveInSelect(earlyMonth, earlyInterval, lateMonth, lateInterval);
+    },
     { message: 'Choose a valid date range', path: ['earlyInterval'] },
   );
 
@@ -42,7 +37,7 @@ export const page2InitialStore: Page2CorrectlyTypedStore = {
   price: undefined,
 };
 
-const Page2: React.FC<WizardFormStep<Page2CorrectlyTypedStore>> = ({
+const Page2: FunctionComponent<WizardFormStep<Page2CorrectlyTypedStore>> = ({
   stayPeriod,
   earlyInterval,
   earlyMonth,
@@ -56,25 +51,24 @@ const Page2: React.FC<WizardFormStep<Page2CorrectlyTypedStore>> = ({
     <Container>
       <Row>
         <Col>
-          <div className="post-title">Rental Dates</div>
+          <div className={styles.title}>Rental Dates</div>
         </Col>
       </Row>
 
       <Form.Row className="m-2">
         <Col>
-          <Form.Label className="post-word">Move-In Timeframe</Form.Label>
+          <Form.Label className={styles.word}>Move-In Timeframe</Form.Label>
         </Col>
       </Form.Row>
       <Form.Row className="m-2">
         <Col md={2}>
-          <Form.Label className="post-word my-2">From</Form.Label>
+          <Form.Label className={`${styles.word} my-2`}>From</Form.Label>
         </Col>
         <Col md={5}>
           <Dropdown
             options={Object.keys(Interval)}
             initialSelected={earlyInterval}
             placeholder="Date"
-            // className="filterform-short-dropdown"
             isValid={validations?.earlyInterval?.success}
             error={validations?.earlyInterval?.error}
             onSelect={(s) =>
@@ -90,7 +84,6 @@ const Page2: React.FC<WizardFormStep<Page2CorrectlyTypedStore>> = ({
             options={Object.keys(Month)}
             initialSelected={earlyMonth}
             placeholder="Month"
-            // className="filterform-short-dropdown"
             isValid={validations?.earlyMonth?.success}
             error={validations?.earlyMonth?.error}
             onSelect={(s) =>
@@ -104,14 +97,13 @@ const Page2: React.FC<WizardFormStep<Page2CorrectlyTypedStore>> = ({
       </Form.Row>
       <Form.Row className="m-2">
         <Col md={2}>
-          <Form.Label className="post-word my-2">To</Form.Label>
+          <Form.Label className={`${styles.word} my-2`}>To</Form.Label>
         </Col>
         <Col md={5}>
           <Dropdown
             options={Object.keys(Interval)}
             initialSelected={lateInterval}
             placeholder="Date"
-            // className="filterform-short-dropdown"
             isValid={validations?.lateInterval?.success}
             error={validations?.lateInterval?.error}
             onSelect={(s) =>
@@ -127,7 +119,6 @@ const Page2: React.FC<WizardFormStep<Page2CorrectlyTypedStore>> = ({
             options={Object.keys(Month)}
             initialSelected={lateMonth}
             placeholder="Month"
-            // className="filterform-short-dropdown"
             isValid={validations?.lateMonth?.success}
             error={validations?.lateMonth?.error}
             onSelect={(s) =>
@@ -158,7 +149,6 @@ const Page2: React.FC<WizardFormStep<Page2CorrectlyTypedStore>> = ({
               '12',
             ]}
             initialSelected={stayPeriod?.toString()}
-            // className="filterform-short-dropdown"
             label="Stay Period"
             isValid={validations?.stayPeriod?.success}
             error={validations?.stayPeriod?.error}
@@ -171,11 +161,7 @@ const Page2: React.FC<WizardFormStep<Page2CorrectlyTypedStore>> = ({
         </Col>
       </Form.Row>
 
-      <Row className="mt-5">
-        <Col>
-          <div className="post-title">Price</div>
-        </Col>
-      </Row>
+      <Row className={`${styles.title} mt-5`}>Price</Row>
 
       <Form.Row className="m-2">
         <Col md={12}>
@@ -201,4 +187,4 @@ const Page2: React.FC<WizardFormStep<Page2CorrectlyTypedStore>> = ({
   );
 };
 
-export default Page2 as React.FC;
+export default Page2 as FunctionComponent;

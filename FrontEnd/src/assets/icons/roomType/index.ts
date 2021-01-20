@@ -1,0 +1,12 @@
+export { default as double } from './double.svg';
+export { default as doubleChosen } from './doubleChosen.svg';
+export { default as livingRoom } from './livingRoom.svg';
+export { default as livingRoomChosen } from './livingRoomChosen.svg';
+export { default as single } from './single.svg';
+export { default as singleChosen } from './singleChosen.svg';
+export { default as studio } from './studio.svg';
+export { default as studioChosen } from './studioChosen.svg';
+export { default as suite } from './suite.svg';
+export { default as suiteChosen } from './suiteChosen.svg';
+export { default as triple } from './triple.svg';
+export { default as tripleChosen } from './tripleChosen.svg';

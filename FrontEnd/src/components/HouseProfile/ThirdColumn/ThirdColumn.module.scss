@@ -1,0 +1,97 @@
+
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.topHalf {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  height: 50%;
+  display: contents;
+}
+
+.favoriteWrapper {
+  display: flex;
+  padding-right: 1rem;
+  align-content: center;
+  justify-content: center;
+}
+
+.distance {
+  @include font-type('address-related');
+}
+
+.address {
+  @include font-type('secondary-text');
+}
+
+.map {
+  padding-right: 0.25rem;
+  height: 30vh;
+
+  @include bp-up('lg') {
+    height: $lg-modal-height/4;
+  }
+}
+
+.bio {
+  padding-right: 1rem;
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  background-color: $secondary-1-color;
+  display: flex;
+  flex-direction: column;
+  flex: 100%;
+  width: auto;
+  border-radius: ($rounded-lg / 2) 0 $rounded-lg 0;
+
+  @include bp-down('sm') {
+    border-radius: ($rounded-lg / 2) ($rounded-lg / 2) $rounded-lg $rounded-lg;
+  }
+
+  @include bp-up('lg') {
+    height: $lg-modal-height/2;
+  }
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.contactWrapper {
+  justify-content: center;
+}
+
+.contact {
+  display: block;
+  margin-right: 1rem;
+}
+
+.profilePhotoWrapper {
+  margin-top: auto;
+  text-align: center;
+}
+
+.profilePhoto {
+  width: 100%;
+}
+
+.speechBubble {
+  @include font-type('secondary-text');
+  padding: 1rem;
+  margin-top: 1.5rem;
+  position: relative;
+  border-radius: $rounded-lg;
+  border-top-right-radius: 0;
+  box-shadow: 3px 3px 4px -2px #ced4da;
+  background-color: white;
+  word-break: break-word;
+  flex: 100%;
+  overflow-y: auto;
+}
+

@@ -1,0 +1,21 @@
+.thumbnail {
+  height: 20%;
+  display: flex;
+  overflow-x: auto;
+  background-color: #EEE;
+
+  & button {
+    padding: 0;
+    border: none;
+    min-width: 20%;
+    height: 100%;
+  }
+}
+
+.thumbnailOverflow {
+  height: 25%;
+}
+
+.selectedPreview {
+  filter: brightness(50%);
+}

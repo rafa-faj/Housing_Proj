@@ -1,0 +1,13 @@
+
+
+.suggestion {
+  background-color: $primary-1-color;
+  color: $primary-dark-color;
+  cursor: pointer;
+
+  &:active,
+  &:hover,
+  &:focus {
+    background-color: $primary-2-color;
+  }
+}

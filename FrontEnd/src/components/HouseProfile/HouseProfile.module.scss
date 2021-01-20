@@ -1,0 +1,40 @@
+
+
+.modalContent {
+  @include thin-border('lg');
+  padding: 0px;
+}
+
+.preview {
+  $house-profile-preview-wrapper-height: 70px;
+
+  & .modal-dialog {
+    margin-top: $house-profile-preview-wrapper-height
+  }
+
+  & &Buttons {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0 - $house-profile-preview-wrapper-height;
+  }
+
+  &ButtonsWrapper {
+    @include thin-border('md');
+    height: $house-profile-preview-wrapper-height;
+    background-color: white;
+    border-top-left-radius: $sm-border-radius;
+    border-top-right-radius: $sm-border-radius;
+  
+    & .btn {
+      margin: 0.5rem;
+      font-size: $sm-font-size;
+    }
+  }
+}
+
+.container {
+  padding: 0;
+}

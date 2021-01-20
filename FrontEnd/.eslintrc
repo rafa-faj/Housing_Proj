@@ -1,11 +1,14 @@
 {
   "root": true,
   "extends": ["airbnb-typescript-prettier"],
+  "plugins": ["react-hooks"],
   "rules": {
     "no-underscore-dangle": ["error", { "allow": ["_420", "_420Chosen"] }],
     "@typescript-eslint/explicit-function-return-type": "off",
     "radix": "off",
     "no-param-reassign": "off",
-    "consistent-return": ["error", { "treatUndefinedAsUnspecified": true }] // why does the option not work
+    "consistent-return": ["error", { "treatUndefinedAsUnspecified": true }], // why does the option not work
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
   }
 }
