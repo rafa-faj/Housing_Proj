@@ -1,4 +1,4 @@
-import { User } from '../assets/models/User';
+import { User } from '../models/User';
 import { backendAPI } from './apiBases';
 
 export interface UserLoginResponse extends Omit<User, 'token'> {

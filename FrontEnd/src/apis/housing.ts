@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {
-  CreateHousePostProperties,
-  HousePost,
-} from '../assets/models/PostModels';
-import { FilterModel } from '../assets/models/FilterModel';
+import { CreateHousePostProperties, HousePost } from '../models/PostModels';
+import { FilterModel } from '../models/FilterModel';
 import { backendAPI } from './apiBases';
 import { getDurationInMinutes } from '.';
 

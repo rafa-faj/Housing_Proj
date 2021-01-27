@@ -1,4 +1,4 @@
-import { facilityToIcon } from '../../components/HouseProfile';
+import { facilityToIcon } from '../components/HouseProfile';
 
 export interface HousePost {
   name: string;

@@ -3,7 +3,7 @@ import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { roomTypeIconsTemp } from '../../assets/icons/all';
 import AutoComplete from '../PlacesAutoComplete';
-import { RoomType } from '../../assets/constants';
+import { RoomType } from '../../constants';
 import { WizardFormStep } from '../basics/WizardForm';
 import Dropdown from '../basics/Dropdown';
 import ToggleGroup from '../basics/ToggleGroup';

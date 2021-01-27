@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { selectUser, login } from '../redux/slices/auth';
 import { miscIcons } from '../assets/icons/all';
-import { LOGIN_INFO_TOOLTIP } from '../assets/constants/messages';
+import { LOGIN_INFO_TOOLTIP } from '../constants/messages';
 
 // https://developers.google.com/identity/sign-in/web/sign-in
 interface PathProps {
@@ -52,9 +52,9 @@ const Login: React.FC<PathProps> = ({ handleClose, show }) => {
           placement="bottom-end"
           overlay={<Tooltip id="tooltip">{LOGIN_INFO_TOOLTIP}</Tooltip>}
         >
-          <div className="float-right pr-2 pt-1" >
-          <span className="login-why-text">Why school account? </span>
-          <miscIcons.infoCircle/>
+          <div className="float-right pr-2 pt-1">
+            <span className="login-why-text">Why school account? </span>
+            <miscIcons.infoCircle />
           </div>
         </OverlayTrigger>
       </div>

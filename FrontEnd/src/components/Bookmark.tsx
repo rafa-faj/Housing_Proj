@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import { Button } from 'react-bootstrap';
-import { HousePost } from '../assets/models/PostModels';
+import { HousePost } from '../models/PostModels';
 import HouseProfile from './HouseProfile';
 
 // change this to PathProps extends HousePost {} to include other props

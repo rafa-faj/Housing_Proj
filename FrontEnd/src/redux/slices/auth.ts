@@ -8,7 +8,7 @@ import {
   createNewUserApi,
   addHousingBookmarkAPI,
 } from '../../apis/index';
-import { User, UserNameEmail } from '../../assets/models/User';
+import { User, UserNameEmail } from '../../models/User';
 import {
   getHousingFavorites,
   postAllHousingFavorites,

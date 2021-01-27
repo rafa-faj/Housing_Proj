@@ -5,13 +5,9 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import SlideShow, { SlideShowItem } from './basics/SlideShow/index';
 import HouseProfile from './HouseProfile';
-import {
-  removeParentheses,
-  abbreviateMoveIn,
-  formatRoomType,
-} from '../assets/utils';
-import { Month } from '../assets/constants';
-import { HousePost } from '../assets/models/PostModels';
+import { removeParentheses, abbreviateMoveIn, formatRoomType } from '../utils';
+import { Month } from '../constants';
+import { HousePost } from '../models/PostModels';
 
 // change this to PathProps extends HousePost {} to include other props
 type PathProps = HousePost;

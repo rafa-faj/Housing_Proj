@@ -4,8 +4,8 @@ import {
   CreateHousePostProperties,
   HousePost,
   HousePostUserData,
-} from '../../assets/models/PostModels';
-import { FilterModel } from '../../assets/models/FilterModel';
+} from '../../models/PostModels';
+import { FilterModel } from '../../models/FilterModel';
 import { AppThunk, RootState } from '../store';
 import {
   addHousingBookmarkAPI,

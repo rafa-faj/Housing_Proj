@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import * as z from 'zod';
-import { Interval, Month } from '../../assets/constants';
-import { moveInSelect } from '../../assets/utils';
+import { Interval, Month } from '../../constants';
+import { moveInSelect } from '../../utils';
 import { WizardFormStep } from '../basics/WizardForm';
 import Dropdown from '../basics/Dropdown';
 

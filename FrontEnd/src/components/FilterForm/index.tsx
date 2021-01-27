@@ -37,8 +37,8 @@ import {
   PreferenceLiteralType,
   Preferences,
   RoomLiteralType,
-} from '../../assets/models/FilterModel';
-import { RoomType } from '../../assets/constants';
+} from '../../models/FilterModel';
+import { RoomType } from '../../constants';
 
 type enumCheckSuccess<T extends { [index: string]: string }> = {
   key: keyof T;

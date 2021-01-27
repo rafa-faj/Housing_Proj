@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import * as z from 'zod';
-import { RoomType } from '../../assets/constants';
+import { RoomType } from '../../constants';
 import { roomTypeIconsTemp } from '../../assets/icons/all';
 import { WizardFormStep } from '../basics/WizardForm';
 import Dropdown from '../basics/Dropdown';

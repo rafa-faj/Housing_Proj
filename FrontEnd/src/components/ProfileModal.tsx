@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
-import Dropdown from './basics/Dropdown';
 import { useSelector, useDispatch } from 'react-redux';
 import Image from 'react-bootstrap/Image';
-import { SchoolYear, majors, BackendMapping } from '../assets/constants';
+import Dropdown from './basics/Dropdown';
+import { SchoolYear, majors, BackendMapping } from '../constants';
 import Input from './basics/Input';
 import ToggleGroup from './basics/ToggleGroup';
 import { miscIcons, profileIcons } from '../assets/icons/all';
@@ -15,7 +15,7 @@ import {
   editProfile,
 } from '../redux/slices/auth';
 
-import { User, dummyUser } from '../assets/models/User';
+import { User, dummyUser } from '../models/User';
 
 const nonSelectStyle = 'profile-word-sub';
 const selectStyle = 'profile-word-sub profile-word-sub-selected';
@@ -255,7 +255,7 @@ const ProfileModal: React.FC<PathProps> = ({ show, setShow }) => {
                         />
                       </Form.Group>
                     </Form.Row>
-                    {/* tenary form for toggle group and display as a string*/}
+                    {/* tenary form for toggle group and display as a string */}
                     <Form.Row className="m-2 px-0">
                       <Form.Group as={Col} controlId="profileSchoolYear">
                         <Form.Label className="profile-form-label">

@@ -20,15 +20,15 @@ import {
   miscIcons,
   largeAmenitiesIcons,
 } from '../assets/icons/all';
-import { LOGIN_TO_VIEW } from '../assets/constants/messages';
-import { HousePost } from '../assets/models/PostModels';
-import { Month } from '../assets/constants';
+import { LOGIN_TO_VIEW } from '../constants/messages';
+import { HousePost } from '../models/PostModels';
+import { Month } from '../constants';
 import {
   removeParentheses,
   abbreviateAddress,
   abbreviateMoveIn,
   formatRoomType,
-} from '../assets/utils';
+} from '../utils';
 import { selectUser } from '../redux/slices/auth';
 
 const Ellipse: React.FC<{}> = () => (

@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../../redux/slices/auth';
 import { newHousingPost } from '../../redux/slices/housing';
-import { dummyUser, User } from '../../assets/models/User';
+import { dummyUser, User } from '../../models/User';
 import HouseProfile, { facilityToIcon } from '../HouseProfile';
 import Page1, { Page1Store, page1InitialStore, page1Schema } from './PostPage1';
 import Page2, { Page2Store, page2InitialStore, page2Schema } from './PostPage2';
@@ -15,7 +15,7 @@ import WizardForm from '../basics/WizardForm';
 import {
   CreateHousePostProperties,
   HousePostUserData,
-} from '../../assets/models/PostModels';
+} from '../../models/PostModels';
 
 type Store = Page1Store &
   Page2Store &
