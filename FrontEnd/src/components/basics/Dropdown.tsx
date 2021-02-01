@@ -1,40 +1,12 @@
-import React, { useState, useEffect, useRef, MutableRefObject } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Form } from 'react-bootstrap';
 import BootstrapDropdown, * as BootstrapDropdownMetadata from 'react-bootstrap/Dropdown';
 import * as z from 'zod';
-
-// TODO make this its own component/file
-const useClickAwayListener = (
-  refs: MutableRefObject<HTMLElement | undefined | null>[],
-  onClickAway: (e: MouseEvent) => any,
-  active = true,
-) => {
-  useEffect(() => {
-    const handleClickAway = (e: MouseEvent) => {
-      if (
-        active &&
-        e.target !== null &&
-        !refs.find(
-          (ref) =>
-            ref && ref.current && ref.current.contains(e.target as Element),
-        )
-      ) {
-        onClickAway(e);
-      }
-    };
-
-    // Bind the event listener
-    document.addEventListener('click', handleClickAway);
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener('click', handleClickAway);
-    };
-  }, [refs, onClickAway, active]);
-};
+import useClickAwayListener from '../../hooks/useClickAwayListener';
 
 interface DropdownProps extends BootstrapDropdownMetadata.DropdownProps {
   options: string[];
-  initialSelected?: string; // TODO eventually make this type oneof options array
+  initialSelected?: string;
   label?: string;
   labelClassName?: string;
   error?: string | z.ZodIssue; // Will make the input border red as well
