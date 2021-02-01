@@ -1,28 +1,27 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectShowNewUserPopup, selectUser } from '../redux/slices/auth';
+import { selectShowNewUserPopup } from '../redux/slices/auth';
 import HouseCardList from '../components/HouseCardList';
 import Filter from '../components/Filter';
 import Login from '../components/Login';
 import HousingPost from '../components/HousingPostForm';
 import NewUserSetup from '../components/NewUserSetup';
 import HouseSideBar from '../components/HouseSideBar';
-import Col from 'react-bootstrap/Col';
+import SideBarLayout, { SideBar } from '../components/SideBarLayout';
 
 const Home: React.FC = () => {
   const showNewUserPopup = useSelector(selectShowNewUserPopup);
-  const user = useSelector(selectUser);
 
   const [showLogin, setShowLogin] = useState<boolean>(false);
   const [showHousingPost, setShowHousingPost] = useState<boolean>(false);
 
   return (
-    <div>
+    <>
       {/* Modals */}
       <Login show={showLogin} handleClose={() => setShowLogin(false)} />
       <HousingPost show={showHousingPost} setShow={setShowHousingPost} />
 
-      {showNewUserPopup !== undefined && ( // TODO temporary. Should handle in the wizard form i think
+      {showNewUserPopup !== undefined && ( // only render the modal when user info exists, to initialize the wizard form with the user info
         <NewUserSetup
           show={showNewUserPopup !== undefined}
           setShow={(value: boolean) => {
@@ -36,23 +35,23 @@ const Home: React.FC = () => {
       )}
 
       {/* The actual home page */}
-      <div className="home">
-        <div className="home-main">
-          <Col className="home-filter">
-            <Filter />
-          </Col>
+      <SideBarLayout>
+        <div className="home-filter">
+          <Filter />
+        </div>
 
+        <div>
           <HouseCardList />
         </div>
 
-        <div className="home-sidebar">
+        <SideBar>
           <HouseSideBar
             onLoginClick={() => setShowLogin(true)}
             onPostClick={() => setShowHousingPost(true)}
           />
-        </div>
-      </div>
-    </div>
+        </SideBar>
+      </SideBarLayout>
+    </>
   );
 };
 
