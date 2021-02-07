@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectShowNewUserPopup } from '../redux/slices/auth';
-import HouseCardList from '../components/HouseCardList';
-import Filter from '../components/Filter';
-import Login from '../components/Login';
-import HousingPost from '../components/HousingPostForm';
-import NewUserSetup from '../components/NewUserSetup';
-import HouseSideBar from '../components/HouseSideBar';
-import SideBarLayout, { SideBar } from '../components/SideBarLayout';
+import HouseCardList from './HouseCardList';
+import Filter from './Filter';
+import Login from './Login';
+import HousingPost from './HousingPostForm';
+import NewUserSetup from './NewUserSetup';
+import HouseSideBar from './HouseSideBar';
+import SideBarLayout, { SideBar } from './SideBarLayout';
 
 const Home: React.FC = () => {
   const showNewUserPopup = useSelector(selectShowNewUserPopup);

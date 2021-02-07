@@ -13,6 +13,7 @@ import {
   newHousingPostAPI,
   removeHousingBookmarkAPI,
 } from '../../apis/housing';
+import { isRunningClientSide } from '../../utils/next';
 
 // TODO probably split up this housing slice into several folders, where thunks are in a
 // folder, selectors in another, reducers in another, and then export them and import
@@ -125,7 +126,7 @@ export const newHousingPost = (
   if (!email) return;
 
   const result = await newHousingPostAPI({ ...housePost, email });
-  if (result) {
+  if (result && isRunningClientSide()) {
     window.location.reload(false);
     // TODO cannot do the below until the newHousingPostAPI is changed to return roomId
     // dispatch(

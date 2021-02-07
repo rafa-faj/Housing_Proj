@@ -12,6 +12,9 @@ BackEnd/env/*
 **/__pycache__
 FrontEnd/node_modules
 
-# Frontend
-FrontEnd/node_modules
-FrontEnd/coverage
+# # Frontend
+# FrontEnd/node_modules
+# FrontEnd/coverage
+
+# # Next
+# FrontEnd/.next

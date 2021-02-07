@@ -20,7 +20,6 @@ const PostPage5: React.FC<WizardFormStep<Page5Store>> = ({
   pictures,
   validations,
   setStore,
-  submitForm,
 }) => {
   return (
     <Container>
