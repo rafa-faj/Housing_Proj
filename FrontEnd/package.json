@@ -65,7 +65,6 @@
   "devDependencies": {
     "@svgr/webpack": "^5.5.0",
     "@types/node": "^12.19.12",
-    "babel-plugin-inline-react-svg": "^1.1.2",
     "eslint-config-airbnb-typescript-prettier": "^3.1.0",
     "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^6.3.0",

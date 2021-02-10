@@ -2,13 +2,6 @@ const withImages = require('next-images')
 const withPlugins = require('next-compose-plugins');
 const withTM = require('next-transpile-modules')(['homehub-images-upload']);
 
-// module.exports = withImages({
-//   fileExtensions: ["jpg", "jpeg", "png", "gif", "ico", "webp", "jp2", "avif"],
-//   webpack(config, options) {
-//     return config
-//   }
-// })
-
 module.exports = withPlugins([
   withTM,
   [
