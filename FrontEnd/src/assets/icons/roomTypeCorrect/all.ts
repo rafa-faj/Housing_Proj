@@ -1,3 +1,3 @@
-export { ReactComponent as single } from './single.svg';
-export { ReactComponent as double } from './double.svg';
-export { ReactComponent as triple } from './triple.svg';
+export { default as single } from './single.svg';
+export { default as double } from './double.svg';
+export { default as triple } from './triple.svg';

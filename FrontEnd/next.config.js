@@ -1,18 +1,32 @@
-// const path = require('./src/assets/svg');
-// const withImages = require('next-images')
+const withImages = require('next-images')
+const withPlugins = require('next-compose-plugins');
+const withTM = require('next-transpile-modules')(['homehub-images-upload']);
 
 // module.exports = withImages({
-//   exclude: path.resolve(__dirname, 'src/assets/svg'),
+//   fileExtensions: ["jpg", "jpeg", "png", "gif", "ico", "webp", "jp2", "avif"],
 //   webpack(config, options) {
 //     return config
 //   }
 // })
 
-const withImages = require('next-images')
-
-module.exports = withImages({
-  fileExtensions: ["jpg", "jpeg", "png", "gif", "ico", "webp", "jp2", "avif"],
-  webpack(config, options) {
-    return config
+module.exports = withPlugins([
+  withTM,
+  [
+    withImages,
+    {
+      fileExtensions: ["jpg", "jpeg", "png", "gif", "ico", "webp", "jp2", "avif"],
+    }
+  ]
+],
+{
+  webpack: (config, options) => {
+    if (!options.isServer) {
+      config.resolve.alias["@sentry/node"] = "@sentry/browser";
+    }
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ["@svgr/webpack"]
+    });
+    return config;
   }
-})
+});

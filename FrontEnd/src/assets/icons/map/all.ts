@@ -1,5 +1,1 @@
-import { ReactComponent as mapPin } from './mapPin.svg';
-
-export default {
-  mapPin,
-};
+export { default as mapPin } from './mapPin.svg';

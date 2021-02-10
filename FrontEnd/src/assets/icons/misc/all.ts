@@ -1,33 +1,15 @@
-import { ReactComponent as ellipse } from './ellipse.svg';
-import { ReactComponent as smallEllipseActive } from './smallEllipseActive.svg';
-import { ReactComponent as smallEllipseInactive } from './smallEllipseInactive.svg';
-import { ReactComponent as wordBubble } from './wordBubble.svg';
-import { ReactComponent as infoCircle } from './infoCircle.svg';
-import { ReactComponent as greenX } from './greenX.svg';
-import { ReactComponent as orangeX } from './orangeX.svg';
-import { ReactComponent as largeLeftArrow } from './largeLeftArrow.svg';
-import { ReactComponent as largeRightArrow } from './largeRightArrow.svg';
-import { ReactComponent as smallLeftArrow } from './smallLeftArrow.svg';
-import { ReactComponent as smallLeftArrowDisabled } from './smallLeftArrowDisabled.svg';
-import { ReactComponent as smallRightArrow } from './smallRightArrow.svg';
-import { ReactComponent as smallRightArrowDisabled } from './smallRightArrowDisabled.svg';
-import { ReactComponent as dash } from './dash.svg';
-import { ReactComponent as mapMarker } from './mapMarker.svg';
-
-export default {
-  ellipse,
-  smallEllipseActive,
-  smallEllipseInactive,
-  wordBubble,
-  infoCircle,
-  greenX,
-  orangeX,
-  largeLeftArrow,
-  largeRightArrow,
-  smallLeftArrow,
-  smallLeftArrowDisabled,
-  smallRightArrow,
-  smallRightArrowDisabled,
-  dash,
-  mapMarker,
-};
+export { default as ellipse } from './ellipse.svg';
+export { default as smallEllipseActive } from './smallEllipseActive.svg';
+export { default as smallEllipseInactive } from './smallEllipseInactive.svg';
+export { default as wordBubble } from './wordBubble.svg';
+export { default as infoCircle } from './infoCircle.svg';
+export { default as greenX } from './greenX.svg';
+export { default as orangeX } from './orangeX.svg';
+export { default as largeLeftArrow } from './largeLeftArrow.svg';
+export { default as largeRightArrow } from './largeRightArrow.svg';
+export { default as smallLeftArrow } from './smallLeftArrow.svg';
+export { default as smallLeftArrowDisabled } from './smallLeftArrowDisabled.svg';
+export { default as smallRightArrow } from './smallRightArrow.svg';
+export { default as smallRightArrowDisabled } from './smallRightArrowDisabled.svg';
+export { default as dash } from './dash.svg';
+export { default as mapMarker } from './mapMarker.svg';

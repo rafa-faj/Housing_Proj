@@ -1,6 +1,6 @@
-import { ReactComponent as email } from './email.svg';
-import { ReactComponent as phone } from './phone.svg';
-import { ReactComponent as share } from './share.svg';
+import { default as email } from './email.svg';
+import { default as phone } from './phone.svg';
+import { default as share } from './share.svg';
 
 export type includes = 'email' | 'string';
 

@@ -1,13 +1,5 @@
-import { ReactComponent as arrow } from './arrow.svg';
-import { ReactComponent as filter } from './filter.svg';
-import { ReactComponent as hello } from './hello.svg';
-import { ReactComponent as loveHouse } from './loveHouse.svg';
-import { ReactComponent as notFound } from './notFound.svg';
-
-export default {
-  arrow,
-  filter,
-  hello,
-  loveHouse,
-  notFound,
-};
+export { default as arrow } from './arrow.svg';
+export { default as filter } from './filter.svg';
+export { default as hello } from './hello.svg';
+export { default as loveHouse } from './loveHouse.svg';
+export { default as notFound } from './notFound.svg';

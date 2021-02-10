@@ -20,7 +20,7 @@
     "aws-sdk": "^2.822.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.2",
-    "homehub-images-upload": "^1.2.8",
+    "homehub-images-upload": "^1.2.9",
     "moment": "^2.29.1",
     "next": "^10.0.6",
     "next-images": "^1.7.0",
@@ -63,9 +63,12 @@
     ]
   },
   "devDependencies": {
+    "@svgr/webpack": "^5.5.0",
     "@types/node": "^12.19.12",
     "babel-plugin-inline-react-svg": "^1.1.2",
     "eslint-config-airbnb-typescript-prettier": "^3.1.0",
+    "next-compose-plugins": "^2.2.1",
+    "next-transpile-modules": "^6.3.0",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1"
   }
