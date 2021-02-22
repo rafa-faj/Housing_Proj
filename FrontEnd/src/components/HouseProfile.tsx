@@ -264,7 +264,7 @@ const HouseProfile: React.FC<HouseProfileProps> = ({
           {/* third column */}
           <Col sm={12} md={6} lg={4} className="d-flex flex-column mt-3">
             <div className="house-profile-top-half">
-              <div className="d-flex pr-3 align-content-center">
+              <div className="d-flex pr-3 align-content-center justify-content-center">
                 <Button
                   variant="tertiary"
                   block
@@ -307,7 +307,7 @@ const HouseProfile: React.FC<HouseProfileProps> = ({
                 >
                   {roomId && favorites && favorites[roomId]
                     ? 'Unfavorite'
-                    : 'Add to favorites'}
+                    : 'Favorite'}
                 </Button>
                 <Button variant="no-show">
                   <contactIcons.share />
