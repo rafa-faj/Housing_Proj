@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { HousePost } from '../../models/PostModels';
-import { Month } from '../../constants';
-import {
-  abbreviateMoveIn,
-  formatRoomType,
-  removeParentheses,
-} from '../../utils';
+import { HousePostUIData } from '../../models/PostModels';
 import { largeAmenitiesIcons, miscIcons } from '../../assets/icons/all';
 
 const Ellipse: React.FC<{}> = () => (
@@ -58,15 +52,14 @@ const GetIcon: React.FC<{
 );
 
 type Props = Pick<
-  HousePost,
+  HousePostUIData,
   | 'name'
   | 'negotiable'
   | 'pricePerMonth'
   | 'roomType'
   | 'stayPeriod'
   | 'facilities'
-  | 'early'
-  | 'late'
+  | 'formattedMoveIn'
   | 'other'
 >;
 
@@ -77,98 +70,66 @@ const SecondColumn: React.FC<Props> = ({
   roomType,
   stayPeriod,
   facilities,
-  early,
-  late,
+  formattedMoveIn,
   other,
-}) => {
-  const [moveIn, setMoveIn] = useState<string>('');
+}) => (
+  <Col sm={12} md={6} lg={4}>
+    <Container className="d-flex flex-column justify-content-around mx-3 mx-lg-0 h-100">
+      <Row className="justify-content-left flex-grow-0">
+        <span className="housing-profile-house-type">{name}</span>
+      </Row>
 
-  // abbreviate the move in date
-  useEffect(() => {
-    const [earlyInt, earlyMonth] = early.split(' ') as [string, Month];
-    const [lateInt, lateMonth] = late.split(' ') as [string, Month];
+      <Row>
+        <Col className="housing-profile-price" md={5}>
+          <Row>
+            {negotiable && '~'}${pricePerMonth}
+          </Row>
+          <Row className="profile-text-price-related">Rent/month</Row>
+        </Col>
+        <Col md={{ span: 5, offset: 2 }}>
+          <Row className="subtitle-text">Room type</Row>
+          <Row className="primary-text">{roomType}</Row>
+        </Col>
+      </Row>
 
-    const earlyIntDisplayed =
-      earlyInt.toLowerCase() === 'anytime'
-        ? earlyInt
-        : removeParentheses(earlyInt);
-    const lateIntDisplayed =
-      lateInt.toLowerCase() === 'anytime'
-        ? lateInt
-        : removeParentheses(lateInt);
+      <Row className="justify-content-center">
+        <Col md={5}>
+          <Row className="subtitle-text">Move in time</Row>
+          <Row className="primary-text">{formattedMoveIn}</Row>
+        </Col>
 
-    setMoveIn(
-      abbreviateMoveIn(
-        earlyIntDisplayed,
-        earlyMonth,
-        lateIntDisplayed,
-        lateMonth,
-      ),
-    );
-  }, [early, late]);
+        <Col md={{ span: 5, offset: 2 }}>
+          <Row className="subtitle-text">Stay period</Row>
+          <Row className="primary-text">{stayPeriod} months</Row>
+        </Col>
+      </Row>
 
-  return (
-    <Col sm={12} md={6} lg={4}>
-      <Container className="d-flex flex-column justify-content-around mx-3 mx-lg-0 h-100">
-        <Row className="justify-content-left flex-grow-0">
-          <span className="housing-profile-house-type">{name}</span>
-        </Row>
+      <Ellipse />
 
-        <Row>
-          <Col className="housing-profile-price" md={5}>
-            <Row>
-              {negotiable && '~'}${pricePerMonth}
-            </Row>
-            <Row className="profile-text-price-related">Rent/month</Row>
+      <Row className="subtitle-text">Facilities</Row>
+      <Row className="subtitle-text">
+        {facilities.map((facility) => (
+          <Col
+            xs={{ span: 3, offset: 1 }}
+            key={facility}
+            className="text-center"
+          >
+            <GetIcon str={facility} useStroke={facility === 'Hardwood Floor'} />
+            {facility}
           </Col>
-          <Col md={{ span: 5, offset: 2 }}>
-            <Row className="subtitle-text">Room type</Row>
-            <Row className="primary-text">{formatRoomType(roomType)}</Row>
-          </Col>
-        </Row>
+        ))}
+      </Row>
 
-        <Row className="justify-content-center">
-          <Col md={5}>
-            <Row className="subtitle-text">Move in time</Row>
-            <Row className="primary-text">{moveIn}</Row>
-          </Col>
+      <Ellipse />
 
-          <Col md={{ span: 5, offset: 2 }}>
-            <Row className="subtitle-text">Stay period</Row>
-            <Row className="primary-text">{stayPeriod} months</Row>
-          </Col>
-        </Row>
-
-        <Ellipse />
-
-        <Row className="subtitle-text">Facilities</Row>
-        <Row className="subtitle-text">
-          {facilities.map((facility) => (
-            <Col
-              xs={{ span: 3, offset: 1 }}
-              key={facility}
-              className="text-center"
-            >
-              <GetIcon
-                str={facility}
-                useStroke={facility === 'Hardwood Floor'}
-              />
-              {facility}
-            </Col>
-          ))}
-        </Row>
-
-        <Ellipse />
-
-        <Row className="subtitle-text">Looking for</Row>
-        <ul className="primary-text">
-          {other.map((description) => (
-            <li key={description}>{description}</li>
-          ))}
-        </ul>
-      </Container>
-    </Col>
-  );
-};
+      <Row className="subtitle-text">Looking for</Row>
+      <ul className="primary-text">
+        {other.map((description) => (
+          <li key={description}>{description}</li>
+        ))}
+      </ul>
+    </Container>
+  </Col>
+);
 
 export default SecondColumn;

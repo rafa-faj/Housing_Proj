@@ -11,24 +11,17 @@ const schemas = [page1Schema, page2Schema];
 
 interface NewUserSetupProps {
   show: boolean;
-  setShow: (show: boolean) => void;
   name?: string;
   email?: string;
 }
 
-// TODO only show PostPage1 for first time user
-const NewUserSetup: React.FC<NewUserSetupProps> = ({
-  show,
-  setShow,
-  name,
-  email,
-}) => {
+const NewUserSetup: React.FC<NewUserSetupProps> = ({ show, name, email }) => {
   const dispatch = useDispatch();
 
   return (
     <WizardForm<Store>
       show={show}
-      setShow={setShow}
+      onHide={() => console.log('todo')}
       onSubmit={(data) => {
         console.log('clicked');
         console.log(data);

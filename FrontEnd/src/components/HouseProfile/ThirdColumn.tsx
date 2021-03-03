@@ -42,7 +42,6 @@ interface Props
     | 'leaserPhone'
     | 'location'
   > {
-  preview?: boolean;
   roomId?: number;
 }
 
@@ -56,7 +55,6 @@ const ThirdColumn: React.FC<Props> = ({
   leaserMajor,
   leaserPhone,
   location,
-  preview,
   roomId,
 }) => {
   const favorites = useSelector(selectHousingFavorites);
@@ -71,9 +69,9 @@ const ThirdColumn: React.FC<Props> = ({
             variant="tertiary"
             block
             onClick={() => {
-              if (preview) return;
+              if (!roomId) return;
 
-              if (favorites && favorites[roomId as number]) {
+              if (favorites && favorites[roomId]) {
                 // need to remove from the favorites
                 // dispatch(removeHousingFavorite(roomId));
                 // TODO
@@ -86,7 +84,7 @@ const ThirdColumn: React.FC<Props> = ({
               }
             }}
           >
-            {!preview && favorites && favorites[roomId as number]
+            {roomId && favorites && favorites[roomId]
               ? 'Unfavorite'
               : 'Favorite'}
           </Button>

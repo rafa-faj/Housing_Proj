@@ -4,116 +4,62 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import SlideShow, { SlideShowItem } from './basics/SlideShow/index';
-import HouseProfile from './HouseProfile';
-import { removeParentheses, abbreviateMoveIn, formatRoomType } from '../utils';
-import { Month } from '../constants';
-import { HousePost } from '../models/PostModels';
+import { formatRoomType } from '../utils';
+import useRoomData from '../hooks/useRoomData';
+import useRemotePhotos from '../hooks/photos/useRemotePhotos';
+import { useRouter } from 'next/dist/client/router';
 
-// change this to PathProps extends HousePost {} to include other props
-type PathProps = HousePost;
+interface Props {
+  roomId: number;
+}
 
-const HouseCard: React.FC<PathProps> = ({
-  name,
-  pricePerMonth,
-  roomType,
-  early,
-  late,
-  distance,
-  location,
-  photos,
-  profilePhoto,
-  stayPeriod,
-  leaserName,
-  leaserSchoolYear,
-  leaserMajor,
-  leaserEmail,
-  leaserPhone,
-  roomId,
-  other,
-  facilities,
-  negotiable,
-  numBaths,
-  numBeds,
-  roomDescription,
-}) => {
-  const [show, setShow] = useState<boolean>(false);
-  const [moveIn, setMoveIn] = useState<string>('');
+const HouseCard: React.FC<Props> = ({ roomId }) => {
+  const { data, error } = useRoomData(roomId);
+
+  if (error) {
+    return <div>Error occurred!</div>; // TODO handle error in a different way
+  }
+
+  if (!data) {
+    return <div>Loading...</div>; // TODO add a loader
+  }
+
+  const {
+    leaserEmail,
+    location,
+    photos: unconvertedPhotos,
+    numBaths,
+    numBeds,
+    formattedMoveIn,
+    negotiable,
+    pricePerMonth,
+    roomType,
+    distance,
+  } = data;
+
+  const photos = useRemotePhotos(unconvertedPhotos);
   const [slideShowItems, setSlideShowItems] = useState<SlideShowItem[]>([]);
+  const router = useRouter();
 
   // set the slide show items
   useEffect(() => {
     setSlideShowItems(
       photos.map((url) => ({
-        src: `https://houseit.s3.us-east-2.amazonaws.com/${url}`,
+        src: url,
         alt: `${leaserEmail} , ${location}}`,
       })),
     );
   }, [setSlideShowItems, photos, leaserEmail, location]);
 
-  // abbreviate the move in date
-  useEffect(() => {
-    const [earlyInt, earlyMonth] = early.split(' ') as [string, Month];
-    const [lateInt, lateMonth] = late.split(' ') as [string, Month];
-
-    // TODO temporary, 'anytime' should not be in the database (same with the removeParentheses)
-    const earlyIntDisplayed =
-      earlyInt.toLowerCase() === 'anytime'
-        ? earlyInt
-        : removeParentheses(earlyInt);
-    const lateIntDisplayed =
-      lateInt.toLowerCase() === 'anytime'
-        ? lateInt
-        : removeParentheses(lateInt);
-
-    setMoveIn(
-      abbreviateMoveIn(
-        earlyIntDisplayed,
-        earlyMonth,
-        lateIntDisplayed,
-        lateMonth,
-      ),
-    );
-    // `${earlyIntDisplayed} ${abbreviateMonth(
-    //   earlyMonth,
-    // )} - ${lateIntDisplayed} ${abbreviateMonth(lateMonth)}`,
-  }, [early, late]);
-
   return (
     <>
-      <HouseProfile
-        photos={photos}
-        pricePerMonth={pricePerMonth}
-        roomType={roomType}
-        early={early}
-        late={late}
-        distance={distance}
-        location={location}
-        name={name}
-        stayPeriod={stayPeriod}
-        facilities={facilities}
-        other={other}
-        leaserName={leaserName}
-        leaserSchoolYear={leaserSchoolYear}
-        leaserMajor={leaserMajor}
-        leaserEmail={leaserEmail}
-        leaserPhone={leaserPhone}
-        profilePhoto={profilePhoto}
-        roomDescription={roomDescription}
-        roomId={roomId}
-        show={show}
-        onHide={() => setShow(false)}
-        negotiable={negotiable}
-        numBaths={numBaths}
-        numBeds={numBeds}
-      />
-
       <Card className="house-card">
         <Card.Body className="p-0">
           <Container>
             <Row className="house-pic">
               <SlideShow
                 images={slideShowItems}
-                onImageClick={() => setShow(true)}
+                onImageClick={() => router.push(`/housing/${roomId}`)}
               />
             </Row>
 
@@ -145,7 +91,7 @@ const HouseCard: React.FC<PathProps> = ({
               <Col md={6}>
                 <Row>
                   <div className="w-100 text-right secondary-text text-truncate">
-                    Move in {moveIn}
+                    Move in {formattedMoveIn}
                   </div>
                 </Row>
               </Col>
@@ -154,6 +100,7 @@ const HouseCard: React.FC<PathProps> = ({
             {/* 3rd row */}
             <Row className="px-2">
               <Col md={6} className="address-related-text">
+                {/* {distance} To Price Center */}
                 {/* <Row>{distance}</Row> */}
                 <Row>To Price Center</Row>
               </Col>

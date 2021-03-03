@@ -8,9 +8,9 @@ const useRecentRoomIds = () => {
   );
 
   return {
-    roomIds: data,
-    isLoading: !error && !data,
+    data,
     isValidating,
+    error,
     mutate,
   };
 };

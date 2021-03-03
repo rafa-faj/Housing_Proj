@@ -37,7 +37,7 @@ export type WizardFormStep<P> = Partial<P> & {
 interface WizardFormProps<T = {}> {
   children: React.ReactElement[]; // the steps of the form (needs to be of length at least 0)
   show: boolean;
-  setShow: (show: boolean) => void; // TODO this should be onHide! No need for the setShow(true)
+  onHide: () => any;
   title: string;
   onSubmit: (store: T) => boolean;
   initialStore: Partial<T>[];
@@ -56,7 +56,7 @@ interface WizardFormProps<T = {}> {
 const WizardForm = <T extends {}>({
   children,
   show,
-  setShow,
+  onHide,
   title,
   onSubmit,
   initialStore,
@@ -88,7 +88,7 @@ const WizardForm = <T extends {}>({
    * Use this to exit the wizard form without submitting.
    */
   const exitWizardForm = () => {
-    setShow(false);
+    onHide();
   };
 
   const combineSuccesses = (v: ValidationErrors<Partial<T>>): boolean => {
@@ -258,12 +258,12 @@ const WizardForm = <T extends {}>({
     <Modal
       dialogClassName="wizard-form-modal-dialog"
       show={show}
-      onHide={() => setShow(false)}
+      onHide={onHide}
       centered
     >
       <div className="h-100 w-100">
         <div className="wizard-form-top-bar">
-          <Button variant="no-show" onClick={() => setShow(false)}>
+          <Button variant="no-show" onClick={onHide}>
             <miscIcons.orangeX />
           </Button>
           <div className="title">{title}</div>

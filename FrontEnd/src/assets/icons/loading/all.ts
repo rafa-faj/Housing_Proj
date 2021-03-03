@@ -1,5 +1,3 @@
 import loading from './loading.gif';
 
-export default {
-  loading,
-};
+export default loading;

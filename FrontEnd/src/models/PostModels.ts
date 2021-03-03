@@ -1,4 +1,5 @@
 import { facilityToIcon } from '../components/HouseProfile';
+import { RoomType } from '../constants';
 
 export interface HousePost {
   name: string;
@@ -25,7 +26,11 @@ export interface HousePost {
   roomDescription: string;
 }
 
-export type HousePostDisplayedProperties = Omit<HousePost, 'roomId'>;
+export interface HousePostUIData
+  extends Omit<HousePost, 'roomId' | 'roomType'> {
+  formattedMoveIn: string;
+  roomType: RoomType;
+}
 
 export interface CreateHousePostProperties
   extends Omit<

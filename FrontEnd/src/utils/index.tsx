@@ -109,6 +109,32 @@ const abbreviateMoveIn = (
   )} - ${lateInt} ${abbreviateMonth(lateMonth)}`;
 };
 
+/**
+ * Used to format early and late strings returned from api call.
+ *
+ * @param early - the early string
+ * @param late - the late string
+ */
+const formatMoveIn = (early: string, late: string) => {
+  const [earlyInt, earlyMonth] = early.split(' ') as [string, Month];
+  const [lateInt, lateMonth] = late.split(' ') as [string, Month];
+
+  const earlyIntDisplayed =
+    earlyInt.toLowerCase() === 'anytime'
+      ? earlyInt
+      : removeParentheses(earlyInt);
+  const lateIntDisplayed =
+    lateInt.toLowerCase() === 'anytime' ? lateInt : removeParentheses(lateInt);
+
+  const formattedMoveIn = abbreviateMoveIn(
+    earlyIntDisplayed,
+    earlyMonth,
+    lateIntDisplayed,
+    lateMonth,
+  );
+  return formattedMoveIn;
+};
+
 export {
   moveInSelect,
   abbreviateMonth,
@@ -116,4 +142,5 @@ export {
   removeParentheses,
   abbreviateMoveIn,
   formatRoomType,
+  formatMoveIn,
 };

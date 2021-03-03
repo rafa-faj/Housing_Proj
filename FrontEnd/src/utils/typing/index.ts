@@ -10,3 +10,8 @@ export const isStringArray = (
 
   return typeof array[0] === 'string';
 };
+
+/**
+ * Checks if the parameter is a string (during runtime).
+ */
+export const isString = (x: any) => typeof x === 'string';

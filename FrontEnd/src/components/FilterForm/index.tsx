@@ -155,7 +155,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ show, setShow }) => {
   return (
     <WizardForm<Store>
       show={show}
-      setShow={setShow}
+      onHide={() => setShow(false)}
       onSubmit={(n) => {
         console.log('clicked');
         console.log(n);

@@ -4,29 +4,27 @@ import Button from 'react-bootstrap/Button';
 import { miscIcons } from '../../assets/icons/all';
 import SlideShow, { SlideShowItem } from '../basics/SlideShow';
 import { HousePost } from '../../models/PostModels';
-import useLocalPhotos from '../../hooks/useLocalPhotos';
+import useUserPhotos from '../../hooks/photos/useUserPhotos';
 
 interface Props extends Pick<HousePost, 'leaserEmail' | 'location'> {
   photos: File[] | string[];
-  onHide: () => any;
+  onExit: () => any;
 }
 
 const FirstColumn: React.FC<Props> = ({
   leaserEmail,
   location,
   photos: unconvertedPhotos,
-  onHide,
+  onExit,
 }) => {
   const [slideShowItems, setSlideShowItems] = useState<SlideShowItem[]>([]);
-  const [photos, isLocalFileURL] = useLocalPhotos(unconvertedPhotos);
+  const photos = useUserPhotos(unconvertedPhotos);
 
   // set the slide show content
   useEffect(() => {
     setSlideShowItems(
-      photos.map((url) => ({
-        src: isLocalFileURL
-          ? url
-          : `https://houseit.s3.us-east-2.amazonaws.com/${url}`,
+      photos.map((photo) => ({
+        src: photo,
         alt: `${leaserEmail} , ${location}}`,
       })),
     );
@@ -37,7 +35,7 @@ const FirstColumn: React.FC<Props> = ({
       {/* TODO: margins on top and left */}
       <Button
         variant="no-show"
-        onClick={() => onHide()}
+        onClick={() => onExit()}
         className="house-profile-close"
       >
         <miscIcons.greenX />

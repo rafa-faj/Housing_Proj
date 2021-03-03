@@ -21,7 +21,7 @@ const getHousingPostsAPI = async () => {
 };
 
 const getRecentHousingPostIds = async () => {
-  const result = await backendAPI.get<string[]>('/getRecentRoomIds', {
+  const result = await backendAPI.get<number[]>('/getRecentRoomIds', {
     withCredentials: true,
   });
   console.log(result);

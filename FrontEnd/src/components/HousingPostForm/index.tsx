@@ -181,7 +181,7 @@ const HousingPost: React.FC<HousingPostProps> = ({ show, setShow }) => {
 
       <WizardForm<Store>
         show={show}
-        setShow={setShow}
+        onHide={() => setShow(false)}
         onSubmit={(data) => {
           console.log('clicked');
           console.log(data);
@@ -196,17 +196,6 @@ const HousingPost: React.FC<HousingPostProps> = ({ show, setShow }) => {
         initialStore={initialStore}
         schemas={schemas}
         lastButtonText="Preview"
-        // TODO customLastButton={
-        //   <Button
-        //     variant="secondary"
-        //     className="m-0"
-        //     onClick={() => {
-        //       setShowPreview(true);
-        //     }}
-        //   >
-        //     Preview
-        //   </Button>
-        // }
       >
         <Page1 />
         <Page2 />

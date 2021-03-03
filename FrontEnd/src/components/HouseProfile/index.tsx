@@ -2,48 +2,42 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import { HousePost } from '../../models/PostModels';
+import { HousePostUIData } from '../../models/PostModels';
 import FirstColumn from './FirstColumn';
 import SecondColumn from './SecondColumn';
 import ThirdColumn from './ThirdColumn';
-import useRoomPost from '../../hooks/useRoomPost';
+import useRoomData from '../../hooks/useRoomData';
 
 type CommonProps = {
-  show: boolean;
-  onHide: () => any;
+  onExit: () => any;
   aboveModalContent?: React.ReactNode;
   aboveModalContentClassName?: string;
   modalClassName?: string;
 };
 
-interface PreviewData extends Omit<HousePost, 'roomId' | 'photos'> {
+interface PreviewData extends Omit<HousePostUIData, 'photos'> {
   photos: File[];
 }
 
-export type HouseProfileProps = CommonProps &
-  (
-    | { preview?: false; roomId: number; data: undefined }
-    | { preview: true; roomId: undefined; data: PreviewData }
-  );
+type HandlePreview =
+  | { preview?: false; roomId: number }
+  | { preview: true; data: PreviewData };
 
-const HouseProfile: React.FC<HouseProfileProps> = ({
-  show,
-  onHide,
-  aboveModalContent,
-  aboveModalContentClassName = '',
-  modalClassName = '',
-  ...previewInfo // object destructuring makes discriminated unions not possible, so keep everything afflicted by preview in same object (look at homehub docs for more info)
-}) => {
-  const { data, error } = previewInfo.preview
-    ? { data: previewInfo.data, error: undefined }
-    : useRoomPost(previewInfo.roomId);
+type HouseProfileProps = CommonProps & HandlePreview;
 
-  if (!data) {
-    return <div>Loading...</div>; // TODO add a loader
-  }
+const HouseProfile: React.FC<HouseProfileProps> = (props) => {
+  // object destructuring makes discriminated unions not possible, so keep everything in props and destructure within the function (look at homehub docs for more info)
+  const { onExit } = props;
+  const { data, error } = props.preview
+    ? { data: props.data, error: undefined }
+    : useRoomData(props.roomId);
 
   if (error) {
     return <div>Error occurred!</div>; // TODO handle error in a different way
+  }
+
+  if (!data) {
+    return <div>Loading...</div>; // TODO add a loader
   }
 
   const {
@@ -57,8 +51,7 @@ const HouseProfile: React.FC<HouseProfileProps> = ({
     stayPeriod,
     facilities,
     roomDescription,
-    early,
-    late,
+    formattedMoveIn,
     other,
     distance,
     profilePhoto,
@@ -69,18 +62,12 @@ const HouseProfile: React.FC<HouseProfileProps> = ({
   } = data;
 
   return (
-    <Modal
-      show={show}
-      onHide={onHide}
-      size="xl"
-      centered
-      className={`house-profile-modal ${modalClassName}`}
-    >
-      <div
+    <Modal onHide={onExit} size="xl" centered className={`house-profile-modal`}>
+      {/* <div
         className={`house-profile-above-modal ${aboveModalContentClassName}`}
       >
         {aboveModalContent}
-      </div>
+      </div> */}
 
       <Container className="p-0">
         <Row>
@@ -88,7 +75,7 @@ const HouseProfile: React.FC<HouseProfileProps> = ({
             leaserEmail={leaserEmail}
             location={location}
             photos={photos}
-            onHide={onHide}
+            onExit={onExit}
           />
 
           <SecondColumn
@@ -98,8 +85,7 @@ const HouseProfile: React.FC<HouseProfileProps> = ({
             roomType={roomType}
             stayPeriod={stayPeriod}
             facilities={facilities}
-            early={early}
-            late={late}
+            formattedMoveIn={formattedMoveIn}
             other={other}
           />
 
@@ -113,8 +99,7 @@ const HouseProfile: React.FC<HouseProfileProps> = ({
             leaserMajor={leaserMajor}
             leaserPhone={leaserPhone}
             location={location}
-            preview={previewInfo.preview}
-            roomId={previewInfo.roomId}
+            roomId={props.preview ? undefined : props.roomId}
           />
         </Row>
       </Container>

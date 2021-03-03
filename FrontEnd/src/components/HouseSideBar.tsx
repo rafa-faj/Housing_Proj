@@ -4,17 +4,20 @@ import TV from './TV';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/slices/auth';
 import BookmarksList from './BookmarksList';
+import { useContextualRouting } from 'next-use-contextual-routing';
+import Link from 'next/Link';
 
 type ButtonOnClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => any;
 interface HouseSideBarProps {
-  onLoginClick: ButtonOnClick;
-  onPostClick: ButtonOnClick;
+  onLoginClick?: ButtonOnClick;
+  onPostClick?: ButtonOnClick;
 }
 
 const HouseSideBar: React.FC<HouseSideBarProps> = ({
   onLoginClick,
   onPostClick,
 }) => {
+  const { makeContextualHref, returnHref } = useContextualRouting();
   const user = useSelector(selectUser);
 
   return (
@@ -23,7 +26,13 @@ const HouseSideBar: React.FC<HouseSideBarProps> = ({
         {!user ? (
           <>
             <Button variant="secondary" onClick={onLoginClick}>
-              Sign in to post
+              <Link
+                href={makeContextualHref()}
+                as="/route-to-visit-contextually"
+                shallow
+              >
+                Sign in to post
+              </Link>
             </Button>
           </>
         ) : (
