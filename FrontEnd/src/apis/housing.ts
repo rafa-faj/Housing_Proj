@@ -20,6 +20,24 @@ const getHousingPostsAPI = async () => {
   }
 };
 
+const getRecentHousingPostIds = async () => {
+  const result = await backendAPI.get<string[]>('/getRecentRoomIds', {
+    withCredentials: true,
+  });
+  console.log(result);
+
+  return result.data;
+};
+
+const getHousingPost = async (roomId: number) => {
+  const result = await backendAPI.get<HousePost>(`/getRoom/${roomId}`, {
+    withCredentials: true,
+  });
+  console.log(result);
+
+  return result.data;
+};
+
 const searchHousingPostsAPI = async ({
   distance,
   roomType,
@@ -176,6 +194,8 @@ const removeHousingBookmarkAPI = async (roomId: number) => {
 };
 
 export {
+  getRecentHousingPostIds,
+  getHousingPost,
   getHousingPostsAPI,
   searchHousingPostsAPI,
   newHousingPostAPI,

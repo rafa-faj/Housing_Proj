@@ -15,11 +15,6 @@ import {
 } from '../../apis/housing';
 import { isRunningClientSide } from '../../utils/next';
 
-// TODO probably split up this housing slice into several folders, where thunks are in a
-// folder, selectors in another, reducers in another, and then export them and import
-// them to here
-
-// TODO move this to a different file
 export enum SearchingMode {
   NOT_SEARCHING,
   STARTED,
@@ -98,7 +93,6 @@ const {
   setSearchingMode,
 } = housingSlice.actions;
 
-// PUT THUNKS HERE
 export const getHousingPosts = (): AppThunk => async (dispatch) => {
   // get the housing and then set the housing in redux
   const housingPosts = await getHousingPostsAPI();
