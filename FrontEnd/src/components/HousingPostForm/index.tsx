@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser } from '../../redux/slices/auth';
 import { newHousingPost } from '../../redux/slices/housing';
-import { dummyUser, User } from '../../models/User';
-import HouseProfile, { facilityToIcon } from '../HouseProfile';
+import { User } from '../../models/User';
+import HouseProfile, { PreviewData } from '../HouseProfile/index';
+import { facilityToIcon } from '../HouseProfile';
 import Page1, { Page1Store, page1InitialStore, page1Schema } from './PostPage1';
 import Page2, { Page2Store, page2InitialStore, page2Schema } from './PostPage2';
 import Page3, { Page3Store, page3InitialStore, page3Schema } from './PostPage3';
@@ -16,6 +16,7 @@ import {
   CreateHousePostProperties,
   HousePostUserData,
 } from '../../models/PostModels';
+import { formatMoveIn, formatRoomType } from '../../utils';
 
 type Store = Page1Store &
   Page2Store &
@@ -84,7 +85,7 @@ const storeToHouseData = ({
   preferences,
   amenities,
   roomDescription,
-}: Store): Omit<CreateHousePostProperties, 'photos'> & { photos: string[] } => {
+}: Store): CreateHousePostProperties => {
   return {
     name: propertyType,
     location: selectedLocation,
@@ -96,10 +97,10 @@ const storeToHouseData = ({
     roomType, // TODO need to change database to hold array of strings
     numBeds,
     numBaths,
-    photos: pictures.map((picture) => URL.createObjectURL(picture)), // TODO need to change a ton of things to be able to display files as well as strings pictures,
+    photos: pictures,
     other: preferences,
     facilities: amenities as (keyof typeof facilityToIcon)[],
-    negotiable: false, // TODO not in the house post yet
+    negotiable: false,
     roomDescription,
   };
 };
@@ -119,21 +120,86 @@ const userToHousePostUser = ({
   profilePhoto: '', // TODO need to actually have profile photo here
 });
 
-const HousingPost: React.FC<HousingPostProps> = ({ show, setShow }) => {
-  const [showPreview, setShowPreview] = useState<boolean>(false);
-  const [previewData, setPreviewData] = useState<Store>();
-  const [houseData, setHouseData] = useState<
-    Omit<CreateHousePostProperties, 'photos'> & { photos: string[] }
-  >();
-  const user = useSelector(selectUser);
+const HousingPost: React.FC<HousingPostProps> = ({
+  show: showForm,
+  setShow: setShowForm,
+}) => {
+  const [previewData, setPreviewData] = useState<PreviewData>();
+  const hidePreview = () => setPreviewData(undefined);
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
 
-  useEffect(() => {
-    if (previewData) setHouseData(storeToHouseData(previewData));
-  }, [previewData]);
+  if (!user) return <div />;
 
   return (
     <>
+      {previewData && (
+        <HouseProfile
+          onExit={() => {
+            hidePreview();
+            setShowForm(true);
+          }}
+          preview
+          data={previewData}
+          onPublish={() => {
+            if (houseData && previewData) {
+              // TODO need to change this to use previewData somehow
+              dispatch(
+                newHousingPost({
+                  ...houseData,
+                  photos: previewData.photos,
+                }),
+              );
+              hidePreview();
+            }
+
+            // TODO need to reset the form here
+          }}
+        />
+      )}
+
+      <WizardForm<Store>
+        show={showForm && !previewData}
+        onHide={() => setShowForm(false)}
+        onSubmit={(unformattedData) => {
+          console.log('clicked');
+          console.log(unformattedData);
+
+          const data = {
+            ...storeToHouseData(unformattedData),
+            ...userToHousePostUser(user),
+          };
+          const formattedMoveIn = formatMoveIn(data.early, data.late);
+          const roomType = formatRoomType(data.roomType);
+
+          setPreviewData({
+            ...data,
+            formattedMoveIn,
+            roomType,
+          });
+
+          return true;
+        }}
+        title="Make your post"
+        initialStore={initialStore}
+        schemas={schemas}
+        lastButtonText="Preview"
+      >
+        <Page1 />
+        <Page2 />
+        <Page3 />
+        <Page4 />
+        <Page5 />
+        <Page6 />
+      </WizardForm>
+    </>
+  );
+};
+
+export default HousingPost;
+
+/* TODO
+
       <HouseProfile
         show={showPreview}
         onHide={() => {
@@ -163,7 +229,7 @@ const HousingPost: React.FC<HousingPostProps> = ({ show, setShow }) => {
                   dispatch(
                     newHousingPost({
                       ...houseData,
-                      photos: previewData?.pictures as File[],
+                      photos: previewDataTemp?.pictures as File[],
                     }),
                   );
                 }
@@ -179,33 +245,4 @@ const HousingPost: React.FC<HousingPostProps> = ({ show, setShow }) => {
         modalClassName="house-post-preview-modal"
       />
 
-      <WizardForm<Store>
-        show={show}
-        onHide={() => setShow(false)}
-        onSubmit={(data) => {
-          console.log('clicked');
-          console.log(data);
-          setPreviewData(data);
-          setShowPreview(true);
-          // dispatch(
-          //   userPost(() => postHousing(FormMation(pictures, posts))),
-          // ); // TODO
-          return true;
-        }}
-        title="Make your post"
-        initialStore={initialStore}
-        schemas={schemas}
-        lastButtonText="Preview"
-      >
-        <Page1 />
-        <Page2 />
-        <Page3 />
-        <Page4 />
-        <Page5 />
-        <Page6 />
-      </WizardForm>
-    </>
-  );
-};
-
-export default HousingPost;
+*/

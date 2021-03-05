@@ -7,27 +7,48 @@ import FirstColumn from './FirstColumn';
 import SecondColumn from './SecondColumn';
 import ThirdColumn from './ThirdColumn';
 import useRoomData from '../../hooks/swr/useRoomData';
+import { Button } from 'react-bootstrap';
+
+interface PreviewButtonsProps {
+  onExit: () => any;
+  onPublish: () => any;
+}
+
+const PreviewButtons: React.FC<PreviewButtonsProps> = ({
+  onExit,
+  onPublish,
+}) => (
+  <div className="house-profile-preview-buttons-wrapper">
+    <div className="house-profile-preview-buttons">
+      <Button variant="secondary" onClick={onExit}>
+        Edit Post
+      </Button>
+      <Button variant="secondary" onClick={onPublish}>
+        Publish Post
+      </Button>
+    </div>
+  </div>
+);
 
 type CommonProps = {
+  show?: boolean; // default value = true
   onExit: () => any;
-  aboveModalContent?: React.ReactNode;
-  aboveModalContentClassName?: string;
-  modalClassName?: string;
 };
 
-interface PreviewData extends Omit<HousePostUIData, 'photos'> {
+export interface PreviewData extends Omit<HousePostUIData, 'photos'> {
   photos: File[];
 }
 
 type HandlePreview =
   | { preview?: false; roomId: number }
-  | { preview: true; data: PreviewData };
+  | { preview: true; data: PreviewData; onPublish: () => any };
 
 type HouseProfileProps = CommonProps & HandlePreview;
 
 const HouseProfile: React.FC<HouseProfileProps> = (props) => {
   // object destructuring makes discriminated unions not possible, so keep everything in props and destructure within the function (look at homehub docs for more info)
-  const { onExit } = props;
+  const { show = true, onExit } = props;
+
   const { data, error } = props.preview
     ? { data: props.data, error: undefined }
     : useRoomData(props.roomId);
@@ -62,12 +83,18 @@ const HouseProfile: React.FC<HouseProfileProps> = (props) => {
   } = data;
 
   return (
-    <Modal onHide={onExit} size="xl" centered className={`house-profile-modal`}>
-      {/* <div
-        className={`house-profile-above-modal ${aboveModalContentClassName}`}
-      >
-        {aboveModalContent}
-      </div> */}
+    <Modal
+      show={show}
+      onHide={onExit}
+      size="xl"
+      centered
+      className={`house-profile-modal ${
+        props.preview ? 'house-profile-preview' : ''
+      }`}
+    >
+      {props.preview && (
+        <PreviewButtons onExit={onExit} onPublish={props.onPublish} />
+      )}
 
       <Container className="p-0">
         <Row>

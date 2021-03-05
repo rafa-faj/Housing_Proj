@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getHousingPostsAPI, searchHousingPostsAPI } from '../../apis';
 import { CreateHousePostProperties, HousePost } from '../../models/PostModels';
-import { FilterModel } from '../../models/FilterModel';
 import { AppThunk, RootState } from '../store';
 import {
   addHousingBookmarkAPI,
@@ -11,42 +9,25 @@ import {
 } from '../../apis/housing';
 import { isRunningClientSide } from '../../utils/next';
 
-export enum SearchingMode {
-  NOT_SEARCHING,
-  STARTED,
-  FINISHED,
+export enum HousingMode {
+  Browse,
+  Filter,
 }
 
 interface HousingState {
-  posts?: HousePost[]; // TODO change this to be a object from the housepost's id to the housepost, then change favorites to be id: boolean
-  // TODO eventually do this: searchResults?: HousePost[];     and have a 'SearchResultsLoading' boolean
   favorites?: { [id: string]: HousePost };
-  searching: SearchingMode;
+  searching: HousingMode;
 }
 
 const initialState: HousingState = {
-  posts: undefined,
   favorites: undefined,
-  searching: SearchingMode.NOT_SEARCHING,
+  searching: HousingMode.Browse,
 };
 
 export const housingSlice = createSlice({
   name: 'housing',
   initialState,
   reducers: {
-    setHousingPosts: (
-      state,
-      action: PayloadAction<HousePost[] | undefined>,
-    ) => {
-      state.posts = action.payload;
-    },
-    appendToHousingPosts: (state, action: PayloadAction<HousePost[]>) => {
-      if (state.posts) {
-        state.posts.push(...action.payload);
-      } else {
-        state.posts = action.payload;
-      }
-    },
     setHousingFavorites: (
       state,
       action: PayloadAction<HousePost[] | undefined>,
@@ -71,7 +52,7 @@ export const housingSlice = createSlice({
         delete state.favorites[action.payload];
       }
     },
-    setSearchingMode: (state, action: PayloadAction<SearchingMode>) => {
+    setSearchingMode: (state, action: PayloadAction<HousingMode>) => {
       state.searching = action.payload;
     },
   },
@@ -81,34 +62,12 @@ export const housingSlice = createSlice({
 export const {} = housingSlice.actions;
 // do NOT export these reducers. Only declare them and use them in the THUNKS
 const {
-  setHousingPosts,
-  appendToHousingPosts,
   setHousingFavorites,
   addToHousingFavorites,
   removeFromHousingFavorites,
   setSearchingMode,
 } = housingSlice.actions;
 
-export const getHousingPosts = (): AppThunk => async (dispatch) => {
-  // get the housing and then set the housing in redux
-  const housingPosts = await getHousingPostsAPI();
-  dispatch(setHousingPosts(housingPosts));
-};
-
-export const searchHousingPosts = (housePost: FilterModel): AppThunk => async (
-  dispatch,
-) => {
-  try {
-    dispatch(setSearchingMode(SearchingMode.STARTED));
-    const searchResults = await searchHousingPostsAPI(housePost);
-    dispatch(setHousingPosts(searchResults));
-    dispatch(setSearchingMode(SearchingMode.FINISHED));
-  } catch (err) {
-    // handle error
-  }
-};
-
-// TODO double check that CreateHousePostProperties works. it was HousePost previously
 export const newHousingPost = (
   housePost: CreateHousePostProperties,
 ): AppThunk => async (dispatch, getState) => {
@@ -118,12 +77,6 @@ export const newHousingPost = (
   const result = await newHousingPostAPI({ ...housePost, email });
   if (result && isRunningClientSide()) {
     window.location.reload(false);
-    // TODO cannot do the below until the newHousingPostAPI is changed to return roomId
-    // dispatch(
-    //   appendToHousingPosts([
-    //     { ...housePost, ...curUserMappedToHouseProperties },
-    //   ]),
-    // );
   } else {
     // handle the error
   }
@@ -196,7 +149,6 @@ export const postAllHousingFavorites = (): AppThunk => async (
   }
 };
 
-export const selectHousingPosts = (state: RootState) => state.housing.posts;
 export const selectHousingSearchMode = (state: RootState) =>
   state.housing.searching;
 export const selectHousingFavorites = (state: RootState) =>
