@@ -21,7 +21,7 @@ const NewUserSetup: React.FC<NewUserSetupProps> = ({ show, name, email }) => {
   return (
     <WizardForm<Store>
       show={show}
-      onHide={() => console.log('todo')}
+      onHide={() => console.log('todo, shouldnt have an onHide for this...')}
       onSubmit={(data) => {
         console.log('clicked');
         console.log(data);

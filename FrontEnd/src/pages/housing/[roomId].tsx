@@ -8,13 +8,13 @@ const SpecificHousing: React.FC = () => {
   const { roomIdString } = router.query;
   const roomId = parseInt(roomIdString as string);
 
-  const goToHousingRoute = () => router.push('/housing');
+  const routeToHousing = () => router.push('/housing');
 
   return (
     <>
       <HousingPage />
 
-      <HouseProfile roomId={roomId} onExit={goToHousingRoute} />
+      <HouseProfile roomId={roomId} onExit={routeToHousing} />
     </>
   );
 };

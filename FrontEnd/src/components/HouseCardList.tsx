@@ -10,7 +10,7 @@ import {
   selectHousingSearchMode,
   SearchingMode,
 } from '../redux/slices/housing';
-import useRecentRoomIds from '../hooks/useRecentRoomIds';
+import useRecentRoomIds from '../hooks/swr/useRecentRoomIds';
 
 const HouseCardList: React.FC = () => {
   const { data: roomIds, error } = useRecentRoomIds();

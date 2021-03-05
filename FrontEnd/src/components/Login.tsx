@@ -8,33 +8,30 @@ import {
 } from 'react-google-login';
 import { useSelector, useDispatch } from 'react-redux';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { selectUser, login } from '../redux/slices/auth';
+import {
+  selectUser,
+  login,
+  selectShouldShowLogin,
+  hideLogin,
+} from '../redux/slices/auth';
 import { miscIcons } from '../assets/icons/all';
 import { LOGIN_INFO_TOOLTIP } from '../constants/messages';
 
-// https://developers.google.com/identity/sign-in/web/sign-in
-interface PathProps {
-  handleClose: Function;
-  show: boolean;
-}
+const isOnline = (
+  response: GoogleLoginResponse | GoogleLoginResponseOffline,
+): response is GoogleLoginResponse => {
+  return 'profileObj' in response;
+};
 
-const Login: React.FC<PathProps> = ({ handleClose, show }) => {
-  const user = useSelector(selectUser);
+const LoginUI: React.FC = () => {
+  const shouldShowLogin = useSelector(selectShouldShowLogin);
   const dispatch = useDispatch();
-
-  const isOnline = (
-    response: GoogleLoginResponse | GoogleLoginResponseOffline,
-  ): response is GoogleLoginResponse => {
-    return 'profileObj' in response;
-  };
 
   const responseGoogleSuccess = (
     response: GoogleLoginResponse | GoogleLoginResponseOffline,
   ) => {
     if (isOnline(response)) {
       const profile = response.profileObj;
-      console.log(profile); // TODO
-      console.log(response);
       dispatch(login(profile.name, profile.email));
     } else {
       console.log('User is offline');
@@ -43,9 +40,14 @@ const Login: React.FC<PathProps> = ({ handleClose, show }) => {
   };
 
   return (
-    <Modal id="LoginModal" show={show} onHide={handleClose} centered>
+    <Modal
+      id="LoginModal"
+      show={shouldShowLogin}
+      onHide={() => dispatch(hideLogin())}
+      centered
+    >
       <div>
-        <Button variant="no-show" onClick={() => handleClose()}>
+        <Button variant="no-show" onClick={() => dispatch(hideLogin())}>
           <img className="pl-2" src="/close.svg" alt="Close" />
         </Button>
         <OverlayTrigger
@@ -65,7 +67,7 @@ const Login: React.FC<PathProps> = ({ handleClose, show }) => {
         clientId="778916194800-977823s60p7mtu1sj72ru0922p2pqh6m.apps.googleusercontent.com"
         onSuccess={(response) => {
           responseGoogleSuccess(response);
-          handleClose();
+          dispatch(hideLogin());
         }}
         onFailure={(response) => console.log(response)}
         // TODO: add login cookie to onSuccess using universal-cookie
@@ -79,6 +81,15 @@ const Login: React.FC<PathProps> = ({ handleClose, show }) => {
       </GoogleLogin>
     </Modal>
   );
+};
+
+// https://developers.google.com/identity/sign-in/web/sign-in
+const Login: React.FC = () => {
+  const user = useSelector(selectUser);
+
+  if (user) return <div />;
+
+  return <LoginUI />;
 };
 
 export default Login;

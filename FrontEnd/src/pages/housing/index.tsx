@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { getHousingPostsAPI, getRecentHousingPostIds } from '../../apis';
 import { useSelector } from 'react-redux';
-import { selectShowNewUserPopup } from '../../redux/slices/auth';
+import { selectShowNewUserPopup, showLogin } from '../../redux/slices/auth';
 import NewUserSetup from '../../components/NewUserSetup';
 import SideBarLayout, { SideBar } from '../../components/SideBarLayout';
 import Filter from '../../components/Filter';
 import HouseCardList from '../../components/HouseCardList';
 import HouseSideBar from '../../components/HouseSideBar';
+import HousingPost from '../../components/HousingPostForm';
 
 export const getServerSideProps: GetServerSideProps = async () => {
   return {
@@ -19,10 +19,12 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 const Housing: React.FC<Props> = () => {
   const showNewUserPopup = useSelector(selectShowNewUserPopup);
+  const [showHousingPost, setShowHousingPost] = useState<boolean>(false);
 
   return (
     <>
-      {/* Modals */}
+      <HousingPost show={showHousingPost} setShow={setShowHousingPost} />
+
       {showNewUserPopup !== undefined && ( // only render the modal when user info exists, to initialize the wizard form with the user info
         <NewUserSetup
           show={showNewUserPopup !== undefined}
@@ -43,8 +45,8 @@ const Housing: React.FC<Props> = () => {
 
         <SideBar>
           <HouseSideBar
-          // onLoginClick={() => (router.push('/login'))}
-          // onPostClick={() => (router.push('/housing/post'))}
+            onLoginClick={showLogin}
+            onPostClick={() => setShowHousingPost(true)}
           />
         </SideBar>
       </SideBarLayout>

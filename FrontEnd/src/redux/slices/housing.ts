@@ -1,10 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getHousingPostsAPI, searchHousingPostsAPI } from '../../apis';
-import {
-  CreateHousePostProperties,
-  HousePost,
-  HousePostUserData,
-} from '../../models/PostModels';
+import { CreateHousePostProperties, HousePost } from '../../models/PostModels';
 import { FilterModel } from '../../models/FilterModel';
 import { AppThunk, RootState } from '../store';
 import {
@@ -200,7 +196,6 @@ export const postAllHousingFavorites = (): AppThunk => async (
   }
 };
 
-// SELECTORS HERE
 export const selectHousingPosts = (state: RootState) => state.housing.posts;
 export const selectHousingSearchMode = (state: RootState) =>
   state.housing.searching;

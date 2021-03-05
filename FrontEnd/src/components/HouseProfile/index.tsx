@@ -6,7 +6,7 @@ import { HousePostUIData } from '../../models/PostModels';
 import FirstColumn from './FirstColumn';
 import SecondColumn from './SecondColumn';
 import ThirdColumn from './ThirdColumn';
-import useRoomData from '../../hooks/useRoomData';
+import useRoomData from '../../hooks/swr/useRoomData';
 
 type CommonProps = {
   onExit: () => any;

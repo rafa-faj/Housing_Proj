@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import SlideShow, { SlideShowItem } from './basics/SlideShow/index';
 import { formatRoomType } from '../utils';
-import useRoomData from '../hooks/useRoomData';
+import useRoomData from '../hooks/swr/useRoomData';
 import useRemotePhotos from '../hooks/photos/useRemotePhotos';
 import { useRouter } from 'next/dist/client/router';
 

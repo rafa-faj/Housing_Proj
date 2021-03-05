@@ -1,7 +1,7 @@
 import useSWR from 'swr';
-import { getHousingPost } from '../apis';
-import { HousePostUIData, HousePost } from '../models/PostModels';
-import { formatRoomType, formatMoveIn } from '../utils';
+import { getHousingPost } from '../../apis';
+import { HousePostUIData, HousePost } from '../../models/PostModels';
+import { formatRoomType, formatMoveIn } from '../../utils';
 
 /**
  * Used to format data from api call to easily consumable data.
