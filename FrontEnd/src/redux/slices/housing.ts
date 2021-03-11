@@ -7,7 +7,7 @@ import {
   newHousingPostAPI,
   removeHousingBookmarkAPI,
 } from '../../apis/housing';
-import { isRunningClientSide } from '../../utils/next';
+import { isRunningServer } from '../../utils/next';
 
 export enum HousingMode {
   Browse,
@@ -75,7 +75,7 @@ export const newHousingPost = (
   if (!email) return;
 
   const result = await newHousingPostAPI({ ...housePost, email });
-  if (result && isRunningClientSide()) {
+  if (result && !isRunningServer()) {
     window.location.reload(false);
   } else {
     // handle the error

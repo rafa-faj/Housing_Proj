@@ -1,8 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { Provider } from 'react-redux';
-import { store } from '../redux/store';
+import { reduxNextWrapper } from '../redux/store';
 import Login from '../components/Login';
 import '../assets/sass/main.scss';
 
@@ -13,12 +12,12 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
 
       <title>HomeHub</title>
     </Head>
-    <Provider store={store}>
-      <Login />
 
-      <Component {...pageProps} />
-    </Provider>
+    <Login />
+
+    <Component {...pageProps} />
   </>
 );
+// TODO <Provider store={store}></Provider>
 
-export default App;
+export default reduxNextWrapper.withRedux(App);

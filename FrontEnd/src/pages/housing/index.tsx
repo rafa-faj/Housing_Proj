@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectShowNewUserPopup, showLogin } from '../../redux/slices/auth';
 import NewUserSetup from '../../components/NewUserSetup';
 import SideBarLayout, { SideBar } from '../../components/SideBarLayout';
@@ -9,18 +9,10 @@ import HouseCardList from '../../components/HouseCardList';
 import HouseSideBar from '../../components/HouseSideBar';
 import HousingPost from '../../components/HousingPostForm';
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    props: {},
-  };
-};
-
-type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
-
-const Housing: React.FC<Props> = () => {
+const Housing: React.FC = () => {
   const showNewUserPopup = useSelector(selectShowNewUserPopup);
   const [showHousingPost, setShowHousingPost] = useState<boolean>(false);
-  console.log('here in housings index');
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -46,11 +38,7 @@ const Housing: React.FC<Props> = () => {
 
         <SideBar>
           <HouseSideBar
-            onLoginClick={() => {
-              console.log('wazzup');
-              console.log(showLogin);
-              showLogin();
-            }}
+            onLoginClick={() => dispatch(showLogin())}
             onPostClick={() => setShowHousingPost(true)}
           />
         </SideBar>
