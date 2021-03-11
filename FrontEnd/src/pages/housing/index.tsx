@@ -20,6 +20,7 @@ type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 const Housing: React.FC<Props> = () => {
   const showNewUserPopup = useSelector(selectShowNewUserPopup);
   const [showHousingPost, setShowHousingPost] = useState<boolean>(false);
+  console.log('here in housings index');
 
   return (
     <>
@@ -45,7 +46,11 @@ const Housing: React.FC<Props> = () => {
 
         <SideBar>
           <HouseSideBar
-            onLoginClick={showLogin}
+            onLoginClick={() => {
+              console.log('wazzup');
+              console.log(showLogin);
+              showLogin();
+            }}
             onPostClick={() => setShowHousingPost(true)}
           />
         </SideBar>

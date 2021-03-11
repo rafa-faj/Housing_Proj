@@ -38,7 +38,7 @@ const getHousingPost = async (roomId: number) => {
   return result.data;
 };
 
-const searchHousingPostsAPI = async ({
+const searchHousingPosts = async ({
   distance,
   roomType,
   priceMin,
@@ -197,7 +197,7 @@ export {
   getRecentHousingPostIds,
   getHousingPost,
   getHousingPostsAPI,
-  searchHousingPostsAPI,
+  searchHousingPosts,
   newHousingPostAPI,
   getHousingBookmarksAPI,
   addHousingBookmarkAPI,

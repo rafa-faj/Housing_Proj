@@ -48,27 +48,6 @@ interface HousingPostProps {
   setShow: (show: boolean) => void;
 }
 
-const tempEmptyHouseData: Omit<CreateHousePostProperties, 'photos'> & {
-  photos: string[];
-} = {
-  // TODO temporary. shouldn't need this eventually
-  name: 'Loading...',
-  location: 'Loading...',
-  distance: 'Loading...',
-  pricePerMonth: 0,
-  stayPeriod: 12,
-  early: 'Loading...',
-  late: 'Loading...',
-  roomType: 'Loading...',
-  photos: [],
-  other: [],
-  facilities: [],
-  negotiable: false,
-  numBeds: '0',
-  numBaths: '0',
-  roomDescription: 'Loading...',
-};
-
 const storeToHouseData = ({
   propertyType,
   selectedLocation,
@@ -143,7 +122,7 @@ const HousingPost: React.FC<HousingPostProps> = ({
           data={previewData}
           onPublish={() => {
             if (houseData && previewData) {
-              // TODO need to change this to use previewData somehow
+              // TODO need to change this to use previewData somehow. Also need to just use a straightup API and then mutate the roomIds with whatever is returned
               dispatch(
                 newHousingPost({
                   ...houseData,
@@ -197,52 +176,3 @@ const HousingPost: React.FC<HousingPostProps> = ({
 };
 
 export default HousingPost;
-
-/* TODO
-
-      <HouseProfile
-        show={showPreview}
-        onHide={() => {
-          setShowPreview(false);
-          setShow(true);
-        }}
-        {...tempEmptyHouseData}
-        {...houseData}
-        {...userToHousePostUser(user || dummyUser)}
-        localURL
-        aboveModalContent={
-          <div className="house-post-preview-buttons-wrapper">
-            <Button
-              variant="secondary"
-              onClick={() => {
-                setShowPreview(false);
-                setShow(true);
-              }}
-            >
-              Edit Post
-            </Button>
-            <Button
-              variant="secondary"
-              onClick={() => {
-                if (houseData) {
-                  setShowPreview(false);
-                  dispatch(
-                    newHousingPost({
-                      ...houseData,
-                      photos: previewDataTemp?.pictures as File[],
-                    }),
-                  );
-                }
-
-                // TODO need to reset the form here
-              }}
-            >
-              Publish Post
-            </Button>
-          </div>
-        }
-        aboveModalContentClassName="house-post-preview-buttons"
-        modalClassName="house-post-preview-modal"
-      />
-
-*/

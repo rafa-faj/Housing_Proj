@@ -16,6 +16,7 @@ const HouseSideBar: React.FC<HouseSideBarProps> = ({
   onPostClick,
 }) => {
   const user = useSelector(selectUser);
+  console.log('here in houseside bar');
 
   return (
     <div className="house-sidebar-container">

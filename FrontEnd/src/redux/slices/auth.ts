@@ -67,6 +67,7 @@ export const authSlice = createSlice({
       state.showNewUserPopup = undefined;
     },
     showLogin: (state) => {
+      console.log('in here');
       state.shouldShowLogin = true;
     },
     hideLogin: (state) => {

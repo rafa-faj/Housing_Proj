@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { searchHousingPosts } from '../../redux/slices/housing';
+import { searchHousingPosts } from '../../apis/housing';
 import FilterPage1, {
   Page1Store,
   page1InitialStore,
@@ -122,12 +122,6 @@ const formatRequest = (s: Store): FilterModel => {
     [],
   );
 
-  // const selectedPrefs = otherPrefs.reduce<PreferenceLiteralType[]>(
-  //   (result, preference) => {
-  //     const r = enumKeyFromStringValue(, type)
-  //   }
-  // );
-
   return {
     numBeds: s.numBeds,
     numBaths: s.numBaths,
@@ -161,7 +155,7 @@ const FilterForm: React.FC<FilterFormProps> = ({ show, setShow }) => {
         console.log(n);
         const formattedRequest = formatRequest(n);
         console.log(formattedRequest);
-        dispatch(searchHousingPosts(formattedRequest));
+        searchHousingPosts(formattedRequest); // TODO need to handle searching...
         return true;
       }}
       title="Filter & Match"

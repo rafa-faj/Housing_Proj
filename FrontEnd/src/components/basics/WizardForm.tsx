@@ -285,7 +285,7 @@ const WizardForm = <T extends {}>({
 
         <div className="wizard-form-bottom-bar">
           <div className="d-flex">
-            {children.map((c, i) => (
+            {React.Children.map(children, (c, i) => (
               <div className="mx-1">
                 <Button variant="no-show" onClick={() => setStep(i)}>
                   {i === curIndex ? (
