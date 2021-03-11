@@ -14,7 +14,7 @@ from app.db.database_setup import Bookmark, Room
 from flask_sqlalchemy import SQLAlchemy
 from app.util.util import generateResponse
 import json
-from db.crud import room_json, read_rooms, write_room, add_bookmark, \
+from db.crud import room_json, read_rooms, read_room, write_room, add_bookmark, \
     remove_bookmark, update_field
 
 app = Flask(__name__)
@@ -42,13 +42,25 @@ def editProfile():
     return generateResponse(elem=message, status=status)
 
 
-@ app.route('/getRoom', methods=['GET'])
-def showRooms():
+# @ app.route('/getRoom', methods=['GET'])
+# def showRooms():
+#     rooms_db = read_rooms(session)
+#     rooms_db.sort(key=lambda elem: elem.date_created, reverse=True)
+#     rooms = [room_json(room, session) for room in rooms_db]
+#     return generateResponse(elem=rooms)
+
+@ app.route('/getRecentRoomIds')
+def getRecentRooms():
     rooms_db = read_rooms(session)
     rooms_db.sort(key=lambda elem: elem.date_created, reverse=True)
-    rooms = [room_json(room, session) for room in rooms_db]
-    return generateResponse(elem=rooms)
+    room_ids = [room.id for room in rooms_db]
+    return generateResponse(elem=room_ids)
 
+@ app.route('/getRoom/<room_id>')
+def getRoom(room_id):
+    room_db = read_room(room_id, session)
+    room = room_json(room_db, session)
+    return generateResponse(elem=room)
 
 @ app.route('/postRoom', methods=['POST', 'OPTIONS'])
 def postRooms():

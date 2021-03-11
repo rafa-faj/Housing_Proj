@@ -94,6 +94,9 @@ def read_user(email, session):
 def read_rooms(session):
     return session.query(Room).all()
 
+def read_room(room_id, session):
+    return session.query(Room).filter(Room.id == room_id).one()
+
 
 def room_json(room, session):
     other_map = {'other': [], 'facilities': []}
