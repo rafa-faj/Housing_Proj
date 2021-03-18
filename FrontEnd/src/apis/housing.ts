@@ -9,7 +9,6 @@ const getHousingPostsAPI = async () => {
     const result = await backendAPI.get<HousePost[]>('/getRoom', {
       withCredentials: true,
     });
-    console.log(result);
     // handle errors
     if (result.request?.status !== 200) throw Error('Bad request');
 
@@ -24,7 +23,6 @@ const getRecentHousingPostIds = async () => {
   const result = await backendAPI.get<number[]>('/getRecentRoomIds', {
     withCredentials: true,
   });
-  console.log(result);
 
   return result.data;
 };
@@ -33,7 +31,6 @@ const getHousingPost = async (roomId: number) => {
   const result = await backendAPI.get<HousePost>(`/getRoom/${roomId}`, {
     withCredentials: true,
   });
-  console.log(result);
 
   return result.data;
 };

@@ -18,6 +18,5 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
     <Component {...pageProps} />
   </>
 );
-// TODO <Provider store={store}></Provider>
 
 export default reduxNextWrapper.withRedux(App);

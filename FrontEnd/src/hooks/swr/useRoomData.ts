@@ -2,6 +2,7 @@ import useSWR from 'swr';
 import { getHousingPost } from '../../apis';
 import { HousePostUIData, HousePost } from '../../models/PostModels';
 import { formatRoomType, formatMoveIn } from '../../utils';
+import { formatUrlsWithAws } from '../../utils/photos/index';
 
 /**
  * Used to format data from api call to easily consumable data.
@@ -20,11 +21,13 @@ const formatHouseData = (
       unformattedData.late,
     );
     const roomType = formatRoomType(unformattedData.roomType);
+    const photos = formatUrlsWithAws(unformattedData.photos);
 
     data = {
       ...unformattedData,
       formattedMoveIn,
       roomType,
+      photos,
     };
   }
 

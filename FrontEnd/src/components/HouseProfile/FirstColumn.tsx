@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { miscIcons } from '../../assets/icons/all';
-import SlideShow, { SlideShowItem } from '../basics/SlideShow';
+import SlideShow from '../basics/SlideShow';
 import { HousePost } from '../../models/PostModels';
-import useUserPhotos from '../../hooks/photos/useUserPhotos';
+import { photosToUrls } from '../../utils/photos/index';
 
 interface Props extends Pick<HousePost, 'leaserEmail' | 'location'> {
   photos: File[] | string[];
@@ -14,21 +14,14 @@ interface Props extends Pick<HousePost, 'leaserEmail' | 'location'> {
 const FirstColumn: React.FC<Props> = ({
   leaserEmail,
   location,
-  photos: unconvertedPhotos,
+  photos,
   onExit,
 }) => {
-  const [slideShowItems, setSlideShowItems] = useState<SlideShowItem[]>([]);
-  const photos = useUserPhotos(unconvertedPhotos);
-
   // set the slide show content
-  useEffect(() => {
-    setSlideShowItems(
-      photos.map((photo) => ({
-        src: photo,
-        alt: `${leaserEmail} , ${location}}`,
-      })),
-    );
-  }, [photos, leaserEmail, location]);
+  const slideShowItems = photosToUrls(photos).map((url) => ({
+    src: url,
+    alt: `${leaserEmail} , ${location}}`,
+  }));
 
   return (
     <Col sm={12} lg={4}>

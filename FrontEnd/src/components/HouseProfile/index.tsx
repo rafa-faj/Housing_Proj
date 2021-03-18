@@ -31,7 +31,7 @@ const PreviewButtons: React.FC<PreviewButtonsProps> = ({
 );
 
 type CommonProps = {
-  show?: boolean; // default value = true
+  show: boolean;
   onExit: () => any;
 };
 
@@ -47,7 +47,17 @@ type HouseProfileProps = CommonProps & HandlePreview;
 
 const HouseProfile: React.FC<HouseProfileProps> = (props) => {
   // object destructuring makes discriminated unions not possible, so keep everything in props and destructure within the function (look at homehub docs for more info)
-  const { show = true, onExit } = props;
+  const { show, onExit } = props;
+
+  // let { data: queryData, error } = useRoomData(
+  //   props.preview ? 1 : props.roomId,
+  // );
+  // let data: HousePostUIData | PreviewData | undefined = queryData;
+
+  // if (props.preview) {
+  //   data = props.data;
+  //   error = undefined;
+  // }
 
   const { data, error } = props.preview
     ? { data: props.data, error: undefined }

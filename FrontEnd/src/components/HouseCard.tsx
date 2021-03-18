@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
-import SlideShow, { SlideShowItem } from './basics/SlideShow/index';
+import SlideShow from './basics/SlideShow/index';
 import { formatRoomType } from '../utils';
 import useRoomData from '../hooks/swr/useRoomData';
-import useRemotePhotos from '../hooks/photos/useRemotePhotos';
 import { useRouter } from 'next/dist/client/router';
 
 interface Props {
@@ -25,10 +24,14 @@ const HouseCard: React.FC<Props> = ({ roomId }) => {
     return <div>Loading...</div>; // TODO add a loader
   }
 
+  const routeToHouseProfile = (id: number) => {
+    router.push(`/housing/${id}`, undefined, { shallow: true });
+  };
+
   const {
     leaserEmail,
     location,
-    photos: unconvertedPhotos,
+    photos,
     numBaths,
     numBeds,
     formattedMoveIn,
@@ -38,8 +41,7 @@ const HouseCard: React.FC<Props> = ({ roomId }) => {
     distance,
   } = data;
 
-  // set the slide show items
-  const slideShowItems = useRemotePhotos(unconvertedPhotos).map((url) => ({
+  const slideShowItems = photos.map((url) => ({
     src: url,
     alt: `${leaserEmail} , ${location}}`,
   }));
@@ -51,7 +53,7 @@ const HouseCard: React.FC<Props> = ({ roomId }) => {
           <Row className="house-pic">
             <SlideShow
               images={slideShowItems}
-              onImageClick={() => router.push(`/housing/${roomId}`)}
+              onImageClick={() => routeToHouseProfile(roomId)}
             />
           </Row>
 

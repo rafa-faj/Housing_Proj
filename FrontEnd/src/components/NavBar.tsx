@@ -28,7 +28,7 @@ const NavBar: React.FC = () => {
               <Button
                 variant="no-show"
                 className="g-sign-in"
-                onClick={() => dispatch(showLogin)}
+                onClick={() => dispatch(showLogin())}
               >
                 Sign In
               </Button>
