@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from 'react-bootstrap/Modal';
+import Modal from './basics/Modal/Modal';
 import Button from 'react-bootstrap/Button';
 import {
   GoogleLogin,
@@ -41,10 +41,9 @@ const LoginUI: React.FC = () => {
 
   return (
     <Modal
-      id="LoginModal"
-      show={shouldShowLogin}
-      onHide={() => dispatch(hideLogin())}
-      centered
+      open={shouldShowLogin}
+      onClose={() => dispatch(hideLogin())}
+      className="login-modal-wrapper"
     >
       <div>
         <Button variant="no-show" onClick={() => dispatch(hideLogin())}>

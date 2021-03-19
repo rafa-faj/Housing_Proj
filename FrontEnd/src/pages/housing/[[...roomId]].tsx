@@ -35,7 +35,6 @@ const Housing: React.FC = () => {
     if (!router.isReady) return;
 
     const roomId = parseQueryParam(router.query.roomId);
-    console.log(roomId);
     setRoomId(roomId);
   }, [router]);
 

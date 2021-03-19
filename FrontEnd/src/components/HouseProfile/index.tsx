@@ -49,16 +49,6 @@ const HouseProfile: React.FC<HouseProfileProps> = (props) => {
   // object destructuring makes discriminated unions not possible, so keep everything in props and destructure within the function (look at homehub docs for more info)
   const { show, onExit } = props;
 
-  // let { data: queryData, error } = useRoomData(
-  //   props.preview ? 1 : props.roomId,
-  // );
-  // let data: HousePostUIData | PreviewData | undefined = queryData;
-
-  // if (props.preview) {
-  //   data = props.data;
-  //   error = undefined;
-  // }
-
   const { data, error } = props.preview
     ? { data: props.data, error: undefined }
     : useRoomData(props.roomId);
