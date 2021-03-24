@@ -24,14 +24,14 @@ body {
 // .btn,
 .btn-primary {
   @extend .rounded-pill;
-  // @extend .py-1;
-  // @extend .px-4;
-  // @extend .mx-4;
-  // @extend .my-2;
-  @include py(1);
-  @include px(4);
-  @include mx(4);
-  @include my(2);
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 
   font-weight: $bold-font-weight;
   font-size: $xl-font-size;
@@ -59,12 +59,12 @@ body {
 .btn-secondary {
   @extend .btn-primary;
   font-size: $md-font-size;
-  // height: 50px;
 }
 
 .btn-tertiary {
   @extend .btn-secondary;
-  @extend .px-5;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 .show > .btn-success.dropdown-toggle {

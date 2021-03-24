@@ -1,4 +1,4 @@
-@import '../../assets/sass/index';
+@import '../../assets/sass/utils/index';
 
 .modal {
   .modal-content {
@@ -31,7 +31,7 @@
     border-top-right-radius: $sm-border-radius;
   
     & .btn {
-      @include m(2);
+      margin: 0.5rem;
       font-size: $sm-font-size;
     }
   }

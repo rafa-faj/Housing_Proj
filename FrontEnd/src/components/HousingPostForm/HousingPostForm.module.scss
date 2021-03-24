@@ -1,3 +1,5 @@
+@import '../../assets/sass/utils/index';
+
 // .post-input {
 //   margin-top: 10px;
 //   border-bottom: 0;
@@ -100,8 +102,6 @@
 }
 
 .uploaderBtn {
-  @extend .btn-primary;
-
   padding: 10px !important;
   padding-top: 0 !important;
   font-size: 40px !important;

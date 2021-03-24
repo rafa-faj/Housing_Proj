@@ -42,7 +42,7 @@ const PostPage5: React.FC<WizardFormStep<Page5Store>> = ({
           maxFileSize={5242880}
           className={styles.imageUploader}
           buttonText="+"
-          buttonClassName={styles.uploaderBtn}
+          buttonClassName={`${styles.uploaderBtn} btn-primary`}
           errorClass={styles.error}
         />
       </Row>

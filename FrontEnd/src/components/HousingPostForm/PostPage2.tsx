@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { Month, Interval } from '../../constants';
-import { moveInSelect } from '../../utils/index';
+import { moveInSelect } from '../../utils';
 import { WizardFormStep } from '../basics/WizardForm';
 import Input from '../basics/Input';
 import Dropdown from '../basics/Dropdown/Dropdown';
