@@ -1,11 +1,12 @@
 import React from 'react';
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { RoomType } from '../../constants';
 import { roomTypeIconsTemp } from '../../assets/icons/all';
 import { WizardFormStep } from '../basics/WizardForm';
-import Dropdown from '../basics/Dropdown';
+import Dropdown from '../basics/Dropdown/Dropdown';
 import ToggleGroup from '../basics/ToggleGroup';
+import styles from './FilterForm.module.scss';
 
 export const page2Schema = z.object({
   numBeds: z.string(),
@@ -30,15 +31,13 @@ const FilterPage2: React.FC<WizardFormStep<Page2Store>> = ({
 }) => {
   return (
     <Container>
-      <Row className="justify-content-center m-2 my-4">
-        <div className="post-title">Unit / Room Type</div>
-      </Row>
+      <Row className={styles.title}>Unit / Room Type</Row>
 
       <br />
 
       <Form.Row className="m-2">
         <Col>
-          <Form.Label className="filterform-word">Unit Size</Form.Label>
+          <Form.Label className={styles.word}>Unit Size</Form.Label>
         </Col>
       </Form.Row>
       <Form.Row className="m-2">
@@ -46,7 +45,6 @@ const FilterPage2: React.FC<WizardFormStep<Page2Store>> = ({
           <Dropdown
             options={['0', '1', '2', '3', '4', '5']}
             initialSelected={numBeds}
-            // className="filterform-short-dropdown"
             inlineText="Bedrooms"
             isValid={validations?.numBeds?.success}
             error={validations?.numBeds?.error}
@@ -60,7 +58,6 @@ const FilterPage2: React.FC<WizardFormStep<Page2Store>> = ({
           <Dropdown
             options={['0', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4']}
             initialSelected={numBaths}
-            // className="filterform-short-dropdown"
             inlineText="Bathrooms"
             isValid={validations?.numBaths?.success}
             error={validations?.numBaths?.error}

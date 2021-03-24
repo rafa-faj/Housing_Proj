@@ -1,6 +1,6 @@
 $tv-bottom-items-color: $primary-5-color;
 
-.tv-container {
+.container {
   display: inline-block;
   border: none;
   background-color: $darker-background-color;
@@ -9,67 +9,61 @@ $tv-bottom-items-color: $primary-5-color;
   width: $bookmarks-list-width;
 }
 
-.tv-buttons-div {
+.content {
   border: none;
   background-color: white;
   padding: 6px;
   border-radius: 17px 17px 10px 10px;
   text-align: center;
 
-  div,
-  span,
-  button,
-  .btn {
+  & div,
+  & span,
+  & button,
+  & .btn {
     margin-left: auto;
     margin-right: auto;
-  }
 
-  .btn:first-child {
-    padding-top: 2vh;
-  }
+    &:first-child {
+      padding-top: 2vh;
+    }
 
-  .btn:last-child {
-    padding-bottom: 2vh;
-  }
-
-  .btn {
-    @include py(1);
+    &:last-child {
+      padding-bottom: 2vh;
+    }
   }
 }
 
-.tv-bottom {
+.bottom {
   display: flex;
   justify-content: space-around;
   padding-left: 3vh;
   padding-right: 3vh;
   padding-top: 12px;
   padding-bottom: 2x;
-
-  &-item {
-    background-color: $tv-bottom-items-color;
-    border: 0;
-    height: 20px;
-  }
-
-  &-bar {
-    @extend .tv-bottom-item;
-    min-width: 70%;
-    border-radius: 20px;
-  }
-
-  &-circle {
-    @extend .tv-bottom-item;
-    width: 20px;
-    border-radius: 50%;
-  }
 }
 
-.tv-title {
+.bottomItem {
+  background-color: $tv-bottom-items-color;
+  border: 0;
+  height: 20px;
+}
+
+.bar {
+  min-width: 70%;
+  border-radius: 20px;
+}
+
+.circle {
+  width: 20px;
+  border-radius: 50%;
+}
+
+.title {
   @include font-type('special');
   margin-top: 2vh;
 }
 
-.tv-separator {
+.separator {
   padding-bottom: 1vh;
   width: 90%;
   border: 0;

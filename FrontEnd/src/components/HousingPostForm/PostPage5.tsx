@@ -3,6 +3,7 @@ import * as z from 'zod';
 import { Container, Row, Col } from 'react-bootstrap';
 import ImageUploader from 'homehub-images-upload';
 import { WizardFormStep } from '../basics/WizardForm';
+import styles from './HousingPostForm.module.scss';
 
 export const page5Schema = z.object({
   pictures: z.array(z.any()).min(1, 'You need to add some pictures!'),
@@ -23,11 +24,7 @@ const PostPage5: React.FC<WizardFormStep<Page5Store>> = ({
 }) => {
   return (
     <Container>
-      <Row>
-        <Col>
-          <span className="post-title">Upload photos of your place</span>
-        </Col>
-      </Row>
+      <Row className={styles.title}>Upload photos of your place</Row>
 
       <Row>
         <ImageUploader
@@ -43,15 +40,13 @@ const PostPage5: React.FC<WizardFormStep<Page5Store>> = ({
           )}
           imgExtension={['.jpg', '.png', '.jpeg']}
           maxFileSize={5242880}
-          className="house-post-image-uploader"
+          className={styles.imageUploader}
           buttonText="+"
-          buttonClassName="house-post-image-uploader-btn"
-          errorClass="house-post-error-label"
+          buttonClassName={styles.uploaderBtn}
+          errorClass={styles.error}
         />
       </Row>
-      <div className="house-post-error-label">
-        {validations?.pictures?.error}
-      </div>
+      <div className={styles.error}>{validations?.pictures?.error}</div>
     </Container>
   );
 };

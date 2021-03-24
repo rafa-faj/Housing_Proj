@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from './basics/Modal/Modal';
+import Modal from '../basics/Modal/Modal';
 import Button from 'react-bootstrap/Button';
 import {
   GoogleLogin,
@@ -13,9 +13,10 @@ import {
   login,
   selectShouldShowLogin,
   hideLogin,
-} from '../redux/slices/auth';
-import { miscIcons } from '../assets/icons/all';
-import { LOGIN_INFO_TOOLTIP } from '../constants/messages';
+} from '../../redux/slices/auth';
+import { miscIcons } from '../../assets/icons/all';
+import { LOGIN_INFO_TOOLTIP } from '../../constants/messages';
+import styles from './Login.module.scss';
 
 const isOnline = (
   response: GoogleLoginResponse | GoogleLoginResponseOffline,
@@ -23,6 +24,7 @@ const isOnline = (
   return 'profileObj' in response;
 };
 
+// https://developers.google.com/identity/sign-in/web/sign-in
 const LoginUI: React.FC = () => {
   const shouldShowLogin = useSelector(selectShouldShowLogin);
   const dispatch = useDispatch();
@@ -43,19 +45,18 @@ const LoginUI: React.FC = () => {
     <Modal
       open={shouldShowLogin}
       onClose={() => dispatch(hideLogin())}
-      className="login-modal-wrapper"
+      className={styles.wrapper}
     >
       <div>
         <Button variant="no-show" onClick={() => dispatch(hideLogin())}>
-          <img className="pl-2" src="/close.svg" alt="Close" />
+          <img className={styles.close} src="/close.svg" alt="Close" />
         </Button>
         <OverlayTrigger
           placement="bottom-end"
           overlay={<Tooltip id="tooltip">{LOGIN_INFO_TOOLTIP}</Tooltip>}
         >
-          <div className="float-right pr-2 pt-1">
-            <span className="login-why-text">Why school account? </span>
-            <miscIcons.infoCircle />
+          <div className={styles.whyText}>
+            Why school account? <miscIcons.infoCircle />
           </div>
         </OverlayTrigger>
       </div>
@@ -76,13 +77,16 @@ const LoginUI: React.FC = () => {
         {/* 
         isSignedIn={true} attribute will call onSuccess callback on load to keep the user signed in
          */}
-        <img className="d-block" src="/loginButton.svg" alt="LogInButton" />
+        <img
+          className={styles.loginButton}
+          src="/loginButton.svg"
+          alt="LogInButton"
+        />
       </GoogleLogin>
     </Modal>
   );
 };
 
-// https://developers.google.com/identity/sign-in/web/sign-in
 const Login: React.FC = () => {
   const user = useSelector(selectUser);
 

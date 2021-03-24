@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import Image from 'react-bootstrap/Image';
-import Dropdown from './basics/Dropdown';
+import Dropdown from './basics/Dropdown/Dropdown';
 import { SchoolYear, majors, BackendMapping } from '../constants';
 import Input from './basics/Input';
 import ToggleGroup from './basics/ToggleGroup';

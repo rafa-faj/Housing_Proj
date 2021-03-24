@@ -1,10 +1,11 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import { miscIcons } from '../../assets/icons/all';
-import SlideShow from '../basics/SlideShow';
-import { HousePost } from '../../models/PostModels';
-import { photosToUrls } from '../../utils/photos/index';
+import { miscIcons } from '../../../assets/icons/all';
+import SlideShow from '../../basics/SlideShow';
+import { HousePost } from '../../../models/PostModels';
+import { photosToUrls } from '../../../utils/photos/index';
+import styles from './FirstColumn.module.scss';
 
 interface Props extends Pick<HousePost, 'leaserEmail' | 'location'> {
   photos: File[] | string[];
@@ -29,13 +30,13 @@ const FirstColumn: React.FC<Props> = ({
       <Button
         variant="no-show"
         onClick={() => onExit()}
-        className="house-profile-close"
+        className={styles.closeBtn}
       >
         <miscIcons.greenX />
       </Button>
       <SlideShow
         images={slideShowItems}
-        className="house-profile-preview-slideshow"
+        className={styles.slideshow}
         showPreview
       />
     </Col>

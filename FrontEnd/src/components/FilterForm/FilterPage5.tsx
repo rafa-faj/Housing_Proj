@@ -7,6 +7,7 @@ import {
 } from '../../assets/icons/all';
 import { WizardFormStep } from '../basics/WizardForm';
 import ToggleGroup from '../basics/ToggleGroup';
+import styles from 'FilterForm.module.scss';
 
 type Amenity = keyof typeof largeAmenitiesIcons;
 
@@ -26,13 +27,11 @@ const FilterPage5: React.FC<WizardFormStep<Page5Store>> = ({
 }) => {
   return (
     <Container>
-      <Row className="justify-content-center m-2 my-4">
-        <div className="post-title">Amenities</div>
-      </Row>
+      <Row className={styles.title}>Amenities</Row>
 
       <Form.Row className="m-2">
         <ToggleGroup
-          toggleClassName="house-post-amenities-toggle"
+          className={styles.amenitiesToggle}
           content={(Object.keys(largeAmenitiesIcons) as [Amenity]).map(
             (key) => ({
               label: amenitiesTranslations[key],

@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectShowNewUserPopup, showLogin } from '../../redux/slices/auth';
 import NewUserSetup from '../../components/NewUserSetup';
-import SideBarLayout, { SideBar } from '../../components/SideBarLayout';
+import SideBarLayout, {
+  SideBar,
+} from '../../components/SideBarLayout/SideBarLayout';
 import Filter from '../../components/Filter';
 import HouseCardList from '../../components/HouseCardList';
-import HouseSideBar from '../../components/HouseSideBar';
+import HouseSideBar from '../../components/HouseSideBar/HouseSideBar';
 import HousingPost from '../../components/HousingPostForm';
 import { useRouter } from 'next/router';
-import HouseProfile from '../../components/HouseProfile';
+import HouseProfile from '../../components/HouseProfile/HouseProfile';
 
 // parses the query parameter into a number (or undefined)
 const parseQueryParam = (params?: string | string[]) => {

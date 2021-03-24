@@ -4,15 +4,16 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
-import { HousePost } from '../../models/PostModels';
-import { contactIcons } from '../../assets/icons/all';
+import { HousePost } from '../../../models/PostModels';
+import { contactIcons } from '../../../assets/icons/all';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { LOGIN_TO_VIEW } from '../../constants';
+import { LOGIN_TO_VIEW } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectHousingFavorites } from '../../redux/slices/housing';
-import { selectUser } from '../../redux/slices/auth';
-import GoogleMap from '../GoogleMap';
-import { abbreviateAddress } from '../../utils';
+import { selectHousingFavorites } from '../../../redux/slices/housing';
+import { selectUser } from '../../../redux/slices/auth';
+import GoogleMap from '../../GoogleMap';
+import { abbreviateAddress } from '../../../utils';
+import styles from './ThirdColumn.module.scss';
 
 // type CommmonProps = Pick<
 //   HousePost,
@@ -62,9 +63,9 @@ const ThirdColumn: React.FC<Props> = ({
   const dispatch = useDispatch();
 
   return (
-    <Col sm={12} md={6} lg={4} className="d-flex flex-column mt-3">
-      <div className="house-profile-top-half">
-        <div className="d-flex pr-3 align-content-center justify-content-center">
+    <Col sm={12} md={6} lg={4} className={styles.wrapper}>
+      <div className={styles.topHalf}>
+        <div className={styles.favoriteWrapper}>
           <Button
             variant="tertiary"
             block
@@ -75,12 +76,10 @@ const ThirdColumn: React.FC<Props> = ({
                 // need to remove from the favorites
                 // dispatch(removeHousingFavorite(roomId));
                 // TODO
-                console.log();
               } else {
                 // need to add to the favorites
                 // dispatch(newHousingFavorite(housePost));
                 // TODO
-                console.log();
               }
             }}
           >
@@ -93,23 +92,23 @@ const ThirdColumn: React.FC<Props> = ({
           </Button>
         </div>
 
-        <div className="address-related-text">
+        <div className={styles.distance}>
           <b>~ {distance}</b>&nbsp;public transit from Price Center
         </div>
-        <div className="secondary-text">{abbreviateAddress(location)}</div>
-        <GoogleMap address={location} className="house-profile-map" />
+        <div className={styles.address}>{abbreviateAddress(location)}</div>
+        <GoogleMap address={location} className={styles.map} />
       </div>
 
-      <Container className="housing-profile-bio">
+      <Container className={styles.bio}>
         <Row>
-          <Col xs={8} lg={9} className="text-center">
+          <Col xs={8} lg={9} className={styles.textCenter}>
             <div className="primary-text">{leaserName}</div>
 
             <div className="secondary-text">
               {leaserSchoolYear} | {leaserMajor}
             </div>
 
-            <Row className="justify-content-center">
+            <Row className={styles.contactWrapper}>
               <OverlayTrigger
                 placement="bottom"
                 overlay={
@@ -119,7 +118,7 @@ const ThirdColumn: React.FC<Props> = ({
                 }
               >
                 <contactIcons.email
-                  className="d-block mr-3"
+                  className={styles.contact}
                   onClick={async () => {
                     if (user) {
                       await navigator.clipboard.writeText(leaserEmail);
@@ -138,7 +137,7 @@ const ThirdColumn: React.FC<Props> = ({
                 }
               >
                 <contactIcons.phone
-                  className="d-block mr-3"
+                  className={styles.contact}
                   onClick={async () => {
                     if (user) {
                       await navigator.clipboard.writeText(leaserPhone);
@@ -150,12 +149,16 @@ const ThirdColumn: React.FC<Props> = ({
             </Row>
           </Col>
 
-          <Col xs={4} lg={3} className="mt-auto text-center">
-            <Image src={profilePhoto} roundedCircle className="w-100" />
+          <Col xs={4} lg={3} className={styles.profilePhotoWrapper}>
+            <Image
+              src={profilePhoto}
+              roundedCircle
+              className={styles.profilePhoto}
+            />
           </Col>
         </Row>
 
-        <div className="housing-profile-speech-bubble">{roomDescription}</div>
+        <div className={styles.speechBubble}>{roomDescription}</div>
       </Container>
     </Col>
   );

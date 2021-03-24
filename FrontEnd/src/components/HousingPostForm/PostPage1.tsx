@@ -5,8 +5,9 @@ import { roomTypeIconsTemp } from '../../assets/icons/all';
 import AutoComplete from '../PlacesAutoComplete';
 import { RoomType } from '../../constants';
 import { WizardFormStep } from '../basics/WizardForm';
-import Dropdown from '../basics/Dropdown';
+import Dropdown from '../basics/Dropdown/Dropdown';
 import ToggleGroup from '../basics/ToggleGroup';
+import styles from './HousingPostForm.module.scss';
 
 export const page1Schema = z.object({
   locationSearch: z.string(),
@@ -43,11 +44,7 @@ const Page1: React.FC<WizardFormStep<Page1Store>> = ({
 }) => {
   return (
     <Container>
-      <Row>
-        <Col>
-          <span className="post-title">Room Information</span>
-        </Col>
-      </Row>
+      <Row className={styles.title}>Room Information</Row>
 
       <Form.Row className="justify-content-center m-2">
         <Col>
@@ -70,8 +67,8 @@ const Page1: React.FC<WizardFormStep<Page1Store>> = ({
       </Form.Row>
 
       <Form.Row className="m-2 align-bottom">
-        <Form.Label className="post-word">
-          Unit Size<span className="required-asterisk"> *</span>
+        <Form.Label className={styles.word}>
+          Unit Size<span className={styles.requiredAsterisk}> *</span>
         </Form.Label>
         <Col md={5}>
           <Dropdown

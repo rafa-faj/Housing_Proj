@@ -1,71 +1,67 @@
 import React, { FunctionComponent } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { landingIcons } from '../assets/icons/all';
+import styles from '../assets/sass/pages/Landing.module.scss';
 
 const Landing: FunctionComponent = () => (
   <Container>
-    <Row className="landing-title mb-4">
+    <Row className={styles.title}>
       Welcome to &nbsp; <b>Homehub 1.0 !</b>
     </Row>
-    <Row className="mb-4">
+
+    <Row className={styles.infoSectionWrapper}>
       <Col>
-        <Row className="justify-content-center mb-4">
+        <Row className={styles.bigRow}>
           <landingIcons.one />
-          <div className="landing-subtitle">
+          <div className={styles.subtitle}>
             <b>What</b> is HomeHub?
           </div>
         </Row>
-        <Row className="justify-content-center mb-4">
-          <div className="landing-text">
+        <Row className={styles.bigRow}>
+          <div className={styles.text}>
             Homehub connects students with their peers within UCSD, to create a{' '}
             <b>reliable housing network</b> for college students to{' '}
             <b>find great places to live.</b>
           </div>
         </Row>
-        <Row className="justify-content-center">
+        <Row className={styles.center}>
           <landingIcons.housing />
         </Row>
       </Col>
       <Col>
-        <Row className="justify-content-center mb-4">
+        <Row className={styles.bigRow}>
           <landingIcons.two />
-          <div className="landing-subtitle">
+          <div className={styles.subtitle}>
             <b>Why</b> use HomeHub?
           </div>
         </Row>
         <Row>
           <Col>
-            <Row className="justify-content-center mb-2">
-              <landingIcons.safe className="landing-small-img" />
+            <Row className={styles.smallRow}>
+              <landingIcons.safe className={styles.smallImg} />
             </Row>
-            <Row className="landing-caption justify-content-center mb-2">
-              Safe
-            </Row>
-            <div className="landing-text-small">
+            <Row className={styles.caption}>Safe</Row>
+            <div className={styles.textSm}>
               Homehub <b>requires a “@ucsd. edu” email address</b> to create an
               account and interact with listings by other students.
             </div>
           </Col>
           <Col>
-            <Row className="justify-content-center mb-2">
-              <landingIcons.efficient className="landing-small-img" />
+            <Row className={styles.smallRow}>
+              <landingIcons.efficient className={styles.smallImg} />
             </Row>
-            <Row className="landing-caption justify-content-center mb-2">
-              Efficient
-            </Row>
-            <div className="landing-text-small">
+            <Row className={styles.caption}>Efficient</Row>
+            <div className={styles.textSm}>
               Finding a home that fits your needs is easy through our{' '}
               <b>smart filter & match and search options.</b>
             </div>
           </Col>
           <Col>
-            <Row className="justify-content-center mb-2">
-              <landingIcons.connection className="landing-small-img" />
+            <Row className={styles.smallRow}>
+              <landingIcons.connection className={styles.smallImg} />
             </Row>
-            <Row className="landing-caption justify-content-center mb-2">
-              Connection
-            </Row>
-            <div className="landing-text-small">
+            <Row className={styles.caption}>Connection</Row>
+            <div className={styles.textSm}>
               After signing up, users are grouped with{' '}
               <b>other students at UC San Diego.</b>
             </div>
@@ -73,9 +69,10 @@ const Landing: FunctionComponent = () => (
         </Row>
       </Col>
     </Row>
-    <Row className="justify-content-center">
+
+    <Row className={styles.center}>
       <Button variant="secondary" href="https://forms.gle/jxmNTJE6L2dZBsug9">
-        <div className="landing-button-inner">Sign up FOR FREE</div>
+        <div className={styles.buttonInner}>Sign up FOR FREE</div>
       </Button>
     </Row>
   </Container>

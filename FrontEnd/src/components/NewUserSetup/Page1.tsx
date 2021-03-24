@@ -7,7 +7,7 @@ import { Form } from 'react-bootstrap';
 import { WizardFormStep } from '../basics/WizardForm';
 import { SchoolYear, NON_EMPTY_ERR_MSG, majors } from '../../constants';
 import Input from '../basics/Input';
-import Dropdown from '../basics/Dropdown';
+import Dropdown from '../basics/Dropdown/Dropdown';
 import ToggleGroup from '../basics/ToggleGroup';
 
 const nonSelectStyle = 'post-word-sub';

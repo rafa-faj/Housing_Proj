@@ -1,3 +1,6 @@
+@import '../../assets/sass/index';
+
+// TODO this isn't used but should be
 .overlay {
   position: absolute;
   top: 0;
@@ -27,13 +30,24 @@
   display: none;
 }
 
-.login-why-text {
-  color:$primary-dark-color;
+.whyText {
+  float: right;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  color: $primary-dark-color;
 }
 
-.login-modal-wrapper {
+.wrapper {
   display: flex;
   flex-direction: column;
   padding: 10px;
   padding-bottom: 0px;
+}
+
+.close {
+  padding-left: 0.5rem;
+}
+
+.loginButton {
+  display: block;
 }

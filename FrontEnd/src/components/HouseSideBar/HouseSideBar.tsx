@@ -1,9 +1,10 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import TV from './TV';
+import TV from '../TV/TV';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../redux/slices/auth';
-import BookmarksList from './BookmarksList';
+import { selectUser } from '../../redux/slices/auth';
+import BookmarkList from '../BookmarkList/BookmarkList';
+import styles from './HouseSideBar.module.scss';
 
 type ButtonOnClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => any;
 interface HouseSideBarProps {
@@ -16,10 +17,9 @@ const HouseSideBar: React.FC<HouseSideBarProps> = ({
   onPostClick,
 }) => {
   const user = useSelector(selectUser);
-  console.log('here in houseside bar');
 
   return (
-    <div className="house-sidebar-container">
+    <div className={styles.container}>
       <TV>
         {!user ? (
           <>
@@ -36,8 +36,8 @@ const HouseSideBar: React.FC<HouseSideBarProps> = ({
         )}
       </TV>
 
-      <div className="house-sidebar-bookmarks-container">
-        <BookmarksList />
+      <div className={styles.bookmarksContainer}>
+        <BookmarkList />
       </div>
     </div>
   );

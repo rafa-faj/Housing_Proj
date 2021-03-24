@@ -3,11 +3,13 @@ import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { HousePostUIData } from '../../models/PostModels';
-import FirstColumn from './FirstColumn';
-import SecondColumn from './SecondColumn';
-import ThirdColumn from './ThirdColumn';
+import FirstColumn from './FirstColumn/FirstColumn';
+import SecondColumn from './SecondColumn/SecondColumn';
+import ThirdColumn from './ThirdColumn/ThirdColumn';
 import useRoomData from '../../hooks/swr/useRoomData';
 import { Button } from 'react-bootstrap';
+import styles from './HouseProfile.module.scss';
+import classNames from 'classnames';
 
 interface PreviewButtonsProps {
   onExit: () => any;
@@ -18,8 +20,8 @@ const PreviewButtons: React.FC<PreviewButtonsProps> = ({
   onExit,
   onPublish,
 }) => (
-  <div className="house-profile-preview-buttons-wrapper">
-    <div className="house-profile-preview-buttons">
+  <div className={styles.previewButtonsWrapper}>
+    <div className={styles.previewButtons}>
       <Button variant="secondary" onClick={onExit}>
         Edit Post
       </Button>
@@ -88,15 +90,13 @@ const HouseProfile: React.FC<HouseProfileProps> = (props) => {
       onHide={onExit}
       size="xl"
       centered
-      className={`house-profile-modal ${
-        props.preview ? 'house-profile-preview' : ''
-      }`}
+      className={classNames(styles.modal, { [styles.preview]: props.preview })}
     >
       {props.preview && (
         <PreviewButtons onExit={onExit} onPublish={props.onPublish} />
       )}
 
-      <Container className="p-0">
+      <Container className={styles.container}>
         <Row>
           <FirstColumn
             leaserEmail={leaserEmail}

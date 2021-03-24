@@ -2,14 +2,16 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { HousePostUIData } from '../../models/PostModels';
-import { largeAmenitiesIcons, miscIcons } from '../../assets/icons/all';
+import { HousePostUIData } from '../../../models/PostModels';
+import { largeAmenitiesIcons, miscIcons } from '../../../assets/icons/all';
+import styles from './SecondColumn.module.scss';
+import classNames from 'classnames';
 
 const Ellipse: React.FC<{}> = () => (
-  <Row className="justify-content-center">
-    <miscIcons.ellipse className="m-3" />
-    <miscIcons.ellipse className="m-3" />
-    <miscIcons.ellipse className="m-3" />
+  <Row className={styles.ellipse}>
+    {[0, 1, 2].map((x) => (
+      <miscIcons.ellipse key={x} className={styles.ellipseDot} />
+    ))}
   </Row>
 );
 
@@ -40,13 +42,7 @@ const GetIcon: React.FC<{
   str: keyof typeof facilityToIcon;
   useStroke?: boolean;
 }> = ({ str, useStroke }) => (
-  <div
-    className={`mt-2 ${
-      useStroke
-        ? 'house-profile-amenity-icon-use-stroke'
-        : 'house-profile-amenity-icon'
-    } `}
-  >
+  <div className={classNames(styles.icon, { [styles.useStroke]: useStroke })}>
     {facilityToIcon[str]}
   </div>
 );
@@ -74,45 +70,45 @@ const SecondColumn: React.FC<Props> = ({
   other,
 }) => (
   <Col sm={12} md={6} lg={4}>
-    <Container className="d-flex flex-column justify-content-around mx-3 mx-lg-0 h-100">
-      <Row className="justify-content-left flex-grow-0">
-        <span className="housing-profile-house-type">{name}</span>
+    <Container className={styles.container}>
+      <Row className={styles.houseTypeWrapper}>
+        <span className={styles.houseType}>{name}</span>
       </Row>
 
       <Row>
-        <Col className="housing-profile-price" md={5}>
+        <Col className={styles.priceWrapper} md={5}>
           <Row>
             {negotiable && '~'}${pricePerMonth}
           </Row>
-          <Row className="profile-text-price-related">Rent/month</Row>
+          <Row className={styles.priceLabel}>Rent/month</Row>
         </Col>
         <Col md={{ span: 5, offset: 2 }}>
-          <Row className="subtitle-text">Room type</Row>
-          <Row className="primary-text">{roomType}</Row>
+          <Row className={styles.subtitle}>Room type</Row>
+          <Row className={styles.primary}>{roomType}</Row>
         </Col>
       </Row>
 
-      <Row className="justify-content-center">
+      <Row className={styles.justifyCenter}>
         <Col md={5}>
-          <Row className="subtitle-text">Move in time</Row>
-          <Row className="primary-text">{formattedMoveIn}</Row>
+          <Row className={styles.subtitle}>Move in time</Row>
+          <Row className={styles.primary}>{formattedMoveIn}</Row>
         </Col>
 
         <Col md={{ span: 5, offset: 2 }}>
-          <Row className="subtitle-text">Stay period</Row>
-          <Row className="primary-text">{stayPeriod} months</Row>
+          <Row className={styles.subtitle}>Stay period</Row>
+          <Row className={styles.primary}>{stayPeriod} months</Row>
         </Col>
       </Row>
 
       <Ellipse />
 
-      <Row className="subtitle-text">Facilities</Row>
-      <Row className="subtitle-text">
+      <Row className={styles.subtitle}>Facilities</Row>
+      <Row className={styles.subtitle}>
         {facilities.map((facility) => (
           <Col
             xs={{ span: 3, offset: 1 }}
             key={facility}
-            className="text-center"
+            className={styles.textCenter}
           >
             <GetIcon str={facility} useStroke={facility === 'Hardwood Floor'} />
             {facility}
@@ -122,8 +118,8 @@ const SecondColumn: React.FC<Props> = ({
 
       <Ellipse />
 
-      <Row className="subtitle-text">Looking for</Row>
-      <ul className="primary-text">
+      <Row className={styles.subtitle}>Looking for</Row>
+      <ul className={styles.subtitle}>
         {other.map((description) => (
           <li key={description}>{description}</li>
         ))}

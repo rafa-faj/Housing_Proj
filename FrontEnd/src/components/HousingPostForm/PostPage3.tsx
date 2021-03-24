@@ -6,6 +6,7 @@ import {
 } from '../../assets/icons/all';
 import { WizardFormStep } from '../basics/WizardForm';
 import ToggleGroup from '../basics/ToggleGroup';
+import styles from './HousingPostForm.module.scss';
 
 // TODO this should be in a different file
 type Amenity = keyof typeof largeAmenitiesIcons;
@@ -26,7 +27,7 @@ const PostPage3: React.FC<WizardFormStep<Page3Store>> = ({
 }) => {
   return (
     <ToggleGroup
-      toggleClassName="house-post-amenities-toggle"
+      className={styles.amenitiesToggle}
       label="Please select all the amenities your place offers."
       content={(Object.keys(largeAmenitiesIcons) as [Amenity]).map((key) => ({
         label: amenitiesTranslations[key],

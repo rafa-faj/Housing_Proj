@@ -1,42 +1,64 @@
-.ellipse-button {
+.ellipseButton {
   width: 54px;
   height: 54px;
   padding: 9.2px 21.1px 8.2px 20.1px;
   background-color: #e7936d;
 }
 
-.landing-title {
+.infoSectionWrapper {
+  margin-bottom: 1.5rem;
+}
+
+.title {
   color: $primary-dark-color;
   font-size: $xl-font-size;
   justify-content: center;
+  margin-bottom: 1.5rem;
 }
 
-.landing-subtitle {
+.subtitle {
   color: $primary-dark-color;
   font-size: $lg-font-size;
   margin: auto 0 auto 50px;
 }
 
-.landing-caption {
+.caption {
   color: $primary-dark-color;
   font-size: 26px;
   font-weight: bold;
+  justify-content: center;
+  margin-bottom: 0.5rem;
 }
 
-.landing-text {
+.text {
   color: $primary-dark-color;
   font-size: $sm-font-size;
   width: 325px;
 }
-.landing-text-small {
+
+.textSm {
   color: $primary-dark-color;
   font-size: 14px;
 }
 
-.landing-small-img{
+.smallImg {
   height: 100px;
 }
 
-.landing-button-inner {
+.buttonInner {
   margin: inherit;
+}
+
+.smallRow {
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.bigRow {
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.center {
+  justify-content: center;
 }

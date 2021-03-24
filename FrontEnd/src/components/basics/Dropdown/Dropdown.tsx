@@ -1,8 +1,9 @@
+// TODO change this to use the "Autocomplete" component in MaterialUI
 import React, { useState, useEffect, useRef } from 'react';
 import { Form } from 'react-bootstrap';
 import BootstrapDropdown, * as BootstrapDropdownMetadata from 'react-bootstrap/Dropdown';
 import * as z from 'zod';
-import useClickAwayListener from '../../hooks/useClickAwayListener';
+import useClickAwayListener from '../../../hooks/useClickAwayListener';
 
 interface DropdownProps extends BootstrapDropdownMetadata.DropdownProps {
   options: string[];

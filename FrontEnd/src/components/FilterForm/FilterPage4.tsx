@@ -4,7 +4,8 @@ import * as z from 'zod';
 import { Interval, Month } from '../../constants';
 import { moveInSelect } from '../../utils';
 import { WizardFormStep } from '../basics/WizardForm';
-import Dropdown from '../basics/Dropdown';
+import Dropdown from '../basics/Dropdown/Dropdown';
+import styles from './FilterForm.module.scss';
 
 export const page4Schema = z
   .object({
@@ -50,29 +51,26 @@ const FilterPage4: React.FC<WizardFormStep<Page4Store>> = ({
 }) => {
   return (
     <Container>
-      <Row className="justify-content-center m-2 my-4">
-        <div className="post-title">Rental Dates</div>
-      </Row>
+      <Row className={styles.title}>Rental Dates</Row>
 
       <br />
 
       <Form.Row className="m-2">
         <Col>
-          <Form.Label className="filterform-word">
+          <Form.Label className={styles.word}>
             When would you like to move in?
           </Form.Label>
         </Col>
       </Form.Row>
       <Form.Row className="m-2">
         <Col md={2}>
-          <Form.Label className="filterform-word my-2">From</Form.Label>
+          <Form.Label className={`${styles.word} my-2`}>From</Form.Label>
         </Col>
         <Col md={3}>
           <Dropdown
             options={Object.keys(Interval)}
             initialSelected={earlyInterval}
             placeholder="Date"
-            // className="filterform-short-dropdown"
             isValid={validations?.earlyInterval?.success}
             error={validations?.earlyInterval?.error}
             onSelect={(s, e) =>
@@ -88,7 +86,6 @@ const FilterPage4: React.FC<WizardFormStep<Page4Store>> = ({
             options={Object.keys(Month)}
             initialSelected={earlyMonth}
             placeholder="Month"
-            // className="filterform-short-dropdown"
             isValid={validations?.earlyMonth?.success}
             error={validations?.earlyMonth?.error}
             onSelect={(s, e) =>
@@ -102,14 +99,13 @@ const FilterPage4: React.FC<WizardFormStep<Page4Store>> = ({
       </Form.Row>
       <Form.Row className="m-2">
         <Col md={2}>
-          <Form.Label className="filterform-word my-2">To</Form.Label>
+          <Form.Label className={`${styles.word} my-2`}>To</Form.Label>
         </Col>
         <Col md={3}>
           <Dropdown
             options={Object.keys(Interval)}
             initialSelected={lateInterval}
             placeholder="Date"
-            // className="filterform-short-dropdown"
             isValid={validations?.lateInterval?.success}
             error={validations?.lateInterval?.error}
             onSelect={(s, e) =>
@@ -125,7 +121,6 @@ const FilterPage4: React.FC<WizardFormStep<Page4Store>> = ({
             options={Object.keys(Month)}
             initialSelected={lateMonth}
             placeholder="Month"
-            // className="filterform-short-dropdown"
             isValid={validations?.lateMonth?.success}
             error={validations?.lateMonth?.error}
             onSelect={(s, e) =>
@@ -157,7 +152,6 @@ const FilterPage4: React.FC<WizardFormStep<Page4Store>> = ({
               '12',
             ]}
             initialSelected={stayPeriod?.toString()}
-            // className="filterform-short-dropdown"
             inlineText="Months"
             isValid={validations?.stayPeriod?.success}
             error={validations?.stayPeriod?.error}

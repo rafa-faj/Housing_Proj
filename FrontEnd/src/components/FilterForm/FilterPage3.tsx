@@ -4,6 +4,8 @@ import * as z from 'zod';
 import { WizardFormStep } from '../basics/WizardForm';
 import Input from '../basics/Input';
 import { miscIcons } from '../../assets/icons/all';
+import styles from './FilterForm.module.scss';
+import classNames from 'classnames';
 
 export const page3Schema = z
   .object({
@@ -33,16 +35,14 @@ const FilterPage3: React.FC<WizardFormStep<Page3Store>> = ({
 }) => {
   return (
     <Container>
-      <Row className="justify-content-center m-2 my-4">
-        <div className="post-title">Price Range</div>
-      </Row>
+      <Row className={styles.title}>Price Range</Row>
 
       <br />
 
       <Form.Row className="m-2">
         <Col>
           <Form inline className="justify-content-center">
-            <Form.Label className="filterform-word m-2">$</Form.Label>
+            <Form.Label className={`${styles.word} m-2`}>$</Form.Label>
             <Input
               value={minPrice}
               type="number"
@@ -53,14 +53,14 @@ const FilterPage3: React.FC<WizardFormStep<Page3Store>> = ({
                     : undefined,
                 })
               }
-              className="filterform-short-input m-2 mr-5"
+              className={`${styles.shortInput} m-2 mr-5`}
               isValid={validations?.minPrice?.success}
               isInvalid={
                 validations?.minPrice && !validations?.minPrice?.success
               }
             />
             <miscIcons.dash />
-            <Form.Label className="filterform-word m-2 ml-5">$</Form.Label>
+            <Form.Label className={`${styles.word} m-2 ml-5`}>$</Form.Label>
             <Input
               value={maxPrice}
               type="number"
@@ -71,7 +71,7 @@ const FilterPage3: React.FC<WizardFormStep<Page3Store>> = ({
                     : undefined,
                 })
               }
-              className="filterform-short-input m-2"
+              className={`${styles.shortInput} m-2`}
               isValid={validations?.maxPrice?.success}
               isInvalid={
                 validations?.maxPrice && !validations?.maxPrice?.success

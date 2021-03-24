@@ -1,15 +1,16 @@
 import React from 'react';
-import NavBar from './NavBar';
+import NavBar from '../NavBar';
+import styles from './SideBarLayout.module.scss';
 
 const SideBarLayout: React.FC = ({ children }) => (
   <>
     <NavBar />
-    <div className="sidebar-layout">{children}</div>
+    <div className={styles.layout}>{children}</div>
   </>
 );
 
 export default SideBarLayout;
 
 export const SideBar: React.FC = ({ children }) => (
-  <div className="sidebar-layout-sidebar">{children}</div>
+  <div className={styles.sidebar}>{children}</div>
 );

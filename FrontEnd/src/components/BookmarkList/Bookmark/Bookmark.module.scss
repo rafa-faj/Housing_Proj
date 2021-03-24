@@ -1,0 +1,32 @@
+@import '../../../assets/sass/utils/all';
+
+.btnWrapper {
+  width: 100%;
+}
+
+.thumbnail {
+  display: block;
+  border-radius: 13px;
+  width: 65px;
+  height: 100%;
+  align-self: center;
+  padding: 0.25rem;
+  margin-right: 0.5rem;
+}
+
+.bookmark {
+  @include font-type('subtitle');
+  @include thin-border('sm');
+
+  background-color: white;
+  height: 70px;
+  width: 100%;
+  border-radius: 15px;
+  display: flex;
+}
+
+.info {
+  text-overflow: ellipsis;
+  align-self: center;
+  padding: 0.5rem;
+}

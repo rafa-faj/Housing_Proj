@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import FilterForm from './FilterForm';
+import FilterForm from './FilterForm/FilterForm';
 import { filterIcons } from '../assets/icons/all';
 import { selectShowFilter, setShow } from '../redux/slices/filter';
 
