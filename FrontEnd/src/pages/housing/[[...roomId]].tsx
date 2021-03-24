@@ -5,7 +5,7 @@ import NewUserSetup from '../../components/NewUserSetup';
 import SideBarLayout, {
   SideBar,
 } from '../../components/SideBarLayout/SideBarLayout';
-import Filter from '../../components/Filter';
+import Filter from '../../components/Filter/Filter';
 import HouseCardList from '../../components/HouseCardList';
 import HouseSideBar from '../../components/HouseSideBar/HouseSideBar';
 import HousingPost from '../../components/HousingPostForm';

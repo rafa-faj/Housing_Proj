@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
-import { WizardFormStep } from '../basics/WizardForm';
-import Input from '../basics/Input';
-import { miscIcons } from '../../assets/icons/all';
+import { WizardFormStep } from '../../basics/WizardForm';
+import Input from '../../basics/Input';
+import { miscIcons } from '../../../assets/icons/all';
 import styles from './FilterForm.module.scss';
 import classNames from 'classnames';
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import * as z from 'zod';
-import { Interval, Month } from '../../constants';
-import { moveInSelect } from '../../utils';
-import { WizardFormStep } from '../basics/WizardForm';
-import Dropdown from '../basics/Dropdown/Dropdown';
+import { Interval, Month } from '../../../constants';
+import { moveInSelect } from '../../../utils';
+import { WizardFormStep } from '../../basics/WizardForm';
+import Dropdown from '../../basics/Dropdown/Dropdown';
 import styles from './FilterForm.module.scss';
 
 export const page4Schema = z

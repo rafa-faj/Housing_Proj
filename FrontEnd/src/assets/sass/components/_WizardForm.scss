@@ -43,7 +43,7 @@ $wizard-form-middle-height: 90%;
 }
 
 .wizard-form-modal-dialog {
-  @include media-breakpoint-up('md') {
+  @include bp-up('md') {
     max-width: 90%;
     max-width: 700px;
   }

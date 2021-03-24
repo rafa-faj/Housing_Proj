@@ -30,7 +30,7 @@
   margin-right: 1rem;
   height: 100%;
   
-  @include media-breakpoint-up('lg') {
+  @include bp-up('lg') {
     margin-left: 0 !important; // TODO temporary, necessary to override bootstrap's container
     margin-right: 0 !important;
   }

@@ -4,9 +4,9 @@ import * as z from 'zod';
 import {
   largeAmenitiesIcons,
   amenitiesTranslations,
-} from '../../assets/icons/all';
-import { WizardFormStep } from '../basics/WizardForm';
-import ToggleGroup from '../basics/ToggleGroup';
+} from '../../../assets/icons/all';
+import { WizardFormStep } from '../../basics/WizardForm';
+import ToggleGroup from '../../basics/ToggleGroup';
 import styles from './FilterForm.module.scss';
 
 type Amenity = keyof typeof largeAmenitiesIcons;

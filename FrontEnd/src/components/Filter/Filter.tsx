@@ -2,8 +2,9 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import FilterForm from './FilterForm/FilterForm';
-import { filterIcons } from '../assets/icons/all';
-import { selectShowFilter, setShow } from '../redux/slices/filter';
+import { filterIcons } from '../../assets/icons/all';
+import { selectShowFilter, setShow } from '../../redux/slices/filter';
+import styles from './Filter.module.scss';
 
 const Filter: React.FC = () => {
   const dispatch = useDispatch();
@@ -13,12 +14,12 @@ const Filter: React.FC = () => {
   return (
     <>
       {/* Header in the home page */}
-      <div className="filter-launch-pad">
-        <filterIcons.hello className="disappear-on-sm" />
-        <filterIcons.arrow className="disappear-on-sm" />
+      <div className={`${styles.filter} px-lg-5 px-md-4`}>
+        <filterIcons.hello className="d-none d-md-flex" />
+        <filterIcons.arrow className="d-none d-md-flex" />
         <Button onClick={() => setShowFilter(true)}>Find your place</Button>
-        <filterIcons.arrow className="disappear-on-sm" />
-        <filterIcons.loveHouse className="disappear-on-sm" />
+        <filterIcons.arrow className="d-none d-md-flex" />
+        <filterIcons.loveHouse className="d-none d-md-flex" />
       </div>
 
       {/* The filter itself */}

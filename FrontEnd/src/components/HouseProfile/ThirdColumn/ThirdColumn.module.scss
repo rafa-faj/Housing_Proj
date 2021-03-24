@@ -11,10 +11,6 @@
   padding-right: 0.5rem;
   height: 50%;
   display: contents;
-
-  @include media-breakpoint-up('lg') {
-    padding-left: 0.25rem;
-  }
 }
 
 .favoriteWrapper {
@@ -36,7 +32,7 @@
   padding-right: 0.25rem;
   height: 30vh;
 
-  @include media-breakpoint-up('lg') {
+  @include bp-up('lg') {
     height: $lg-modal-height/4;
   }
 }
@@ -54,11 +50,11 @@
   width: auto;
   border-radius: ($rounded-lg / 2) 0 $rounded-lg 0;
 
-  @include media-breakpoint-down('sm') {
+  @include bp-down('sm') {
     border-radius: ($rounded-lg / 2) ($rounded-lg / 2) $rounded-lg $rounded-lg;
   }
 
-  @include media-breakpoint-up('lg') {
+  @include bp-up('lg') {
     height: $lg-modal-height/2;
   }
 }

@@ -64,7 +64,7 @@ const ThirdColumn: React.FC<Props> = ({
 
   return (
     <Col sm={12} md={6} lg={4} className={styles.wrapper}>
-      <div className={styles.topHalf}>
+      <div className={`${styles.topHalf} pl-lg-1`}>
         <div className={styles.favoriteWrapper}>
           <Button
             variant="tertiary"

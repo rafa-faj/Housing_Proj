@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { searchHousingPosts } from '../../apis/housing';
+import { searchHousingPosts } from '../../../apis/housing';
 import FilterPage1, {
   Page1Store,
   page1InitialStore,
@@ -31,14 +31,14 @@ import FilterPage6, {
   page6InitialStore,
   page6Schema,
 } from './FilterPage6';
-import WizardForm from '../basics/WizardForm';
+import WizardForm from '../../basics/WizardForm';
 import {
   FilterModel,
   PreferenceLiteralType,
   Preferences,
   RoomLiteralType,
-} from '../../models/FilterModel';
-import { RoomType } from '../../constants';
+} from '../../../models/FilterModel';
+import { RoomType } from '../../../constants';
 
 type enumCheckSuccess<T extends { [index: string]: string }> = {
   key: keyof T;

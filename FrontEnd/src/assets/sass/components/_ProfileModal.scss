@@ -51,7 +51,7 @@ $profile-form-middle-height: 90%;
 
   width: 100%;
   height: $profile-form-middle-height;
-  @include media-breakpoint-up('md') {
+  @include bp-up('md') {
     height: 600px;
   }
 }
@@ -296,7 +296,7 @@ $profile-form-middle-height: 90%;
 }
 
 .profile-form-modal-dialog {
-  @include media-breakpoint-up('md') {
+  @include bp-up('md') {
     max-width: 90%;
   }
 

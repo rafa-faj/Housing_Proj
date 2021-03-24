@@ -20,7 +20,7 @@
   overflow: hidden;
   border-radius: $rounded-lg 0 0 $rounded-lg;
 
-  @include media-breakpoint-down('md') {
+  @include bp-down('md') {
     border-radius: $rounded-lg $rounded-lg 0 0;
   }
 }
