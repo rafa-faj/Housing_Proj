@@ -1,10 +1,8 @@
 @import '../../assets/sass/utils/index';
 
-.modal {
-  .modal-content {
-    @include thin-border('lg');
-    padding: 0;
-  }
+.modalContent {
+  @include thin-border('lg');
+  padding: 0px;
 }
 
 .preview {
@@ -38,6 +36,5 @@
 }
 
 .container {
-  // TODO was originally "p-0"
-  padding: 0
+  padding: 0;
 }

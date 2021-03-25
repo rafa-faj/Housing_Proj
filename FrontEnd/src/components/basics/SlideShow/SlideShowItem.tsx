@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { CarouselItem, CarouselItemProps } from 'reactstrap';
 import styles from './SlideShow.module.scss';
 import classNames from 'classnames';
-import Image from './Image/Image';
+import Image from '../FilledImage/FilledImage';
 
 interface SlideShowItemProps extends CarouselItemProps {
   src: string;

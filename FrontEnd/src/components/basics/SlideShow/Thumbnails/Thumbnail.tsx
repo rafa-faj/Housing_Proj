@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { SlideShowItem } from '../SlideShow';
 import styles from './Thumbnails.module.scss';
 import classNames from 'classnames';
-import Image from '../Image/Image';
+import Image from '../../FilledImage/FilledImage';
 
 interface ThumbnailProps
   extends React.DetailedHTMLProps<

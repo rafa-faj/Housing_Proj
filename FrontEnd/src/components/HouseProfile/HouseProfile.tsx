@@ -90,7 +90,8 @@ const HouseProfile: React.FC<HouseProfileProps> = (props) => {
       onHide={onExit}
       size="xl"
       centered
-      className={classNames(styles.modal, { [styles.preview]: props.preview })}
+      className={classNames({ [styles.preview]: props.preview })}
+      contentClassName={styles.modalContent}
     >
       {props.preview && (
         <PreviewButtons onExit={onExit} onPublish={props.onPublish} />

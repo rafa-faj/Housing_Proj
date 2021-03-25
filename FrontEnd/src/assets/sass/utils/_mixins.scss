@@ -113,7 +113,7 @@
   outline: none !important;
 }
 
-@mixin thin-border($size: 'lg', $color: $secondary-light-color) {
+@mixin thin-border($size: 'lg', $color: $secondary-1-color) {
   @if $size == 'sm' {
     border: 2px solid $color;
   } @else if $size == 'md' {

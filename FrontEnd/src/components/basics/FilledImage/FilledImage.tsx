@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import styles from './Image.module.scss';
+import styles from './FilledImage.module.scss';
 import classNames from 'classnames';
 
 interface Props
@@ -8,7 +8,7 @@ interface Props
     HTMLDivElement
   > {
   src: string;
-  alt: string;
+  alt?: string;
 }
 
 const Image: FunctionComponent<Props> = ({
