@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import { useSelector, useDispatch } from 'react-redux';
 import { loading } from '../assets/icons/all';
 import HouseNotFound from './HouseNotFound';
-import HouseCard from './HouseCard';
+import HouseCard from './HouseCard/HouseCard';
 import {
   selectHousingSearchMode,
   SearchingMode,

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, selectUser, showLogin } from '../redux/slices/auth';
-import ProfileModal from './ProfileModal';
-import { navIcons } from '../assets/icons/all';
+import { logout, selectUser, showLogin } from '../../redux/slices/auth';
+import ProfileModal from '../ProfileModal';
+import { navIcons } from '../../assets/icons/all';
+import styles from './NavBar.module.scss';
 
 const NavBar: React.FC = () => {
   const [showProfile, setShowProfile] = useState<boolean>(false);
@@ -15,11 +16,11 @@ const NavBar: React.FC = () => {
     <>
       <ProfileModal show={showProfile} setShow={setShowProfile} />
 
-      <Navbar sticky="top" className="navbar-wrapper p-0 m-0 mb-4">
-        <div className="navbar-container">
+      <Navbar sticky="top" className={`${styles.wrapper} p-0 m-0 mb-4`}>
+        <div className={styles.container}>
           <div className="mr-auto">
-            <a className="navbar-brand" href="/">
-              <navIcons.logo className="navbar-logo-svg" />
+            <a href="/">
+              <navIcons.logo className={styles.logo} />
             </a>
           </div>
 
@@ -27,7 +28,7 @@ const NavBar: React.FC = () => {
             {!user ? (
               <Button
                 variant="no-show"
-                className="g-sign-in"
+                className={styles.navBtn}
                 onClick={() => dispatch(showLogin())}
               >
                 Sign In
@@ -36,14 +37,14 @@ const NavBar: React.FC = () => {
               <>
                 <Button
                   variant="no-show"
-                  className="g-sign-in"
+                  className={styles.navBtn}
                   onClick={() => setShowProfile(true)}
                 >
                   Profile
                 </Button>
                 <Button
                   variant="no-show"
-                  className="g-sign-out"
+                  className={styles.navBtn}
                   onClick={() => dispatch(logout())}
                 >
                   Log Out

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import { carouselIcons } from '../../../assets/icons/all';
-import Thumbnails from './Thumbnails';
+import Thumbnails from './Thumbnails/Thumbnails';
 import SlideShowItem from './SlideShowItem';
+import styles from './SlideShow.module.scss';
+import classNames from 'classnames';
 
 export interface SlideShowItem {
   src: string;
@@ -19,7 +21,7 @@ interface PathProps {
 const SlideShow: React.FC<PathProps> = ({
   images,
   onImageClick,
-  className = '',
+  className,
   showPreview,
 }) => {
   // need to track animation so the user cannot click on a preview during animation
@@ -27,23 +29,18 @@ const SlideShow: React.FC<PathProps> = ({
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div
-      className={`slideshow ${
-        images.length > 5 ? 'slideshow-overflow' : ''
-      } ${className}`}
-    >
+    <div className={classNames(styles.slideshow, className)}>
       <Carousel
         activeIndex={activeIndex}
         onSelect={setActiveIndex}
         nextIcon={<carouselIcons.rightArrow />}
         prevIcon={<carouselIcons.leftArrow />}
-        interval={null}
+        interval={null} // no interval
         indicators={!showPreview}
-        className={
-          showPreview
-            ? 'slideshow-carousel-preview'
-            : 'slideshow-carousel-no-preview'
-        }
+        className={classNames({
+          [styles.preview]: showPreview,
+          [styles.carouselOverflow]: images.length > 5,
+        })}
       >
         {images.map(({ src, alt }, index) => (
           <SlideShowItem
@@ -60,6 +57,7 @@ const SlideShow: React.FC<PathProps> = ({
         <Thumbnails
           images={images}
           activeIndex={activeIndex}
+          overflow={images.length > 5}
           onClick={(index) => !animating && setActiveIndex(index)}
         />
       )}

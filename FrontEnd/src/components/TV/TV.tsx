@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React from 'react';
 import styles from './TV.module.scss';
 
@@ -12,8 +11,8 @@ const NewTV: React.FC = ({ children }) => (
     </div>
 
     <div className={styles.bottom}>
-      <div className={classNames(styles.bottomItem, styles.bar)} />
-      <div className={classNames(styles.bottomItem, styles.circle)} />
+      <div className={`${styles.bottomItem} ${styles.bar}`} />
+      <div className={`${styles.bottomItem} ${styles.circle}`} />
     </div>
   </div>
 );

@@ -2,7 +2,7 @@ import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { miscIcons } from '../../../assets/icons/all';
-import SlideShow from '../../basics/SlideShow';
+import SlideShow from '../../basics/SlideShow/SlideShow';
 import { HousePost } from '../../../models/PostModels';
 import { photosToUrls } from '../../../utils/photos/index';
 import styles from './FirstColumn.module.scss';

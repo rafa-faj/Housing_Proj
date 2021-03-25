@@ -3,10 +3,11 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
-import SlideShow from './basics/SlideShow/index';
-import { formatRoomType } from '../utils';
-import useRoomData from '../hooks/swr/useRoomData';
+import SlideShow from '../basics/SlideShow/SlideShow';
+import { formatRoomType } from '../../utils';
+import useRoomData from '../../hooks/swr/useRoomData';
 import { useRouter } from 'next/dist/client/router';
+import styles from './HouseCard.module.scss';
 
 interface Props {
   roomId: number;
@@ -47,10 +48,10 @@ const HouseCard: React.FC<Props> = ({ roomId }) => {
   }));
 
   return (
-    <Card className="house-card">
+    <Card className={styles.card}>
       <Card.Body className="p-0">
         <Container>
-          <Row className="house-pic">
+          <Row className={styles.pic}>
             <SlideShow
               images={slideShowItems}
               onImageClick={() => routeToHouseProfile(roomId)}
@@ -68,7 +69,7 @@ const HouseCard: React.FC<Props> = ({ roomId }) => {
               <Row>
                 <div className="w-100 text-right secondary-text">
                   {formatRoomType(roomType)}
-                  <span className="divider"> | </span>{' '}
+                  <span className={styles.divider}> | </span>{' '}
                   {`${numBeds} B ${numBaths} Ba`}
                 </div>
               </Row>
