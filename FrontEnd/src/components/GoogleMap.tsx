@@ -5,7 +5,6 @@ import {
   Marker,
 } from 'react-google-maps';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { mapIcons, Icon } from '../assets/icons/all';
 
 interface Coords {
   lat: number;
@@ -42,9 +41,9 @@ const GoogleMap: React.FC<PathProps> = ({
       mounted = false;
     };
   }, [address, setCenter]);
+
   const GoogleMapRender = withGoogleMap(() => (
     <GoogleMapAPI center={center} defaultZoom={zoom}>
-      {/* <MapPin position={center} /> */}
       <Marker
         position={center}
         icon={{
@@ -54,6 +53,7 @@ const GoogleMap: React.FC<PathProps> = ({
       />
     </GoogleMapAPI>
   ));
+
   return (
     <div className={className}>
       <GoogleMapRender
