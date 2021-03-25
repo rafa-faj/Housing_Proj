@@ -7,10 +7,10 @@ import { largeAmenitiesIcons, miscIcons } from '../../../assets/icons/all';
 import styles from './SecondColumn.module.scss';
 import classNames from 'classnames';
 
-const Ellipse: React.FC<{}> = () => (
-  <Row className={styles.ellipse}>
+const Ellipse: React.FC = () => (
+  <Row className="justify-content-center">
     {[0, 1, 2].map((x) => (
-      <miscIcons.ellipse key={x} className={styles.ellipseDot} />
+      <miscIcons.ellipse key={x} className="m-3" />
     ))}
   </Row>
 );
