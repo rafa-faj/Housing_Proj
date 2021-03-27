@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import { carouselIcons } from '../../../assets/icons/all';
 import Thumbnails from './Thumbnails/Thumbnails';
-import SlideShowItem from './SlideShowItem';
+import SlideShowItem from './SlideShowItem/SlideShowItem';
 import styles from './SlideShow.module.scss';
 import classNames from 'classnames';
 
