@@ -11,7 +11,7 @@ import Page3, { Page3Store, page3InitialStore, page3Schema } from './PostPage3';
 import Page4, { Page4Store, page4InitialStore, page4Schema } from './PostPage4';
 import Page5, { Page5Store, page5InitialStore, page5Schema } from './PostPage5';
 import Page6, { Page6Store, page6InitialStore, page6Schema } from './PostPage6';
-import WizardForm from '../basics/WizardForm';
+import WizardForm from '../basics/WizardForm/WizardForm';
 import {
   CreateHousePostProperties,
   HousePostUserData,

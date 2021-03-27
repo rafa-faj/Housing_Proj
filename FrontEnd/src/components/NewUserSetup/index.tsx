@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import Page1, { Page1Store, page1InitialStore, page1Schema } from './Page1';
 import Page2, { Page2Store, page2InitialStore, page2Schema } from './Page2';
-import WizardForm from '../basics/WizardForm';
+import WizardForm from '../basics/WizardForm/WizardForm';
 import { createNewUser } from '../../redux/slices/auth';
 
 type Store = Page1Store & Page2Store;

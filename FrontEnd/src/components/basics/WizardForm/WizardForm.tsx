@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { ZodSchema, ZodIssue } from 'zod';
-import { miscIcons } from '../../assets/icons/all';
+import { miscIcons } from '../../../assets/icons/all';
+import styles from './WizardForm.module.scss';
 
 type ValidationError =
   | { success: true; error: undefined; data?: string }
@@ -256,21 +257,22 @@ const WizardForm = <T extends {}>({
 
   return (
     <Modal
-      dialogClassName="wizard-form-modal-dialog"
+      dialogClassName={styles.modalDialog}
+      contentClassName={styles.modalContent}
       show={show}
       onHide={onHide}
       centered
     >
       <div className="h-100 w-100">
-        <div className="wizard-form-top-bar">
+        <div className={`${styles.topBar} px-3 py-2`}>
           <Button variant="no-show" onClick={onHide}>
             <miscIcons.orangeX />
           </Button>
-          <div className="title">{title}</div>
+          <div className={styles.title}>{title}</div>
           <div />
         </div>
 
-        <div className="wizard-form-middle">
+        <div className={`${styles.middle} my-4 px-4`}>
           {React.cloneElement(CurStep, {
             nextStep,
             prevStep,
@@ -283,7 +285,7 @@ const WizardForm = <T extends {}>({
           })}
         </div>
 
-        <div className="wizard-form-bottom-bar">
+        <div className={`${styles.bottomBar} px-4 pb-4 pt-2`}>
           <div className="d-flex">
             {React.Children.map(children, (c, i) => (
               <div className="mx-1">

@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import * as z from 'zod';
 import { Form } from 'react-bootstrap';
-import { WizardFormStep } from '../basics/WizardForm';
+import { WizardFormStep } from '../basics/WizardForm/WizardForm';
 import { SchoolYear, NON_EMPTY_ERR_MSG, majors } from '../../constants';
 import Input from '../basics/Input';
 import Dropdown from '../basics/Dropdown/Dropdown';

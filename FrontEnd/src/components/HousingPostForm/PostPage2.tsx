@@ -3,7 +3,7 @@ import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { Month, Interval } from '../../constants';
 import { moveInSelect } from '../../utils';
-import { WizardFormStep } from '../basics/WizardForm';
+import { WizardFormStep } from '../basics/WizardForm/WizardForm';
 import Input from '../basics/Input';
 import Dropdown from '../basics/Dropdown/Dropdown';
 import styles from './HousingPostForm.module.scss';

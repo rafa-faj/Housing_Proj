@@ -1,6 +1,6 @@
 import React from 'react';
 import * as z from 'zod';
-import { WizardFormStep } from '../basics/WizardForm';
+import { WizardFormStep } from '../basics/WizardForm/WizardForm';
 import ToggleGroup from '../basics/ToggleGroup';
 
 // TODO put in its own file

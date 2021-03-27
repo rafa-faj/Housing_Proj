@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
-import { WizardFormStep } from '../../basics/WizardForm';
+import { WizardFormStep } from '../../basics/WizardForm/WizardForm';
 import Input from '../../basics/Input';
 import styles from './FilterForm.module.scss';
 import classNames from 'classnames';

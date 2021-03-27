@@ -4,7 +4,7 @@ import * as z from 'zod';
 import { roomTypeIconsTemp } from '../../assets/icons/all';
 import AutoComplete from '../PlacesAutoComplete';
 import { RoomType } from '../../constants';
-import { WizardFormStep } from '../basics/WizardForm';
+import { WizardFormStep } from '../basics/WizardForm/WizardForm';
 import Dropdown from '../basics/Dropdown/Dropdown';
 import ToggleGroup from '../basics/ToggleGroup';
 import styles from './HousingPostForm.module.scss';

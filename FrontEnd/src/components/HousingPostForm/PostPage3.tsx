@@ -4,7 +4,7 @@ import {
   largeAmenitiesIcons,
   amenitiesTranslations,
 } from '../../assets/icons/all';
-import { WizardFormStep } from '../basics/WizardForm';
+import { WizardFormStep } from '../basics/WizardForm/WizardForm';
 import ToggleGroup from '../basics/ToggleGroup';
 import styles from './HousingPostForm.module.scss';
 
