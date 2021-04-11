@@ -1,4 +1,4 @@
-@import 'utils';
+@use 'utils' as *;
 
 // TODO: abstract common code from this and WizardForm to theme.scss
 $profile-form-middle-height: 90%;

@@ -1,4 +1,4 @@
-@import 'utils';
+@use 'utils' as *;
 
 .bookmarkList {
   @include thin-border('sm', $primary-3-color);

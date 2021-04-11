@@ -1,4 +1,4 @@
-@import 'utils';
+@use 'utils' as *;
 
 .unfilled {
   @include font-type('primary-input-text');

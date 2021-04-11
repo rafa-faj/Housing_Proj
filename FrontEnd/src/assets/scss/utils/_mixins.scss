@@ -1,20 +1,20 @@
-@import 'bootstrap-breakpoints';
+@use 'bootstrap-breakpoints';
 
 // Breakpoint wrappers for bootstrap's media breakpoints
 @mixin bp($size) {
-  @include media-breakpoint-only($size) {
+  @include bootstrap-breakpoints.media-breakpoint-only($size) {
     @content;
   }
 }
 
 @mixin bp-up($size) {
-  @include media-breakpoint-up($size) {
+  @include bootstrap-breakpoints.media-breakpoint-up($size) {
     @content;
   }
 }
 
 @mixin bp-down($size) {
-  @include media-breakpoint-down($size) {
+  @include bootstrap-breakpoints.media-breakpoint-down($size) {
     @content;
   }
 }

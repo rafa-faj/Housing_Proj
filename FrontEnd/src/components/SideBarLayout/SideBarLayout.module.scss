@@ -1,4 +1,4 @@
-@import 'utils';
+@use 'utils' as *;
 
 $sidebar-width: 250px;
 $sidebar-offset: calc(100vw - $sidebar-width);

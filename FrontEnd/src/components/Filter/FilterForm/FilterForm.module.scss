@@ -1,4 +1,4 @@
-@import 'utils';
+@use 'utils' as *;
 
 .title {
   @include font-type('secondary-title');
