@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { RoomType } from '../../../constants';
-import { roomTypeIconsTemp } from '../../../assets/icons/all';
+import { roomTypeIconsTemp } from '@icons';
 import { WizardFormStep } from '../../basics/WizardForm/WizardForm';
 import Dropdown from '../../basics/Dropdown/Dropdown';
 import ToggleGroup from '../../basics/ToggleGroup/ToggleGroup';

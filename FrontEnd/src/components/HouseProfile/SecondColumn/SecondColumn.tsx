@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { HousePostUIData } from '../../../models/PostModels';
-import { largeAmenitiesIcons, miscIcons } from '../../../assets/icons/all';
+import { largeAmenitiesIcons, miscIcons } from '@icons';
 import styles from './SecondColumn.module.scss';
 import classNames from 'classnames';
 

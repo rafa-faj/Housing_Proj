@@ -6,14 +6,14 @@ import Dropdown from '../basics/Dropdown/Dropdown';
 import { SchoolYear, majors, BackendMapping } from '../../constants';
 import Input from '../basics/Input/Input';
 import ToggleGroup from '../basics/ToggleGroup/ToggleGroup';
-import { miscIcons, profileIcons } from '../../assets/icons/all';
+import { miscIcons, profileIcons } from '@icons';
 import {
   selectUser,
   selectUserDraft,
   setUserDraft,
   logout,
   editProfile,
-} from '../../redux/slices/auth';
+} from '@redux';
 import { User, dummyUser } from '../../models/User';
 import styles from './ProfileModal.module.scss';
 import classNames from 'classnames';

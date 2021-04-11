@@ -1,10 +1,7 @@
 import React from 'react';
 import { Container, Row, Form } from 'react-bootstrap';
 import * as z from 'zod';
-import {
-  largeAmenitiesIcons,
-  amenitiesTranslations,
-} from '../../../assets/icons/all';
+import { largeAmenitiesIcons, amenitiesTranslations } from '@icons';
 import { WizardFormStep } from '../../basics/WizardForm/WizardForm';
 import ToggleGroup from '../../basics/ToggleGroup/ToggleGroup';
 import styles from './FilterForm.module.scss';

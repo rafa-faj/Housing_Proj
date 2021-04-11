@@ -1,9 +1,6 @@
 import React from 'react';
 import * as z from 'zod';
-import {
-  largeAmenitiesIcons,
-  amenitiesTranslations,
-} from '../../assets/icons/all';
+import { largeAmenitiesIcons, amenitiesTranslations } from '@icons';
 import { WizardFormStep } from '../basics/WizardForm/WizardForm';
 import ToggleGroup from '../basics/ToggleGroup/ToggleGroup';
 import styles from './HousingPostForm.module.scss';

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { bookmarkIcons } from '../../assets/icons/all';
-import { selectUser } from '../../redux/slices/auth';
+import { bookmarkIcons } from '@icons';
 import {
+  selectUser,
   getHousingFavorites,
   selectHousingFavorites,
-} from '../../redux/slices/housing';
+} from '@redux';
 import Bookmark from './Bookmark/Bookmark';
 import styles from './BookmarkList.module.scss';
 

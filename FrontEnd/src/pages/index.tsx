@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import { landingIcons } from '../assets/icons/all';
+import { landingIcons } from '@icons';
 import styles from './index.module.scss';
 
 const Landing: FunctionComponent = () => (

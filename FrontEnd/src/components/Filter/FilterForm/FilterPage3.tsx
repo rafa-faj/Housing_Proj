@@ -3,7 +3,7 @@ import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { WizardFormStep } from '../../basics/WizardForm/WizardForm';
 import Input from '../../basics/Input/Input';
-import { miscIcons } from '../../../assets/icons/all';
+import { miscIcons } from '@icons';
 import styles from './FilterForm.module.scss';
 import classNames from 'classnames';
 

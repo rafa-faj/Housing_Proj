@@ -3,13 +3,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useSelector, useDispatch } from 'react-redux';
-import { loading } from '../../assets/icons/all';
+import { loading } from '@icons';
 import HouseNotFound from '../HouseNotFound/HouseNotFound';
 import HouseCard from './HouseCard';
-import {
-  selectHousingSearchMode,
-  SearchingMode,
-} from '../../redux/slices/housing';
+import { selectHousingSearchMode, SearchingMode } from '@redux';
 import useRecentRoomIds from '../../hooks/swr/useRecentRoomIds';
 
 const HouseCardList: React.FC = () => {

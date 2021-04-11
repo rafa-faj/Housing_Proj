@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { reduxNextWrapper } from '../redux/store';
+import { reduxNextWrapper } from '@redux';
 import Login from '../components/Login/Login';
 import '../assets/scss/global/index.scss';
 

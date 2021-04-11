@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import TV from '../TV/TV';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../redux/slices/auth';
+import { selectUser } from '@redux';
 import BookmarkList from '../BookmarkList/BookmarkList';
 import styles from './HouseSideBar.module.scss';
 

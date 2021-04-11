@@ -8,13 +8,8 @@ import {
 } from 'react-google-login';
 import { useSelector, useDispatch } from 'react-redux';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import {
-  selectUser,
-  login,
-  selectShouldShowLogin,
-  hideLogin,
-} from '../../redux/slices/auth';
-import { miscIcons } from '../../assets/icons/all';
+import { selectUser, login, selectShouldShowLogin, hideLogin } from '@redux';
+import { miscIcons } from '@icons';
 import { LOGIN_INFO_TOOLTIP } from '../../constants/messages';
 import styles from './Login.module.scss';
 

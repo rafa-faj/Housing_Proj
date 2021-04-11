@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectShowNewUserPopup, showLogin } from '../../redux/slices/auth';
+import { selectShowNewUserPopup, showLogin } from '@redux';
 import NewUserSetup from '../../components/NewUserSetup';
 import SideBarLayout, {
   SideBar,

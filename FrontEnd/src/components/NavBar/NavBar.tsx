@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout, selectUser, showLogin } from '../../redux/slices/auth';
+import { logout, selectUser, showLogin } from '@redux';
 import ProfileModal from '../ProfileModal/ProfileModal';
-import { navIcons } from '../../assets/icons/all';
+import { navIcons } from '@icons';
 import styles from './NavBar.module.scss';
 
 const NavBar: React.FC = () => {

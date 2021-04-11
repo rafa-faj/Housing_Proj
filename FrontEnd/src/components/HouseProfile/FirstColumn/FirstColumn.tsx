@@ -1,7 +1,7 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import { miscIcons } from '../../../assets/icons/all';
+import { miscIcons } from '@icons';
 import SlideShow from '../../basics/SlideShow/SlideShow';
 import { HousePost } from '../../../models/PostModels';
 import { photosToUrls } from '../../../utils/photos/index';

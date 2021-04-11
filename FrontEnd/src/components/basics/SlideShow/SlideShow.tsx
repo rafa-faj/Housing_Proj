@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import { carouselIcons } from '../../../assets/icons/all';
+import { carouselIcons } from '@icons';
 import Thumbnails from './Thumbnails/Thumbnails';
 import SlideShowItem from './SlideShowItem/SlideShowItem';
 import styles from './SlideShow.module.scss';

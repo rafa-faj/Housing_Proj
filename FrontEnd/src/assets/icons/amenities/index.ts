@@ -1,5 +1,5 @@
-import * as smallAmenitiesIcons from './small/all';
-import * as largeAmenitiesIcons from './large/all';
+import * as smallAmenitiesIcons from './small';
+import * as largeAmenitiesIcons from './large';
 
 const translations: Record<
   keyof typeof largeAmenitiesIcons | keyof typeof smallAmenitiesIcons,

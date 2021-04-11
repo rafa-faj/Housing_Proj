@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUser } from '../../redux/slices/auth';
-import { newHousingPost } from '../../redux/slices/housing';
+import { selectUser, newHousingPost } from '@redux';
 import { User } from '../../models/User';
 import HouseProfile, { PreviewData } from '../HouseProfile/HouseProfile';
-import { facilityToIcon } from '../HouseProfile/HouseProfile';
+import { facilityToIcon } from '../HouseProfile/SecondColumn/SecondColumn';
 import Page1, { Page1Store, page1InitialStore, page1Schema } from './PostPage1';
 import Page2, { Page2Store, page2InitialStore, page2Schema } from './PostPage2';
 import Page3, { Page3Store, page3InitialStore, page3Schema } from './PostPage3';

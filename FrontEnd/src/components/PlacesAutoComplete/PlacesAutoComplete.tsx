@@ -3,7 +3,7 @@ import PlacesAutocomplete from 'react-places-autocomplete';
 import Input, { InputProps } from '../basics/Input/Input';
 import styles from './PlacesAutoComplete.module.scss';
 // import { useSelector, useDispatch } from 'react-redux';
-// import { setPost, selectPost } from '../redux/slices/posting';
+// import { setPost, selectPost } from '@redux';
 // import { getDurationInMinutes } from '../apis/google';
 
 interface PathProps extends Omit<InputProps, 'onChange' | 'onSelect'> {

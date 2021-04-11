@@ -5,7 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@react-google-maps/api": "^1.10.1",
-    "@reduxjs/toolkit": "^1.5.0",
+    "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -42,7 +42,7 @@
     "sass": "^1.32.8",
     "swr": "^0.4.2",
     "typescript": "~3.8.2",
-    "universal-cookie": "4.0.4",
+    "universal-cookie": "^4.0.4",
     "use-async-effect": "^2.2.3",
     "zod": "^2.0.0-beta.29"
   },
@@ -69,6 +69,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-export-default-from": "^7.12.13",
+    "@babel/plugin-proposal-export-namespace-from": "^7.12.13",
     "@svgr/webpack": "^5.5.0",
     "@types/node": "^12.19.12",
     "eslint-config-airbnb-typescript-prettier": "^3.1.0",

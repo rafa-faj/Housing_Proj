@@ -1,12 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { auth, housing, filter } from './slices/index';
+import { authReducer, housingReducer, filterReducer } from './slices/index';
 import { MakeStore, createWrapper, Context } from 'next-redux-wrapper';
 import { isRunningDev } from '../utils/next';
 
 const storeSlices = {
-  auth,
-  housing,
-  filter,
+  auth: authReducer,
+  housing: housingReducer,
+  filter: filterReducer,
 };
 
 const exampleStore = configureStore({

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, ButtonProps } from 'react-bootstrap';
-import { Icon as IconType, IconProps } from '../../../assets/icons/all';
+import { Icon as IconType, IconProps } from '@icons';
 import classNames from 'classnames';
 import styles from './Toggle.module.scss';
 

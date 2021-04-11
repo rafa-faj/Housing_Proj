@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Form } from 'react-bootstrap';
 import * as z from 'zod';
 import Toggle from '../Toggle/Toggle';
-import { Icon } from '../../../assets/icons/all';
+import { Icon } from '@icons';
 import classNames from 'classnames';
 import styles from './ToggleGroup.module.scss';
 import RequiredAsterisk from '../RequiredAsterisk/RequiredAsterisk';

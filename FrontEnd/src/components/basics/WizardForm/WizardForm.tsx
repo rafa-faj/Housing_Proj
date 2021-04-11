@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { ZodSchema, ZodIssue } from 'zod';
-import { miscIcons } from '../../../assets/icons/all';
+import { miscIcons } from '@icons';
 import styles from './WizardForm.module.scss';
 
 type ValidationError =

@@ -2,8 +2,8 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import FilterForm from './FilterForm/FilterForm';
-import { filterIcons } from '../../assets/icons/all';
-import { selectShowFilter, setShow } from '../../redux/slices/filter';
+import { filterIcons } from '@icons';
+import { selectShowFilter, setShow } from '@redux';
 import styles from './Filter.module.scss';
 
 const Filter: React.FC = () => {
