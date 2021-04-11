@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
-import { Form } from 'react-bootstrap';
-import Input, { InputProps } from './basics/Input';
+import Input, { InputProps } from '../basics/Input/Input';
+import styles from './PlacesAutoComplete.module.scss';
 // import { useSelector, useDispatch } from 'react-redux';
 // import { setPost, selectPost } from '../redux/slices/posting';
 // import { getDurationInMinutes } from '../apis/google';
@@ -42,15 +42,6 @@ const AutoComplete: React.FC<PathProps> = ({
     >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <>
-          {/* <Form.Control
-            // TODO fix prop spread is forbidden
-            {...getInputProps({
-              placeholder: 'Search Places ...',
-              className,
-            })}
-            isValid={isValid}
-            isInvalid={isInvalid}
-          /> */}
           <Input
             {...getInputProps({
               placeholder: 'Search Places ...',
@@ -61,17 +52,10 @@ const AutoComplete: React.FC<PathProps> = ({
             <div>
               {loading && <div>Loading...</div>}
               {suggestions.map((suggestion) => (
-                // TODO: Missing "key" prop for element in iterator
                 <div
-                  {
-                    /* TODO fix 'Prop spreading is forbidden' */
-                    ...getSuggestionItemProps(suggestion, {
-                      className: 'suggestion-item',
-                      // style: suggestion.active
-                      //   ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                      //   : { backgroundColor: '#ffffff', cursor: 'pointer' },
-                    })
-                  }
+                  {...getSuggestionItemProps(suggestion, {
+                    className: styles.suggestion,
+                  })}
                   key={suggestion.description}
                 >
                   {suggestion.description}

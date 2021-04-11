@@ -2,25 +2,21 @@ import React, { useState } from 'react';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import Image from 'react-bootstrap/Image';
-import Dropdown from './basics/Dropdown/Dropdown';
-import { SchoolYear, majors, BackendMapping } from '../constants';
-import Input from './basics/Input';
-import ToggleGroup from './basics/ToggleGroup';
-import { miscIcons, profileIcons } from '../assets/icons/all';
+import Dropdown from '../basics/Dropdown/Dropdown';
+import { SchoolYear, majors, BackendMapping } from '../../constants';
+import Input from '../basics/Input/Input';
+import ToggleGroup from '../basics/ToggleGroup/ToggleGroup';
+import { miscIcons, profileIcons } from '../../assets/icons/all';
 import {
   selectUser,
   selectUserDraft,
   setUserDraft,
   logout,
   editProfile,
-} from '../redux/slices/auth';
-
-import { User, dummyUser } from '../models/User';
-
-const nonSelectStyle = 'profile-word-sub';
-const selectStyle = 'profile-word-sub profile-word-sub-selected';
-const nonSelectBg = 'profile-word-sub-bg';
-const SelectBg = 'profile-word-sub-bg profile-word-sub-bg-selected';
+} from '../../redux/slices/auth';
+import { User, dummyUser } from '../../models/User';
+import styles from './ProfileModal.module.scss';
+import classNames from 'classnames';
 
 interface PathProps {
   show: boolean;
@@ -94,57 +90,59 @@ const ProfileModal: React.FC<PathProps> = ({ show, setShow }) => {
   const [editPosts, setEditPosts] = useState(false);
   return (
     <Modal
-      dialogClassName="profile-form-modal-dialog"
+      dialogClassName={styles.modal}
       show={show}
       onHide={() => setShow(false)}
       centered
     >
       <div className="h-100 w-100">
-        {/* TODO add border-radius to top and bottom rows */}
-        {/* TODO <div className="d-flex align-items-center justify-content-around h-100"> */}
         <Button
           variant="no-show"
-          className="profile-cross"
+          className={styles.profileCross}
           onClick={() => setShow(false)}
         >
           <miscIcons.orangeX />
         </Button>
-        <Row className="profile-form-top-bar">
+        <Row className={styles.topBar}>
           <div
-            className={`title${editPosts ? '' : ' profile-selected'}`}
+            className={classNames(styles.title, {
+              [styles.profileSelected]: editPosts,
+            })}
             onClick={() => setEditPosts(false)}
           >
             Profile
-            {!editPosts && <div className="element">_____</div>}
+            {!editPosts && <div className={styles.element}>_____</div>}
           </div>
-          <div className="title-divider mx-5">|</div>
+          <div className={`${styles.divider} mx-5`}>|</div>
           <span
-            className={`title${editPosts ? ' profile-selected' : ''}`}
+            className={classNames(styles.title, {
+              [styles.profileSelected]: editPosts,
+            })}
             onClick={() => setEditPosts(true)}
           >
             Manage my posts
-            {editPosts && <div className="element">_____________</div>}
+            {editPosts && <div className={styles.element}>_____________</div>}
           </span>
         </Row>
-        <div className="profile-form-middle">
+        <div className={styles.middleSection}>
           <Container fluid className="h-100">
             <Row className="h-100">
               <Col md={4} className="align-self-center">
-                <div className="profile-wrap">
+                <div className={styles.profileWrap}>
                   <Image
                     src={`https://houseit.s3.us-east-2.amazonaws.com/${userSelectedDraft.profilePhoto}`} // TODO shouldnt use constant for the src
                     roundedCircle
-                    className="profile-icon"
+                    className={styles.icon}
                   />
                 </div>
-                <div className="profile-name">{userSelectedDraft.name}</div>
-                <div className="profile-verified">
+                <div className={styles.name}>{userSelectedDraft.name}</div>
+                <div className={styles.verified}>
                   <profileIcons.tickMark />
                   UCSD Email Verified
                 </div>
-                <div className="profile-wrap">
+                <div className={styles.profileWrap}>
                   <Button
-                    className="profile-sign-out"
+                    className={styles.signOut}
                     variant="no-show"
                     onClick={() => {
                       dispatch(logout());
@@ -154,7 +152,9 @@ const ProfileModal: React.FC<PathProps> = ({ show, setShow }) => {
                     Log Out
                   </Button>
                 </div>
-                <div className="mt-5 profile-edit-wrap profile-wrap">
+                <div
+                  className={`mt-5 ${styles.editWrap} ${styles.profileWrap}`}
+                >
                   {activeIndicator ? (
                     <Button
                       variant="secondary"
@@ -199,9 +199,9 @@ const ProfileModal: React.FC<PathProps> = ({ show, setShow }) => {
                           Confirm
                         </Button>
                       </div>
-                      <div className="mt-1 profile-wrap">
+                      <div className={`mt-1 ${styles.profileWrap}`}>
                         <Button
-                          className="profile-cancel"
+                          className={styles.cancel}
                           variant="no-show"
                           onClick={() => {
                             setactiveIndicator(true);
@@ -215,28 +215,27 @@ const ProfileModal: React.FC<PathProps> = ({ show, setShow }) => {
                   )}
                 </div>
               </Col>
-              <Col md={8} className={editPosts ? 'profile-posts-list' : ''}>
+              <Col
+                md={8}
+                className={classNames({ [styles.postsList]: editPosts })}
+              >
                 {!editPosts ? (
                   <>
                     <Form.Row className="justify-content-center m-2">
                       <Form.Group as={Col} controlId="profileEmail">
-                        <Form.Label className="profile-form-label">
+                        <Form.Label className={styles.label}>
                           School Email
                         </Form.Label>
                         <Form.Control
-                          className="single-line-input"
                           type="email"
                           disabled
                           value={userSelectedDraft.email}
                         />
                       </Form.Group>
                       <Form.Group as={Col} controlId="profilePhone">
-                        <Form.Label className="profile-form-label">
-                          Phone
-                        </Form.Label>
+                        <Form.Label className={styles.label}>Phone</Form.Label>
                         <Form.Control
                           readOnly={activeIndicator}
-                          className="single-line-input"
                           type="text"
                           value={userSelectedDraft.phone}
                           onChange={(event) => {
@@ -258,10 +257,10 @@ const ProfileModal: React.FC<PathProps> = ({ show, setShow }) => {
                     {/* tenary form for toggle group and display as a string */}
                     <Form.Row className="m-2 px-0">
                       <Form.Group as={Col} controlId="profileSchoolYear">
-                        <Form.Label className="profile-form-label">
+                        <Form.Label className={styles.label}>
                           School Year
                         </Form.Label>
-                        <Form.Row className="pl-1 profile-school-year">
+                        <Form.Row className={`pl-1 ${styles.schoolYear}`}>
                           {!activeIndicator ? (
                             <ToggleGroup
                               singleSelect
@@ -290,9 +289,7 @@ const ProfileModal: React.FC<PathProps> = ({ show, setShow }) => {
 
                     <Form.Row className="m-2">
                       <Form.Group as={Col} controlId="profileMajor">
-                        <Form.Label className="profile-form-label">
-                          Major
-                        </Form.Label>
+                        <Form.Label className={styles.label}>Major</Form.Label>
                         {!activeIndicator ? (
                           <Dropdown
                             options={majors}
@@ -320,13 +317,13 @@ const ProfileModal: React.FC<PathProps> = ({ show, setShow }) => {
                     </Form.Row>
                     <Form.Row className="m-2">
                       <Form.Group as={Col} controlId="profileBio">
-                        <Form.Label className="profile-form-bio">
+                        <Form.Label className={styles.bio}>
                           Tell us about yourself in a short bio
                         </Form.Label>
                         <Form.Control
                           readOnly={activeIndicator}
                           as="textarea"
-                          className="single-line-input profile-bio-text"
+                          className={styles.bioText}
                           type="text"
                           maxLength={600}
                           value={userSelectedDraft.description}
@@ -339,7 +336,7 @@ const ProfileModal: React.FC<PathProps> = ({ show, setShow }) => {
                             )
                           }
                         />
-                        <span className="profile-char-check">
+                        <span className={styles.charCheck}>
                           {userSelectedDraft.description.length}/600
                         </span>
                       </Form.Group>
@@ -348,32 +345,33 @@ const ProfileModal: React.FC<PathProps> = ({ show, setShow }) => {
                 ) : (
                   <>
                     {dummyPosts.length == 0 ? (
-                      <div className="profile-no-posts-text">
+                      <div className={styles.noPostsText}>
                         You don't have any housing posts yet.
                         <br />
                         Are you looking for your Bookmarks instead?
                       </div>
                     ) : (
                       dummyPosts.map((post) => (
-                        <div className="m-2 profile-mypost">
+                        <div className={`m-2 ${styles.myPost}`}>
                           <Image
                             src="https://houseit.s3.us-east-2.amazonaws.com/test0.png"
-                            className="profile-mypost-picture"
+                            className={styles.myPostPicture}
                           />
 
-                          <div className="profile-mypost-info">
-                            <div className="profile-mypost-title">
+                          <div className={styles.myPostInfo}>
+                            <div className={styles.myPostTitle}>
                               {post.name}
                             </div>
-                            <div className="profile-mypost-details mt-1">
+                            <div className={`${styles.myPostDetails} mt-1`}>
                               {post.roomType} | {post.price}
                             </div>
 
-                            <div className="mt-auto profile-mypost-actions">
+                            <div className={`mt-auto ${styles.myPostActions}`}>
                               <Button variant="secondary" className="w-90">
                                 Mark as occupied
                               </Button>
-                              <div className="ml-auto profile-mypost-edit">
+
+                              <div className={`ml-auto ${styles.myPostEdit}`}>
                                 Edit this post
                               </div>
                             </div>

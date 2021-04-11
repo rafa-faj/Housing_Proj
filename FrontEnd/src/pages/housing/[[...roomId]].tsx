@@ -6,11 +6,12 @@ import SideBarLayout, {
   SideBar,
 } from '../../components/SideBarLayout/SideBarLayout';
 import Filter from '../../components/Filter/Filter';
-import HouseCardList from '../../components/HouseCardList';
+import HouseCardList from '../../components/HouseCard/HouseCardList';
 import HouseSideBar from '../../components/HouseSideBar/HouseSideBar';
 import HousingPost from '../../components/HousingPostForm';
 import { useRouter } from 'next/router';
 import HouseProfile from '../../components/HouseProfile/HouseProfile';
+import styles from './[[...roomId]].module.scss';
 
 // parses the query parameter into a number (or undefined)
 const parseQueryParam = (params?: string | string[]) => {
@@ -61,7 +62,7 @@ const Housing: React.FC = () => {
 
       {/* The actual home page */}
       <SideBarLayout>
-        <div className="home-filter">
+        <div className={styles.filter}>
           <Filter />
         </div>
 

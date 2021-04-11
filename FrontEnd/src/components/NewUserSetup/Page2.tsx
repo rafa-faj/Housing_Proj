@@ -2,7 +2,7 @@ import React from 'react';
 import * as z from 'zod';
 import { Container, Form, Row } from 'react-bootstrap';
 import { WizardFormStep } from '../basics/WizardForm/WizardForm';
-import Input from '../basics/Input';
+import Input from '../basics/Input/Input';
 
 export const page2Schema = z.object({
   description: z

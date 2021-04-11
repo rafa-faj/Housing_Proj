@@ -3,20 +3,16 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import * as z from 'zod';
-import { Form } from 'react-bootstrap';
 import { WizardFormStep } from '../basics/WizardForm/WizardForm';
-import { SchoolYear, NON_EMPTY_ERR_MSG, majors } from '../../constants';
-import Input from '../basics/Input';
+import {
+  SchoolYear,
+  NON_EMPTY_ERR_MSG,
+  majors,
+  phoneRegex,
+} from '../../constants';
+import Input from '../basics/Input/Input';
 import Dropdown from '../basics/Dropdown/Dropdown';
-import ToggleGroup from '../basics/ToggleGroup';
-
-const nonSelectStyle = 'post-word-sub';
-const selectStyle = 'post-word-sub post-word-sub-selected';
-const nonSelectBg = 'post-word-sub-bg';
-const SelectBg = 'post-word-sub-bg post-word-sub-bg-selected';
-
-// TODO put in constants
-const phoneRegex = /^([ ]*\+?[ ]*[0-9]{0,4}[ ]*(-|\()?[0-9]{3}[ ]*(-|\))?[ ]*[0-9]{3}[ ]*-?[ ]*[0-9]{4}[ ]*)$/;
+import ToggleGroup from '../basics/ToggleGroup/ToggleGroup';
 
 export const page1Schema = z.object({
   name: z.string().nonempty(NON_EMPTY_ERR_MSG),

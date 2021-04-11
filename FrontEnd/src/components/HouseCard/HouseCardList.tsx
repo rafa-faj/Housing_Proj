@@ -3,14 +3,14 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useSelector, useDispatch } from 'react-redux';
-import { loading } from '../assets/icons/all';
-import HouseNotFound from './HouseNotFound';
-import HouseCard from './HouseCard/HouseCard';
+import { loading } from '../../assets/icons/all';
+import HouseNotFound from '../HouseNotFound/HouseNotFound';
+import HouseCard from './HouseCard';
 import {
   selectHousingSearchMode,
   SearchingMode,
-} from '../redux/slices/housing';
-import useRecentRoomIds from '../hooks/swr/useRecentRoomIds';
+} from '../../redux/slices/housing';
+import useRecentRoomIds from '../../hooks/swr/useRecentRoomIds';
 
 const HouseCardList: React.FC = () => {
   const { data: roomIds, error } = useRecentRoomIds();

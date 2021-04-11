@@ -1,73 +1,14 @@
 @import '../../assets/sass/utils/index';
 
-// .post-input {
-//   margin-top: 10px;
-//   border-bottom: 0;
-// }
-
-.post-text {
-  background: $primary-color-light;
-  // border-color:
-  border-radius: 8px;
-  // color: $primary-dark-color;
-}
-
 .word {
   @include font-type('label-text');
   font-size: 18px;
-}
-
-.post-word-sub {
-  height: 24px;
-  font-family: Montserrat;
-  font-size: 18px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #d3ab98;
-}
-
-.post-word-sub-selected {
-  color: white;
-}
-
-.post-word-sub-bg {
-  padding: 5px 9px 5px 9px;
-  margin-right: 18px;
-  border-radius: 10px;
-}
-
-.post-word-sub-bg-selected {
-  background-color: $primary-input-color;
 }
 
 .title {
   @include font-type('secondary-title');
 
   justify-content: center;
-}
-
-.post-button {
-  width: 20%;
-  height: 100%;
-  border-radius: 50px;
-  font-size: calc(50% + 0.5vw + 1vh);
-}
-
-.post-input,
-.post-dropdown {
-  height: 50px;
-  font-size: 18px !important;
-}
-
-.post-input-label,
-.post-dropdown-label {
-  @include font-type('label-text');
-  margin-bottom: 10px;
-  font-size: 18px !important;
 }
 
 .requiredAsterisk {

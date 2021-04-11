@@ -5,7 +5,7 @@ import { RoomType } from '../../../constants';
 import { roomTypeIconsTemp } from '../../../assets/icons/all';
 import { WizardFormStep } from '../../basics/WizardForm/WizardForm';
 import Dropdown from '../../basics/Dropdown/Dropdown';
-import ToggleGroup from '../../basics/ToggleGroup';
+import ToggleGroup from '../../basics/ToggleGroup/ToggleGroup';
 import styles from './FilterForm.module.scss';
 
 export const page2Schema = z.object({

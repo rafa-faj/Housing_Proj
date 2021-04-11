@@ -5,7 +5,7 @@ import {
   amenitiesTranslations,
 } from '../../assets/icons/all';
 import { WizardFormStep } from '../basics/WizardForm/WizardForm';
-import ToggleGroup from '../basics/ToggleGroup';
+import ToggleGroup from '../basics/ToggleGroup/ToggleGroup';
 import styles from './HousingPostForm.module.scss';
 
 // TODO this should be in a different file

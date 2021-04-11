@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Form, FormControlProps } from 'react-bootstrap';
 import * as z from 'zod';
+import classNames from 'classnames';
+import styles from './Input.module.scss';
+import RequiredAsterisk from '../RequiredAsterisk/RequiredAsterisk';
 
 export interface InputProps
   extends FormControlProps,
@@ -20,13 +23,13 @@ export interface InputProps
 
 const Input: React.FC<InputProps> = ({
   label,
-  labelClassName = '',
+  labelClassName,
   error,
-  errorClassName = '',
+  errorClassName,
   inlinePostText,
-  postTextClassName = '',
+  postTextClassName,
   required,
-  className = '',
+  className,
   readOnly,
   onChange,
   isInvalid,
@@ -40,33 +43,31 @@ const Input: React.FC<InputProps> = ({
   return (
     <Form.Group>
       {(label || required) && (
-        <Form.Label className={`input-label ${labelClassName}`}>
-          {label}
-          {required && <span className="input-required-asterisk"> *</span>}
+        <Form.Label className={classNames(styles.label, labelClassName)}>
+          {label} {required && <RequiredAsterisk />}
         </Form.Label>
       )}
+
       <div className="d-flex">
         <Form.Control
           {...formControlProps}
           value={value}
-          className={
-            (isEmpty && !readOnly ? 'input-unfilled ' : 'input-filled ') +
-            (readOnly ? 'input-readonly' : '') +
-            ((isInvalid || error) && !readOnly ? 'input-invalid ' : '') +
-            className
-          }
+          className={classNames(className, {
+            [styles.unfilled]: isEmpty && !readOnly,
+            [styles.filled]: !isEmpty || readOnly,
+            [styles.readonly]: readOnly,
+            [styles.invalid]: (isInvalid || error) && !readOnly,
+          })}
           isValid={!readOnly && isValid}
           readOnly={readOnly}
           onChange={(e) => {
             setIsEmpty(!e.target.value || e.target.value === '');
-            if (onChange) {
-              onChange(e);
-            }
+            if (onChange) onChange(e);
           }}
         />
 
         {inlinePostText && (
-          <div className={`input-inline-text ${postTextClassName}`}>
+          <div className={classNames(styles.inlineText, postTextClassName)}>
             {inlinePostText}
           </div>
         )}
@@ -75,7 +76,7 @@ const Input: React.FC<InputProps> = ({
       {children}
 
       {error && (
-        <Form.Label className={`input-error ${errorClassName}`}>
+        <Form.Label className={classNames(styles.error, errorClassName)}>
           {error}
         </Form.Label>
       )}

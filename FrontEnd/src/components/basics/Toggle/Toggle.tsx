@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, ButtonProps } from 'react-bootstrap';
-import { Icon as IconType, IconProps } from '../../assets/icons/all';
+import { Icon as IconType, IconProps } from '../../../assets/icons/all';
+import classNames from 'classnames';
+import styles from './Input.module.scss';
 
 interface ToggleProps extends Omit<ButtonProps, 'onClick'> {
   label: string;
@@ -22,7 +24,7 @@ const Toggle: React.FC<ToggleProps> = ({
   iconConfig,
   selected,
   initialSelected = false,
-  className = '',
+  className,
   onClick,
   children,
   ...buttonProps
@@ -40,22 +42,25 @@ const Toggle: React.FC<ToggleProps> = ({
 
   return (
     <Button
-      variant=""
+      variant="" // TODO
       {...buttonProps}
-      className={
-        (isSelected
-          ? 'homehub-toggle-selected '
-          : 'homehub-toggle-unselected ') + className
-      }
+      className={classNames(className, {
+        [styles.selected]: isSelected,
+        [styles.unselected]: !isSelected,
+      })}
       onClick={(e) => {
         if (onClick) onClick(!isSelected, e);
         setIsSelected(!isSelected);
       }}
     >
-      <div>
-        {Icon && <Icon className="homehub-toggle-icon" {...iconConfig} />}
-      </div>
-      <div>{!hideLabel && label}</div>
+      {Icon && (
+        <div>
+          <Icon {...iconConfig} />
+        </div>
+      )}
+
+      {!hideLabel && <div>{label}</div>}
+
       {children}
     </Button>
   );

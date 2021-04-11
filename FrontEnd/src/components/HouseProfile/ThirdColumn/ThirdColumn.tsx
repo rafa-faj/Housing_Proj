@@ -11,7 +11,7 @@ import { LOGIN_TO_VIEW } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectHousingFavorites } from '../../../redux/slices/housing';
 import { selectUser } from '../../../redux/slices/auth';
-import GoogleMap from '../../GoogleMap';
+import GoogleMap from '../../basics/Map/Map';
 import { abbreviateAddress } from '../../../utils';
 import styles from './ThirdColumn.module.scss';
 

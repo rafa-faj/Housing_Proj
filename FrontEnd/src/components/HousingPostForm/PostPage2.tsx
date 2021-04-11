@@ -4,7 +4,7 @@ import * as z from 'zod';
 import { Month, Interval } from '../../constants';
 import { moveInSelect } from '../../utils';
 import { WizardFormStep } from '../basics/WizardForm/WizardForm';
-import Input from '../basics/Input';
+import Input from '../basics/Input/Input';
 import Dropdown from '../basics/Dropdown/Dropdown';
 import styles from './HousingPostForm.module.scss';
 

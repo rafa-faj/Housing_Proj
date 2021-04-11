@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Form } from 'react-bootstrap';
 import * as z from 'zod';
-import Toggle from './Toggle';
-import { Icon } from '../../assets/icons/all';
+import Toggle from '../Toggle/Toggle';
+import { Icon } from '../../../assets/icons/all';
+import classNames from 'classnames';
+import styles from './Input.module.scss';
+import RequiredAsterisk from '../RequiredAsterisk/RequiredAsterisk';
 
 export interface ToggleContent {
   icon: Icon;
@@ -58,12 +61,12 @@ const ToggleGroup: React.FC<ToggleGroupProps> = ({
   center,
   onSelect,
   label,
-  labelClassName = '',
+  labelClassName,
   error,
-  errorClassName = '',
-  toggleClassName = '',
+  errorClassName,
+  toggleClassName,
   required,
-  className = '',
+  className,
   ...wrapperProps
 }) => {
   const typedInitialSelected = useRef<undefined | boolean[]>(
@@ -76,22 +79,19 @@ const ToggleGroup: React.FC<ToggleGroupProps> = ({
 
   return (
     <Form.Group
-      className={`toggle-group ${center ? 'toggle-group-center' : ''}`}
+      className={classNames(styles.lineUpToggle, { [styles.center]: center })}
     >
       {(label || required) && (
-        <Form.Label className={`toggle-group-label ${labelClassName}`}>
-          {label}
-          {required && (
-            <span className="toggle-group-required-asterisk"> *</span>
-          )}
+        <Form.Label className={classNames(styles.label, labelClassName)}>
+          {label} {required && <RequiredAsterisk />}
         </Form.Label>
       )}
 
       <div
         {...wrapperProps}
-        className={`toggle-group-wrapper ${
-          center ? 'toggle-group-center' : ''
-        } ${className}`}
+        className={classNames(styles.wrapper, className, {
+          [styles.center]: center,
+        })}
       >
         {(content as [string | ToggleContent]).map((c, index) => {
           const curLabel = typeof c === 'string' ? c : c.label;
@@ -121,16 +121,16 @@ const ToggleGroup: React.FC<ToggleGroupProps> = ({
                 }
               }}
               key={curLabel}
-              className={`${toggleClassName} + ${
-                !center ? ' toggle-group-line-up-toggle' : ''
-              }`}
+              className={classNames(toggleClassName, {
+                [styles.lineUpToggle]: !center,
+              })}
             />
           );
         })}
       </div>
 
       {error && (
-        <Form.Label className={`toggle-group-error ${errorClassName}`}>
+        <Form.Label className={classNames(styles.error, errorClassName)}>
           {error}
         </Form.Label>
       )}

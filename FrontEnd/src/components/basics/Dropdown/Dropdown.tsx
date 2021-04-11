@@ -4,6 +4,9 @@ import { Form } from 'react-bootstrap';
 import BootstrapDropdown, * as BootstrapDropdownMetadata from 'react-bootstrap/Dropdown';
 import * as z from 'zod';
 import useClickAwayListener from '../../../hooks/useClickAwayListener';
+import classNames from 'classnames';
+import styles from './Input.module.scss';
+import RequiredAsterisk from '../RequiredAsterisk/RequiredAsterisk';
 
 interface DropdownProps extends BootstrapDropdownMetadata.DropdownProps {
   options: string[];
@@ -23,9 +26,9 @@ interface DropdownProps extends BootstrapDropdownMetadata.DropdownProps {
 
 const Dropdown: React.FC<DropdownProps> = ({
   label,
-  labelClassName = '',
+  labelClassName,
   error,
-  errorClassName = '',
+  errorClassName,
   initialSelected,
   placeholder,
   isInvalid,
@@ -33,8 +36,8 @@ const Dropdown: React.FC<DropdownProps> = ({
   required,
   noFilter,
   inlineText,
-  inlineTextClassName = '',
-  className = '',
+  inlineTextClassName,
+  className,
   options,
   onSelect,
   ...dropdownProps
@@ -68,9 +71,8 @@ const Dropdown: React.FC<DropdownProps> = ({
   return (
     <Form.Group>
       {(label || required) && (
-        <Form.Label className={`dropdown-label ${labelClassName}`}>
-          {label}
-          {required && <span className="input-required-asterisk"> *</span>}
+        <Form.Label className={classNames(styles.label, labelClassName)}>
+          {label} {required && <RequiredAsterisk />}
         </Form.Label>
       )}
 
@@ -84,12 +86,12 @@ const Dropdown: React.FC<DropdownProps> = ({
             if (onSelect) onSelect(s, e);
           }}
           ref={dropdownRef}
-          className={`homehub-dropdown ${className}`}
+          className={classNames(styles.dropdown, className)}
           {...dropdownProps}
         >
           <BootstrapDropdown.Toggle
             variant="no-show"
-            className="dropdown-toggle"
+            className={styles.toggle}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
           >
@@ -97,12 +99,11 @@ const Dropdown: React.FC<DropdownProps> = ({
               <Form.Control
                 value={filter !== undefined ? filter : selected || ''}
                 placeholder={placeholder}
-                className={`${
-                  (isEmpty && !isFocused
-                    ? 'dropdown-unfilled '
-                    : 'dropdown-filled ') +
-                  (isInvalid || error ? 'dropdown-invalid ' : '')
-                } dropdown-straighten-right`}
+                className={classNames(styles.straightenRight, {
+                  [styles.unfilled]: isEmpty && !isFocused,
+                  [styles.filled]: !isEmpty || isFocused,
+                  [styles.invalid]: isInvalid || error,
+                })}
                 isValid={isValid}
                 readOnly={noFilter}
                 onChange={(e) => {
@@ -114,14 +115,13 @@ const Dropdown: React.FC<DropdownProps> = ({
               />
 
               <div
-                className={
-                  (isEmpty && !isFocused
-                    ? 'dropdown-drop-btn-unfilled '
-                    : 'dropdown-drop-btn-filled ') +
-                  (isInvalid || error ? 'dropdown-drop-btn-invalid ' : '')
-                }
+                className={classNames('btn', styles.dropBtn, {
+                  [styles.dropBtnUnfilled]: isEmpty && !isFocused,
+                  [styles.dropBtnFilled]: !isEmpty || isFocused,
+                  [styles.dropBtnInvalid]: isInvalid || error,
+                })}
               >
-                <div className="dropdown-drop-btn-arrow" />
+                <div className={styles.dropBtnArrow} />
               </div>
             </div>
           </BootstrapDropdown.Toggle>
@@ -136,14 +136,14 @@ const Dropdown: React.FC<DropdownProps> = ({
         </BootstrapDropdown>
 
         {inlineText && (
-          <div className={`dropdown-inline-text ${inlineTextClassName}`}>
+          <div className={classNames(styles.inlineText, inlineTextClassName)}>
             {inlineText}
           </div>
         )}
       </div>
 
       {error && (
-        <Form.Label className={`dropdown-error ${errorClassName}`}>
+        <Form.Label className={classNames(styles.error, errorClassName)}>
           {error}
         </Form.Label>
       )}

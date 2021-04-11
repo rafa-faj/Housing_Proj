@@ -2,11 +2,11 @@ import React from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { roomTypeIconsTemp } from '../../assets/icons/all';
-import AutoComplete from '../PlacesAutoComplete';
+import AutoComplete from '../PlacesAutoComplete/PlacesAutoComplete';
 import { RoomType } from '../../constants';
 import { WizardFormStep } from '../basics/WizardForm/WizardForm';
 import Dropdown from '../basics/Dropdown/Dropdown';
-import ToggleGroup from '../basics/ToggleGroup';
+import ToggleGroup from '../basics/ToggleGroup/ToggleGroup';
 import styles from './HousingPostForm.module.scss';
 
 export const page1Schema = z.object({

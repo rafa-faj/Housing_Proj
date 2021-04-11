@@ -6,7 +6,7 @@ import {
   amenitiesTranslations,
 } from '../../../assets/icons/all';
 import { WizardFormStep } from '../../basics/WizardForm/WizardForm';
-import ToggleGroup from '../../basics/ToggleGroup';
+import ToggleGroup from '../../basics/ToggleGroup/ToggleGroup';
 import styles from './FilterForm.module.scss';
 
 type Amenity = keyof typeof largeAmenitiesIcons;

@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.center {
+  justify-content: center;
+  text-align: center;
+}
+
+.label {
+  @include font-type('label-text');
+}
+
+.error {
+  @include font-type('error-label-text');
+}
+
+.lineUpToggle:first-child {
+  margin-left: 0;
+
+  @include mousedown {
+    margin-left: 0;
+  }
+}

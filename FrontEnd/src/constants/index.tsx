@@ -1,6 +1,7 @@
 export * from './messages';
+export * from './regex';
 
-export enum Interval { // TODO start using enums like this whenever possible instead of consts
+export enum Interval {
   Anytime = 'Anytime',
   Early = 'Early(1-10)',
   Mid = 'Mid(11-20)',
@@ -27,7 +28,6 @@ const yearMonths = [
 /**
  * Months in the year
  */
-// TODO make everything PascalCase
 enum Month {
   Anytime = 'Anytime',
   January = 'January',
