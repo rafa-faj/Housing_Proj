@@ -4,7 +4,7 @@ import * as z from 'zod';
 import Toggle from '../Toggle/Toggle';
 import { Icon } from '../../../assets/icons/all';
 import classNames from 'classnames';
-import styles from './Input.module.scss';
+import styles from './ToggleGroup.module.scss';
 import RequiredAsterisk from '../RequiredAsterisk/RequiredAsterisk';
 
 export interface ToggleContent {

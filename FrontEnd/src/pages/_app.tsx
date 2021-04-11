@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { reduxNextWrapper } from '../redux/store';
 import Login from '../components/Login/Login';
-import '../assets/sass/global/index.scss';
+import '../assets/scss/global/index.scss';
 
 const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
   <>

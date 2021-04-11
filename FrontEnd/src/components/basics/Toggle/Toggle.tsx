@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, ButtonProps } from 'react-bootstrap';
 import { Icon as IconType, IconProps } from '../../../assets/icons/all';
 import classNames from 'classnames';
-import styles from './Input.module.scss';
+import styles from './Toggle.module.scss';
 
 interface ToggleProps extends Omit<ButtonProps, 'onClick'> {
   label: string;

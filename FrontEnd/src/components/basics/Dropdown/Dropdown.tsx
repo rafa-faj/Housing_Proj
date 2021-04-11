@@ -5,7 +5,7 @@ import BootstrapDropdown, * as BootstrapDropdownMetadata from 'react-bootstrap/D
 import * as z from 'zod';
 import useClickAwayListener from '../../../hooks/useClickAwayListener';
 import classNames from 'classnames';
-import styles from './Input.module.scss';
+import styles from './Dropdown.module.scss';
 import RequiredAsterisk from '../RequiredAsterisk/RequiredAsterisk';
 
 interface DropdownProps extends BootstrapDropdownMetadata.DropdownProps {

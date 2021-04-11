@@ -103,7 +103,7 @@ const ProfileModal: React.FC<PathProps> = ({ show, setShow }) => {
         >
           <miscIcons.orangeX />
         </Button>
-        <Row className={styles.topBar}>
+        <Row className={`px-3 py-2 ${styles.topBar}`}>
           <div
             className={classNames(styles.title, {
               [styles.profileSelected]: editPosts,
@@ -124,7 +124,7 @@ const ProfileModal: React.FC<PathProps> = ({ show, setShow }) => {
             {editPosts && <div className={styles.element}>_____________</div>}
           </span>
         </Row>
-        <div className={styles.middleSection}>
+        <div className={`my-4 px-4 ${styles.middleSection}`}>
           <Container fluid className="h-100">
             <Row className="h-100">
               <Col md={4} className="align-self-center">

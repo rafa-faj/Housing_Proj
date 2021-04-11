@@ -1,3 +1,5 @@
+@import 'utils';
+
 .toggle {
   @include font-type('primary-input-text');
   margin: 15px 10px;
@@ -10,28 +12,9 @@
   }
 }
 
-.selected {
-  &, &:hover, &:focus {
-    @extend .homehub-toggle;
-    border-color: $primary-input-color;
-    background-color: $primary-input-color;
-    color: white;
-  }
-
-  & svg {
-    fill: white;
-    stroke: none;
-  }
-
-  @include mousedown {
-    @extend .homehub-toggle-unselected;
-    @include set-box-shadow($primary-input-color);
-  }
-}
-
 .unselected {
   &, &:hover, &:focus {
-    @extend .homehub-toggle;
+    @extend .toggle;
     border-color: $primary-5-color;
     background-color: white;
     color: $primary-5-color;
@@ -43,7 +26,26 @@
   }
 
   @include mousedown {
-    @extend .homehub-toggle-selected;
+    @extend .selected;
+    @include set-box-shadow($primary-input-color);
+  }
+}
+
+.selected {
+  &, &:hover, &:focus {
+    @extend .toggle;
+    border-color: $primary-input-color;
+    background-color: $primary-input-color;
+    color: white;
+  }
+
+  & svg {
+    fill: white;
+    stroke: none;
+  }
+
+  @include mousedown {
+    @extend .unselected;
     @include set-box-shadow($primary-input-color);
   }
 }
