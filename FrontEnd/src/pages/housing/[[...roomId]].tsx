@@ -6,7 +6,7 @@ import SideBarLayout, {
   SideBar,
 } from '../../components/SideBarLayout/SideBarLayout';
 import Filter from '../../components/Filter/Filter';
-import HouseCardList from '../../components/HouseCard/HouseCardList';
+import HouseCardList from '../../components/HouseCardList/HouseCardList';
 import HouseSideBar from '../../components/HouseSideBar/HouseSideBar';
 import HousingPost from '../../components/HousingPostForm';
 import { useRouter } from 'next/router';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { Interval, Month } from '../../../constants';
 import { moveInSelect } from '../../../utils';
@@ -15,14 +15,10 @@ export const page4Schema = z
     stayPeriod: z.number().min(1, 'Stay for a month at least!'),
   })
   .refine(
-    (vals) =>
+    ({ earlyMonth, earlyInterval, lateMonth, lateInterval }) => {
       // TODO make this validation work
-      moveInSelect(
-        vals.earlyMonth as string,
-        vals.earlyInterval as string,
-        vals.lateMonth as string,
-        vals.lateInterval as string,
-      ),
+      return moveInSelect(earlyMonth, earlyInterval, lateMonth, lateInterval);
+    },
     {
       message: 'The given interval is invalid!',
       path: ['lateMonth'],

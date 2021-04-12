@@ -19,13 +19,9 @@ export const page2Schema = z
       .max(10000, 'This is not feasible for a college student!'),
   })
   .refine(
-    (data) =>
-      moveInSelect(
-        data.earlyInterval,
-        data.earlyMonth,
-        data.lateInterval,
-        data.lateMonth,
-      ),
+    ({ earlyMonth, earlyInterval, lateMonth, lateInterval }) => {
+      return moveInSelect(earlyMonth, earlyInterval, lateMonth, lateInterval);
+    },
     { message: 'Choose a valid date range', path: ['earlyInterval'] },
   );
 

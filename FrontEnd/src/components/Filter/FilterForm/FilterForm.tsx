@@ -60,6 +60,7 @@ const enumKeyFromStringValue = <T extends { [index: string]: string }>(
         success: false,
       };
 };
+
 const checkSuccess = <T extends { [index: string]: string }>(
   result: enumCheckSuccess<T> | enumCheckFail,
 ): result is enumCheckSuccess<T> => {
@@ -91,8 +92,7 @@ const schemas = [
   page6Schema,
 ];
 
-// TODO: this is still the old filter format. update
-// to new one ASAP!
+// TODO: this is still the old filter format. update to new one ASAP!
 const formatRequest = (s: Store): FilterModel => {
   // const roomSelections: RoomLiteralType[] = [
   //   'single',

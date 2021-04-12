@@ -1,23 +1,5 @@
-import {
-  intervalOptions,
-  MonthAbrv,
-  monthsUnabrvToAbrv,
-  yearMonths,
-  Month,
-  RoomType,
-} from '../constants';
-
-/**
- * Use to define validation checks for an object T.
- */
-export type ObjectValidationChecks<T> = {
-  [key in keyof T]: (value: T[key]) => boolean;
-};
-
-/**
- * Use as a type for "one of the variables from P".
- */
-export type OneFrom<P> = { [K in keyof P]: Pick<P, K> };
+import { Interval, intervals, Month, months } from '@constants';
+import { abbreviateMonth, removeParentheses } from '@utils';
 
 /**
  * Function used to validate move in select form
@@ -26,27 +8,26 @@ export type OneFrom<P> = { [K in keyof P]: Pick<P, K> };
  * @param lateMonth - the late month selected
  * @param lateInterval - the late interval selected
  */
-const moveInSelect = (
-  earlyMonth: string,
-  earlyInterval: string,
-  lateMonth: string,
-  lateInterval: string,
+export const moveInSelect = (
+  earlyMonth: Month,
+  earlyInterval: Interval,
+  lateMonth: Month,
+  lateInterval: Interval,
 ): boolean => {
-  if (yearMonths.indexOf(earlyMonth) > yearMonths.indexOf(lateMonth)) {
+  if (months.indexOf(earlyMonth) > months.indexOf(lateMonth)) {
     // neither has anytime as the option
     if (![earlyMonth, lateMonth].includes(Month.Anytime)) {
       return false;
     }
   }
   if (
-    yearMonths.indexOf(earlyMonth) === yearMonths.indexOf(lateMonth) &&
+    months.indexOf(earlyMonth) === months.indexOf(lateMonth) &&
     ![earlyMonth, lateMonth].includes(Month.Anytime)
   ) {
     // neither has anytime as the option
     if (
-      ![earlyInterval, lateInterval].includes(Month.Anytime) &&
-      intervalOptions.indexOf(earlyInterval) >
-        intervalOptions.indexOf(lateInterval)
+      ![earlyInterval, lateInterval].includes(Interval.Anytime) &&
+      intervals.indexOf(earlyInterval) > intervals.indexOf(lateInterval)
     ) {
       return false;
     }
@@ -55,33 +36,9 @@ const moveInSelect = (
 };
 
 /**
- * Use to abbreviate a month
- * @param month - the month to abbreviate (must be in the enum 'months')
- */
-const abbreviateMonth = (month: Month): MonthAbrv => monthsUnabrvToAbrv[month];
-
-/**
- * Use to format roomType string, as returned from BE
- * @param roomType - roomType to format
- */
-const formatRoomType = (roomType: string): RoomType =>
-  RoomType[roomType as keyof typeof RoomType];
-
-/**
- * Use to abbreviate address to only everything before the first comma
- */
-const abbreviateAddress = (address: string): string => address.split(',')[0];
-
-/**
- * Use to remove parentheses and everything inside the parentheses
- */
-const removeParentheses = (str: string): string =>
-  str.replace(/ *\([^)]*\) */g, '');
-
-/**
  * Use to abbreviate moveIn string
  */
-const abbreviateMoveIn = (
+export const abbreviateMoveIn = (
   earlyInt: string,
   earlyMonth: Month,
   lateInt: string,
@@ -115,7 +72,7 @@ const abbreviateMoveIn = (
  * @param early - the early string
  * @param late - the late string
  */
-const formatMoveIn = (early: string, late: string) => {
+export const formatMoveIn = (early: string, late: string) => {
   const [earlyInt, earlyMonth] = early.split(' ') as [string, Month];
   const [lateInt, lateMonth] = late.split(' ') as [string, Month];
 
@@ -133,14 +90,4 @@ const formatMoveIn = (early: string, late: string) => {
     lateMonth,
   );
   return formattedMoveIn;
-};
-
-export {
-  moveInSelect,
-  abbreviateMonth,
-  abbreviateAddress,
-  removeParentheses,
-  abbreviateMoveIn,
-  formatRoomType,
-  formatMoveIn,
 };
