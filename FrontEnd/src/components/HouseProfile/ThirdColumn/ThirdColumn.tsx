@@ -10,7 +10,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { LOGIN_TO_VIEW } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectHousingFavorites, selectUser } from '@redux';
-import GoogleMap from '../../basics/Map/Map';
+import { Map } from '@basics';
 import { abbreviateAddress } from '../../../utils';
 import styles from './ThirdColumn.module.scss';
 
@@ -95,7 +95,7 @@ const ThirdColumn: React.FC<Props> = ({
           <b>~ {distance}</b>&nbsp;public transit from Price Center
         </div>
         <div className={styles.address}>{abbreviateAddress(location)}</div>
-        <GoogleMap address={location} className={styles.map} />
+        <Map address={location} className={styles.map} />
       </div>
 
       <Container className={styles.bio}>

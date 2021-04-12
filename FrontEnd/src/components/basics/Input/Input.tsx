@@ -3,7 +3,7 @@ import { Form, FormControlProps } from 'react-bootstrap';
 import * as z from 'zod';
 import classNames from 'classnames';
 import styles from './Input.module.scss';
-import RequiredAsterisk from '../RequiredAsterisk/RequiredAsterisk';
+import RequiredAsterisk from '../RequiredAsterisk';
 
 export interface InputProps
   extends FormControlProps,

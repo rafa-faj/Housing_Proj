@@ -3,16 +3,13 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import * as z from 'zod';
-import { WizardFormStep } from '../basics/WizardForm/WizardForm';
 import {
   SchoolYear,
   NON_EMPTY_ERR_MSG,
   majors,
   phoneRegex,
 } from '../../constants';
-import Input from '../basics/Input/Input';
-import Dropdown from '../basics/Dropdown/Dropdown';
-import ToggleGroup from '../basics/ToggleGroup/ToggleGroup';
+import { WizardFormStep, Input, Dropdown, ToggleGroup } from '@basics';
 
 export const page1Schema = z.object({
   name: z.string().nonempty(NON_EMPTY_ERR_MSG),

@@ -6,7 +6,7 @@ import * as z from 'zod';
 import useClickAwayListener from '../../../hooks/useClickAwayListener';
 import classNames from 'classnames';
 import styles from './Dropdown.module.scss';
-import RequiredAsterisk from '../RequiredAsterisk/RequiredAsterisk';
+import RequiredAsterisk from '../RequiredAsterisk';
 
 interface DropdownProps extends BootstrapDropdownMetadata.DropdownProps {
   options: string[];

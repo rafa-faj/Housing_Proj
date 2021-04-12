@@ -31,7 +31,7 @@ import FilterPage6, {
   page6InitialStore,
   page6Schema,
 } from './FilterPage6';
-import WizardForm from '../../basics/WizardForm/WizardForm';
+import { WizardForm } from '@basics';
 import {
   FilterModel,
   PreferenceLiteralType,

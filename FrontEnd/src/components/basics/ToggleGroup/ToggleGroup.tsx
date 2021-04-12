@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Form } from 'react-bootstrap';
 import * as z from 'zod';
-import Toggle from '../Toggle/Toggle';
+import { Toggle } from '@basics';
+import RequiredAsterisk from '@basics/RequiredAsterisk';
 import { Icon } from '@icons';
 import classNames from 'classnames';
 import styles from './ToggleGroup.module.scss';
-import RequiredAsterisk from '../RequiredAsterisk/RequiredAsterisk';
 
 export interface ToggleContent {
   icon: Icon;

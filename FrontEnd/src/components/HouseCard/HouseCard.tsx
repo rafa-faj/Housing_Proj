@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
-import SlideShow from '../basics/SlideShow/SlideShow';
+import { SlideShow } from '@basics';
 import { formatRoomType } from '../../utils';
 import useRoomData from '../../hooks/swr/useRoomData';
 import { useRouter } from 'next/dist/client/router';

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Container, Row, Form, Button } from 'react-bootstrap';
 import * as z from 'zod';
-import { WizardFormStep } from '../../basics/WizardForm/WizardForm';
-import ToggleGroup from '../../basics/ToggleGroup/ToggleGroup';
+import { WizardFormStep, ToggleGroup } from '@basics';
 
 // TODO put in its own file
 enum Preference {

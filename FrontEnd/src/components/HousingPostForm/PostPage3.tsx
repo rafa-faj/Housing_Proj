@@ -1,8 +1,7 @@
 import React from 'react';
 import * as z from 'zod';
 import { largeAmenitiesIcons, amenitiesTranslations } from '@icons';
-import { WizardFormStep } from '../basics/WizardForm/WizardForm';
-import ToggleGroup from '../basics/ToggleGroup/ToggleGroup';
+import { WizardFormStep, ToggleGroup } from '@basics';
 import styles from './HousingPostForm.module.scss';
 
 // TODO this should be in a different file

@@ -2,7 +2,7 @@ import React from 'react';
 import * as z from 'zod';
 import { Container, Row, Col } from 'react-bootstrap';
 import ImageUploader from 'homehub-images-upload';
-import { WizardFormStep } from '../basics/WizardForm/WizardForm';
+import { WizardFormStep } from '@basics';
 import styles from './HousingPostForm.module.scss';
 
 export const page5Schema = z.object({

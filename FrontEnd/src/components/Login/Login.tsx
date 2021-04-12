@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from '../basics/Modal/Modal';
+import { Modal } from '@basics';
 import Button from 'react-bootstrap/Button';
 import {
   GoogleLogin,

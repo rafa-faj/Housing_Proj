@@ -3,9 +3,7 @@ import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { RoomType } from '../../../constants';
 import { roomTypeIconsTemp } from '@icons';
-import { WizardFormStep } from '../../basics/WizardForm/WizardForm';
-import Dropdown from '../../basics/Dropdown/Dropdown';
-import ToggleGroup from '../../basics/ToggleGroup/ToggleGroup';
+import { WizardFormStep, Dropdown, ToggleGroup } from '@basics';
 import styles from './FilterForm.module.scss';
 
 export const page2Schema = z.object({

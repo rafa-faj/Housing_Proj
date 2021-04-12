@@ -1,8 +1,7 @@
 import React from 'react';
 import * as z from 'zod';
-import { Container, Form, Row } from 'react-bootstrap';
-import { WizardFormStep } from '../basics/WizardForm/WizardForm';
-import Input from '../basics/Input/Input';
+import { Container } from 'react-bootstrap';
+import { WizardFormStep, Input } from '@basics';
 
 export const page2Schema = z.object({
   description: z

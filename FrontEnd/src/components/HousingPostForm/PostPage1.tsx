@@ -4,9 +4,7 @@ import * as z from 'zod';
 import { roomTypeIconsTemp } from '@icons';
 import AutoComplete from '../PlacesAutoComplete/PlacesAutoComplete';
 import { RoomType } from '../../constants';
-import { WizardFormStep } from '../basics/WizardForm/WizardForm';
-import Dropdown from '../basics/Dropdown/Dropdown';
-import ToggleGroup from '../basics/ToggleGroup/ToggleGroup';
+import { WizardFormStep, Dropdown, ToggleGroup } from '@basics';
 import styles from './HousingPostForm.module.scss';
 
 export const page1Schema = z.object({
