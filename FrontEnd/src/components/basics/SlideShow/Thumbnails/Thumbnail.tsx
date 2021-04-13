@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { SlideShowItem } from '../SlideShow';
 import styles from './Thumbnails.module.scss';
-import classNames from 'classnames';
+import cn from 'classnames';
 import Image from '../../FilledImage/FilledImage';
 
 interface ThumbnailProps
@@ -22,7 +22,7 @@ const Thumbnail: FunctionComponent<ThumbnailProps> = ({
   <button
     type="button"
     {...buttonProps}
-    className={classNames(className, {
+    className={cn(className, {
       [styles.selectedPreview]: active,
     })}
   >

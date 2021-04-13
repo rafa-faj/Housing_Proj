@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap';
 import BootstrapDropdown, * as BootstrapDropdownMetadata from 'react-bootstrap/Dropdown';
 import * as z from 'zod';
 import { useClickAwayListener } from '@hooks';
-import classNames from 'classnames';
+import cn from 'classnames';
 import styles from './Dropdown.module.scss';
 import RequiredAsterisk from '../RequiredAsterisk';
 
@@ -71,7 +71,7 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
   return (
     <Form.Group>
       {(label || required) && (
-        <Form.Label className={classNames(styles.label, labelClassName)}>
+        <Form.Label className={cn(styles.label, labelClassName)}>
           {label} {required && <RequiredAsterisk />}
         </Form.Label>
       )}
@@ -86,7 +86,7 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
             if (onSelect) onSelect(s, e);
           }}
           ref={dropdownRef}
-          className={classNames(styles.dropdown, className)}
+          className={cn(styles.dropdown, className)}
           {...dropdownProps}
         >
           <BootstrapDropdown.Toggle
@@ -99,7 +99,7 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
               <Form.Control
                 value={filter !== undefined ? filter : selected || ''}
                 placeholder={placeholder}
-                className={classNames(styles.straightenRight, {
+                className={cn(styles.straightenRight, {
                   [styles.unfilled]: isEmpty && !isFocused,
                   [styles.filled]: !isEmpty || isFocused,
                   [styles.invalid]: isInvalid || error,
@@ -115,7 +115,7 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
               />
 
               <div
-                className={classNames('btn', styles.dropBtn, {
+                className={cn('btn', styles.dropBtn, {
                   [styles.dropBtnUnfilled]: isEmpty && !isFocused,
                   [styles.dropBtnFilled]: !isEmpty || isFocused,
                   [styles.dropBtnInvalid]: isInvalid || error,
@@ -136,14 +136,14 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
         </BootstrapDropdown>
 
         {inlineText && (
-          <div className={classNames(styles.inlineText, inlineTextClassName)}>
+          <div className={cn(styles.inlineText, inlineTextClassName)}>
             {inlineText}
           </div>
         )}
       </div>
 
       {error && (
-        <Form.Label className={classNames(styles.error, errorClassName)}>
+        <Form.Label className={cn(styles.error, errorClassName)}>
           {error}
         </Form.Label>
       )}

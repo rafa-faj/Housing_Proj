@@ -4,7 +4,7 @@ import { carouselIcons } from '@icons';
 import Thumbnails from './Thumbnails/Thumbnails';
 import SlideShowItem from './SlideShowItem/SlideShowItem';
 import styles from './SlideShow.module.scss';
-import classNames from 'classnames';
+import cn from 'classnames';
 
 export interface SlideShowItem {
   src: string;
@@ -29,7 +29,7 @@ const SlideShow: FunctionComponent<PathProps> = ({
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className={classNames(styles.slideshow, className)}>
+    <div className={cn(styles.slideshow, className)}>
       <Carousel
         activeIndex={activeIndex}
         onSelect={setActiveIndex}
@@ -37,7 +37,7 @@ const SlideShow: FunctionComponent<PathProps> = ({
         prevIcon={<carouselIcons.leftArrow />}
         interval={null} // no interval
         indicators={!showPreview}
-        className={classNames({
+        className={cn({
           [styles.preview]: showPreview,
           [styles.carouselOverflow]: images.length > 5,
         })}

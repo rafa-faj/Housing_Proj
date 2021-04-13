@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import { HousePostUIData } from '../../../models/PostModels';
 import { largeAmenitiesIcons, miscIcons } from '@icons';
 import styles from './SecondColumn.module.scss';
-import classNames from 'classnames';
+import cn from 'classnames';
 
 const Ellipse: FunctionComponent = () => (
   <Row className="justify-content-center">
@@ -42,7 +42,7 @@ const GetIcon: FunctionComponent<{
   str: keyof typeof facilityToIcon;
   useStroke?: boolean;
 }> = ({ str, useStroke }) => (
-  <div className={classNames(styles.icon, { [styles.useStroke]: useStroke })}>
+  <div className={cn(styles.icon, { [styles.useStroke]: useStroke })}>
     {facilityToIcon[str]}
   </div>
 );

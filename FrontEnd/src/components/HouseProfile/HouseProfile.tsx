@@ -9,7 +9,7 @@ import ThirdColumn from './ThirdColumn/ThirdColumn';
 import { useRoomData } from '@hooks';
 import { Button } from 'react-bootstrap';
 import styles from './HouseProfile.module.scss';
-import classNames from 'classnames';
+import cn from 'classnames';
 
 interface PreviewButtonsProps {
   onExit: () => any;
@@ -90,7 +90,7 @@ const HouseProfile: FunctionComponent<HouseProfileProps> = (props) => {
       onHide={onExit}
       size="xl"
       centered
-      className={classNames({ [styles.preview]: props.preview })}
+      className={cn({ [styles.preview]: props.preview })}
       contentClassName={styles.modalContent}
     >
       {props.preview && (

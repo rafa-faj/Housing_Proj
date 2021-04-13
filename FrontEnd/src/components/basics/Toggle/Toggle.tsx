@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
 import { Button, ButtonProps } from 'react-bootstrap';
 import { Icon as IconType, IconProps } from '@icons';
-import classNames from 'classnames';
+import cn from 'classnames';
 import styles from './Toggle.module.scss';
 
 interface ToggleProps extends Omit<ButtonProps, 'onClick'> {
@@ -44,7 +44,7 @@ const Toggle: FunctionComponent<ToggleProps> = ({
     <Button
       variant="" // TODO
       {...buttonProps}
-      className={classNames(className, {
+      className={cn(className, {
         [styles.selected]: isSelected,
         [styles.unselected]: !isSelected,
       })}

@@ -3,7 +3,7 @@ import {
   default as MaterialUIModal,
   ModalProps as MaterialUIModalProps,
 } from '@material-ui/core/Modal';
-import classNames from 'classnames';
+import cn from 'classnames';
 import styles from './Modal.module.scss';
 
 interface ModalProps
@@ -28,7 +28,7 @@ const Modal: FunctionComponent<ModalProps> = ({
       className={styles.materialUIModal}
       disableBackdropClick
     >
-      <div className={classNames(styles.modal, styles[size], className)}>
+      <div className={cn(styles.modal, styles[size], className)}>
         <>{children}</>
       </div>
     </MaterialUIModal>

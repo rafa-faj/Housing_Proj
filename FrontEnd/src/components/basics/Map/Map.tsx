@@ -6,7 +6,7 @@ import {
 } from 'react-google-maps';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import styles from './Map.module.scss';
-import classNames from 'classnames';
+import cn from 'classnames';
 import useAsyncEffect from 'use-async-effect';
 
 interface Coords {
@@ -47,7 +47,7 @@ const GoogleMap: FunctionComponent<PathProps> = ({ address, className }) => {
   ));
 
   return (
-    <div className={classNames(styles.wrapper, 'px-3', className)}>
+    <div className={cn(styles.wrapper, 'px-3', className)}>
       <GoogleMapRender
         containerElement={<div style={{ height: `100%` }} />}
         mapElement={<div style={{ height: `100%` }} />}

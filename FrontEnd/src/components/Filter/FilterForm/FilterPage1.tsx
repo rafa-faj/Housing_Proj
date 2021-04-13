@@ -3,7 +3,7 @@ import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { WizardFormStep, Input } from '@basics';
 import styles from './FilterForm.module.scss';
-import classNames from 'classnames';
+import cn from 'classnames';
 
 export const page1Schema = z.object({
   distance: z.number().positive('Make sure distance is positive.'),
@@ -40,7 +40,7 @@ const FilterPage1: FunctionComponent<WizardFormStep<Page1Store>> = ({
                     : undefined,
                 })
               }
-              className={classNames(styles.shortInput, 'mb-2')}
+              className={cn(styles.shortInput, 'mb-2')}
               isValid={validations?.distance?.success}
               isInvalid={
                 validations?.distance && !validations?.distance?.success

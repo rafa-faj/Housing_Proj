@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { SlideShowItem } from '../SlideShow';
 import styles from './Thumbnails.module.scss';
-import classNames from 'classnames';
+import cn from 'classnames';
 import Thumbnail from './Thumbnail';
 
 const widthPercent = (numCols: number, maxNumCols: number) =>
@@ -21,7 +21,7 @@ const Thumbnails: FunctionComponent<ThumbnailsProps> = ({
   onClick,
 }) => (
   <div
-    className={classNames(styles.thumbnail, {
+    className={cn(styles.thumbnail, {
       [styles.thumbnailOverflow]: overflow,
     })}
   >

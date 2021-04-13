@@ -4,7 +4,7 @@ import * as z from 'zod';
 import { Toggle } from '@basics';
 import RequiredAsterisk from '@basics/RequiredAsterisk';
 import { Icon } from '@icons';
-import classNames from 'classnames';
+import cn from 'classnames';
 import styles from './ToggleGroup.module.scss';
 
 export interface ToggleContent {
@@ -79,17 +79,17 @@ const ToggleGroup: FunctionComponent<ToggleGroupProps> = ({
 
   return (
     <Form.Group
-      className={classNames(styles.lineUpToggle, { [styles.center]: center })}
+      className={cn(styles.lineUpToggle, { [styles.center]: center })}
     >
       {(label || required) && (
-        <Form.Label className={classNames(styles.label, labelClassName)}>
+        <Form.Label className={cn(styles.label, labelClassName)}>
           {label} {required && <RequiredAsterisk />}
         </Form.Label>
       )}
 
       <div
         {...wrapperProps}
-        className={classNames(styles.wrapper, className, {
+        className={cn(styles.wrapper, className, {
           [styles.center]: center,
         })}
       >
@@ -121,7 +121,7 @@ const ToggleGroup: FunctionComponent<ToggleGroupProps> = ({
                 }
               }}
               key={curLabel}
-              className={classNames(toggleClassName, {
+              className={cn(toggleClassName, {
                 [styles.lineUpToggle]: !center,
               })}
             />
@@ -130,7 +130,7 @@ const ToggleGroup: FunctionComponent<ToggleGroupProps> = ({
       </div>
 
       {error && (
-        <Form.Label className={classNames(styles.error, errorClassName)}>
+        <Form.Label className={cn(styles.error, errorClassName)}>
           {error}
         </Form.Label>
       )}

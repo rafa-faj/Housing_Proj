@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import styles from './FilledImage.module.scss';
-import classNames from 'classnames';
+import cn from 'classnames';
 
 interface Props
   extends React.DetailedHTMLProps<
@@ -21,7 +21,7 @@ const Image: FunctionComponent<Props> = ({
   return (
     <div
       {...divProps}
-      className={classNames(styles.image, className)}
+      className={cn(styles.image, className)}
       style={{ backgroundImage: `url("${src}")`, ...style }}
     >
       <img src="NA" className={styles.hiddenImage} alt={alt} />

@@ -14,7 +14,7 @@ import {
 } from '@redux';
 import { User, dummyUser } from '../../models/User';
 import styles from './ProfileModal.module.scss';
-import classNames from 'classnames';
+import cn from 'classnames';
 
 interface PathProps {
   show: boolean;
@@ -103,7 +103,7 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
         </Button>
         <Row className={`px-3 py-2 ${styles.topBar}`}>
           <div
-            className={classNames(styles.title, {
+            className={cn(styles.title, {
               [styles.profileSelected]: editPosts,
             })}
             onClick={() => setEditPosts(false)}
@@ -113,7 +113,7 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
           </div>
           <div className={`${styles.divider} mx-5`}>|</div>
           <span
-            className={classNames(styles.title, {
+            className={cn(styles.title, {
               [styles.profileSelected]: editPosts,
             })}
             onClick={() => setEditPosts(true)}
@@ -213,10 +213,7 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                   )}
                 </div>
               </Col>
-              <Col
-                md={8}
-                className={classNames({ [styles.postsList]: editPosts })}
-              >
+              <Col md={8} className={cn({ [styles.postsList]: editPosts })}>
                 {!editPosts ? (
                   <>
                     <Form.Row className="justify-content-center m-2">

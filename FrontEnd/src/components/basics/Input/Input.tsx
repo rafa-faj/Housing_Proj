@@ -1,7 +1,7 @@
 import React, { useState, FunctionComponent } from 'react';
 import { Form, FormControlProps } from 'react-bootstrap';
 import * as z from 'zod';
-import classNames from 'classnames';
+import cn from 'classnames';
 import styles from './Input.module.scss';
 import RequiredAsterisk from '../RequiredAsterisk';
 
@@ -43,7 +43,7 @@ const Input: FunctionComponent<InputProps> = ({
   return (
     <Form.Group>
       {(label || required) && (
-        <Form.Label className={classNames(styles.label, labelClassName)}>
+        <Form.Label className={cn(styles.label, labelClassName)}>
           {label} {required && <RequiredAsterisk />}
         </Form.Label>
       )}
@@ -52,7 +52,7 @@ const Input: FunctionComponent<InputProps> = ({
         <Form.Control
           {...formControlProps}
           value={value}
-          className={classNames(className, {
+          className={cn(className, {
             [styles.unfilled]: isEmpty && !readOnly,
             [styles.filled]: !isEmpty || readOnly,
             [styles.readonly]: readOnly,
@@ -67,7 +67,7 @@ const Input: FunctionComponent<InputProps> = ({
         />
 
         {inlinePostText && (
-          <div className={classNames(styles.inlineText, postTextClassName)}>
+          <div className={cn(styles.inlineText, postTextClassName)}>
             {inlinePostText}
           </div>
         )}
@@ -76,7 +76,7 @@ const Input: FunctionComponent<InputProps> = ({
       {children}
 
       {error && (
-        <Form.Label className={classNames(styles.error, errorClassName)}>
+        <Form.Label className={cn(styles.error, errorClassName)}>
           {error}
         </Form.Label>
       )}

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { CarouselItem, CarouselItemProps } from 'reactstrap';
-import classNames from 'classnames';
+import cn from 'classnames';
 import Image from '../../FilledImage/FilledImage';
 import styles from './SlideShowItem.module.scss';
 
@@ -23,7 +23,7 @@ const SlideShowItem: FunctionComponent<SlideShowItemProps> = ({
     <CarouselItem
       {...carouselItemProps}
       key={src}
-      className={classNames(styles.item, className)}
+      className={cn(styles.item, className)}
     >
       {onClick ? (
         <button
