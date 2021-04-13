@@ -41,46 +41,48 @@ const Input: FunctionComponent<InputProps> = ({
   const [isEmpty, setIsEmpty] = useState<boolean>(!value || value === '');
 
   return (
-    <Form.Group>
-      {(label || required) && (
-        <Form.Label className={cn(styles.label, labelClassName)}>
-          {label} {required && <RequiredAsterisk />}
-        </Form.Label>
-      )}
-
-      <div className="d-flex">
-        <Form.Control
-          {...formControlProps}
-          value={value}
-          className={cn(className, {
-            [styles.unfilled]: isEmpty && !readOnly,
-            [styles.filled]: !isEmpty || readOnly,
-            [styles.readonly]: readOnly,
-            [styles.invalid]: (isInvalid || error) && !readOnly,
-          })}
-          isValid={!readOnly && isValid}
-          readOnly={readOnly}
-          onChange={(e) => {
-            setIsEmpty(!e.target.value || e.target.value === '');
-            if (onChange) onChange(e);
-          }}
-        />
-
-        {inlinePostText && (
-          <div className={cn(styles.inlineText, postTextClassName)}>
-            {inlinePostText}
-          </div>
+    <div className={styles.root}>
+      <Form.Group>
+        {(label || required) && (
+          <Form.Label className={cn(styles.label, labelClassName)}>
+            {label} {required && <RequiredAsterisk />}
+          </Form.Label>
         )}
-      </div>
 
-      {children}
+        <div className="d-flex">
+          <Form.Control
+            {...formControlProps}
+            value={value}
+            className={cn(className, {
+              [styles.unfilled]: isEmpty && !readOnly,
+              [styles.filled]: !isEmpty || readOnly,
+              [styles.readonly]: readOnly,
+              [styles.invalid]: (isInvalid || error) && !readOnly,
+            })}
+            isValid={!readOnly && isValid}
+            readOnly={readOnly}
+            onChange={(e) => {
+              setIsEmpty(!e.target.value || e.target.value === '');
+              if (onChange) onChange(e);
+            }}
+          />
 
-      {error && (
-        <Form.Label className={cn(styles.error, errorClassName)}>
-          {error}
-        </Form.Label>
-      )}
-    </Form.Group>
+          {inlinePostText && (
+            <div className={cn(styles.inlineText, postTextClassName)}>
+              {inlinePostText}
+            </div>
+          )}
+        </div>
+
+        {children}
+
+        {error && (
+          <Form.Label className={cn(styles.error, errorClassName)}>
+            {error}
+          </Form.Label>
+        )}
+      </Form.Group>
+    </div>
   );
 };
 

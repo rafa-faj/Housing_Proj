@@ -1,59 +1,61 @@
-.unfilled {
-  @include font-type('primary-input-text');
-  border: 2px solid $primary-3-color;
-  border-radius: $input-border-radius;
-  box-shadow: none !important; // TODO set the flag in bootstrap instead of doing this
-  background-color: white !important; // TODO
-
-  &:focus {
+.root { // used only for specifity to override bootstrap css
+  .unfilled {
     @include font-type('primary-input-text');
+    border: 2px solid $primary-3-color;
+    border-radius: $input-border-radius;
+    box-shadow: none !important; // TODO set the flag in bootstrap instead of doing this
+    background-color: white !important; // TODO
+
+    &:focus {
+      @include font-type('primary-input-text');
+      border-color: $primary-light-color;
+    }
+
+    &:valid {
+      border-color: $primary-3-color;
+      &:focus {
+        border-color: $primary-light-color;
+      }
+    }
+  }
+
+  .valid {
     border-color: $primary-light-color;
   }
 
-  &:valid {
-    border-color: $primary-3-color;
-    &:focus {
-      border-color: $primary-light-color;
-    }
+  .invalid {
+    border: 3px solid $error-color !important;
+    color: $error-color !important;
   }
-}
 
-.valid {
-  border-color: $primary-light-color;
-}
-
-.invalid {
-  border: 3px solid $error-color !important;
-  color: $error-color !important;
-}
-
-.filled {
-  @extend .unfilled;
-  border-color: $primary-light-color;
-
-  &:valid {
+  .filled {
+    @extend .unfilled;
     border-color: $primary-light-color;
-    &:focus {
+
+    &:valid {
       border-color: $primary-light-color;
+      &:focus {
+        border-color: $primary-light-color;
+      }
     }
   }
-}
 
-.readonly {
-  background-color: $primary-2-color !important;
-}
+  .readonly {
+    background-color: $primary-2-color !important;
+  }
 
-.label {
-  @include font-type('label-text');
-}
+  .label {
+    @include font-type('label-text');
+  }
 
-.inlineText {
-  @include font-type('label-text');
+  .inlineText {
+    @include font-type('label-text');
 
-  margin-left: 15px;
-  align-self: center;
-}
+    margin-left: 15px;
+    align-self: center;
+  }
 
-.error {
-  @include font-type('error-label-text');
+  .error {
+    @include font-type('error-label-text');
+  }
 }

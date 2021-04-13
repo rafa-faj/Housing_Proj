@@ -46,7 +46,7 @@ body {
   }
 
   &:hover {
-    @include set-box-shadow($primary-dark-color);
+    @include box-shadow($primary-dark-color);
     background-color: $primary-light-color;
   }
 

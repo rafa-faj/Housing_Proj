@@ -69,7 +69,7 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
   }, [filter, options]);
 
   return (
-    <Form.Group>
+    <Form.Group className={styles.root}>
       {(label || required) && (
         <Form.Label className={cn(styles.label, labelClassName)}>
           {label} {required && <RequiredAsterisk />}

@@ -100,7 +100,7 @@
   }
 }
 
-@mixin set-box-shadow($color: $primary-dark-color) {
+@mixin box-shadow($color: $primary-dark-color) {
   box-shadow: 2px 4px 8px rgba($color, $alpha: 0.3) !important;
 }
 

@@ -257,6 +257,7 @@ const WizardForm = <T extends {}>({
 
   return (
     <Modal
+      className={styles.root}
       dialogClassName={styles.modalDialog}
       contentClassName={styles.modalContent}
       show={show}
