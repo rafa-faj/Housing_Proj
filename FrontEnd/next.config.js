@@ -14,6 +14,7 @@ module.exports = withPlugins([
 {
   sassOptions: {
     includePaths: ['./src/assets/scss'],
+    prependData: `@use 'utils' as *;`
   },
   webpack: (config, options) => {
     if (!options.isServer) {

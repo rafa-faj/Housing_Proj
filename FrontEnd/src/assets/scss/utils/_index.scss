@@ -1,3 +1,3 @@
-@import 'functions';
-@import 'global-vars';
-@import 'mixins';
+@forward 'functions';
+@forward 'global-vars';
+@forward 'mixins';

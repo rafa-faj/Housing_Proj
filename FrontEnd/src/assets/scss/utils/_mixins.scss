@@ -1,4 +1,5 @@
 @use 'bootstrap-breakpoints';
+@use 'global-vars' as *;
 
 // Breakpoint wrappers for bootstrap's media breakpoints
 @mixin bp($size) {
