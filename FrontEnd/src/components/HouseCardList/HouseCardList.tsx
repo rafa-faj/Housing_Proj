@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -6,10 +6,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loading } from '@icons';
 import HouseNotFound from '../HouseNotFound/HouseNotFound';
 import HouseCard from './HouseCard';
-import { selectHousingSearchMode, SearchingMode } from '@redux';
-import useRecentRoomIds from '../../hooks/swr/useRecentRoomIds';
+import { selectHousingSearchMode, HousingMode } from '@redux';
+import { useRecentRoomIds } from '@hooks';
 
-const HouseCardList: React.FC = () => {
+const HouseCardList: FunctionComponent = () => {
   const { data: roomIds, error } = useRecentRoomIds();
   const searchMode = useSelector(selectHousingSearchMode);
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const HouseCardList: React.FC = () => {
           </Col>
         ))}
 
-        {/* {searchMode === SearchingMode.FINISHED ? ( // TODO handle user searches... (might need to do it in the URL somehow)
+        {/* {searchMode === HousingMode.FINISHED ? ( // TODO handle user searches... (might need to do it in the URL somehow)
           <HouseNotFound />
         ) : (
           <img className="w-100 h-100" src={loading.loading} alt="loading..." />

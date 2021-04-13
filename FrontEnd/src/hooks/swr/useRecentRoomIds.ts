@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { getRecentHousingPostIds } from '../../apis';
+import { getRecentHousingPostIds } from '@apis';
 
 const useRecentRoomIds = () => {
   const { data, error, isValidating, mutate } = useSWR(

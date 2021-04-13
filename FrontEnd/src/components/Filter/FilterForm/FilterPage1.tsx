@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { WizardFormStep, Input } from '@basics';
@@ -15,7 +15,7 @@ export const page1InitialStore: Page1Store = {
   distance: 20,
 };
 
-const FilterPage1: React.FC<WizardFormStep<Page1Store>> = ({
+const FilterPage1: FunctionComponent<WizardFormStep<Page1Store>> = ({
   distance,
   validations,
   setStore,
@@ -57,4 +57,4 @@ const FilterPage1: React.FC<WizardFormStep<Page1Store>> = ({
   );
 };
 
-export default FilterPage1 as React.FC;
+export default FilterPage1 as FunctionComponent;

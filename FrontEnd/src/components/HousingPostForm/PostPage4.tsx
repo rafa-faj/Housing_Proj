@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import * as z from 'zod';
 import { WizardFormStep, ToggleGroup } from '@basics';
 
@@ -32,7 +32,7 @@ export const page4InitialStore: Page4Store = {
   preferences: [],
 };
 
-const PostPage4: React.FC<WizardFormStep<Page4Store>> = ({
+const PostPage4: FunctionComponent<WizardFormStep<Page4Store>> = ({
   preferences,
   setStore,
 }) => {
@@ -57,4 +57,4 @@ const PostPage4: React.FC<WizardFormStep<Page4Store>> = ({
   );
 };
 
-export default PostPage4 as React.FC;
+export default PostPage4 as FunctionComponent;

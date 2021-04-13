@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser, newHousingPost } from '@redux';
 import { User } from '../../models/User';
@@ -98,7 +98,7 @@ const userToHousePostUser = ({
   profilePhoto: '', // TODO need to actually have profile photo here
 });
 
-const HousingPost: React.FC<HousingPostProps> = ({
+const HousingPost: FunctionComponent<HousingPostProps> = ({
   show: showForm,
   setShow: setShowForm,
 }) => {

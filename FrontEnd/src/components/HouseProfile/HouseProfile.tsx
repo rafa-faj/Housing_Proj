@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -6,7 +6,7 @@ import { HousePostUIData } from '../../models/PostModels';
 import FirstColumn from './FirstColumn/FirstColumn';
 import SecondColumn from './SecondColumn/SecondColumn';
 import ThirdColumn from './ThirdColumn/ThirdColumn';
-import useRoomData from '../../hooks/swr/useRoomData';
+import { useRoomData } from '@hooks';
 import { Button } from 'react-bootstrap';
 import styles from './HouseProfile.module.scss';
 import classNames from 'classnames';
@@ -16,7 +16,7 @@ interface PreviewButtonsProps {
   onPublish: () => any;
 }
 
-const PreviewButtons: React.FC<PreviewButtonsProps> = ({
+const PreviewButtons: FunctionComponent<PreviewButtonsProps> = ({
   onExit,
   onPublish,
 }) => (
@@ -47,7 +47,7 @@ type HandlePreview =
 
 type HouseProfileProps = CommonProps & HandlePreview;
 
-const HouseProfile: React.FC<HouseProfileProps> = (props) => {
+const HouseProfile: FunctionComponent<HouseProfileProps> = (props) => {
   // object destructuring makes discriminated unions not possible, so keep everything in props and destructure within the function (look at homehub docs for more info)
   const { show, onExit } = props;
 

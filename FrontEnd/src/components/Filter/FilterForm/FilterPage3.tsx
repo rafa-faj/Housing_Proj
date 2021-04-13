@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { WizardFormStep, Input } from '@basics';
@@ -25,7 +25,7 @@ export const page3InitialStore: Page3Store = {
   maxPrice: 5000,
 };
 
-const FilterPage3: React.FC<WizardFormStep<Page3Store>> = ({
+const FilterPage3: FunctionComponent<WizardFormStep<Page3Store>> = ({
   minPrice,
   maxPrice,
   validations,
@@ -83,4 +83,4 @@ const FilterPage3: React.FC<WizardFormStep<Page3Store>> = ({
   );
 };
 
-export default FilterPage3 as React.FC;
+export default FilterPage3 as FunctionComponent;

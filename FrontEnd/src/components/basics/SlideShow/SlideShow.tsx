@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import { carouselIcons } from '@icons';
 import Thumbnails from './Thumbnails/Thumbnails';
@@ -18,7 +18,7 @@ interface PathProps {
   showPreview?: boolean;
 }
 
-const SlideShow: React.FC<PathProps> = ({
+const SlideShow: FunctionComponent<PathProps> = ({
   images,
   onImageClick,
   className,

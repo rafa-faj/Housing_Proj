@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectShowNewUserPopup, showLogin } from '@redux';
-import NewUserSetup from '../../components/NewUserSetup';
-import SideBarLayout, {
-  SideBar,
-} from '../../components/SideBarLayout/SideBarLayout';
-import Filter from '../../components/Filter/Filter';
-import HouseCardList from '../../components/HouseCardList/HouseCardList';
-import HouseSideBar from '../../components/HouseSideBar/HouseSideBar';
-import HousingPost from '../../components/HousingPostForm';
+import NewUserSetup from '@components/NewUserSetup';
+import SideBarLayout, { SideBar } from '@components/SideBarLayout';
+import Filter from '@components/Filter';
+import HouseCardList from '@components/HouseCardList';
+import HouseSideBar from '@components/HouseSideBar';
+import HousingPost from '@components/HousingPostForm';
 import { useRouter } from 'next/router';
-import HouseProfile from '../../components/HouseProfile/HouseProfile';
+import HouseProfile from '@components/HouseProfile/HouseProfile';
 import styles from './[[...roomId]].module.scss';
 
 // parses the query parameter into a number (or undefined)
@@ -26,7 +24,7 @@ const parseQueryParam = (params?: string | string[]) => {
   return isNaN(roomId) ? undefined : roomId;
 };
 
-const Housing: React.FC = () => {
+const Housing: FunctionComponent = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 

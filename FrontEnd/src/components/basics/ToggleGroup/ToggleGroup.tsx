@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, FunctionComponent } from 'react';
 import { Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { Toggle } from '@basics';
@@ -53,7 +53,7 @@ const selectedAsBoolArr = (
   return getLabels(content).map((label) => label === selected);
 };
 
-const ToggleGroup: React.FC<ToggleGroupProps> = ({
+const ToggleGroup: FunctionComponent<ToggleGroupProps> = ({
   content,
   initialSelected,
   singleSelect,

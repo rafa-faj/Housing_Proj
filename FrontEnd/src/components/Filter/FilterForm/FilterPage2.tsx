@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { RoomType } from '../../../constants';
@@ -20,7 +20,7 @@ export const page2InitialStore: Page2Store = {
   roomTypes: [],
 };
 
-const FilterPage2: React.FC<WizardFormStep<Page2Store>> = ({
+const FilterPage2: FunctionComponent<WizardFormStep<Page2Store>> = ({
   numBeds,
   numBaths,
   roomTypes,
@@ -100,4 +100,4 @@ const FilterPage2: React.FC<WizardFormStep<Page2Store>> = ({
   );
 };
 
-export default FilterPage2 as React.FC;
+export default FilterPage2 as FunctionComponent;

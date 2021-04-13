@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,7 +7,7 @@ import { largeAmenitiesIcons, miscIcons } from '@icons';
 import styles from './SecondColumn.module.scss';
 import classNames from 'classnames';
 
-const Ellipse: React.FC = () => (
+const Ellipse: FunctionComponent = () => (
   <Row className="justify-content-center">
     {[0, 1, 2].map((x) => (
       <miscIcons.ellipse key={x} className="m-3" />
@@ -38,7 +38,7 @@ export const facilityToIcon = {
   Gym: <largeAmenitiesIcons.gym />,
 };
 
-const GetIcon: React.FC<{
+const GetIcon: FunctionComponent<{
   str: keyof typeof facilityToIcon;
   useStroke?: boolean;
 }> = ({ str, useStroke }) => (
@@ -59,7 +59,7 @@ type Props = Pick<
   | 'other'
 >;
 
-const SecondColumn: React.FC<Props> = ({
+const SecondColumn: FunctionComponent<Props> = ({
   name,
   negotiable,
   pricePerMonth,

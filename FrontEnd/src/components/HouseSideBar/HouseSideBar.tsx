@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Button from 'react-bootstrap/Button';
 import TV from '../TV/TV';
 import { useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ interface HouseSideBarProps {
   onPostClick?: ButtonOnClick;
 }
 
-const HouseSideBar: React.FC<HouseSideBarProps> = ({
+const HouseSideBar: FunctionComponent<HouseSideBarProps> = ({
   onLoginClick,
   onPostClick,
 }) => {

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import { SlideShow } from '@basics';
 import { formatRoomType } from '../../utils';
-import useRoomData from '../../hooks/swr/useRoomData';
+import { useRoomData } from '@hooks';
 import { useRouter } from 'next/dist/client/router';
 import styles from './HouseCard.module.scss';
 
@@ -13,7 +13,7 @@ interface Props {
   roomId: number;
 }
 
-const HouseCard: React.FC<Props> = ({ roomId }) => {
+const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
   const { data, error } = useRoomData(roomId);
   const router = useRouter();
 

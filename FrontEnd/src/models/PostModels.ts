@@ -1,4 +1,4 @@
-import { facilityToIcon } from '../components/HouseProfile/HouseProfile';
+import { facilityToIcon } from '@components/HouseProfile';
 import { RoomType } from '../constants';
 
 export interface HousePost {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import * as z from 'zod';
 import { largeAmenitiesIcons, amenitiesTranslations } from '@icons';
 import { WizardFormStep, ToggleGroup } from '@basics';
@@ -17,7 +17,7 @@ export const page3InitialStore: Page3Store = {
   amenities: [],
 };
 
-const PostPage3: React.FC<WizardFormStep<Page3Store>> = ({
+const PostPage3: FunctionComponent<WizardFormStep<Page3Store>> = ({
   amenities,
   setStore,
 }) => {
@@ -44,4 +44,4 @@ const PostPage3: React.FC<WizardFormStep<Page3Store>> = ({
   );
 };
 
-export default PostPage3 as React.FC;
+export default PostPage3 as FunctionComponent;

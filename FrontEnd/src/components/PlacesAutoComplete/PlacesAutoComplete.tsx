@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { Input, InputProps } from '@basics';
 import styles from './PlacesAutoComplete.module.scss';
@@ -12,7 +12,7 @@ interface PathProps extends Omit<InputProps, 'onChange' | 'onSelect'> {
   initialAddress?: string;
 }
 
-const AutoComplete: React.FC<PathProps> = ({
+const AutoComplete: FunctionComponent<PathProps> = ({
   className = '',
   onChange,
   onSelect,

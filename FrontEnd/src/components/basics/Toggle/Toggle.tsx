@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FunctionComponent } from 'react';
 import { Button, ButtonProps } from 'react-bootstrap';
 import { Icon as IconType, IconProps } from '@icons';
 import classNames from 'classnames';
@@ -17,7 +17,7 @@ interface ToggleProps extends Omit<ButtonProps, 'onClick'> {
   ) => any;
 }
 
-const Toggle: React.FC<ToggleProps> = ({
+const Toggle: FunctionComponent<ToggleProps> = ({
   label,
   hideLabel,
   icon,

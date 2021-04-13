@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import { Form, FormControlProps } from 'react-bootstrap';
 import * as z from 'zod';
 import classNames from 'classnames';
@@ -21,7 +21,7 @@ export interface InputProps
   rows?: number; // TODO should be in the html attributes of htmltextareaelement???
 }
 
-const Input: React.FC<InputProps> = ({
+const Input: FunctionComponent<InputProps> = ({
   label,
   labelClassName,
   error,

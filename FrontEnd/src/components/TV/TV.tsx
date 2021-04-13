@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import styles from './TV.module.scss';
 
-const NewTV: React.FC = ({ children }) => (
+const NewTV: FunctionComponent = ({ children }) => (
   <div className={styles.container}>
     <div className={styles.content}>
       <div className={styles.title}>Hello</div>

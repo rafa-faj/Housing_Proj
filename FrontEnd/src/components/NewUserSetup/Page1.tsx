@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -32,7 +32,7 @@ export const page1InitialStore: Page1Store = {
   major: '',
 };
 
-const Page1: React.FC<WizardFormStep<Page1Store>> = ({
+const Page1: FunctionComponent<WizardFormStep<Page1Store>> = ({
   name,
   email,
   phone,
@@ -108,6 +108,6 @@ const Page1: React.FC<WizardFormStep<Page1Store>> = ({
   );
 };
 
-// NOTE: need the "as React.FC" since typescript doesn't know that WizardForm parent component will
+// NOTE: need the "as FunctionComponent" since typescript doesn't know that WizardForm parent component will
 // provide the WizardFormStep props
-export default Page1 as React.FC;
+export default Page1 as FunctionComponent;

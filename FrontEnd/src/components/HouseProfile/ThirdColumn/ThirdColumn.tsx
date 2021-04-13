@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -45,7 +45,7 @@ interface Props
   roomId?: number;
 }
 
-const ThirdColumn: React.FC<Props> = ({
+const ThirdColumn: FunctionComponent<Props> = ({
   distance,
   roomDescription,
   profilePhoto,

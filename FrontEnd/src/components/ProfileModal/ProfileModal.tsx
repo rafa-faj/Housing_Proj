@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import Image from 'react-bootstrap/Image';
@@ -80,7 +80,7 @@ const dummyPosts = [
   },
 ];
 
-const ProfileModal: React.FC<PathProps> = ({ show, setShow }) => {
+const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
   const userSelected = useSelector(selectUser) || dummyUser;
   const userSelectedDraft = useSelector(selectUserDraft) || dummyUser;
   const dispatch = useDispatch();

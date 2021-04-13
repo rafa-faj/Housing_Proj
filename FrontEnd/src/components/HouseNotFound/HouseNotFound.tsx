@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Container, Row, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { filterIcons } from '@icons';
 import { setShow } from '@redux';
 import styles from './HouseNotFound.module.scss';
 
-const HouseNotFound: React.FC = () => {
+const HouseNotFound: FunctionComponent = () => {
   const dispatch = useDispatch();
   const setShowFilter = (value: boolean) => dispatch(setShow(value));
 

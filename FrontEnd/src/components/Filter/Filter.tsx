@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import FilterForm from './FilterForm/FilterForm';
@@ -6,7 +6,7 @@ import { filterIcons } from '@icons';
 import { selectShowFilter, setShow } from '@redux';
 import styles from './Filter.module.scss';
 
-const Filter: React.FC = () => {
+const Filter: FunctionComponent = () => {
   const dispatch = useDispatch();
   const showFilter = useSelector(selectShowFilter);
   const setShowFilter = (value: boolean) => dispatch(setShow(value));

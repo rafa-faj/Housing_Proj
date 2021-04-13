@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Container, Row, Form, Button } from 'react-bootstrap';
 import * as z from 'zod';
 import { WizardFormStep, ToggleGroup } from '@basics';
@@ -33,7 +33,7 @@ export const page6InitialStore: Page6Store = {
   preferences: [],
 };
 
-const FilterPage6: React.FC<WizardFormStep<Page6Store>> = ({
+const FilterPage6: FunctionComponent<WizardFormStep<Page6Store>> = ({
   preferences,
   setStore,
 }) => {
@@ -67,4 +67,4 @@ const FilterPage6: React.FC<WizardFormStep<Page6Store>> = ({
   );
 };
 
-export default FilterPage6 as React.FC;
+export default FilterPage6 as FunctionComponent;

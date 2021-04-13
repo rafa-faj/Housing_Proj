@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { roomTypeIconsTemp } from '@icons';
@@ -29,7 +29,7 @@ export const page1InitialStore: Page1Store = {
   roomType: RoomType.Single,
 };
 
-const Page1: React.FC<WizardFormStep<Page1Store>> = ({
+const Page1: FunctionComponent<WizardFormStep<Page1Store>> = ({
   locationSearch,
   selectedLocation,
   propertyType,
@@ -115,4 +115,4 @@ const Page1: React.FC<WizardFormStep<Page1Store>> = ({
   );
 };
 
-export default Page1 as React.FC;
+export default Page1 as FunctionComponent;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import * as z from 'zod';
 import { Container, Row, Col } from 'react-bootstrap';
 import ImageUploader from 'homehub-images-upload';
@@ -17,7 +17,7 @@ export const page5InitialStore: Page5Store = {
   pictures: [],
 };
 
-const PostPage5: React.FC<WizardFormStep<Page5Store>> = ({
+const PostPage5: FunctionComponent<WizardFormStep<Page5Store>> = ({
   pictures,
   validations,
   setStore,
@@ -51,4 +51,4 @@ const PostPage5: React.FC<WizardFormStep<Page5Store>> = ({
   );
 };
 
-export default PostPage5 as React.FC;
+export default PostPage5 as FunctionComponent;

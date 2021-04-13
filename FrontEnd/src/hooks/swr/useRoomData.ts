@@ -1,8 +1,7 @@
 import useSWR from 'swr';
-import { getHousingPost } from '../../apis';
-import { HousePostUIData, HousePost } from '../../models/PostModels';
-import { formatRoomType, formatMoveIn } from '../../utils';
-import { formatUrlsWithAws } from '../../utils/photos/index';
+import { HousePostUIData, HousePost } from '@models/PostModels';
+import { getHousingPost } from '@apis';
+import { formatRoomType, formatMoveIn, formatUrlsWithAws } from '@utils';
 
 /**
  * Used to format data from api call to easily consumable data.

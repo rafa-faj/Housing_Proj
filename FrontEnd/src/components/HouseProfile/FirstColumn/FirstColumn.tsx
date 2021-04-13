@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { miscIcons } from '@icons';
@@ -12,7 +12,7 @@ interface Props extends Pick<HousePost, 'leaserEmail' | 'location'> {
   onExit: () => any;
 }
 
-const FirstColumn: React.FC<Props> = ({
+const FirstColumn: FunctionComponent<Props> = ({
   leaserEmail,
   location,
   photos,

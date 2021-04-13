@@ -48,7 +48,7 @@ interface WizardFormProps<T = {}> {
 }
 
 /**
- * Not using React.FC as a work around to allow for generics for Wizard Form.
+ * Not using FunctionComponent as a work around to allow for generics for Wizard Form.
  * Do not do this normally. I will try to find a better way to do this
  */
 /**

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { Interval, Month } from '../../../constants';
@@ -35,7 +35,7 @@ export const page4InitialStore: Page4Store = {
   stayPeriod: 0,
 };
 
-const FilterPage4: React.FC<WizardFormStep<Page4Store>> = ({
+const FilterPage4: FunctionComponent<WizardFormStep<Page4Store>> = ({
   earlyInterval,
   earlyMonth,
   lateInterval,
@@ -160,4 +160,4 @@ const FilterPage4: React.FC<WizardFormStep<Page4Store>> = ({
   );
 };
 
-export default FilterPage4 as React.FC;
+export default FilterPage4 as FunctionComponent;

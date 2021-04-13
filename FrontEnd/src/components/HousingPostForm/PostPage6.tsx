@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import * as z from 'zod';
 import { Container } from 'react-bootstrap';
 import { WizardFormStep, Input } from '@basics';
@@ -16,7 +16,7 @@ export const page6InitialStore: Page6Store = {
   roomDescription: '',
 };
 
-const PostPage6: React.FC<WizardFormStep<Page6Store>> = ({
+const PostPage6: FunctionComponent<WizardFormStep<Page6Store>> = ({
   roomDescription,
   validations,
   setStore,
@@ -38,4 +38,4 @@ const PostPage6: React.FC<WizardFormStep<Page6Store>> = ({
   );
 };
 
-export default PostPage6 as React.FC;
+export default PostPage6 as FunctionComponent;

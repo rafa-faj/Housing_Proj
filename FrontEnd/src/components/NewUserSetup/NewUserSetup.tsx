@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import Page1, { Page1Store, page1InitialStore, page1Schema } from './Page1';
 import Page2, { Page2Store, page2InitialStore, page2Schema } from './Page2';
@@ -15,7 +15,11 @@ interface NewUserSetupProps {
   email?: string;
 }
 
-const NewUserSetup: React.FC<NewUserSetupProps> = ({ show, name, email }) => {
+const NewUserSetup: FunctionComponent<NewUserSetupProps> = ({
+  show,
+  name,
+  email,
+}) => {
   const dispatch = useDispatch();
 
   return (

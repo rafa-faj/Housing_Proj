@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Modal } from '@basics';
 import Button from 'react-bootstrap/Button';
 import {
@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { selectUser, login, selectShouldShowLogin, hideLogin } from '@redux';
 import { miscIcons } from '@icons';
-import { LOGIN_INFO_TOOLTIP } from '../../constants/messages';
+import { LOGIN_INFO_TOOLTIP } from '@constants';
 import styles from './Login.module.scss';
 
 const isOnline = (
@@ -20,7 +20,7 @@ const isOnline = (
 };
 
 // https://developers.google.com/identity/sign-in/web/sign-in
-const LoginUI: React.FC = () => {
+const LoginUI: FunctionComponent = () => {
   const shouldShowLogin = useSelector(selectShouldShowLogin);
   const dispatch = useDispatch();
 
@@ -82,10 +82,10 @@ const LoginUI: React.FC = () => {
   );
 };
 
-const Login: React.FC = () => {
+const Login: FunctionComponent = () => {
   const user = useSelector(selectUser);
 
-  if (user) return <div />;
+  if (user) return null;
 
   return <LoginUI />;
 };

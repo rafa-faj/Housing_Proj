@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import Row from 'react-bootstrap/Row';
 import { Button } from 'react-bootstrap';
 import { HousePost } from '../../../models/PostModels';
 import HouseProfile from '../../HouseProfile/HouseProfile';
 import styles from './Bookmark.module.scss';
-import classNames from 'classnames';
 
 // change this to PathProps extends HousePost {} to include other props
 export type PathProps = HousePost;
 
-const Bookmark: React.FC<PathProps> = (props) => {
+const Bookmark: FunctionComponent<PathProps> = (props) => {
   const [show, setShow] = useState<boolean>(false);
 
   return (

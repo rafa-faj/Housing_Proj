@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { bookmarkIcons } from '@icons';
 import {
@@ -9,7 +9,7 @@ import {
 import Bookmark from './Bookmark/Bookmark';
 import styles from './BookmarkList.module.scss';
 
-const BookmarksList: React.FC = () => {
+const BookmarksList: FunctionComponent = () => {
   const dispatch = useDispatch();
   const favorites = useSelector(selectHousingFavorites);
   const user = useSelector(selectUser);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Container, Row, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { largeAmenitiesIcons, amenitiesTranslations } from '@icons';
@@ -17,7 +17,7 @@ export const page5InitialStore: Page5Store = {
   amenities: [],
 };
 
-const FilterPage5: React.FC<WizardFormStep<Page5Store>> = ({
+const FilterPage5: FunctionComponent<WizardFormStep<Page5Store>> = ({
   amenities,
   setStore,
 }) => {
@@ -53,4 +53,4 @@ const FilterPage5: React.FC<WizardFormStep<Page5Store>> = ({
   );
 };
 
-export default FilterPage5 as React.FC;
+export default FilterPage5 as FunctionComponent;

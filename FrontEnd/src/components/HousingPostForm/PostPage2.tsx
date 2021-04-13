@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import * as z from 'zod';
 import { Month, Interval } from '../../constants';
@@ -37,7 +37,7 @@ export const page2InitialStore: Page2CorrectlyTypedStore = {
   price: undefined,
 };
 
-const Page2: React.FC<WizardFormStep<Page2CorrectlyTypedStore>> = ({
+const Page2: FunctionComponent<WizardFormStep<Page2CorrectlyTypedStore>> = ({
   stayPeriod,
   earlyInterval,
   earlyMonth,
@@ -187,4 +187,4 @@ const Page2: React.FC<WizardFormStep<Page2CorrectlyTypedStore>> = ({
   );
 };
 
-export default Page2 as React.FC;
+export default Page2 as FunctionComponent;

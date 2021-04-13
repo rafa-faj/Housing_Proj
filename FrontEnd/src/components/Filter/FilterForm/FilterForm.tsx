@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import { searchHousingPosts } from '../../../apis/housing';
 import FilterPage1, {
@@ -144,7 +144,7 @@ interface FilterFormProps {
   setShow: (show: boolean) => void;
 }
 
-const FilterForm: React.FC<FilterFormProps> = ({ show, setShow }) => {
+const FilterForm: FunctionComponent<FilterFormProps> = ({ show, setShow }) => {
   const dispatch = useDispatch();
   return (
     <WizardForm<Store>

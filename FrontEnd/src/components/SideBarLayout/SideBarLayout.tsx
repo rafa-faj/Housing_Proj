@@ -1,8 +1,12 @@
-import React from 'react';
-import NavBar from '../NavBar/NavBar';
+import React, { FunctionComponent } from 'react';
+import NavBar from '../NavBar';
 import styles from './SideBarLayout.module.scss';
 
-const SideBarLayout: React.FC = ({ children }) => (
+export const SideBar: FunctionComponent = ({ children }) => (
+  <div className={styles.sidebar}>{children}</div>
+);
+
+const SideBarLayout: FunctionComponent = ({ children }) => (
   <>
     <NavBar />
     <div className={styles.layout}>{children}</div>
@@ -10,7 +14,3 @@ const SideBarLayout: React.FC = ({ children }) => (
 );
 
 export default SideBarLayout;
-
-export const SideBar: React.FC = ({ children }) => (
-  <div className={styles.sidebar}>{children}</div>
-);
