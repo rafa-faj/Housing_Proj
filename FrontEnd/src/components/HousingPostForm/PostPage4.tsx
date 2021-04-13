@@ -1,26 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import * as z from 'zod';
 import { WizardFormStep, ToggleGroup } from '@basics';
-
-// TODO put in its own file
-enum Preference {
-  femaleOnly = 'Female only',
-  maleOnly = 'Male only',
-  coed = 'Co-ed',
-  clean = 'Clean',
-  quiet = 'Quiet',
-  partyOk = 'Party OK',
-  noParty = 'No party',
-  extrovert = 'Extrovert',
-  introvert = 'Introvert',
-  nightOwl = 'Night owl',
-  earlyBird = 'Early bird',
-  _420Friendly = '420 friendly',
-  smokeFree = 'Smoke free',
-  lgbtqFriendly = 'LGBTQ+ friendly',
-  overnightGuestOk = 'Overnight guest OK',
-  noOvernightGuest = 'No overnight Guest',
-}
+import { preferences as preferencesConstList } from '@constants';
 
 export const page4Schema = z.object({
   preferences: z.string().array(),
@@ -39,7 +20,7 @@ const PostPage4: FunctionComponent<WizardFormStep<Page4Store>> = ({
   return (
     <ToggleGroup
       label="Please select from the following options to promote what type of person you are looking for to apply for this listing."
-      content={Object.values(Preference)}
+      content={preferencesConstList}
       initialSelected={preferences}
       onSelect={({ label, selected }) => {
         if (selected) {

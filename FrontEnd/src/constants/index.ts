@@ -5,6 +5,7 @@ export * from './majors';
 export * from './years';
 export * from './intervals';
 export * from './roomType';
+export * from './preferences';
 
 const BackendMapping = {
   // TODO should be in camelCase format when returned from backend, this is temporary
