@@ -4,7 +4,7 @@ import { FilterModel } from '../models/FilterModel';
 import { backendAPI } from './apiBases';
 import { getDurationInMinutes } from '.';
 
-const getHousingPostsAPI = async () => {
+export const getHousingPostsAPI = async () => {
   try {
     const result = await backendAPI.get<HousePost[]>('/getRoom', {
       withCredentials: true,
@@ -19,7 +19,7 @@ const getHousingPostsAPI = async () => {
   }
 };
 
-const getRecentHousingPostIds = async () => {
+export const getRecentHousingPostIds = async () => {
   const result = await backendAPI.get<number[]>('/getRecentRoomIds', {
     withCredentials: true,
   });
@@ -27,7 +27,7 @@ const getRecentHousingPostIds = async () => {
   return result.data;
 };
 
-const getHousingPost = async (roomId: number) => {
+export const getHousingPost = async (roomId: number) => {
   const result = await backendAPI.get<HousePost>(`/getRoom/${roomId}`, {
     withCredentials: true,
   });
@@ -35,7 +35,7 @@ const getHousingPost = async (roomId: number) => {
   return result.data;
 };
 
-const searchHousingPosts = async ({
+export const searchHousingPosts = async ({
   distance,
   roomType,
   priceMin,
@@ -86,7 +86,7 @@ const searchHousingPosts = async ({
   }
 };
 
-const newHousingPostAPI = async (
+export const newHousingPostAPI = async (
   roomForm: CreateHousePostProperties & { email: string }, // TODO double check that this is the correct type for param, and you need to type the promise
 ): Promise<any[] | undefined> => {
   console.log('starting the new housing post api');
@@ -128,7 +128,7 @@ const newHousingPostAPI = async (
   }
 };
 
-const getHousingBookmarksAPI = async () => {
+export const getHousingBookmarksAPI = async () => {
   try {
     const result = await backendAPI.get<HousePost[]>('/bookmark', {
       headers: {
@@ -146,7 +146,7 @@ const getHousingBookmarksAPI = async () => {
   }
 };
 
-const addHousingBookmarkAPI = async (roomId: number) => {
+export const addHousingBookmarkAPI = async (roomId: number) => {
   try {
     const result = await backendAPI.post(
       '/bookmark',
@@ -168,7 +168,7 @@ const addHousingBookmarkAPI = async (roomId: number) => {
   }
 };
 
-const removeHousingBookmarkAPI = async (roomId: number) => {
+export const removeHousingBookmarkAPI = async (roomId: number) => {
   try {
     const result = await backendAPI.post(
       '/bookmark',
@@ -188,15 +188,4 @@ const removeHousingBookmarkAPI = async (roomId: number) => {
     console.error(err);
     return undefined;
   }
-};
-
-export {
-  getRecentHousingPostIds,
-  getHousingPost,
-  getHousingPostsAPI,
-  searchHousingPosts,
-  newHousingPostAPI,
-  getHousingBookmarksAPI,
-  addHousingBookmarkAPI,
-  removeHousingBookmarkAPI,
 };

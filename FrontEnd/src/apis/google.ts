@@ -8,7 +8,7 @@
  *           with transit options)
  * @error - throws an error if the address is not recognizable by Google
  */
-const getDuration = async (
+export const getDuration = async (
   address: string,
 ): Promise<google.maps.Duration | undefined> => {
   // const { google } = window;
@@ -60,7 +60,7 @@ const getDuration = async (
  *           with transit options)
  * @error - throws an error if the address is not recognizable by Google
  */
-const getDurationInMinutes = async (
+export const getDurationInMinutes = async (
   address: string,
 ): Promise<string | undefined> => {
   const result = await getDuration(address);
@@ -74,7 +74,7 @@ const getDurationInMinutes = async (
 /**
  * Function to test getDuration
  */
-const testGetDuration = async () => {
+export const testGetDuration = async () => {
   const tests = [
     '9775 Genesee Ave, San Diego, CA 92121',
     '4313 Cozzens Ct, San Diego, CA 92122',
@@ -94,5 +94,3 @@ const testGetDuration = async () => {
     });
   });
 };
-
-export { getDuration, getDurationInMinutes, testGetDuration };
