@@ -1,23 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { CreateHousePostProperties, HousePost } from '../models/PostModels';
-import { FilterModel } from '../models/FilterModel';
+import { FilterModel } from '@models';
 import { backendAPI } from './apiBases';
 import { getDurationInMinutes } from '.';
-
-export const getHousingPostsAPI = async () => {
-  try {
-    const result = await backendAPI.get<HousePost[]>('/getRoom', {
-      withCredentials: true,
-    });
-    // handle errors
-    if (result.request?.status !== 200) throw Error('Bad request');
-
-    return result.data;
-  } catch (err) {
-    console.error(err);
-    return undefined;
-  }
-};
 
 export const getRecentHousingPostIds = async () => {
   const result = await backendAPI.get<number[]>('/getRecentRoomIds', {
@@ -49,42 +34,86 @@ export const searchHousingPosts = async ({
   facilities,
   numBeds,
   numBaths,
-}: FilterModel): Promise<HousePost[] | undefined> => {
-  try {
-    const result = await backendAPI.post(
-      '/searchRoom',
-      JSON.stringify({
-        distance,
-        room_type: roomType,
-        price_min: priceMin,
-        price_max: priceMax,
-        early_interval: earlyInterval,
-        early_month: earlyMonth,
-        late_interval: lateInterval,
-        late_month: lateMonth,
-        stay_period: stayPeriod,
-        other,
-        facilities,
-        numBeds,
-        numBaths,
-      }),
-      {
-        headers: {
-          'content-type': 'application/json',
-        },
-        withCredentials: true,
+}: FilterModel) => {
+  const result = await backendAPI.post<number[]>(
+    '/searchRoom',
+    JSON.stringify({
+      distance,
+      room_type: roomType,
+      price_min: priceMin,
+      price_max: priceMax,
+      early_interval: earlyInterval,
+      early_month: earlyMonth,
+      late_interval: lateInterval,
+      late_month: lateMonth,
+      stay_period: stayPeriod,
+      other,
+      facilities,
+      numBeds,
+      numBaths,
+    }),
+    {
+      headers: {
+        'content-type': 'application/json',
       },
-    );
-    console.log(result);
-    // handle errors
-    if (result.request?.status !== 200) throw Error('Bad request');
+      withCredentials: true,
+    },
+  );
 
-    return result.data;
-  } catch (err) {
-    console.error(err);
-    return undefined;
-  }
+  return result.data;
 };
+
+// TODO
+// export const searchHousingPosts = async ({
+//   distance,
+//   roomType,
+//   priceMin,
+//   priceMax,
+//   earlyInterval,
+//   earlyMonth,
+//   lateInterval,
+//   lateMonth,
+//   stayPeriod,
+//   other,
+//   facilities,
+//   numBeds,
+//   numBaths,
+// }: FilterModel): Promise<HousePost[] | undefined> => {
+//   try {
+//     const result = await backendAPI.post(
+//       '/searchRoom',
+//       JSON.stringify({
+//         distance,
+//         room_type: roomType,
+//         price_min: priceMin,
+//         price_max: priceMax,
+//         early_interval: earlyInterval,
+//         early_month: earlyMonth,
+//         late_interval: lateInterval,
+//         late_month: lateMonth,
+//         stay_period: stayPeriod,
+//         other,
+//         facilities,
+//         numBeds,
+//         numBaths,
+//       }),
+//       {
+//         headers: {
+//           'content-type': 'application/json',
+//         },
+//         withCredentials: true,
+//       },
+//     );
+//     console.log(result);
+//     // handle errors
+//     if (result.request?.status !== 200) throw Error('Bad request');
+
+//     return result.data;
+//   } catch (err) {
+//     console.error(err);
+//     return undefined;
+//   }
+// };
 
 export const newHousingPostAPI = async (
   roomForm: CreateHousePostProperties & { email: string }, // TODO double check that this is the correct type for param, and you need to type the promise

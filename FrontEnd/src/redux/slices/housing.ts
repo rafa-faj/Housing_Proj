@@ -8,20 +8,22 @@ import {
   removeHousingBookmarkAPI,
 } from '../../apis/housing';
 import { isRunningServer } from '../../utils/next';
+import { FilterModel } from '@models';
 
 export enum HousingMode {
   Browse,
   Filter,
 }
 
-interface HousingState {
+type HousingState = {
   favorites?: { [id: string]: HousePost };
-  searching: HousingMode;
-}
+  mode: HousingMode;
+  filterData?: FilterModel;
+};
 
 const initialState: HousingState = {
   favorites: undefined,
-  searching: HousingMode.Browse,
+  mode: HousingMode.Browse,
 };
 
 export const housingSlice = createSlice({
@@ -52,20 +54,31 @@ export const housingSlice = createSlice({
         delete state.favorites[action.payload];
       }
     },
-    setSearchingMode: (state, action: PayloadAction<HousingMode>) => {
-      state.searching = action.payload;
+    setHousingMode: (
+      state,
+      action: PayloadAction<
+        | HousingMode.Browse
+        | { mode: HousingMode.Filter; filterData: FilterModel }
+      >,
+    ) => {
+      if (action.payload === HousingMode.Browse) {
+        state.mode = action.payload;
+      } else {
+        state.filterData = action.payload.filterData;
+        state.mode = action.payload.mode;
+      }
     },
   },
 });
 
 // export the reducers that should be accessible by outside files
-export const {} = housingSlice.actions;
+export const { setHousingMode } = housingSlice.actions;
+
 // do NOT export these reducers. Only declare them and use them in the THUNKS
 const {
   setHousingFavorites,
   addToHousingFavorites,
   removeFromHousingFavorites,
-  setSearchingMode,
 } = housingSlice.actions;
 
 export const newHousingPost = (
@@ -149,9 +162,14 @@ export const postAllHousingFavorites = (): AppThunk => async (
   }
 };
 
-export const selectHousingSearchMode = (state: RootState) =>
-  state.housing.searching;
-export const selectHousingFavorites = (state: RootState) =>
-  state.housing.favorites;
+export const selectHousingMode = ({ housing }: RootState) => {
+  return housing.mode;
+};
+export const selectFilterData = ({ housing }: RootState) => {
+  return housing.filterData;
+};
+export const selectHousingFavorites = ({ housing }: RootState) => {
+  return housing.favorites;
+};
 
 export default housingSlice.reducer;

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
-import { searchHousingPosts } from '../../../apis/housing';
+import { searchHousingPosts } from '@apis/housing';
 import FilterPage1, {
   Page1Store,
   page1InitialStore,
@@ -32,13 +32,9 @@ import FilterPage6, {
   page6Schema,
 } from './FilterPage6';
 import { WizardForm } from '@basics';
-import {
-  FilterModel,
-  PreferenceLiteralType,
-  Preferences,
-  RoomLiteralType,
-} from '../../../models/FilterModel';
-import { RoomType } from '../../../constants';
+import { FilterModel, PreferenceLiteralType, RoomLiteralType } from '@models';
+import { RoomType } from '@constants';
+import { setHousingMode, HousingMode } from '@redux';
 
 type enumCheckSuccess<T extends { [index: string]: string }> = {
   key: keyof T;
@@ -146,6 +142,7 @@ interface FilterFormProps {
 
 const FilterForm: FunctionComponent<FilterFormProps> = ({ show, setShow }) => {
   const dispatch = useDispatch();
+
   return (
     <WizardForm<Store>
       show={show}
@@ -155,7 +152,13 @@ const FilterForm: FunctionComponent<FilterFormProps> = ({ show, setShow }) => {
         console.log(n);
         const formattedRequest = formatRequest(n);
         console.log(formattedRequest);
-        searchHousingPosts(formattedRequest); // TODO need to handle searching...
+        dispatch(
+          setHousingMode({
+            mode: HousingMode.Filter,
+            filterData: formattedRequest,
+          }),
+        );
+        // searchHousingPosts(formattedRequest); // TODO need to handle searching...
         return true;
       }}
       title="Filter & Match"
