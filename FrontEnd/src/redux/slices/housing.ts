@@ -1,14 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CreateHousePostProperties, HousePost } from '../../models/PostModels';
-import { AppThunk, RootState } from '../store';
+import { CreateHousePostProperties, HousePost, FilterModel } from '@models';
+import { AppThunk, RootState } from '@redux';
 import {
   addHousingBookmarkAPI,
   getHousingBookmarksAPI,
   newHousingPostAPI,
   removeHousingBookmarkAPI,
-} from '../../apis/housing';
-import { isRunningServer } from '../../utils/next';
-import { FilterModel } from '@models';
+} from '@apis';
+import { isRunningServer } from '@utils';
 
 export enum HousingMode {
   Browse,
