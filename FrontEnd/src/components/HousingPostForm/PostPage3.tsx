@@ -23,7 +23,7 @@ const PostPage3: FunctionComponent<WizardFormStep<Page3Store>> = ({
 }) => {
   return (
     <ToggleGroup
-      className={styles.amenitiesToggle}
+      toggleClassName={styles.amenitiesToggle}
       label="Please select all the amenities your place offers."
       content={(Object.keys(largeAmenitiesIcons) as [Amenity]).map((key) => ({
         label: amenitiesTranslations[key],

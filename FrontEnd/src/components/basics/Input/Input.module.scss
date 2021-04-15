@@ -1,26 +1,33 @@
-.root { // used only for specifity to override bootstrap css
+@mixin valid-border-element-states {
+  &:valid {
+    border-color: $primary-light-color;
+    &:focus {
+      border-color: $primary-light-color;
+    }
+  }
+}
+
+.root { // used only for specificity to override bootstrap css
   .unfilled {
     @include font-type('primary-input-text');
     border: 2px solid $primary-3-color;
     border-radius: $input-border-radius;
     box-shadow: none !important; // TODO set the flag in bootstrap instead of doing this
-    background-color: white !important; // TODO
+    background-color: white !important;
 
     &:focus {
       @include font-type('primary-input-text');
       border-color: $primary-light-color;
     }
 
-    &:valid {
-      border-color: $primary-3-color;
-      &:focus {
-        border-color: $primary-light-color;
-      }
-    }
+    @include valid-border-element-states;
   }
 
-  .valid {
+  .filled {
+    @extend .unfilled;
     border-color: $primary-light-color;
+
+    @include valid-border-element-states;
   }
 
   .invalid {
@@ -28,19 +35,7 @@
     color: $error-color !important;
   }
 
-  .filled {
-    @extend .unfilled;
-    border-color: $primary-light-color;
-
-    &:valid {
-      border-color: $primary-light-color;
-      &:focus {
-        border-color: $primary-light-color;
-      }
-    }
-  }
-
-  .readonly {
+  .readOnly {
     background-color: $primary-2-color !important;
   }
 

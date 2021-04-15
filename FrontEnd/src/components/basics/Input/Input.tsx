@@ -56,7 +56,7 @@ const Input: FunctionComponent<InputProps> = ({
             className={cn(className, {
               [styles.unfilled]: isEmpty && !readOnly,
               [styles.filled]: !isEmpty || readOnly,
-              [styles.readonly]: readOnly,
+              [styles.readOnly]: readOnly,
               [styles.invalid]: (isInvalid || error) && !readOnly,
             })}
             isValid={!readOnly && isValid}

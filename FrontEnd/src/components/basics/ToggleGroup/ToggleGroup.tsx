@@ -6,6 +6,7 @@ import RequiredAsterisk from '@basics/RequiredAsterisk';
 import { Icon } from '@icons';
 import cn from 'classnames';
 import styles from './ToggleGroup.module.scss';
+import { isStringArray } from '@utils';
 
 export interface ToggleContent {
   icon: Icon;
@@ -31,23 +32,32 @@ interface ToggleGroupProps
   required?: boolean;
 }
 
+/**
+ * Gets labels from provided content, which is either array of labels
+ * or array of ToggleContent (which stores labels).
+ */
 const getLabels = (content: string[] | ToggleContent[]): string[] => {
   return (content as [ToggleContent | string]).map((c) =>
     typeof c === 'string' ? c : c.label,
   );
 };
 
+/**
+ * Transfers the selected array into an array of booleans describing whether
+ * or not the content at that index is selected
+ */
 const selectedAsBoolArr = (
   content: string[] | ToggleContent[],
   selected: boolean[] | string[] | string,
 ): boolean[] => {
   if (Array.isArray(selected)) {
-    if (typeof selected[0] === 'string') {
-      return getLabels(content).map((label) =>
-        (selected as string[]).includes(label),
-      );
+    if (!isStringArray(selected)) {
+      return selected as boolean[];
     }
-    return selected as boolean[];
+
+    return getLabels(content).map((label) =>
+      (selected as string[]).includes(label),
+    );
   }
 
   return getLabels(content).map((label) => label === selected);
@@ -73,8 +83,7 @@ const ToggleGroup: FunctionComponent<ToggleGroupProps> = ({
     initialSelected ? selectedAsBoolArr(content, initialSelected) : undefined,
   );
   const [areSelected, setAreSelected] = useState<boolean[]>(
-    typedInitialSelected.current ||
-      (content as [string | ToggleContent]).map(() => false),
+    typedInitialSelected.current || content.map(() => false),
   );
 
   return (
@@ -95,7 +104,7 @@ const ToggleGroup: FunctionComponent<ToggleGroupProps> = ({
       >
         {(content as [string | ToggleContent]).map((c, index) => {
           const curLabel = typeof c === 'string' ? c : c.label;
-          const icon = typeof c !== 'string' ? c.icon : undefined;
+          const icon = typeof c === 'string' ? undefined : c.icon;
 
           return (
             <Toggle

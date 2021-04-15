@@ -69,85 +69,87 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
   }, [filter, options]);
 
   return (
-    <Form.Group className={styles.root}>
-      {(label || required) && (
-        <Form.Label className={cn(styles.label, labelClassName)}>
-          {label} {required && <RequiredAsterisk />}
-        </Form.Label>
-      )}
-
-      <div className="d-flex">
-        <BootstrapDropdown
-          onSelect={(s, e) => {
-            setSelected(s || undefined);
-            updateIsEmpty(s);
-            setFilter(undefined);
-
-            if (onSelect) onSelect(s, e);
-          }}
-          ref={dropdownRef}
-          className={cn(styles.dropdown, className)}
-          {...dropdownProps}
-        >
-          <BootstrapDropdown.Toggle
-            variant="no-show"
-            className={styles.toggle}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-          >
-            <div className="d-flex flex-nowrap">
-              <Form.Control
-                value={filter !== undefined ? filter : selected || ''}
-                placeholder={placeholder}
-                className={cn(styles.straightenRight, {
-                  [styles.unfilled]: isEmpty && !isFocused,
-                  [styles.filled]: !isEmpty || isFocused,
-                  [styles.invalid]: isInvalid || error,
-                })}
-                isValid={isValid}
-                readOnly={noFilter}
-                onChange={(e) => {
-                  if (!noFilter) setFilter(e.target.value);
-                }}
-                onFocus={() => {
-                  if (!noFilter) setFilter('');
-                }}
-              />
-
-              <div
-                className={cn('btn', styles.dropBtn, {
-                  [styles.dropBtnUnfilled]: isEmpty && !isFocused,
-                  [styles.dropBtnFilled]: !isEmpty || isFocused,
-                  [styles.dropBtnInvalid]: isInvalid || error,
-                })}
-              >
-                <div className={styles.dropBtnArrow} />
-              </div>
-            </div>
-          </BootstrapDropdown.Toggle>
-
-          <BootstrapDropdown.Menu ref={dropdownMenuRef}>
-            {filteredOptions.map((option) => (
-              <BootstrapDropdown.Item key={option} eventKey={option}>
-                {option}
-              </BootstrapDropdown.Item>
-            ))}
-          </BootstrapDropdown.Menu>
-        </BootstrapDropdown>
-
-        {inlineText && (
-          <div className={cn(styles.inlineText, inlineTextClassName)}>
-            {inlineText}
-          </div>
+    <div className={styles.root}>
+      <Form.Group className={styles.moreSpecificity}>
+        {(label || required) && (
+          <Form.Label className={cn(styles.label, labelClassName)}>
+            {label} {required && <RequiredAsterisk />}
+          </Form.Label>
         )}
-      </div>
 
-      {error && (
-        <Form.Label className={cn(styles.error, errorClassName)}>
-          {error}
-        </Form.Label>
-      )}
-    </Form.Group>
+        <div className="d-flex">
+          <BootstrapDropdown
+            onSelect={(s, e) => {
+              setSelected(s || undefined);
+              updateIsEmpty(s);
+              setFilter(undefined);
+
+              if (onSelect) onSelect(s, e);
+            }}
+            ref={dropdownRef}
+            className={cn(styles.dropdown, className)}
+            {...dropdownProps}
+          >
+            <BootstrapDropdown.Toggle
+              variant="no-show"
+              className={styles.toggle}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+            >
+              <div className="d-flex flex-nowrap">
+                <Form.Control
+                  value={filter !== undefined ? filter : selected || ''}
+                  placeholder={placeholder}
+                  className={cn(styles.straightenRight, {
+                    [styles.unfilled]: isEmpty && !isFocused,
+                    [styles.filled]: !isEmpty || isFocused,
+                    [styles.invalid]: isInvalid || error,
+                  })}
+                  isValid={isValid}
+                  readOnly={noFilter}
+                  onChange={(e) => {
+                    if (!noFilter) setFilter(e.target.value);
+                  }}
+                  onFocus={() => {
+                    if (!noFilter) setFilter('');
+                  }}
+                />
+
+                <div
+                  className={cn('btn', styles.dropBtn, {
+                    [styles.dropBtnUnfilled]: isEmpty && !isFocused,
+                    [styles.dropBtnFilled]: !isEmpty || isFocused,
+                    [styles.dropBtnInvalid]: isInvalid || error,
+                  })}
+                >
+                  <div className={styles.dropBtnArrow} />
+                </div>
+              </div>
+            </BootstrapDropdown.Toggle>
+
+            <BootstrapDropdown.Menu ref={dropdownMenuRef}>
+              {filteredOptions.map((option) => (
+                <BootstrapDropdown.Item key={option} eventKey={option}>
+                  {option}
+                </BootstrapDropdown.Item>
+              ))}
+            </BootstrapDropdown.Menu>
+          </BootstrapDropdown>
+
+          {inlineText && (
+            <div className={cn(styles.inlineText, inlineTextClassName)}>
+              {inlineText}
+            </div>
+          )}
+        </div>
+
+        {error && (
+          <Form.Label className={cn(styles.error, errorClassName)}>
+            {error}
+          </Form.Label>
+        )}
+      </Form.Group>
+    </div>
   );
 };
 

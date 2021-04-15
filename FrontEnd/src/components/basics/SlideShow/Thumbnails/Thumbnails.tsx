@@ -31,6 +31,7 @@ const Thumbnails: FunctionComponent<ThumbnailsProps> = ({
         active={activeIndex === index}
         onClick={() => onClick && onClick(index)}
         style={{ width: widthPercent(images.length, 10) }}
+        key={image.src}
       />
     ))}
   </div>

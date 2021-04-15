@@ -46,6 +46,7 @@ const SlideShow: FunctionComponent<PathProps> = ({
           <SlideShowItem
             src={src}
             alt={alt}
+            key={src}
             onClick={onImageClick && (() => onImageClick(index))}
             onExiting={() => setAnimating(true)}
             onExited={() => setAnimating(false)}

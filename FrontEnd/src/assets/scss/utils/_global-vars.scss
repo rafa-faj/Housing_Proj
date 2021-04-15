@@ -58,27 +58,6 @@ $input-border-radius: 8px;
 $lg-modal-height: 600px;
 
 /**
- * There are 5 main colors: 3 orange variations, two green. The three orange variations seem to have 3 purposes:
- * 1) a color to represent user-responsive (user can affect it) 2) a 'background/unfocused' color 3) a 'focused'
- * color. The two green variations seem to have similar purposes, a 'focused' and 'unfocused/background' color
- * (these will just be secondary-color and secondary-light-color since there are only 2).
- */
-// TODO fix up the color naming scheme (like my god bruh this shit sucks lmao)
-$responsive-to-user-color: #e7936d; // i.e. buttons
-$focused-color: #a6623f; // i.e. 'Your name'
-$unfocused-color: #d3ab98; // i.e. 'min', 'to school'
-$primary-color: $responsive-to-user-color;
-$primary-color-light: #fdf4f0;
-$secondary-color: #4d5e3b;
-// $secondary-light-color: #e6f0d8;
-$main-background-color: #fffcfb;
-$darker-background-color: #f8e6d8;
-
-$rounded-lg: 40px;
-
-$default-border-width: 3px;
-
-/**
  * WEBSITE DESIGN VARIABLES.
  */
 $entire-site-margin-x: 8vw;
@@ -86,3 +65,23 @@ $navbar-height: 70px;
 $bookmarks-list-width: 220px;
 $filter-height: 5vh;
 $filter-top-margin: 5vh;
+
+/**
+ * @deprecated
+ * There are 5 main colors: 3 orange variations, two green. The three orange variations seem to have 3 purposes:
+ * 1) a color to represent user-responsive (user can affect it) 2) a 'background/unfocused' color 3) a 'focused'
+ * color. The two green variations seem to have similar purposes, a 'focused' and 'unfocused/background' color
+ * (these will just be secondary-color and secondary-light-color since there are only 2).
+ */
+$responsive-to-user-color: #e7936d; // i.e. buttons
+$focused-color: #a6623f; // i.e. 'Your name'
+$unfocused-color: #d3ab98; // i.e. 'min', 'to school'
+$primary-color: $responsive-to-user-color;
+$primary-color-light: #fdf4f0;
+$secondary-color: #4d5e3b;
+$main-background-color: #fffcfb;
+$darker-background-color: #f8e6d8;
+
+$rounded-lg: 40px;
+
+$default-border-width: 3px;

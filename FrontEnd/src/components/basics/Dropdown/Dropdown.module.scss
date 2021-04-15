@@ -1,132 +1,132 @@
-.root {
-  .unfilled {
-    @include font-type('primary-input-text');
-    border: 2px solid $primary-3-color;
-    border-radius: $input-border-radius;
-    box-shadow: none !important; // TODO set the flag in bootstrap instead of doing this
-
-    &:focus {
-      @include font-type('primary-input-text');
-      border-color: $primary-light-color;
-    }
-
-    &:valid,
-    &.is-valid {
-      border-color: $primary-3-color;
-      &:focus {
-        border-color: $primary-light-color;
-      }
-    }
-  }
-
-  .invalid {
-    border: 3px solid $error-color !important;
-    color: $error-color !important;
-  }
-
-  .filled {
-    @extend .unfilled;
+@mixin valid-border-element-states {
+  &:valid,
+  &.is-valid {
     border-color: $primary-light-color;
-
-    &:valid,
-    &.is-valid {
+    &:focus {
       border-color: $primary-light-color;
+    }
+  }
+}
+
+.root { // used only for specificity to override bootstrap css
+  .moreSpecificity { // similarly needed to override bootstrap css specificity (still looking for a better solution than this...)
+    .unfilled {
+      @include font-type('primary-input-text');
+      border: 2px solid $primary-3-color;
+      border-radius: $input-border-radius;
+      box-shadow: none !important; // TODO set the flag in bootstrap instead of doing this
+
       &:focus {
+        @include font-type('primary-input-text');
         border-color: $primary-light-color;
       }
-    }
-  }
 
-  // TODO is this used?
-  .dropdown-readonly {
-    @extend .filled;
-    background-color: $primary-2-color !important;
-  }
-
-  .label {
-    @include font-type('label-text');
-  }
-
-  .inlineText {
-    @include font-type('label-text');
-
-    margin-left: 15px;
-    align-self: center;
-  }
-
-  .error {
-    @include font-type('error-label-text');
-  }
-
-  .straightenRight {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  .dropBtn {
-    border-radius: 0 $input-border-radius $input-border-radius 0;
-    box-shadow: none !important;
-    display: flex;
-  }
-
-  .dropBtnUnfilled {
-    background-color: $primary-3-color;
-  }
-
-  .dropBtnFilled {
-    background-color: $primary-light-color;
-  }
-
-  .dropBtnInvalid {
-    background-color: $error-color;
-  }
-
-  .dropBtnArrow {
-    align-self: center;
-    height: 4px;
-    width: 0px;
-    border: 8.5px transparent solid;
-    border-bottom: 0;
-    border-top: 12.5px white solid;
-    border-radius: 10%;
-  }
-
-  .toggle {
-    width: 100%;
-
-    input,
-    .form-control:disabled,
-    .form-control[readonly] {
-      cursor: pointer;
-      background-color: white;
+      @include valid-border-element-states;
     }
 
-    &::after {
-      // hide the default dropdown button
-      content: none;
-      width: 0;
-      padding: 0;
-      margin: 0;
+    .invalid {
+      border: 3px solid $error-color !important;
+      color: $error-color !important;
     }
-  }
 
-  .dropdown {
-    flex-grow: 1;
+    .filled {
+      @extend .unfilled;
+      border-color: $primary-light-color;
 
-    .dropdown-menu {
-      max-height: 200px;
-      overflow-y: auto;
-      background-color: $primary-1-color;
+      @include valid-border-element-states;
+    }
 
-      .dropdown-item {
+    // TODO is this used?
+    .dropdown-readonly {
+      @extend .filled;
+      background-color: $primary-2-color !important;
+    }
+
+    .label {
+      @include font-type('label-text');
+    }
+
+    .inlineText {
+      @include font-type('label-text');
+
+      margin-left: 15px;
+      align-self: center;
+    }
+
+    .error {
+      @include font-type('error-label-text');
+    }
+
+    .straightenRight {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .dropBtn {
+      border-radius: 0 $input-border-radius $input-border-radius 0;
+      box-shadow: none !important;
+      display: flex;
+    }
+
+    .dropBtnUnfilled {
+      background-color: $primary-3-color;
+    }
+
+    .dropBtnFilled {
+      background-color: $primary-light-color;
+    }
+
+    .dropBtnInvalid {
+      background-color: $error-color;
+    }
+
+    .dropBtnArrow {
+      align-self: center;
+      height: 4px;
+      width: 0px;
+      border: 8.5px transparent solid;
+      border-bottom: 0;
+      border-top: 12.5px white solid;
+      border-radius: 10%;
+    }
+
+    .toggle {
+      width: 100%;
+
+      input,
+      .form-control:disabled,
+      .form-control[readonly] {
+        cursor: pointer;
+        background-color: white;
+      }
+
+      &::after {
+        // hide the default dropdown button
+        content: none;
+        width: 0;
+        padding: 0;
+        margin: 0;
+      }
+    }
+
+    .dropdown {
+      flex-grow: 1;
+
+      .dropdown-menu {
+        max-height: 200px;
+        overflow-y: auto;
         background-color: $primary-1-color;
-        color: $primary-dark-color;
 
-        &:active,
-        &.active,
-        &:hover,
-        &:focus {
-          background-color: $primary-2-color;
+        .dropdown-item {
+          background-color: $primary-1-color;
+          color: $primary-dark-color;
+
+          &:active,
+          &.active,
+          &:hover,
+          &:focus {
+            background-color: $primary-2-color;
+          }
         }
       }
     }

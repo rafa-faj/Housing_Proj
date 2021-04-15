@@ -27,7 +27,7 @@ const FilterPage5: FunctionComponent<WizardFormStep<Page5Store>> = ({
 
       <Form.Row className="m-2">
         <ToggleGroup
-          className={styles.amenitiesToggle}
+          toggleClassName={styles.amenitiesToggle}
           content={(Object.keys(largeAmenitiesIcons) as [Amenity]).map(
             (key) => ({
               label: amenitiesTranslations[key],

@@ -20,7 +20,7 @@ interface ToggleProps extends Omit<ButtonProps, 'onClick'> {
 const Toggle: FunctionComponent<ToggleProps> = ({
   label,
   hideLabel,
-  icon,
+  icon: Icon,
   iconConfig,
   selected,
   initialSelected = false,
@@ -30,39 +30,36 @@ const Toggle: FunctionComponent<ToggleProps> = ({
   ...buttonProps
 }) => {
   const [isSelected, setIsSelected] = useState<boolean>(initialSelected);
-  const [Icon, setIcon] = useState<IconType | undefined>(icon);
 
   useEffect(() => {
     if (selected !== undefined) setIsSelected(selected);
   }, [selected]);
 
-  useEffect(() => {
-    setIcon(icon);
-  }, [icon]);
-
   return (
-    <Button
-      variant="" // TODO
-      {...buttonProps}
-      className={cn(className, {
-        [styles.selected]: isSelected,
-        [styles.unselected]: !isSelected,
-      })}
-      onClick={(e) => {
-        if (onClick) onClick(!isSelected, e);
-        setIsSelected(!isSelected);
-      }}
-    >
-      {Icon && (
-        <div>
-          <Icon {...iconConfig} />
-        </div>
-      )}
+    <div className={styles.root}>
+      <Button
+        variant="" // TODO
+        {...buttonProps}
+        className={cn(className, styles.toggle, {
+          [styles.selected]: isSelected,
+          [styles.unselected]: !isSelected,
+        })}
+        onClick={(e) => {
+          if (onClick) onClick(!isSelected, e);
+          setIsSelected(!isSelected);
+        }}
+      >
+        {Icon && (
+          <div>
+            <Icon {...iconConfig} />
+          </div>
+        )}
 
-      {!hideLabel && <div>{label}</div>}
+        {!hideLabel && <div>{label}</div>}
 
-      {children}
-    </Button>
+        {children}
+      </Button>
+    </div>
   );
 };
 
