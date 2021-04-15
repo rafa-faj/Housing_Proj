@@ -27,6 +27,7 @@ def checkOther(house, request):
 
 
 def search(room_json, session):
+    print(room_json)
     res = session.query(Room).filter(room_json['price_min'] <= Room.price,
                                      Room.price <= room_json['price_max'],
                                      Room.address.has(Address.distance < room_json['distance']),
@@ -36,7 +37,8 @@ def search(room_json, session):
                                      Room.no_bathrooms >= float(
                                          room_json['numBaths']),
                                      ).all()
-    return [convert_room_json(elem, session) for elem in res if
+
+    return [elem.id for elem in res if
             elem.room_type in room_json['room_type']
             and
             (compareMonth((room_json['early_interval'], room_json['early_month']),
@@ -55,3 +57,23 @@ def search(room_json, session):
             checkOther([att.attribute_name for att in elem.house_attribute],
                        room_json['other']+room_json['facilities'])
             ]
+
+    # return [convert_room_json(elem, session) for elem in res if
+    #         elem.room_type in room_json['room_type']
+    #         and
+    #         (compareMonth((room_json['early_interval'], room_json['early_month']),
+    #                       (room_json['late_interval'],
+    #                        room_json['late_month']),
+    #                       (elem.move_in.late_interval, elem.move_in.late_month
+    #                        ))
+    #          or
+    #          compareMonth((room_json['early_interval'], room_json['early_month']),
+    #                       (room_json['late_interval'],
+    #                        room_json['late_month']),
+    #                       (elem.move_in.early_interval, elem.move_in.early_month
+    #                        )
+    #                       ))
+    #         and
+    #         checkOther([att.attribute_name for att in elem.house_attribute],
+    #                    room_json['other']+room_json['facilities'])
+    #         ]

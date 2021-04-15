@@ -41,14 +41,6 @@ def editProfile():
     print(message)
     return generateResponse(elem=message, status=status)
 
-
-# @ app.route('/getRoom', methods=['GET'])
-# def showRooms():
-#     rooms_db = read_rooms(session)
-#     rooms_db.sort(key=lambda elem: elem.date_created, reverse=True)
-#     rooms = [room_json(room, session) for room in rooms_db]
-#     return generateResponse(elem=rooms)
-
 @ app.route('/getRecentRoomIds')
 def getRecentRooms():
     rooms_db = read_rooms(session)
