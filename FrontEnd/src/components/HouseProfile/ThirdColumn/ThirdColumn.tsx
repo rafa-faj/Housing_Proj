@@ -4,14 +4,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
-import { HousePost } from '../../../models/PostModels';
+import { useDispatch, useSelector } from 'react-redux';
+import { HousePost } from '@models';
 import { contactIcons } from '@icons';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { LOGIN_TO_VIEW } from '../../../constants';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectHousingFavorites, selectUser } from '@redux';
+import { LOGIN_TO_VIEW } from '@constants';
+import { selectHousingFavorites, selectUser, showLogin } from '@redux';
 import { Map } from '@basics';
-import { abbreviateAddress } from '../../../utils';
+import { abbreviateAddress } from '@utils';
 import styles from './ThirdColumn.module.scss';
 
 // type CommmonProps = Pick<
@@ -120,8 +120,9 @@ const ThirdColumn: FunctionComponent<Props> = ({
                   className={styles.contact}
                   onClick={async () => {
                     if (user) {
-                      await navigator.clipboard.writeText(leaserEmail);
-                      window.open(`mailto:${leaserEmail}`, '_blank');
+                      navigator.clipboard.writeText(leaserEmail);
+                    } else {
+                      dispatch(showLogin());
                     }
                   }}
                 />
@@ -139,8 +140,9 @@ const ThirdColumn: FunctionComponent<Props> = ({
                   className={styles.contact}
                   onClick={async () => {
                     if (user) {
-                      await navigator.clipboard.writeText(leaserPhone);
-                      window.open(`tel:${leaserPhone}`, '_blank');
+                      navigator.clipboard.writeText(leaserPhone);
+                    } else {
+                      dispatch(showLogin());
                     }
                   }}
                 />

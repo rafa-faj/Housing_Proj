@@ -163,20 +163,15 @@ export const editProfile = (
 };
 
 // Selects here
-const selectUser = (state: RootState) => state.auth.user;
-const selectUserDraft = (state: RootState) => state.auth.userDraft;
-const selectShouldShowLogin = (state: RootState) => state.auth.shouldShowLogin;
-const selectShowNewUserPopup = (state: RootState) => {
+export const selectUser = (state: RootState) => state.auth.user;
+export const selectUserDraft = (state: RootState) => state.auth.userDraft;
+export const selectShouldShowLogin = (state: RootState) =>
+  state.auth.shouldShowLogin;
+export const selectShowNewUserPopup = (state: RootState) => {
   return state.auth.showNewUserPopup;
 };
-export {
-  selectUser,
-  selectUserDraft,
-  selectShouldShowLogin,
-  selectShowNewUserPopup,
-};
 
-export const useUser = () => useSelector(selectUser); // TODO is this good to do?
+export const useUser = () => useSelector(selectUser); // TODO is this good to do? not sure yet for performance reasons
 
 // Export everything
 export default authSlice.reducer;
