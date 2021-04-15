@@ -19,8 +19,6 @@
       @include font-type('primary-input-text');
       border-color: $primary-light-color;
     }
-
-    @include valid-border-element-states;
   }
 
   .filled {

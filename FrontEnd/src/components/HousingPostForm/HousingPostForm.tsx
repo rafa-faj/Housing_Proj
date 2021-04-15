@@ -113,6 +113,7 @@ const HousingPost: FunctionComponent<HousingPostProps> = ({
     <>
       {previewData && (
         <HouseProfile
+          show={true}
           onExit={() => {
             hidePreview();
             setShowForm(true);

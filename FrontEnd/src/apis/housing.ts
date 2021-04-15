@@ -37,7 +37,7 @@ export const searchHousingPosts = async ({
 }: FilterModel) => {
   const result = await backendAPI.post<number[]>(
     '/searchRoom',
-    JSON.stringify({
+    {
       distance,
       room_type: roomType,
       price_min: priceMin,
@@ -51,7 +51,7 @@ export const searchHousingPosts = async ({
       facilities,
       numBeds,
       numBaths,
-    }),
+    },
     {
       headers: {
         'content-type': 'application/json',
@@ -62,58 +62,6 @@ export const searchHousingPosts = async ({
 
   return result.data;
 };
-
-// TODO
-// export const searchHousingPosts = async ({
-//   distance,
-//   roomType,
-//   priceMin,
-//   priceMax,
-//   earlyInterval,
-//   earlyMonth,
-//   lateInterval,
-//   lateMonth,
-//   stayPeriod,
-//   other,
-//   facilities,
-//   numBeds,
-//   numBaths,
-// }: FilterModel): Promise<HousePost[] | undefined> => {
-//   try {
-//     const result = await backendAPI.post(
-//       '/searchRoom',
-//       JSON.stringify({
-//         distance,
-//         room_type: roomType,
-//         price_min: priceMin,
-//         price_max: priceMax,
-//         early_interval: earlyInterval,
-//         early_month: earlyMonth,
-//         late_interval: lateInterval,
-//         late_month: lateMonth,
-//         stay_period: stayPeriod,
-//         other,
-//         facilities,
-//         numBeds,
-//         numBaths,
-//       }),
-//       {
-//         headers: {
-//           'content-type': 'application/json',
-//         },
-//         withCredentials: true,
-//       },
-//     );
-//     console.log(result);
-//     // handle errors
-//     if (result.request?.status !== 200) throw Error('Bad request');
-
-//     return result.data;
-//   } catch (err) {
-//     console.error(err);
-//     return undefined;
-//   }
-// };
 
 export const newHousingPostAPI = async (
   roomForm: CreateHousePostProperties & { email: string }, // TODO double check that this is the correct type for param, and you need to type the promise

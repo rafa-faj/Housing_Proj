@@ -65,7 +65,7 @@ const Page1: FunctionComponent<WizardFormStep<Page1Store>> = ({
       </Form.Row>
 
       <Form.Row className="m-2 align-bottom">
-        <Form.Label className={styles.word}>
+        <Form.Label className={`${styles.word} w-100`}>
           Unit Size<span className={styles.requiredAsterisk}> *</span>
         </Form.Label>
         <Col md={5}>
