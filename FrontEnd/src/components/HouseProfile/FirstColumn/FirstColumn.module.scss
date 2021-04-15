@@ -2,15 +2,15 @@
 
 .closeBtn {
   position: absolute;
-  display: block;
-  width: 41px;
-  height: 41px;
-  background-color: white;
   border-radius: 50%;
   z-index: 2;
   margin: 10px 0px 0px 10px !important;
 
   &:hover {
+    margin: 10px 0px 0px 10px !important;
+  }
+
+  @include mousedown {
     margin: 10px 0px 0px 10px !important;
   }
 }
