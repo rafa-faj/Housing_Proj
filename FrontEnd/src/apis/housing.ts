@@ -20,6 +20,7 @@ export const getHousingPost = async (roomId: number) => {
   return result.data;
 };
 
+// TODO need to handle if this is unsuccessful...
 export const searchHousingPosts = async ({
   distance,
   roomType,
@@ -63,6 +64,47 @@ export const searchHousingPosts = async ({
   return result.data;
 };
 
+export const getHousingBookmarks = async () => {
+  const result = await backendAPI.get<number[]>('/bookmark', {
+    headers: {
+      'content-type': 'application/json',
+    },
+    withCredentials: true,
+  });
+
+  return result.data;
+};
+
+// TODO need to handle if this is unsuccessful...
+export const addHousingBookmark = async (roomId: number) => {
+  const result = await backendAPI.post(
+    '/bookmark',
+    JSON.stringify({ room_id: roomId, action: 'add' }),
+    {
+      headers: {
+        'content-type': 'application/json',
+      },
+      withCredentials: true,
+    },
+  );
+
+  return true;
+};
+
+// TODO need to handle if this is unsuccessful...
+export const removeHousingBookmark = async (roomId: number) => {
+  const result = await backendAPI.post(
+    '/bookmark',
+    JSON.stringify({ room_id: roomId, action: 'remove' }),
+    {
+      headers: {
+        'content-type': 'application/json',
+      },
+      withCredentials: true,
+    },
+  );
+};
+
 export const newHousingPostAPI = async (
   roomForm: CreateHousePostProperties & { email: string }, // TODO double check that this is the correct type for param, and you need to type the promise
 ): Promise<any[] | undefined> => {
@@ -99,68 +141,6 @@ export const newHousingPostAPI = async (
     // handle errors
     if (result.request?.status !== 201) throw Error('Bad request');
     return result.data;
-  } catch (err) {
-    console.error(err);
-    return undefined;
-  }
-};
-
-export const getHousingBookmarksAPI = async () => {
-  try {
-    const result = await backendAPI.get<HousePost[]>('/bookmark', {
-      headers: {
-        'content-type': 'application/json',
-      },
-      withCredentials: true,
-    });
-    console.log(result);
-    if (result.request?.status !== 200) throw Error('Bad request');
-
-    return result.data;
-  } catch (err) {
-    console.error(err);
-    return undefined;
-  }
-};
-
-export const addHousingBookmarkAPI = async (roomId: number) => {
-  try {
-    const result = await backendAPI.post(
-      '/bookmark',
-      JSON.stringify({ room_id: roomId, action: 'add' }),
-      {
-        headers: {
-          'content-type': 'application/json',
-        },
-        withCredentials: true,
-      },
-    );
-    console.log(result);
-    if (result.request?.status !== 201) throw Error('Bad request');
-
-    return true;
-  } catch (err) {
-    console.error(err);
-    return undefined;
-  }
-};
-
-export const removeHousingBookmarkAPI = async (roomId: number) => {
-  try {
-    const result = await backendAPI.post(
-      '/bookmark',
-      JSON.stringify({ room_id: roomId, action: 'remove' }),
-      {
-        headers: {
-          'content-type': 'application/json',
-        },
-        withCredentials: true,
-      },
-    );
-    console.log(result);
-    if (result.request?.status !== 200) throw Error('Bad request');
-
-    return true;
   } catch (err) {
     console.error(err);
     return undefined;

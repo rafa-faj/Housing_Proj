@@ -88,7 +88,7 @@ def bookmark():
         print(client_token, login_session["access_token"])
         return generateResponse(elem="Bookmark get/add/remove is forbidden due to invalid token", status=403)
     if request.method == 'GET':
-        bookmark_rooms = [room_json(bookmark.room, session) for bookmark in session.query(
+        bookmark_rooms = [bookmark.room_id for bookmark in session.query(
             Bookmark).filter_by(user_id=login_session["user_id"]).all()]
         return generateResponse(elem=bookmark_rooms)
     message, status = 'Successfully added bookmark.', 201

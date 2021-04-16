@@ -1,37 +1,48 @@
-import React, { useState, FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import Row from 'react-bootstrap/Row';
 import { Button } from 'react-bootstrap';
-import { HousePost } from '../../../models/PostModels';
-import HouseProfile from '../../HouseProfile/HouseProfile';
+import { HousePost } from '@models';
 import styles from './Bookmark.module.scss';
+import { useRoomData } from '@hooks';
+import { useRouter } from 'next/router';
 
-// change this to PathProps extends HousePost {} to include other props
-export type PathProps = HousePost;
+type BookmarkProps = Pick<HousePost, 'roomId'>;
 
-const Bookmark: FunctionComponent<PathProps> = (props) => {
-  const [show, setShow] = useState<boolean>(false);
+const Bookmark: FunctionComponent<BookmarkProps> = ({ roomId }) => {
+  const { data, error } = useRoomData(roomId);
+  const router = useRouter();
+
+  if (error) {
+    return <div>Error occurred! Please reload the page.</div>;
+  }
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
+  const routeToHouseProfile = () => {
+    router.push(`/housing/${roomId}`, undefined, { shallow: true });
+  };
 
   return (
     <>
-      <HouseProfile show={show} onHide={() => setShow(false)} {...props} />
-
       <Button
         variant="no-show"
         className={styles.btnWrapper}
-        onClick={() => setShow(true)}
+        onClick={routeToHouseProfile}
       >
         <div className={styles.bookmark}>
           <div>
             <img // TODO change this to be a carousel (first need to update the carousel), also change this to not use props (use the swr hook), change how you use the src below
-              src={`https://houseit.s3.us-east-2.amazonaws.com/${props.photos[0]}`}
+              src={data.photos[0]}
               alt="First slide"
               className={styles.thumbnail}
             />
           </div>
           <div className={styles.info}>
-            <Row>{props.leaserName}</Row>
-            <Row>{props.leaserPhone}</Row>
-            <Row>{props.leaserEmail}</Row>
+            <Row>{data.leaserName}</Row>
+            <Row>{data.leaserPhone}</Row>
+            <Row>{data.leaserEmail}</Row>
           </div>
         </div>
       </Button>

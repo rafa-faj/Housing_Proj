@@ -8,7 +8,7 @@ import HouseCardList from '@components/HouseCardList';
 import HouseSideBar from '@components/HouseSideBar';
 import HousingPost from '@components/HousingPostForm';
 import { useRouter } from 'next/router';
-import HouseProfile from '@components/HouseProfile/HouseProfile';
+import HouseProfile from '@components/HouseProfile';
 import styles from './[[...roomId]].module.scss';
 
 // parses the query parameter into a number (or undefined)

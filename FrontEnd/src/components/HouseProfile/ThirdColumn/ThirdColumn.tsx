@@ -9,9 +9,10 @@ import { HousePost } from '@models';
 import { contactIcons } from '@icons';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { LOGIN_TO_VIEW } from '@constants';
-import { selectHousingFavorites, selectUser, showLogin } from '@redux';
+import { selectUser, showLogin } from '@redux';
 import { Map } from '@basics';
 import { abbreviateAddress } from '@utils';
+import { useRoomBookmarks } from '@hooks';
 import styles from './ThirdColumn.module.scss';
 
 // type CommmonProps = Pick<
@@ -57,34 +58,29 @@ const ThirdColumn: FunctionComponent<Props> = ({
   location,
   roomId,
 }) => {
-  const favorites = useSelector(selectHousingFavorites);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+
+  const { data: bookmarks, addBookmark, removeBookmark } = useRoomBookmarks();
+  const isBookmarked = !!(roomId && bookmarks?.includes(roomId));
+
+  const handleBookmarking = () => {
+    // don't actually bookmark this if in preview mode
+    if (!roomId) return;
+
+    if (isBookmarked) {
+      removeBookmark(roomId);
+    } else {
+      addBookmark(roomId);
+    }
+  };
 
   return (
     <Col sm={12} md={6} lg={4} className={styles.wrapper}>
       <div className={`${styles.topHalf} pl-lg-1`}>
         <div className={styles.favoriteWrapper}>
-          <Button
-            variant="tertiary"
-            block
-            onClick={() => {
-              if (!roomId) return;
-
-              if (favorites && favorites[roomId]) {
-                // need to remove from the favorites
-                // dispatch(removeHousingFavorite(roomId));
-                // TODO
-              } else {
-                // need to add to the favorites
-                // dispatch(newHousingFavorite(housePost));
-                // TODO
-              }
-            }}
-          >
-            {roomId && favorites && favorites[roomId]
-              ? 'Unfavorite'
-              : 'Favorite'}
+          <Button variant="tertiary" block onClick={handleBookmarking}>
+            {isBookmarked ? 'Unfavorite' : 'Favorite'}
           </Button>
           <Button variant="no-show">
             <contactIcons.share />

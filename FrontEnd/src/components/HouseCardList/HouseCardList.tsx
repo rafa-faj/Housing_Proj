@@ -41,8 +41,6 @@ const BrowsingList: FunctionComponent = () => {
 };
 
 const FilteredList: FunctionComponent = () => {
-  // return <div>triggered!!!</div>;
-
   const filterData = useSelector(selectFilterData);
 
   // we know filterData is not undefined since the housing mode is checked in HouseCardList

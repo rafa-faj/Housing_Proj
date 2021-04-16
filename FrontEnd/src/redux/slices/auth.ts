@@ -8,11 +8,6 @@ import {
   createNewUserApi,
 } from '../../apis/index';
 import { User, UserNameEmail } from '../../models/User';
-import {
-  getHousingFavorites,
-  postAllHousingFavorites,
-  resetHousingFavorites,
-} from './housing';
 import { useSelector } from 'react-redux';
 
 const cookies = new Cookies();
@@ -116,8 +111,6 @@ export const login = (name: string, email: string): AppThunk => async (
           phone: response.phone,
         }),
       );
-      await dispatch(postAllHousingFavorites());
-      dispatch(getHousingFavorites());
     }
   }
 };
@@ -132,7 +125,6 @@ export const logout = (): AppThunk => async (dispatch, getState) => {
   if (response) {
     dispatch(setUser(undefined));
     dispatch(setUserDraft(undefined)); // TODO not sure if this is needed
-    dispatch(resetHousingFavorites());
   }
 };
 
