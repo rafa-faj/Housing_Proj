@@ -3,15 +3,26 @@
  * If the array is empty, then it will return the second param (default = true).
  */
 export const isStringArray = (
-  array: any[],
+  x: any,
   ifEmpty: boolean = true,
-): boolean => {
-  if (array.length == 0) return ifEmpty;
+): x is string[] => {
+  if (!Array.isArray(x)) return false;
 
-  return typeof array[0] === 'string';
+  if (x.length == 0) return ifEmpty;
+
+  return typeof x[0] === 'string';
+};
+
+/**
+ * Checks if the parameter is a number (during runtime).
+ */
+export const isNumber = (x: any): x is number => {
+  return typeof x === 'number';
 };
 
 /**
  * Checks if the parameter is a string (during runtime).
  */
-export const isString = (x: any) => typeof x === 'string';
+export const isString = (x: any): x is string => {
+  return typeof x === 'string';
+};
