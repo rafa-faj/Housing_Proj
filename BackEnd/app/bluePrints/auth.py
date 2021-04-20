@@ -61,6 +61,7 @@ def logout():
         print(client_token, login_session["access_token"])
     else:
         del login_session["user_id"]
+        del login_session["access_token"]
     return generateResponse(elem=message, status=status)
 
 
