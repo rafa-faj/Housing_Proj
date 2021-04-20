@@ -7,21 +7,21 @@ import { HousePost } from '../../../models/PostModels';
 import { photosToUrls } from '../../../utils/photos/index';
 import styles from './FirstColumn.module.scss';
 
-interface Props extends Pick<HousePost, 'leaserEmail' | 'location'> {
+interface Props extends Pick<HousePost, 'leaserEmail' | 'address'> {
   photos: File[] | string[];
   onExit: () => any;
 }
 
 const FirstColumn: FunctionComponent<Props> = ({
   leaserEmail,
-  location,
+  address,
   photos,
   onExit,
 }) => {
   // set the slide show content
   const slideShowItems = photosToUrls(photos).map((url) => ({
     src: url,
-    alt: `${leaserEmail} , ${location}}`,
+    alt: `${leaserEmail} , ${address}}`,
   }));
 
   return (

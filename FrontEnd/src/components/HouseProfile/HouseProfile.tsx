@@ -65,7 +65,7 @@ const HouseProfile: FunctionComponent<HouseProfileProps> = (props) => {
 
   const {
     leaserEmail,
-    location,
+    address,
     photos,
     name,
     negotiable,
@@ -101,7 +101,7 @@ const HouseProfile: FunctionComponent<HouseProfileProps> = (props) => {
         <Row>
           <FirstColumn
             leaserEmail={leaserEmail}
-            location={location}
+            address={address}
             photos={photos}
             onExit={onExit}
           />
@@ -126,7 +126,7 @@ const HouseProfile: FunctionComponent<HouseProfileProps> = (props) => {
             leaserSchoolYear={leaserSchoolYear}
             leaserMajor={leaserMajor}
             leaserPhone={leaserPhone}
-            location={location}
+            address={address}
             roomId={props.preview ? undefined : props.roomId}
           />
         </Row>

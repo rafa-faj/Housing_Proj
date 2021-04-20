@@ -5,10 +5,12 @@ export interface FilterModel {
   roomType: RoomLiteralType[];
   priceMin: number;
   priceMax: number;
+
   earlyInterval: string;
   earlyMonth: string;
   lateInterval: string;
   lateMonth: string;
+
   stayPeriod: number;
   other: string[];
   facilities: string[];

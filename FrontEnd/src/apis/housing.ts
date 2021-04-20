@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { CreateHousePostProperties, HousePost } from '../models/PostModels';
 import { FilterModel } from '@models';
 import { backendAPI } from './apiBases';

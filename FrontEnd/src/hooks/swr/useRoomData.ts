@@ -16,8 +16,8 @@ const formatHouseData = (
 
   if (unformattedData) {
     const formattedMoveIn = formatMoveIn(
-      unformattedData.early,
-      unformattedData.late,
+      unformattedData.earlyDate,
+      unformattedData.lateDate,
     );
     const roomType = formatRoomType(unformattedData.roomType);
     const photos = formatUrlsWithAws(unformattedData.photos);

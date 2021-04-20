@@ -25,7 +25,7 @@ import styles from './ThirdColumn.module.scss';
 //   | 'leaserSchoolYear'
 //   | 'leaserMajor'
 //   | 'leaserPhone'
-//   | 'location'
+//   | 'address'
 // >;
 // type Props = CommonProps &
 //   ({ preview?: false; roomId: number } | { preview: true; roomId: undefined });
@@ -41,7 +41,7 @@ interface Props
     | 'leaserSchoolYear'
     | 'leaserMajor'
     | 'leaserPhone'
-    | 'location'
+    | 'address'
   > {
   roomId?: number;
 }
@@ -55,7 +55,7 @@ const ThirdColumn: FunctionComponent<Props> = ({
   leaserSchoolYear,
   leaserMajor,
   leaserPhone,
-  location,
+  address,
   roomId,
 }) => {
   const user = useSelector(selectUser);
@@ -90,8 +90,8 @@ const ThirdColumn: FunctionComponent<Props> = ({
         <div className={styles.distance}>
           <b>~ {distance}</b>&nbsp;public transit from Price Center
         </div>
-        <div className={styles.address}>{abbreviateAddress(location)}</div>
-        <Map address={location} className={styles.map} />
+        <div className={styles.address}>{abbreviateAddress(address)}</div>
+        <Map address={address} className={styles.map} />
       </div>
 
       <Container className={styles.bio}>

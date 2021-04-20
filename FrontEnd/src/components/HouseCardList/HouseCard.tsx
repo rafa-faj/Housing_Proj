@@ -31,7 +31,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
 
   const {
     leaserEmail,
-    location,
+    address,
     photos,
     numBaths,
     numBeds,
@@ -44,7 +44,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
 
   const slideShowItems = photos.map((url) => ({
     src: url,
-    alt: `${leaserEmail} , ${location}}`,
+    alt: `${leaserEmail} , ${address}}`,
   }));
 
   return (
@@ -102,7 +102,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
 
             <Col md={6} className="secondary-text">
               <Row>
-                <div className="w-100 text-right text-truncate">{location}</div>
+                <div className="w-100 text-right text-truncate">{address}</div>
               </Row>
             </Col>
           </Row>

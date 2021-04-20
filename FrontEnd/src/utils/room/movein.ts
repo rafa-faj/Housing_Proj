@@ -73,21 +73,5 @@ export const abbreviateMoveIn = (
  * @param late - the late string
  */
 export const formatMoveIn = (early: string, late: string) => {
-  const [earlyInt, earlyMonth] = early.split(' ') as [string, Month];
-  const [lateInt, lateMonth] = late.split(' ') as [string, Month];
-
-  const earlyIntDisplayed =
-    earlyInt.toLowerCase() === 'anytime'
-      ? earlyInt
-      : removeParentheses(earlyInt);
-  const lateIntDisplayed =
-    lateInt.toLowerCase() === 'anytime' ? lateInt : removeParentheses(lateInt);
-
-  const formattedMoveIn = abbreviateMoveIn(
-    earlyIntDisplayed,
-    earlyMonth,
-    lateIntDisplayed,
-    lateMonth,
-  );
-  return formattedMoveIn;
+  return `${early} - ${late}`;
 };

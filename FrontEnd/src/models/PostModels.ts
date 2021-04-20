@@ -3,12 +3,12 @@ import { RoomType } from '../constants';
 
 export interface HousePost {
   name: string;
-  location: string;
+  address: string;
   distance: string;
   pricePerMonth: number;
   stayPeriod: number;
-  early: string;
-  late: string;
+  earlyDate: string;
+  lateDate: string;
   roomType: string;
   leaserName: string;
   leaserEmail: string;

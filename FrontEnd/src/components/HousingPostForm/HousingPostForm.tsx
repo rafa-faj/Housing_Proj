@@ -66,12 +66,12 @@ const storeToHouseData = ({
 }: Store): CreateHousePostProperties => {
   return {
     name: propertyType,
-    location: selectedLocation,
+    address: selectedLocation,
     distance: '___ min', // will calculate the minutes in the API post, showing as '___'
     pricePerMonth: price,
     stayPeriod,
-    early: `${earlyInterval} ${earlyMonth}`,
-    late: `${lateInterval} ${lateMonth}`,
+    earlyDate: `${earlyInterval} ${earlyMonth}`, // TODO should be day/month/year, do this only after the design finished their thing
+    lateDate: `${lateInterval} ${lateMonth}`, // TODO should be day/month/year, do this only after the design finished their thing
     roomType, // TODO need to change database to hold array of strings
     numBeds,
     numBaths,
@@ -148,7 +148,7 @@ const HousingPost: FunctionComponent<HousingPostProps> = ({
             ...storeToHouseData(unformattedData),
             ...userToHousePostUser(user),
           };
-          const formattedMoveIn = formatMoveIn(data.early, data.late);
+          const formattedMoveIn = formatMoveIn(data.earlyDate, data.lateDate);
           const roomType = formatRoomType(data.roomType);
 
           setPreviewData({
