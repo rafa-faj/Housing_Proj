@@ -25,7 +25,7 @@ const useRoomSearch = ({
 }: FilterModel) => {
   const { data, error, isValidating, mutate } = useSWR(
     [
-      '/api/rooms/search',
+      '/swr/rooms/search',
       distance,
       roomType,
       priceMin,

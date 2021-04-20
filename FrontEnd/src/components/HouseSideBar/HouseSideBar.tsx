@@ -1,10 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import Button from 'react-bootstrap/Button';
 import TV from '../TV/TV';
-import { useSelector } from 'react-redux';
-import { selectUser } from '@redux';
 import BookmarkList from '../BookmarkList';
 import styles from './HouseSideBar.module.scss';
+import { useUser } from '@hooks';
 
 type ButtonOnClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => any;
 interface HouseSideBarProps {
@@ -16,7 +15,7 @@ const HouseSideBar: FunctionComponent<HouseSideBarProps> = ({
   onLoginClick,
   onPostClick,
 }) => {
-  const user = useSelector(selectUser);
+  const { user } = useUser();
 
   return (
     <div className={styles.container}>

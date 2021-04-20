@@ -1,10 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import { useSelector } from 'react-redux';
 import { bookmarkIcons } from '@icons';
-import { selectUser } from '@redux';
 import Bookmark from './Bookmark/Bookmark';
 import styles from './BookmarkList.module.scss';
-import { useRoomBookmarks } from '@hooks';
+import { useRoomBookmarks, useUser } from '@hooks';
 
 const BookmarkHeader: FunctionComponent = () => (
   <div className={styles.header}>
@@ -42,7 +40,7 @@ const NotSignedIn: FunctionComponent = () => (
 );
 
 const Controller: FunctionComponent = () => {
-  const user = useSelector(selectUser);
+  const { user } = useUser();
 
   return (
     <div className={styles.bookmarkList}>

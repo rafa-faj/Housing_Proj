@@ -1,16 +1,27 @@
 import React, { useState, FunctionComponent } from 'react';
 import { Button } from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout, selectUser, showLogin } from '@redux';
-import ProfileModal from '../ProfileModal/ProfileModal';
+import { useDispatch } from 'react-redux';
+import { showLogin } from '@redux';
+import ProfileModal from '@components/ProfileModal';
 import { navIcons } from '@icons';
+import { useUser } from '@hooks';
+import { logout } from '@apis';
 import styles from './NavBar.module.scss';
 
 const NavBar: FunctionComponent = () => {
   const [showProfile, setShowProfile] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  const { user } = useUser();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch {
+      // TODO eventually display error to user...
+      console.log('Error logging out.');
+    }
+  };
 
   return (
     <>
@@ -45,7 +56,7 @@ const NavBar: FunctionComponent = () => {
                 <Button
                   variant="no-show"
                   className={styles.navBtn}
-                  onClick={() => dispatch(logout())}
+                  onClick={handleLogout}
                 >
                   Log Out
                 </Button>

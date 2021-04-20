@@ -40,7 +40,7 @@ const formatHouseData = (
  */
 const useRoomData = (id: number) => {
   const { data: unformattedData, error, isValidating, mutate } = useSWR(
-    ['/api/rooms', id],
+    ['/swr/rooms', id],
     (key, id) => getHousingPost(id),
   );
 

@@ -9,10 +9,10 @@ import { HousePost } from '@models';
 import { contactIcons } from '@icons';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { LOGIN_TO_VIEW } from '@constants';
-import { selectUser, showLogin } from '@redux';
+import { showLogin } from '@redux';
 import { Map } from '@basics';
 import { abbreviateAddress } from '@utils';
-import { useRoomBookmarks } from '@hooks';
+import { useRoomBookmarks, useUser } from '@hooks';
 import styles from './ThirdColumn.module.scss';
 
 // type CommmonProps = Pick<
@@ -58,10 +58,12 @@ const ThirdColumn: FunctionComponent<Props> = ({
   location,
   roomId,
 }) => {
-  const user = useSelector(selectUser);
+  const { user } = useUser();
+
   const dispatch = useDispatch();
 
   const { data: bookmarks, addBookmark, removeBookmark } = useRoomBookmarks();
+  console.log(bookmarks);
   const isBookmarked = !!(roomId && bookmarks?.includes(roomId));
 
   const handleBookmarking = () => {

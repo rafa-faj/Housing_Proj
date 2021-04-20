@@ -1,7 +1,5 @@
 import React, { useState, FunctionComponent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectUser, newHousingPost } from '@redux';
-import { User } from '../../models/User';
+import { useDispatch } from 'react-redux';
 import HouseProfile, { PreviewData } from '../HouseProfile/HouseProfile';
 import { facilityToIcon } from '../HouseProfile/SecondColumn/SecondColumn';
 import Page1, { Page1Store, page1InitialStore, page1Schema } from './PostPage1';
@@ -11,11 +9,9 @@ import Page4, { Page4Store, page4InitialStore, page4Schema } from './PostPage4';
 import Page5, { Page5Store, page5InitialStore, page5Schema } from './PostPage5';
 import Page6, { Page6Store, page6InitialStore, page6Schema } from './PostPage6';
 import { WizardForm } from '@basics';
-import {
-  CreateHousePostProperties,
-  HousePostUserData,
-} from '../../models/PostModels';
-import { formatMoveIn, formatRoomType } from '../../utils';
+import { CreateHousePostProperties, HousePostUserData, User } from '@models';
+import { formatMoveIn, formatRoomType } from '@utils';
+import { useUser } from '@hooks';
 
 type Store = Page1Store &
   Page2Store &
@@ -105,9 +101,9 @@ const HousingPost: FunctionComponent<HousingPostProps> = ({
   const [previewData, setPreviewData] = useState<PreviewData>();
   const hidePreview = () => setPreviewData(undefined);
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  const { user } = useUser();
 
-  if (!user) return <div />;
+  if (!user) return null;
 
   return (
     <>

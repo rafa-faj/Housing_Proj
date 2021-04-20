@@ -11,15 +11,16 @@ import string
 
 authetication = Blueprint('auth', __name__)
 
+def create_auth_token():
+    """Create anti-forgery state token."""
+    return "".join(random.choice(string.ascii_uppercase + string.digits)
+                           for x in range(32))
 
 @authetication.route("/login", methods=['POST', 'OPTIONS'])
 def login():
-    """Create anti-forgery state token."""
+    """Login user and set a cookie for them."""
     if request.method == 'OPTIONS':
         return generateResponse()
-    access_token = "".join(random.choice(string.ascii_uppercase + string.digits)
-                           for x in range(32))
-    login_session["access_token"] = access_token
     requested_json = request.json
     # check in with db to see if user is new
     session = current_app.config['DB_CONNECTION']
@@ -28,15 +29,16 @@ def login():
         # User doesn't exist
         # maybe also do: , 'access_token': access_token
         json_response = {'newUser': True}
-        response = generateResponse(json_response)
-        response.set_cookie('access_token', access_token)
-        return response
+        return generateResponse(json_response)
+
+    access_token = create_auth_token()
+    login_session["access_token"] = access_token
+    login_session["user_id"] = user.id
+
     path_name = "/".join(["user"+str(user.id),
                           'profile', "headshot.jpg"])
-    login_session["user_id"] = user.id
     json_response = {'name': requested_json['name'],
                      'email': requested_json['email'],
-                     'access_token': access_token,
                      'message': 'Successfully created room.',
                      'description': user.description,
                      'phone': user.phone,
@@ -53,7 +55,7 @@ def login():
 def logout():
     if request.method == 'OPTIONS':
         return generateResponse()
-    client_token = request.json.get('access_token')
+    client_token = request.cookies.get("access_token")
     message, status = 'Successful Logout!', 200
     # delete the user id
     if not client_token or (client_token != login_session["access_token"]):
@@ -61,7 +63,10 @@ def logout():
         print(client_token, login_session["access_token"])
     else:
         del login_session["user_id"]
-    return generateResponse(elem=message, status=status)
+        del login_session["access_token"]
+    response = generateResponse(elem=message, status=status)
+    response.set_cookie('access_token', '', expires=0) # remove cookie by expiring it immediately
+    return response
 
 
 @authetication.route("/createUser", methods=["POST", "OPTIONS"])
@@ -82,6 +87,8 @@ def create_user():
                     requested_json["schoolYear"],
                     requested_json["major"],
                     session)
+    access_token = create_auth_token()
+    login_session["access_token"] = access_token
     login_session["user_id"] = user.id
     icon_path = './assets/profile_default_icons/'
     selected_icon = random.choice(
@@ -98,9 +105,39 @@ def create_user():
                      'phone': user.phone,
                      'schoolYear': user.school_year,
                      'major': user.major,
-                     'profile_photo': path_name
+                     'profilePhoto': path_name
                      }
     response = generateResponse(json_response, 201)
     response.set_cookie('access_token', login_session["access_token"])
 
+    return response
+
+@authetication.route("/me")
+def get_user():
+    """Return user profile and update their cookie + access token."""
+    client_token = request.cookies.get("access_token")
+    if not client_token or (client_token != login_session["access_token"]):
+        # if user is not logged in
+        print(client_token, login_session["access_token"])
+        return generateResponse(elem="No current logged in user due to invalid token", status=403)
+
+    user_id = login_session["user_id"]
+    access_token = create_auth_token()
+    login_session["access_token"] = access_token
+
+    session = current_app.config['DB_CONNECTION']
+    user = check_exist(User, session, **{'id': user_id})
+    path_name = "/".join(["user"+str(user.id),
+                          'profile', "headshot.jpg"])
+
+    json_response = {'name': user.name,
+                     'email': user.email,
+                     'description': user.description,
+                     'phone': user.phone,
+                     'schoolYear': user.school_year,
+                     'major': user.major,
+                     'profilePhoto': path_name
+                     }
+    response = generateResponse(json_response)
+    response.set_cookie('access_token', access_token)
     return response

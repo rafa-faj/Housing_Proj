@@ -2,19 +2,14 @@ import React, { useState, FunctionComponent } from 'react';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import Image from 'react-bootstrap/Image';
-import { SchoolYear, majors, BackendMapping } from '../../constants';
+import { SchoolYear, majors, BackendMapping } from '@constants';
 import { Dropdown, Input, ToggleGroup } from '@basics';
 import { miscIcons, profileIcons } from '@icons';
-import {
-  selectUser,
-  selectUserDraft,
-  setUserDraft,
-  logout,
-  editProfile,
-} from '@redux';
-import { User, dummyUser } from '../../models/User';
+import { selectUserDraft, setUserDraft, editProfile } from '@redux';
+import { User, dummyUser } from '@models';
 import styles from './ProfileModal.module.scss';
 import cn from 'classnames';
+import { useUser } from '@hooks';
 
 interface PathProps {
   show: boolean;
@@ -81,11 +76,13 @@ const dummyPosts = [
 ];
 
 const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
-  const userSelected = useSelector(selectUser) || dummyUser;
+  const { user: userFromHook, logout } = useUser();
+  const userSelected = userFromHook || dummyUser;
   const userSelectedDraft = useSelector(selectUserDraft) || dummyUser;
   const dispatch = useDispatch();
   const [activeIndicator, setactiveIndicator] = useState(true);
   const [editPosts, setEditPosts] = useState(false);
+
   return (
     <Modal
       dialogClassName={styles.modal}
@@ -143,7 +140,7 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                     className={styles.signOut}
                     variant="no-show"
                     onClick={() => {
-                      dispatch(logout());
+                      logout();
                       setShow(false);
                     }}
                   >

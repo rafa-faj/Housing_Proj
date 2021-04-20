@@ -25,7 +25,7 @@ type ValidationErrors<P> = Partial<
 type SubmitForm = () => Promise<{ success: boolean; message?: string }>;
 type SetStore<P> = (value: Partial<P>) => void;
 export type WizardFormStep<P> = Partial<P> & {
-  exitWizardForm: () => void;
+  hideWizardForm: () => void;
   nextStep: () => void;
   prevStep: () => void;
   setStep: (i: number) => void;
@@ -40,11 +40,15 @@ interface WizardFormProps<T = {}> {
   show: boolean;
   onHide: () => any;
   title: string;
-  onSubmit: (store: T) => boolean;
+  onSubmit: (
+    store: T,
+    hideWizardForm: () => void,
+  ) => boolean | Promise<boolean>;
   initialStore: Partial<T>[];
   schemas: ZodSchema<Partial<T>>[];
   lastButtonAsInactiveArrow?: boolean;
   lastButtonText?: string;
+  hideExitButton?: boolean;
 }
 
 /**
@@ -64,6 +68,7 @@ const WizardForm = <T extends {}>({
   schemas,
   lastButtonAsInactiveArrow,
   lastButtonText = 'Submit',
+  hideExitButton,
 }: WizardFormProps<T>) => {
   const [curIndex, setCurIndex] = useState<number>(0);
   const [isFirst, setIsFirst] = useState<boolean>(true);
@@ -88,7 +93,7 @@ const WizardForm = <T extends {}>({
   /**
    * Use this to exit the wizard form without submitting.
    */
-  const exitWizardForm = () => {
+  const hideWizardForm = () => {
     onHide();
   };
 
@@ -225,8 +230,8 @@ const WizardForm = <T extends {}>({
       ...pre,
       ...cur,
     }));
-    const success = await onSubmit(combined as T);
-    if (success) exitWizardForm();
+    const success = await onSubmit(combined as T, hideWizardForm);
+    if (success) hideWizardForm();
     return { success };
   };
 
@@ -262,13 +267,19 @@ const WizardForm = <T extends {}>({
       contentClassName={styles.modalContent}
       show={show}
       onHide={onHide}
+      backdrop="static"
+      keyboard={false}
       centered
     >
       <div className="h-100 w-100">
         <div className={`${styles.topBar} px-3 py-2`}>
-          <Button variant="no-show" onClick={onHide}>
-            <miscIcons.orangeX />
-          </Button>
+          {hideExitButton ? (
+            <div />
+          ) : (
+            <Button variant="no-show" onClick={onHide}>
+              <miscIcons.orangeX />
+            </Button>
+          )}
           <div className={styles.title}>{title}</div>
           <div />
         </div>
@@ -278,7 +289,7 @@ const WizardForm = <T extends {}>({
             nextStep,
             prevStep,
             setStep,
-            exitWizardForm,
+            hideWizardForm,
             submitForm,
             setStore,
             validations: validations[curIndex],

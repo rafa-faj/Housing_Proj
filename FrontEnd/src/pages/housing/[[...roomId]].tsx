@@ -1,6 +1,6 @@
 import React, { useEffect, useState, FunctionComponent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectShowNewUserPopup, showLogin } from '@redux';
+import { useDispatch } from 'react-redux';
+import { showLogin } from '@redux';
 import NewUserSetup from '@components/NewUserSetup';
 import SideBarLayout, { SideBar } from '@components/SideBarLayout';
 import Filter from '@components/Filter';
@@ -10,11 +10,12 @@ import HousingPost from '@components/HousingPostForm';
 import { useRouter } from 'next/router';
 import HouseProfile from '@components/HouseProfile';
 import styles from './[[...roomId]].module.scss';
+import { isString } from '@utils';
 
 // parses the query parameter into a number (or undefined)
 const parseQueryParam = (params?: string | string[]) => {
   let roomIdString;
-  if (typeof params === 'string') {
+  if (isString(params)) {
     roomIdString = params;
   } else {
     roomIdString = params ? params[0] : '';
@@ -28,10 +29,11 @@ const Housing: FunctionComponent = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const showNewUserPopup = useSelector(selectShowNewUserPopup);
   const [showHousingPost, setShowHousingPost] = useState<boolean>(false);
   const [roomId, setRoomId] = useState<number | undefined>();
 
+  // Before the router is ready, we cannot access query parameters.
+  // So only set the room id once router is ready.
   useEffect(() => {
     if (!router.isReady) return;
 
@@ -46,16 +48,10 @@ const Housing: FunctionComponent = () => {
   return (
     <>
       <HousingPost show={showHousingPost} setShow={setShowHousingPost} />
+      <NewUserSetup />
+
       {roomId && (
         <HouseProfile show={true} roomId={roomId} onExit={routeToHousing} />
-      )}
-
-      {showNewUserPopup !== undefined && ( // only render the modal when user info exists, to initialize the wizard form with the user info
-        <NewUserSetup
-          show={showNewUserPopup !== undefined}
-          name={showNewUserPopup?.name}
-          email={showNewUserPopup?.email}
-        />
       )}
 
       {/* The actual home page */}

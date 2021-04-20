@@ -9,3 +9,6 @@ export * from './useRoomBookmarks';
 
 export { default as useRoomSearch } from './useRoomSearch';
 export * from './useRoomSearch';
+
+export { default as useUser } from './useUser';
+export * from './useUser';

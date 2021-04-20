@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CreateHousePostProperties, HousePost, FilterModel } from '@models';
-import { AppThunk, RootState } from '@redux';
-import { newHousingPostAPI } from '@apis';
-import { isRunningServer } from '@utils';
+import { FilterModel } from '@models';
+import { RootState } from '@redux';
 
 export enum HousingMode {
   Browse,
@@ -42,19 +40,20 @@ export const housingSlice = createSlice({
 // export the reducers that should be accessible by outside files
 export const { setHousingMode } = housingSlice.actions;
 
-export const newHousingPost = (
-  housePost: CreateHousePostProperties,
-): AppThunk => async (dispatch, getState) => {
-  const email = getState().auth.user?.email;
-  if (!email) return;
+// TODO delete
+// export const newHousingPost = (
+//   housePost: CreateHousePostProperties,
+// ): AppThunk => async (dispatch, getState) => {
+//   const email = getState().auth.user?.email;
+//   if (!email) return;
 
-  const result = await newHousingPostAPI({ ...housePost, email });
-  if (result && !isRunningServer()) {
-    window.location.reload(false);
-  } else {
-    // handle the error
-  }
-};
+//   const result = await newHousingPostAPI({ ...housePost, email });
+//   if (result && !isRunningServer()) {
+//     window.location.reload(false);
+//   } else {
+//     // handle the error
+//   }
+// };
 
 export const selectHousingMode = ({ housing }: RootState) => {
   return housing.mode;

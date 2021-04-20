@@ -8,7 +8,7 @@ import {
 
 const useRoomBookmarks = () => {
   const { data, error, isValidating, mutate } = useSWR(
-    '/api/bookmarks',
+    '/swr/bookmarks',
     getHousingBookmarks,
     {
       refreshInterval: TEN_MINUTES,
