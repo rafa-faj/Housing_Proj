@@ -10,8 +10,8 @@ import os
 import random
 
 
-def build_mock():
-    engine = create_engine('sqlite:///housing.db')
+def build_mock(db_string,k=10):
+    engine = create_engine(db_string)
     # Bind the engine to the metadata of the Base class so that the
     # declaratives can be accessed through a DBSession instance
     Base.metadata.bind = engine
@@ -20,8 +20,8 @@ def build_mock():
     # A DBSession() instance establishes all conversations with the database
     # and represents a "staging zone" for all the objects loaded into the
     # database session object. Any change made against the objects in the
-    # session won't be persisted into the database until you call
-    # session.commit(). If you're not happy about the changes, you can
+    # session won"t be persisted into the database until you call
+    # session.commit(). If you"re not happy about the changes, you can
     # revert all of them back to the last commit by calling
     # session.rollback()
     session = DBSession()
@@ -40,36 +40,36 @@ def build_mock():
     }
 
     # Add mock users
-    cris = add_user(CRIS, "haha@ucsd.edu", datetime.now(), "858-911",
-                    descriptions[CRIS], 'Third',
+    cris = add_user(CRIS, "haha@ucsd.edu", datetime.now(), "858-911-1198",
+                    descriptions[CRIS], "Third",
                     "Data Science", session)
     amit = add_user(AMIT, "amit@ucsd.edu", datetime.now(), "858-911989",
-                    descriptions[AMIT],  'Third',
+                    descriptions[AMIT],  "Third",
                     "Data Science", session)
     adam = add_user(ADAM, "adam@ucsd.edu", datetime.now(), "858-65386",
-                    descriptions[ADAM], 'Third',
+                    descriptions[ADAM], "Third",
                     "Computer Science and Engineering",
                     session)
     keenan = add_user(KEENAN, "keenan@ucsd.edu", datetime.now(), "858-4675432",
-                      descriptions[KEENAN],  'Grad',
+                      descriptions[KEENAN],  "Grad",
                       "Computer Science and Engineering",
                       session)
     users = [adam, cris, amit, keenan]
-    file_dir = '../assets/room_mock_images/'
-    for user in users:
-        # create icons
-        icon_path = '../assets/profile_default_icons/'
-        selected_icon = random.choice(os.listdir(icon_path))
-        path_name = "/".join(["user"+str(user.id),
-                              'profile', "headshot.jpg"])
-        upload_file_wname(icon_path+selected_icon, 'houseit', path_name)
+    file_dir = "app/assets/room_mock_images/"
+    # for user in users:
+    #     # create icons
+    #     icon_path = "app/assets/profile_default_icons/"
+    #     selected_icon = random.choice(os.listdir(icon_path))
+    #     path_name = "/".join(["user"+str(user.id),
+    #                           "profile", "headshot.jpg"])
+    #     upload_file_wname(icon_path+selected_icon, "houseit", path_name)
 
     def generateMock(k=30):
         attributes = []
         for attr in others:
-            attributes.append(add_attribute(attr, 'other', session))
+            attributes.append(add_attribute(attr, "other", session))
         for attr in facilities:
-            attributes.append(add_attribute(attr, 'facilities', session))
+            attributes.append(add_attribute(attr, "facilities", session))
         move_combos = [(datetime(2018, 6, 1), datetime(2018, 7, 1))
                        for _ in range(k)]
         move_ins = [add_move_in(elem[0], elem[1], session)
@@ -100,16 +100,19 @@ def build_mock():
             for temp_attr in mock_attrs[i]:
                 add_house_attribute(temp_room, temp_attr, session)
             mock_rooms.append(temp_room)
-        for i in range(k):
-            path_name = "/".join(["user"+str(people[i].id), 'housing',
-                                  str(mock_rooms[i].id)])
-            random_files = random.sample(os.listdir(file_dir), 4)
-            for idx, file_name in enumerate(random_files):
-                upload_file_wname(file_dir+file_name, 'houseit',
-                                  path_name+"/"+str(idx)+".jpg")
-    generateMock(10)
+        # for i in range(k):
+        #     path_name = "/".join(["user"+str(people[i].id), "housing",
+        #                           str(mock_rooms[i].id)])
+        #     random_files = random.sample(os.listdir(file_dir), 4)
+        #     for idx, file_name in enumerate(random_files):
+        #         upload_file_wname(file_dir+file_name, "houseit",
+        #                           path_name+"/"+str(idx)+".jpg")
+    generateMock(k)
 
-
-print(createDB('sqlite:///housing.db'))
-build_mock()
-print("created Mock Database!")
+def setup_houses(db_path):
+    createDB(db_path)
+    build_mock(db_path,k=2)
+if __name__ == "__main__":
+    print(createDB("sqlite:///housing.db"))
+    build_mock("sqlite:///housing.db")
+    print("created Mock Database!")

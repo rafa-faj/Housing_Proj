@@ -4,7 +4,7 @@ from botocore.exceptions import ClientError
 import sys
 import getopt
 
-s3_client = boto3.client('s3')
+s3_client = boto3.client("s3")
 
 # test whether I can upload http
 def upload_file_wname(file_name, bucket, object_name=None):
@@ -25,7 +25,7 @@ def upload_file_wname(file_name, bucket, object_name=None):
     # Upload the file
     try:
         response = s3_client.upload_file(
-            file_name, bucket, object_name, ExtraArgs={'ACL': 'public-read'})
+            file_name, bucket, object_name, ExtraArgs={"ACL": "public-read"})
     except ClientError as e:
         logging.error(e)
         return False
@@ -50,7 +50,7 @@ def upload_file_wobject(file_object, bucket, object_name=None):
     # Upload the file
     try:
         response = s3_client.upload_fileobj(
-            file_object, bucket, object_name, ExtraArgs={'ACL': 'public-read'})
+            file_object, bucket, object_name, ExtraArgs={"ACL": "public-read"})
     except ClientError as e:
         logging.error(e)
         return False
@@ -62,11 +62,11 @@ def get_images(user_name, category="housing", extra_path=""):
     # TODO error handling if no files
     print(prefix)
     contents = s3_client.list_objects(
-        Bucket='houseit', Prefix=prefix)['Contents']
+        Bucket="houseit", Prefix=prefix)["Contents"]
     links = []
     for key in contents:
-        if key['Key'][-4:] in ['.jpg', '.png', '.svg'] or key['Key'][-5:] in '.jpeg':
-            links.append(key['Key'])
+        if key["Key"][-4:] in [".jpg", ".png", ".svg"] or key["Key"][-5:] in ".jpeg":
+            links.append(key["Key"])
     return links
 
 
@@ -74,13 +74,13 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv, "n:h:")
     except getopt.GetoptError:
-        print('you need to specify a value for the given command!')
+        print("you need to specify a value for the given command!")
         sys.exit(2)
     name = home = None
     for opt, arg in opts:
-        if opt == '-n':
+        if opt == "-n":
             name = arg
-        elif opt == '-h':
+        elif opt == "-h":
             home = arg
     print(name, home)
     print(get_images(name, extra_path=home))

@@ -61,8 +61,9 @@ const LoginUI: FunctionComponent = () => {
         className="g-auth"
         clientId="778916194800-977823s60p7mtu1sj72ru0922p2pqh6m.apps.googleusercontent.com"
         onSuccess={(response) => {
-          responseGoogleSuccess(response);
-          dispatch(hideLogin());
+          (response) => console.log(response);
+          // responseGoogleSuccess(response);
+          // dispatch(hideLogin());
         }}
         onFailure={(response) => console.log(response)}
         // TODO: add login cookie to onSuccess using universal-cookie
