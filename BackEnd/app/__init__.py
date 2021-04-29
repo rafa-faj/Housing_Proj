@@ -12,24 +12,31 @@ from app.bluePrints.auth import authetication
 from app.db.database_setup import Bookmark, Room
 from flask_sqlalchemy import SQLAlchemy
 from app.util.util import generateResponse
+from app.util.env_setup import set_backend_config
 import json
 import os
 from app.db.crud import room_json, read_rooms, read_room, write_room, add_bookmark, \
     remove_bookmark, update_field
 
+
 def create_app(test_config=None):
+    try:
+        backend_config = json.loads(os.environ["BACKEND_CONFIG"])
+    except KeyError:
+        # path not yet set
+        set_backend_config()
+        backend_config = json.loads(os.environ["BACKEND_CONFIG"])
     app = Flask(__name__)
-    app.secret_key = b"\xb7\xe2\xd6\xa3\xe2\xe0\x11\xd1\x92\xf1\x92G&>\xa2:"
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/housing.db"
+    app.config.update(backend_config)
+    app.secret_key = app.config["FLASK_SECRET_KEY"]
     if test_config:
         app.config.update(test_config)
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db = SQLAlchemy(app)
     app.register_blueprint(authetication)
-    app.config["CORS_HEADERS"] = "Content-Type"
     session = db.create_scoped_session()
     app.config["DB_CONNECTION"] = session
     CORS(app, supports_credentials=True)
+
     @ app.route("/profile", methods=["POST", "OPTIONS"])
     def editProfile():
         if request.method == "OPTIONS":
@@ -70,7 +77,6 @@ def create_app(test_config=None):
                         We are working our ass off to fix it", 500
         return generateResponse(elem=message, status=status)
 
-
     @ app.route("/bookmark", methods=["POST", "OPTIONS", "GET"])
     def bookmark():
         if request.method == "OPTIONS":
@@ -88,13 +94,13 @@ def create_app(test_config=None):
         message, status = "Successfully added bookmark.", 201
         if requested_json["action"] == "add":
             add_bookmark(requested_json["room_id"],
-                        login_session["user_id"], session)
+                         login_session["user_id"], session)
         else:
             remove_bookmark(
                 requested_json["room_id"], login_session["user_id"], session)
             message, status = "Successfully deleted bookmark.", 200
         return generateResponse(elem=message, status=status)
-    
+
     return app
 
 

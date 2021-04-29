@@ -15,6 +15,9 @@ authetication = Blueprint("auth", __name__)
 @authetication.route("/login", methods=["POST", "OPTIONS"])
 def login():
     """Login function and create anti-forgery state token."""
+
+    # PART1: Secure measure to verify identity
+
     # first check if the domain is allowed
     if request.remote_addr not in current_app.config["ALLOWED_ORIGINS"]:
         json_response = {
@@ -32,34 +35,55 @@ def login():
                            for x in range(32))
     login_session["access_token"] = access_token
     # check requested json, see if the json contains required login info
-    try:
-        # check if json exists from request
-        requested_json = request.json
-        # check if json contains enough info
-        # check if json contains valid info(ucsd email and google auth token)
-    except:
-        # if not, the request is invalid
+    # first check if json exists from request
+    requested_json = request.json
+    if requested_json is None:
         json_response = {
-            "message": "the request doesn't contain json data"}
+            "message": "Why Log in without a json? Did you forget something?"}
         response = generateResponse(json_response, 400)
         return response
-     # check in with db to see if user is new
+    # second check if json conatins enough info
+    try:
+        google_login_token = requested_json["google_login_token"]
+        # check if json contains valid info(ucsd email and google auth token)
+        status_code, message, user_email = verifyEmail(
+            google_login_token, current_app.config["ALLOWED_DOMAINS"], current_app.config["GAUTH_AUDIENCE"])
+        # if not valid, troll them(very likely to be a hacker)
+        if status_code != 200:
+            json_response = {
+                "message": message}
+            response = generateResponse(json_response, status_code)
+            return response
+    except KeyError:
+        # if in online test mode or production mode, return invalid response
+        if current_app.config["OFFLINE_TESTING"] != True:
+            json_response = {
+                "message": "Why Log in without giving your token? Are you an intruder? Quid pro quo bro"}
+            response = generateResponse(json_response, 400)
+            return response
+        user_email = requested_json["email"]
+        message = "Successful login for offline testing!"
+        # else just continue the flow for offline testing
+
+    # PART2: Check whether user is new and return corresponding response
+
+    # check in with db to see if user is new
     session = current_app.config["DB_CONNECTION"]
+    # Assumption: user email is a unique identifier
     user = get_row_if_exists(
-        User, session, **{"email": requested_json["email"]})
+        User, session, **{"email": user_email})
     if not user:
         # User doesn"t exist
-        json_response = {"newUser": True}
+        json_response = {"newUser": True, "message": message}
         response = generateResponse(json_response)
         response.set_cookie("access_token", access_token)
         return response
     path_name = "/".join(["user"+str(user.id),
                           "profile", "headshot.jpg"])
     login_session["user_id"] = user.id
-    json_response = {"name": requested_json["name"],
-                     "email": requested_json["email"],
-                     "access_token": access_token,
-                     "message": "Successfully created room.",
+    json_response = {"name": user.name,
+                     "email": user_email,
+                     "message": message,
                      "description": user.description,
                      "phone": user.phone,
                      "schoolYear": user.school_year,

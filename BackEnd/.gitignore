@@ -4,3 +4,7 @@ app/img
 /.vscode
 **/housing.db
 /.pytest_cache
+/lib
+/venv
+/bin
+/.env
