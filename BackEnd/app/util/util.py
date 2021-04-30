@@ -6,6 +6,7 @@ from google.auth.exceptions import GoogleAuthError
 
 def generateResponse(elem={}, status=200):
     """Simple wrapper to return consumable json response"""
+    # generated response in default has 200 status code
     response = make_response(jsonify(elem), status)
     return response
 
@@ -14,6 +15,8 @@ def isLoggedin(curr_session):
     """Check if the current user has already logged in"""
     access_token = curr_session.get("access_token", None)
     user_id = curr_session.get("user_id", None)
+    # logged in is define by a accesstoken + an existing user_id
+    # this prevents case where user doesn't create an account
     return access_token is not None and user_id is not None
 
 

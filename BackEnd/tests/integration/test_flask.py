@@ -222,7 +222,47 @@ def test_login_online(client, app, json_query, online_config, correct_response, 
     for key, value in correct_response.items():
         assert response_data[key] == value
 
-# case1: successful logout => token and user id deleted
-# case2: already logout => test Idempotence
 
-
+@pytest.mark.parametrize(
+    ("email", "login_first", "corrupt_cookie",
+     "correct_response", "correct_status_code"),
+    (
+        # case1: successful logout => token and user id deleted
+        (
+            "haha@ucsd.edu",
+            True,
+            False,
+            {"message": "Successful Logout!"},
+            200),
+        # case2: already logout/never login(no token and user id) => test Idempotence
+        (
+            "haha@ucsd.edu",
+            False,
+            False,
+            {"message": "You have already logged out!"},
+            200),
+        # case3: unsuccessful logout => wrong token when user is still logged in(forgery attack)
+        (
+            "haha@ucsd.edu",
+            True,
+            True,
+            {"message":
+                "Cross-Site Request Forgery (XSRF/CSRF) attacks huh? GOTCHA!"},
+            401),
+    )
+)
+def test_single_logout(client, login_first, corrupt_cookie, email, correct_response, correct_status_code):
+    """Test the logout process of flask"""
+    # if the tests requires previous log in, do it
+    if login_first:
+        rv = client.post(
+            "/login", data=json.dumps({"email": email}), content_type="application/json")
+    if corrupt_cookie:
+        # corrupt the client's cookie => to create you have to destroy
+        cookie_map = {cookie.name: cookie for cookie in client.cookie_jar}
+        cookie_map["access_token"].value = "fake token to see whether the engineer is dumb"
+    rv = client.get("/logout")
+    response_data = json.loads(rv.data)
+    for key, value in correct_response.items():
+        assert response_data[key] == value
+    assert rv.status_code == correct_status_code

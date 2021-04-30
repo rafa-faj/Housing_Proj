@@ -24,6 +24,7 @@ def login():
             "message": "Invalid Domain. How did you find us???? HAHA. TROLLED. FOLLOW HOMEHUB @ LinkedIn"}
         response = generateResponse(json_response, 401)
         return response
+    # pre-flight for CORS communication
     if request.method == "OPTIONS":
         return generateResponse()
     # if user has already logged in, tell them
@@ -95,20 +96,29 @@ def login():
     return response
 
 
-@authetication.route("/logout", methods=["POST", "OPTIONS"])
+@authetication.route("/logout", methods=["GET"])
 def logout():
-    if request.method == "OPTIONS":
-        return generateResponse()
-    client_token = request.json.get("access_token")
-    message, status = "Successful Logout!", 200
-    # delete the user id
-    if not client_token or (client_token != login_session["access_token"]):
-        message, status = "Logout is Forbidden due to wrong token", 403
-        print(client_token, login_session["access_token"])
-    else:
+    """Log out the user by verifying the token"""
+    try:
+        # try to get the access token possibly stored in the user's request
+        client_token = request.cookies["access_token"]
+        # verify the token
+        if client_token != login_session["access_token"]:
+            message = "Cross-Site Request Forgery (XSRF/CSRF) attacks huh? GOTCHA!"
+            status_code = 401
+            json_response = {"message": message}
+            return generateResponse(json_response,status_code)
+        # token verified, login successful
         del login_session["user_id"]
         del login_session["access_token"]
-    return generateResponse(elem=message, status=status)
+        message = "Successful Logout!"
+        json_response = {"message": message}
+        return generateResponse(json_response)
+    except KeyError:
+        # access_token doesn't exist: either logged out already or never logged in
+        message = "You have already logged out!"
+        json_response = {"message": message}
+        return generateResponse(json_response)
 
 
 @authetication.route("/createUser", methods=["POST", "OPTIONS"])
