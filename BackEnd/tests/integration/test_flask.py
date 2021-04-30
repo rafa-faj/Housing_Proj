@@ -255,13 +255,155 @@ def test_single_logout(client, login_first, corrupt_cookie, email, correct_respo
     """Test the logout process of flask"""
     # if the tests requires previous log in, do it
     if login_first:
-        rv = client.post(
+        client.post(
             "/login", data=json.dumps({"email": email}), content_type="application/json")
     if corrupt_cookie:
         # corrupt the client's cookie => to create you have to destroy
         cookie_map = {cookie.name: cookie for cookie in client.cookie_jar}
         cookie_map["access_token"].value = "fake token to see whether the engineer is dumb"
     rv = client.get("/logout")
+    response_data = json.loads(rv.data)
+    for key, value in correct_response.items():
+        assert response_data[key] == value
+    assert rv.status_code == correct_status_code
+
+
+@pytest.mark.parametrize(
+    ("email", "login_first", "corrupt_cookie", "json_query",
+     "correct_response", "correct_status_code"),
+    (
+        # case1: successfully create user => right token, already verified through email
+        (
+            "nonexistent@ucsd.edu",
+            True,
+            False,
+            {"data": json.dumps({"name": "CRISTIANO",
+                                 "email": "nonexistent@ucsd.edu",
+                                 "description": "YOU COULD NOT LIVE WITH YOUR OWN FAILURE, AND WHERE DID THAT BRING YOU? BACK TO ME",
+                                 "phone": "858-777-2345",
+                                 "schoolYear": "Grad",
+                                 "major": "MARVEL SCIENCE",
+                                 }), "content_type": "application/json"},
+            {"name": "CRISTIANO",
+             "email": "nonexistent@ucsd.edu",
+                      "description": "YOU COULD NOT LIVE WITH YOUR OWN FAILURE, AND WHERE DID THAT BRING YOU? BACK TO ME",
+                      "phone": "858-777-2345",
+                      "schoolYear": "Grad",
+                      "major": "MARVEL SCIENCE",
+                      "profile_photo": "user5/profile/headshot.jpg",
+                      "message": "Welcome to be a new HOMIE! CONGRATS!"
+             },
+            201
+        ),
+        # case2: creation failure => invalid token
+        (
+            "nonexistent@ucsd.edu",
+            True,
+            True,
+            {"data": json.dumps({"name": "CRISTIANO",
+                                 "email": "nonexistent@ucsd.edu",
+                                 "description": "YOU COULD NOT LIVE WITH YOUR OWN FAILURE, AND WHERE DID THAT BRING YOU? BACK TO ME",
+                                 "phone": "858-777-2345",
+                                 "schoolYear": "Grad",
+                                 "major": "MARVEL SCIENCE",
+                                 }), "content_type": "application/json"},
+            {"message":
+                "Cross-Site Request Forgery (XSRF/CSRF) attacks huh? GOTCHA!"},
+            401
+        ),
+        # case3: creation failure => no token
+        (
+            "nonexistent@ucsd.edu",
+            False,
+            False,
+            {"data": {"name": "CRISTIANO",
+                      "email": "nonexistent@ucsd.edu",
+                      "description": "YOU COULD NOT LIVE WITH YOUR OWN FAILURE, AND WHERE DID THAT BRING YOU? BACK TO ME",
+                      "phone": "858-777-2345",
+                      "schoolYear": "Grad",
+                      "major": "MARVEL SCIENCE",
+                      }, "content_type": "application/json"},
+            {"message":
+             "Welcome to the Lost World: Jurassic Park. You are not authorized to create an entry here."},
+            401
+        ),
+        # case4: creation reject => already exists
+        (
+            "haha@ucsd.edu",
+            True,
+            False,
+            {"data": {"name": "CRISTIANO",
+                      "email": "nonexistent@ucsd.edu",
+                      "description": "YOU COULD NOT LIVE WITH YOUR OWN FAILURE, AND WHERE DID THAT BRING YOU? BACK TO ME",
+                      "phone": "858-777-2345",
+                      "schoolYear": "Grad",
+                      "major": "MARVEL SCIENCE",
+                      }, "content_type": "application/json"},
+            {"message":
+             "Body double is not allowed. Should've gone for the head. "},
+            405
+        ),
+        # case5: valid token and new user but register json isn't complete (most likely access without using frontend form)
+        (
+            "nonexistent@ucsd.edu",
+            True,
+            False,
+            {"data": json.dumps({"name": "CRISTIANO",
+                                 "email": "nonexistent@ucsd.edu",
+                                 "description": "YOU COULD NOT LIVE WITH YOUR OWN FAILURE, AND WHERE DID THAT BRING YOU? BACK TO ME",
+                                 "phone": "858-777-2345",
+                                 "major": "MARVEL SCIENCE",
+                                 "profile_photo": "dummy.jpg"
+                                 }), "content_type": "application/json"},
+            {"message":
+             "JSON is not complete. Did you bypass the frontend? How did you find us? SURPRISING PIKACHU FACE"},
+            400
+        ),
+        # case6: valid token and new user but no json
+        (
+            "nonexistent@ucsd.edu",
+            True,
+            False,
+            {"data": {}},
+            {"message":
+             "Why create users without a json? Did you forget something?"},
+            400
+        ),
+        # case7: valid token and new user but ill-format json
+        (
+            "nonexistent@ucsd.edu",
+            True,
+            False,
+            {"data": {"name": "CRISTIANO",
+                      "email": "nonexistent@ucsd.edu",
+                      "description": "YOU COULD NOT LIVE WITH YOUR OWN FAILURE, AND WHERE DID THAT BRING YOU? BACK TO ME",
+                      "phone": "858-777-2345",
+                      "schoolYear": "Grad",
+                      "major": "MARVEL SCIENCE",
+                      }, "content_type": "application/json"},
+            {"message": "Oops. Bad format for your json. Try again"
+             },
+            400
+        ),
+    )
+)
+def test_create_user(client, email, login_first, corrupt_cookie, json_query, correct_response, correct_status_code):
+    """ 
+    Test the create user process
+    prerequisite: 
+    valid access token => email already verified (authentication)
+    no user_id => not in the database => true new user (nonduplication)
+    """
+    # if the tests requires previous log in, do it
+    if login_first:
+        client.post(
+            "/login", data=json.dumps({"email": email}), content_type="application/json")
+    if corrupt_cookie:
+        # corrupt the client's cookie => to create you have to destroy
+        cookie_map = {cookie.name: cookie for cookie in client.cookie_jar}
+        cookie_map["access_token"].value = "fake token to see whether the engineer is dumb"
+    rv = client.post(
+        "/createUser", **json_query)
     response_data = json.loads(rv.data)
     for key, value in correct_response.items():
         assert response_data[key] == value
