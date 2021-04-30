@@ -26,6 +26,8 @@ def create_app(test_config=None):
         # path not yet set
         set_backend_config()
         backend_config = json.loads(os.environ["BACKEND_CONFIG"])
+    backend_config["ALLOWED_ORIGINS"] = set(backend_config["ALLOWED_ORIGINS"])
+    print(backend_config["ALLOWED_ORIGINS"])
     app = Flask(__name__)
     app.config.update(backend_config)
     app.secret_key = app.config["FLASK_SECRET_KEY"]
@@ -36,7 +38,6 @@ def create_app(test_config=None):
     session = db.create_scoped_session()
     app.config["DB_CONNECTION"] = session
     CORS(app, supports_credentials=True)
-
     @ app.route("/profile", methods=["POST", "OPTIONS"])
     def editProfile():
         if request.method == "OPTIONS":

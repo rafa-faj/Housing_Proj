@@ -17,9 +17,7 @@ authetication = Blueprint("auth", __name__)
 @authetication.route("/login", methods=["POST", "OPTIONS"])
 def login():
     """Login function and create anti-forgery state token."""
-
     # PART1: Secure measure to verify identity
-
     # first check if the domain is allowed
     if request.remote_addr not in current_app.config["ALLOWED_ORIGINS"]:
         json_response = {

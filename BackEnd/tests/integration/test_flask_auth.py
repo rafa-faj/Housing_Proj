@@ -16,8 +16,7 @@ def app():
     # setup_houses(db_path)
     app = create_app(
         {"OFFLINE_TESTING": True,
-         "SQLALCHEMY_DATABASE_URI": db_path,
-         "ALLOWED_ORIGINS": {"127.0.0.1"}})
+         "SQLALCHEMY_DATABASE_URI": db_path})
     # create the database and load test data
     with app.app_context():
         setup_houses(db_path)
