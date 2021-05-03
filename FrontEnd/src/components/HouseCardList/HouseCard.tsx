@@ -51,15 +51,57 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
     <Card className={styles.card}>
       <Card.Body className="p-0">
         <Container>
+          <Row>
+            <Col md={7} className={styles.pic}>
+              <SlideShow
+                images={slideShowItems}
+                onImageClick={() => routeToHouseProfile(roomId)}
+              />
+            </Col>
+            <Col md={5} className="w-100">
+              {/* 1st row */}
+              <Row>
+                2 days ago
+              </Row>
+              {/* 2nd row */}
+              <Row>
+                $1200/mo
+              </Row>
+              {/* 3rd row */}
+              <Row className="address-related-text">
+                <b>~ {distance}</b>&nbsp;transit
+              </Row>
+              {/* 4th row */}
+              <Row>
+                {address}
+              </Row>
+              {/* 5th row */}
+              <Row>
+                <div className="w-100 secondary-text">
+                  {formatRoomType(roomType)}
+                  <span className={styles.divider}> | </span>{' '}
+                  {`${numBeds} B ${numBaths} Ba`}
+                </div>
+              </Row>
+              {/* 6th row */}
+              <Row>
+                <div className="w-100 secondary-text text-truncate">
+                  {formattedMoveIn}
+                </div>
+              </Row>
+            </Col>
+          </Row>
+          {/* Old design */}
+          {/*           
           <Row className={styles.pic}>
             <SlideShow
               images={slideShowItems}
               onImageClick={() => routeToHouseProfile(roomId)}
             />
-          </Row>
+          </Row> */}
 
           {/* 1st row */}
-          <Row className="px-2">
+          {/* <Row className="px-2">
             <Col md={6} className="price-related-large-text">
               <Row>
                 {negotiable && '~'}${pricePerMonth}
@@ -74,10 +116,10 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
                 </div>
               </Row>
             </Col>
-          </Row>
+          </Row> */}
 
           {/* 2nd row */}
-          <Row className="px-2">
+          {/* <Row className="px-2">
             <Col md={6}>
               <Row className="address-related-text">
                 <b>~ {distance}</b>&nbsp;transit
@@ -90,14 +132,14 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
                 </div>
               </Row>
             </Col>
-          </Row>
+          </Row> */}
 
           {/* 3rd row */}
-          <Row className="px-2">
-            <Col md={6} className="address-related-text">
-              {/* {distance} To Price Center */}
-              {/* <Row>{distance}</Row> */}
-              <Row>To Price Center</Row>
+          {/* <Row className="px-2">
+            <Col md={6} className="address-related-text"> */}
+          {/* {distance} To Price Center */}
+          {/* <Row>{distance}</Row> */}
+          {/* <Row>To Price Center</Row>
             </Col>
 
             <Col md={6} className="secondary-text">
@@ -105,7 +147,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
                 <div className="w-100 text-right text-truncate">{address}</div>
               </Row>
             </Col>
-          </Row>
+          </Row> */}
         </Container>
       </Card.Body>
     </Card>

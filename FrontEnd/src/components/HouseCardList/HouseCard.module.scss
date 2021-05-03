@@ -5,12 +5,13 @@
   background-color: $secondary-1-color;
   border-radius: 25px; // TODO make variable
   overflow: hidden;
+  height: 270px; //temporary, might remove later
 }
 
 .pic {
-  height: 200px;
+  height: 270px;
   overflow: hidden;
-  min-width: 100%;
+  //min-width: 100%;
   min-height: 100%;
 }
 
