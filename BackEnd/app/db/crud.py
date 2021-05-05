@@ -4,6 +4,7 @@ from app.util.aws.s3 import get_images, upload_file_wobject
 from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.exc import NoResultFound
 
 HOUSEIT_S3_URL = "https://houseit.s3.us-east-2.amazonaws.com/"
 
@@ -38,15 +39,6 @@ def add_user(name, email, date_created, phone, description, school_year, major,
                        major=major)
     add_and_commit(User_to_add, session)
     return User_to_add
-
-def add_address(distance, address, session):
-    """
-    add a row to the Address table
-    """
-    address_to_add = Address(address=address, distance=distance)
-    add_and_commit(address_to_add, session)
-    return address_to_add
-
 
 def add_address(distance, address, session):
     """
@@ -158,7 +150,10 @@ def read_rooms(session):
     return session.query(Room).all()
 
 def read_room(room_id, session):
-    return session.query(Room).filter(Room.id == room_id).one()
+    try:
+        return session.query(Room).filter(Room.id == room_id).one()
+    except NoResultFound:
+        return None
 
 
 def room_json(room, session, test_mode=False):
@@ -254,7 +249,6 @@ def write_room(room_json, session, test_mode=False):
     # gets room owner, assuming when a new room gets added the user exists
     room_owner = get_row_if_exists(
         User, session, **{"email": room_json["leaserEmail"]})
-    room_name = room_json["address"].split(",")[0]
     early_date = datetime.strptime(
         room_json["earlyDate"], "%m/%d/%y")
     late_date = datetime.strptime(

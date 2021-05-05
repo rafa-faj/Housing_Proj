@@ -5,11 +5,17 @@ from app.db.database_setup import *
 from app.assets.options import others, room_types, facilities
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 import os
+from app.util.util import *
 
 TEST_DB_NAME = "housing_test.db"
 TEST_DB_STRING = "sqlite:///housing_test.db"
 
-
+# Design decision: instead of validating the functions using @validates decorator
+# we assume all inputs are sane since the only entity that is authorized/capable to
+# modify the database is the backend. Therefore, we will verify input from user's request
+# and make sure they fit in the target database's schema.
+# the purpose of this test is to verify the crud API is correctly written and has the intended behavior
+# when the input is in the correct form. 
 class TestDbOperations(unittest.TestCase):
     def setUp(self):
         createDB(TEST_DB_STRING)
@@ -31,7 +37,6 @@ class TestDbOperations(unittest.TestCase):
         user_description = "cultured man"
         user_school_year = "Third"
         user_major = "Data Science"
-
         user_object = crud.add_user(
             user_name,
             user_email,
@@ -904,7 +909,9 @@ class TestDbOperations(unittest.TestCase):
             User,
             self.session,
             {"email": "haha@ucsd.edu"},
-            {"description": "google man"})
+            {"description": "google man",
+             "major": "Computer Science"
+            })
 
         user_object = crud.get_row_if_exists(
             User,
@@ -912,6 +919,7 @@ class TestDbOperations(unittest.TestCase):
             **{"email": "haha@ucsd.edu"})
 
         self.assertEqual(user_object.description == "google man", True)
+        self.assertEqual(user_object.major == "Computer Science", True)
 
 
 if __name__ == "__main__":

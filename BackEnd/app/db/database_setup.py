@@ -13,6 +13,7 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = "user"
+    __user_write_permission_field__ = {"phone","name","school_year","major","description"}
 
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
@@ -33,12 +34,15 @@ class User(Base):
             "email": self.email,
             "phone": self.phone,
             "name": self.name,
+            "school_year": self.school_year,
+            "major": self.major,
             "description": self.description
         }
 
 
 class Room(Base):
     __tablename__ = "room"
+    __user_write_permission_field__ = {"room_type","price","negotiable","description","description","no_rooms","no_bathrooms"}
 
     id = Column(Integer, primary_key=True)
     date_created = Column(DateTime, nullable=False)
@@ -75,6 +79,8 @@ class Room(Base):
 
 class Address(Base):
     __tablename__ = "address"
+    __user_write_permission_field__ = {"address"}
+
     id = Column(Integer, primary_key=True)
     distance = Column(String(250), nullable=False)
     address = Column(String(250), nullable=False)
@@ -91,6 +97,8 @@ class Address(Base):
 
 class Stay_Period(Base):
     __tablename__ = "stay_period"
+    __user_write_permission_field__ = {"from_month","to_month"}
+
     id = Column(Integer, primary_key=True)
     from_month = Column(DateTime, nullable=False)
     to_month = Column(DateTime, nullable=False)
@@ -107,6 +115,7 @@ class Stay_Period(Base):
 
 class Move_In(Base):
     __tablename__ = "move_in"
+    __user_write_permission_field__ = {"early_date","late_date"}
 
     id = Column(Integer, primary_key=True)
     early_date = Column(DateTime, nullable=False)
@@ -124,6 +133,7 @@ class Move_In(Base):
 
 class House_Attribute(Base):
     __tablename__ = "house_attribute"
+    __user_write_permission_field__ = {"attribute_name"}
 
     id = Column(Integer, primary_key=True)
     room_id = Column(Integer, ForeignKey("room.id"))
@@ -143,6 +153,7 @@ class House_Attribute(Base):
 
 class Attribute(Base):
     __tablename__ = "attribute"
+    __user_write_permission_field__ = {}
 
     name = Column(String(250), primary_key=True)
     category = Column(String(250), nullable=False)
@@ -158,6 +169,7 @@ class Attribute(Base):
 
 class Bookmark(Base):
     __tablename__ = "bookmark"
+    __user_write_permission_field__ = {}
 
     id = Column(Integer, primary_key=True)
     room_id = Column(Integer, ForeignKey("room.id"))
