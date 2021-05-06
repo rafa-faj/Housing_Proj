@@ -5,11 +5,17 @@ from app.db.database_setup import *
 from app.assets.options import others, room_types, facilities
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 import os
+from app.util.util import *
 
-TEST_DB_NAME = 'housing_test.db'
-TEST_DB_STRING = 'sqlite:///housing_test.db'
+TEST_DB_NAME = "housing_test.db"
+TEST_DB_STRING = "sqlite:///housing_test.db"
 
-
+# Design decision: instead of validating the functions using @validates decorator
+# we assume all inputs are sane since the only entity that is authorized/capable to
+# modify the database is the backend. Therefore, we will verify input from user's request
+# and make sure they fit in the target database's schema.
+# the purpose of this test is to verify the crud API is correctly written and has the intended behavior
+# when the input is in the correct form. 
 class TestDbOperations(unittest.TestCase):
     def setUp(self):
         createDB(TEST_DB_STRING)
@@ -31,7 +37,6 @@ class TestDbOperations(unittest.TestCase):
         user_description = "cultured man"
         user_school_year = "Third"
         user_major = "Data Science"
-
         user_object = crud.add_user(
             user_name,
             user_email,
@@ -55,7 +60,7 @@ class TestDbOperations(unittest.TestCase):
         query_object = crud.get_row_if_exists(
             User,
             self.session,
-            **{'email': user_email})
+            **{"email": user_email})
 
         self.assertEqual(query_object == user_object, True)
 
@@ -75,7 +80,7 @@ class TestDbOperations(unittest.TestCase):
         query_object = crud.get_row_if_exists(
             Stay_Period,
             self.session,
-            **{'from_month': from_month, 'to_month': to_month})
+            **{"from_month": from_month, "to_month": to_month})
 
         self.assertEqual(query_object == stay_period_object, True)
 
@@ -99,7 +104,7 @@ class TestDbOperations(unittest.TestCase):
         query_object = crud.get_row_if_exists(
             Address,
             self.session,
-            **{'distance': distance, 'address': address})
+            **{"distance": distance, "address": address})
 
         self.assertEqual(query_object == address_object, True)
 
@@ -122,7 +127,7 @@ class TestDbOperations(unittest.TestCase):
         query_object = crud.get_row_if_exists(
             Attribute,
             self.session,
-            **{'name': name, 'category': category})
+            **{"name": name, "category": category})
 
         self.assertEqual(query_object == attribute_object, True)
 
@@ -373,7 +378,7 @@ class TestDbOperations(unittest.TestCase):
         query_object = crud.get_row_if_exists(
             User,
             self.session,
-            **{'email': user_email})
+            **{"email": user_email})
 
         self.assertEqual(query_object is None, True)
 
@@ -392,7 +397,7 @@ class TestDbOperations(unittest.TestCase):
         query_object = crud.get_row_if_exists(
             User,
             self.session,
-            **{'email': user_email})
+            **{"email": user_email})
 
         self.assertEqual(query_object == user_object, True)
 
@@ -634,10 +639,10 @@ class TestDbOperations(unittest.TestCase):
                          "75 Big Rock Cove St.Middletown", True)
         self.assertEqual(result_json["address"] == address, True)
         self.assertEqual(result_json["pricePerMonth"] == price, True)
-        self.assertEqual(result_json["from_month"] == "June/18", True)
-        self.assertEqual(result_json["to_month"] == "July/18", True)
-        self.assertEqual(result_json["early_date"] == "06/01/18", True)
-        self.assertEqual(result_json["late_date"] == "06/12/18", True)
+        self.assertEqual(result_json["fromMonth"] == "June/18", True)
+        self.assertEqual(result_json["toMonth"] == "July/18", True)
+        self.assertEqual(result_json["earlyDate"] == "06/01/18", True)
+        self.assertEqual(result_json["lateDate"] == "06/12/18", True)
         self.assertEqual(result_json["roomType"] == room_type, True)
         self.assertEqual(result_json["other"] == [], True)
         self.assertEqual(result_json["facilities"] == [], True)
@@ -722,11 +727,11 @@ class TestDbOperations(unittest.TestCase):
         query_object = crud.get_row_if_exists(
             Move_In,
             self.session,
-            **{'early_date': early_date, 'late_date': late_date})
+            **{"early_date": early_date, "late_date": late_date})
 
         self.assertEqual(query_object == move_in_object, True)
 
-        # check that there's only one thing in db
+        # check that there"s only one thing in db
         number_of_rows = self.session.query(Move_In).count()
         self.assertEqual(number_of_rows == 1, True)
 
@@ -750,29 +755,29 @@ class TestDbOperations(unittest.TestCase):
             self.session)
 
         # the input json should be the same as output json from room_json except for id
-        test_json = {'name': '75 Big Rock Cove St. Middletown',
-                     'address': '75 Big Rock Cove St. Middletown, NY 10940',
-                     'distance': '20 mins', 'pricePerMonth': 500,
-                     'from_month': 'June/18', 'to_month': 'July/18',
-                     'early_date': '06/01/18', 'late_date': '06/12/18',
-                     'roomType': 'Single', 'other': [], 'facilities': [],
-                     'leaserName': 'cris', 'leaserEmail': 'haha@ucsd.edu',
-                     'leaserPhone': '858-2867-3567',
-                     'leaserSchoolYear': 'Third',
-                     'leaserMajor': 'Data Science',
-                     'photos': ['photo1', 'photo2'],
-                     'profilePhoto': 'profile_photo',
-                     'negotiable': True,
-                     'numBaths': 2.5,
-                     'numBeds': 2,
-                     'roomDescription': 'dream house in a life time'}
+        test_json = {"name": "75 Big Rock Cove St. Middletown",
+                     "address": "75 Big Rock Cove St. Middletown, NY 10940",
+                     "distance": "20 mins", "pricePerMonth": 500,
+                     "fromMonth": "June/18", "toMonth": "July/18",
+                     "earlyDate": "06/01/18", "lateDate": "06/12/18",
+                     "roomType": "Single", "other": [], "facilities": [],
+                     "leaserName": "cris", "leaserEmail": "haha@ucsd.edu",
+                     "leaserPhone": "858-2867-3567",
+                     "leaserSchoolYear": "Third",
+                     "leaserMajor": "Data Science",
+                     "photos": ["photo1", "photo2"],
+                     "profilePhoto": "profile_photo",
+                     "negotiable": True,
+                     "numBaths": 2.5,
+                     "numBeds": 2,
+                     "roomDescription": "dream house in a life time"}
 
         crud.write_room(test_json, self.session, True)
 
         room_object = crud.get_row_if_exists(
             Room,
             self.session,
-            **{'id': 1})
+            **{"id": 1})
 
         self.assertEqual(room_object is not None, True)
 
@@ -781,7 +786,7 @@ class TestDbOperations(unittest.TestCase):
             self.session,
             True)
 
-        test_json['roomId'] = 1
+        test_json["roomId"] = 1
 
         self.assertEqual(result_json == test_json, True)
 
@@ -866,7 +871,7 @@ class TestDbOperations(unittest.TestCase):
 
         crud.write_attribute(
             facilities[0:3],
-            'facilities',
+            "facilities",
             room_object,
             self.session)
 
@@ -874,7 +879,7 @@ class TestDbOperations(unittest.TestCase):
         self.assertEqual(count == 3, True)
 
         categories = self.session.query(Attribute.category).distinct().all()
-        self.assertEqual(categories[0][0] == 'facilities', True)
+        self.assertEqual(categories[0][0] == "facilities", True)
 
         names = set([result[0]
                      for result in self.session.query(Attribute.name).all()])
@@ -903,16 +908,19 @@ class TestDbOperations(unittest.TestCase):
         crud.update_field(
             User,
             self.session,
-            {'email': 'haha@ucsd.edu'},
-            {'description': 'google man'})
+            {"email": "haha@ucsd.edu"},
+            {"description": "google man",
+             "major": "Computer Science"
+            })
 
         user_object = crud.get_row_if_exists(
             User,
             self.session,
-            **{'email': 'haha@ucsd.edu'})
+            **{"email": "haha@ucsd.edu"})
 
-        self.assertEqual(user_object.description == 'google man', True)
+        self.assertEqual(user_object.description == "google man", True)
+        self.assertEqual(user_object.major == "Computer Science", True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

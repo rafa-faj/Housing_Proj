@@ -3,3 +3,8 @@ app/img
 /__pycache__
 /.vscode
 **/housing.db
+/.pytest_cache
+/lib
+/venv
+/bin
+/.env

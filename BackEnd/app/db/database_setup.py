@@ -12,7 +12,8 @@ Base = declarative_base()
 
 
 class User(Base):
-    __tablename__ = 'user'
+    __tablename__ = "user"
+    __user_write_permission_field__ = {"phone","name","school_year","major","description"}
 
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
@@ -29,20 +30,23 @@ class User(Base):
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
-            'id': self.id,
-            'email': self.email,
-            'phone': self.phone,
-            'name': self.name,
-            'description': self.description
+            "id": self.id,
+            "email": self.email,
+            "phone": self.phone,
+            "name": self.name,
+            "school_year": self.school_year,
+            "major": self.major,
+            "description": self.description
         }
 
 
 class Room(Base):
-    __tablename__ = 'room'
+    __tablename__ = "room"
+    __user_write_permission_field__ = {"room_type","price","negotiable","description","description","no_rooms","no_bathrooms"}
 
     id = Column(Integer, primary_key=True)
     date_created = Column(DateTime, nullable=False)
-    user_id = Column(Integer, ForeignKey('user.id'))
+    user_id = Column(Integer, ForeignKey("user.id"))
     room_type = Column(String(250), nullable=False)
     price = Column(Integer, nullable=False)
     negotiable = Column(Boolean, nullable=False)
@@ -62,19 +66,21 @@ class Room(Base):
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
-            'id': self.id,
-            'user_id': self.user_id,
-            'room_type': self.room_type,
-            'price': self.price,
-            'negotiable': self.negotiable,
-            'description': self.description,
-            'no_rooms': self.no_rooms,
-            'no_bathrooms': self.no_bathrooms
+            "id": self.id,
+            "user_id": self.user_id,
+            "room_type": self.room_type,
+            "price": self.price,
+            "negotiable": self.negotiable,
+            "description": self.description,
+            "no_rooms": self.no_rooms,
+            "no_bathrooms": self.no_bathrooms
         }
 
 
 class Address(Base):
-    __tablename__ = 'address'
+    __tablename__ = "address"
+    __user_write_permission_field__ = {"address"}
+
     id = Column(Integer, primary_key=True)
     distance = Column(String(250), nullable=False)
     address = Column(String(250), nullable=False)
@@ -83,14 +89,16 @@ class Address(Base):
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
-            'id': self.id,
-            'distance': self.distance,
-            'address': self.address,
+            "id": self.id,
+            "distance": self.distance,
+            "address": self.address,
         }
 
 
 class Stay_Period(Base):
-    __tablename__ = 'stay_period'
+    __tablename__ = "stay_period"
+    __user_write_permission_field__ = {"from_month","to_month"}
+
     id = Column(Integer, primary_key=True)
     from_month = Column(DateTime, nullable=False)
     to_month = Column(DateTime, nullable=False)
@@ -99,14 +107,15 @@ class Stay_Period(Base):
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
-            'id': self.id,
-            'from_month': self.from_month,
-            'to_month': self.to_month,
+            "id": self.id,
+            "from_month": self.from_month,
+            "to_month": self.to_month,
         }
 
 
 class Move_In(Base):
-    __tablename__ = 'move_in'
+    __tablename__ = "move_in"
+    __user_write_permission_field__ = {"early_date","late_date"}
 
     id = Column(Integer, primary_key=True)
     early_date = Column(DateTime, nullable=False)
@@ -116,33 +125,35 @@ class Move_In(Base):
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
-            'id': self.id,
-            'early_date': self.early_date,
-            'late_date': self.late_date,
+            "id": self.id,
+            "early_date": self.early_date,
+            "late_date": self.late_date,
         }
 
 
 class House_Attribute(Base):
-    __tablename__ = 'house_attribute'
+    __tablename__ = "house_attribute"
+    __user_write_permission_field__ = {"attribute_name"}
 
     id = Column(Integer, primary_key=True)
-    room_id = Column(Integer, ForeignKey('room.id'))
+    room_id = Column(Integer, ForeignKey("room.id"))
     attribute_name = Column(String(250), ForeignKey(
-        'attribute.name'), nullable=False)
+        "attribute.name"), nullable=False)
     house_attribute = relationship("Attribute", backref="house_attribute")
 
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
-            'id': self.id,
-            'room_id': self.room_id,
-            'attribute_name': self.attribute_name
+            "id": self.id,
+            "room_id": self.room_id,
+            "attribute_name": self.attribute_name
         }
 
 
 class Attribute(Base):
-    __tablename__ = 'attribute'
+    __tablename__ = "attribute"
+    __user_write_permission_field__ = {}
 
     name = Column(String(250), primary_key=True)
     category = Column(String(250), nullable=False)
@@ -151,25 +162,26 @@ class Attribute(Base):
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
-            'name': self.name,
-            'category': self.category
+            "name": self.name,
+            "category": self.category
         }
 
 
 class Bookmark(Base):
-    __tablename__ = 'bookmark'
+    __tablename__ = "bookmark"
+    __user_write_permission_field__ = {}
 
     id = Column(Integer, primary_key=True)
-    room_id = Column(Integer, ForeignKey('room.id'))
-    user_id = Column(Integer, ForeignKey('user.id'))
+    room_id = Column(Integer, ForeignKey("room.id"))
+    user_id = Column(Integer, ForeignKey("user.id"))
 
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
-            'id': self.id,
-            'room_id': self.room_id,
-            'user_id': self.user_id
+            "id": self.id,
+            "room_id": self.room_id,
+            "user_id": self.user_id
         }
 
 
@@ -186,5 +198,5 @@ def createDB(db_path):
         return False
 
 
-if __name__ == '__main__':
-    print(createDB('sqlite:///housing.db'))
+if __name__ == "__main__":
+    print(createDB("sqlite:///housing.db"))
