@@ -4,12 +4,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { HousePost } from '@models';
 import { contactIcons } from '@icons';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { LOGIN_TO_VIEW } from '@constants';
-import { selectUser, showLogin } from '@redux';
+import { useUser, showLogin } from '@redux';
 import { Map } from '@basics';
 import { abbreviateAddress } from '@utils';
 import { useRoomBookmarks } from '@hooks';
@@ -58,7 +58,7 @@ const ThirdColumn: FunctionComponent<Props> = ({
   address,
   roomId,
 }) => {
-  const user = useSelector(selectUser);
+  const user = useUser();
   const dispatch = useDispatch();
 
   const { data: bookmarks, addBookmark, removeBookmark } = useRoomBookmarks();

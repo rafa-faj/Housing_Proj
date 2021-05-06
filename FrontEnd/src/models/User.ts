@@ -5,7 +5,6 @@ export interface UserNameEmail {
 
 export interface User extends UserNameEmail {
   profilePhoto: string;
-  token: string;
   description: string;
   major: string;
   schoolYear: string;

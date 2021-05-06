@@ -86,6 +86,7 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
   const dispatch = useDispatch();
   const [activeIndicator, setactiveIndicator] = useState(true);
   const [editPosts, setEditPosts] = useState(false);
+
   return (
     <Modal
       dialogClassName={styles.modal}

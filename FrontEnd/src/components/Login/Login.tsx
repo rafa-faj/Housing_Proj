@@ -6,9 +6,9 @@ import {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from 'react-google-login';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { selectUser, login, selectShouldShowLogin, hideLogin } from '@redux';
+import { useUser, login, useShouldShowLogin, hideLogin } from '@redux';
 import { miscIcons } from '@icons';
 import { LOGIN_INFO_TOOLTIP } from '@constants';
 import styles from './Login.module.scss';
@@ -21,7 +21,7 @@ const isOnline = (
 
 // https://developers.google.com/identity/sign-in/web/sign-in
 const LoginUI: FunctionComponent = () => {
-  const shouldShowLogin = useSelector(selectShouldShowLogin);
+  const shouldShowLogin = useShouldShowLogin();
   const dispatch = useDispatch();
 
   const responseGoogleSuccess = (
@@ -83,7 +83,7 @@ const LoginUI: FunctionComponent = () => {
 };
 
 const Login: FunctionComponent = () => {
-  const user = useSelector(selectUser);
+  const user = useUser();
 
   if (user) return null;
 

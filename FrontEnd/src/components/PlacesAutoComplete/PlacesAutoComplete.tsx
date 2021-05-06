@@ -2,7 +2,6 @@ import React, { useState, FunctionComponent } from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { Input, InputProps } from '@basics';
 import styles from './PlacesAutoComplete.module.scss';
-// import { useSelector, useDispatch } from 'react-redux';
 // import { setPost, selectPost } from '@redux';
 // import { getDurationInMinutes } from '../apis/google';
 
