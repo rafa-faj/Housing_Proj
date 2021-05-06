@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import Page1, { Page1Store, page1InitialStore, page1Schema } from './Page1';
 import Page2, { Page2Store, page2InitialStore, page2Schema } from './Page2';
 import { WizardForm } from '@basics';
-import { createNewUser } from '@redux';
 
 type Store = Page1Store & Page2Store;
 
@@ -30,7 +29,7 @@ const NewUserSetup: FunctionComponent<NewUserSetupProps> = ({
         console.log('clicked');
         console.log(data);
 
-        dispatch(createNewUser(data));
+        // dispatch(createNewUser(data));
         return true;
       }}
       title="Set up your account"

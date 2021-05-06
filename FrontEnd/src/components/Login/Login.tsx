@@ -8,7 +8,7 @@ import {
 } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { useUser, login, useShouldShowLogin, hideLogin } from '@redux';
+import { useUser, useShouldShowLogin, hideLogin } from '@redux';
 import { miscIcons } from '@icons';
 import { LOGIN_INFO_TOOLTIP } from '@constants';
 import styles from './Login.module.scss';
@@ -29,7 +29,7 @@ const LoginUI: FunctionComponent = () => {
   ) => {
     if (isOnline(response)) {
       const profile = response.profileObj;
-      dispatch(login(profile.name, profile.email));
+      // dispatch(login(profile.name, profile.email));
     } else {
       console.log('User is offline');
       console.log(response);
@@ -85,6 +85,7 @@ const LoginUI: FunctionComponent = () => {
 const Login: FunctionComponent = () => {
   const user = useUser();
 
+  // if user is logged in, there's no need to render the login component
   if (user) return null;
 
   return <LoginUI />;

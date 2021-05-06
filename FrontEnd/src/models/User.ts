@@ -11,11 +11,10 @@ export interface User extends UserNameEmail {
   phone: string;
 }
 
-export const dummyUser = {
+export const dummyUser: User = {
   profilePhoto: '',
   name: '',
   email: '',
-  token: '',
   description: '',
   major: '',
   schoolYear: '',

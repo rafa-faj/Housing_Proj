@@ -2,7 +2,7 @@ import React, { useState, FunctionComponent } from 'react';
 import { Button } from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
 import { useDispatch } from 'react-redux';
-import { logout, useUser, showLogin } from '@redux';
+import { useUser, showLogin } from '@redux';
 import ProfileModal from '../ProfileModal/ProfileModal';
 import { navIcons } from '@icons';
 import styles from './NavBar.module.scss';
@@ -45,7 +45,7 @@ const NavBar: FunctionComponent = () => {
                 <Button
                   variant="no-show"
                   className={styles.navBtn}
-                  onClick={() => dispatch(logout())}
+                  // onClick={() => dispatch(logout())}
                 >
                   Log Out
                 </Button>
