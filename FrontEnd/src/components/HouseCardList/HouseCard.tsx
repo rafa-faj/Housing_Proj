@@ -51,33 +51,33 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
     <Card className={styles.card}>
       <Card.Body className="p-0">
         <Container>
-          <Row>
+          <Row >
             <Col md={7} className={styles.pic}>
               <SlideShow
                 images={slideShowItems}
                 onImageClick={() => routeToHouseProfile(roomId)}
               />
             </Col>
-            <Col md={5} className="w-100">
+            <Col md={5} className={styles.secondCol}>
               {/* 1st row */}
-              <Row>
+              <Row className={styles.day}>
                 2 days ago
               </Row>
               {/* 2nd row */}
-              <Row>
-                $1200/mo
+              <Row className={styles.price}>
+                <b>$1200/mo </b>
               </Row>
               {/* 3rd row */}
-              <Row className="address-related-text">
-                <b>~ {distance}</b>&nbsp;transit
+              <Row className={styles.distance}>
+                <b>~ {distance} transit</b>&nbsp;
               </Row>
               {/* 4th row */}
-              <Row>
+              <Row className={styles.address}>
                 {address}
               </Row>
               {/* 5th row */}
               <Row>
-                <div className="w-100 secondary-text">
+                <div className={styles.room}>
                   {formatRoomType(roomType)}
                   <span className={styles.divider}> | </span>{' '}
                   {`${numBeds} B ${numBaths} Ba`}
@@ -85,7 +85,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
               </Row>
               {/* 6th row */}
               <Row>
-                <div className="w-100 secondary-text text-truncate">
+                <div className={styles.date}>
                   {formattedMoveIn}
                 </div>
               </Row>
