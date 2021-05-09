@@ -4,3 +4,4 @@ export { default as connection } from './connection.svg';
 export { default as efficient } from './efficient.svg';
 export { default as safe } from './safe.svg';
 export { default as housing } from './housing.svg';
+export { default as logo } from './logo.svg';
