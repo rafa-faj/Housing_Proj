@@ -77,7 +77,7 @@ const dummyPosts = [
 
 const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
   const userSelected = useUser() || dummyUser;
-  const [userSelectedDraft, setUserSelectedDraft] = useState(dummyUser); // old code was:  useSelector(selectUserDraft) || dummyUser;
+  const [userSelectedDraft, setUserSelectedDraft] = useState(dummyUser); // TODO old code was:  useSelector(selectUserDraft) || dummyUser;
   const dispatch = useDispatch();
   const [activeIndicator, setactiveIndicator] = useState(true);
   const [editPosts, setEditPosts] = useState(false);
