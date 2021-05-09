@@ -6,8 +6,8 @@
 /**
  * STYLE GUIDE COLORS.
  */
-// Primary colors: primary light, primary dark, primary input, and you can use
-// primary-#-color (where # is 1-6, 1 = lightest, 6 = darkest).
+// Primary colors
+// TODO Old style guide
 $primary-light-color: #e7936d;
 $primary-dark-color: #a6623f;
 $primary-input-color: #e17847;
@@ -18,17 +18,54 @@ $primary-4-color: #e7cbb6;
 $primary-5-color: #d5b09a;
 $primary-6-color: $primary-dark-color;
 
-// Secondary colors: secondary light, secondary dark, and you can
-// use secondary-#-color (where # is 1-3, 1 = lightest, 3 = darkest).
+// TODO New style guide
+$primary-50-color: #fdf4f0;
+$primary-100-color: #f3cfbf;
+$primary-200-color: #edb096;
+$primary-300-color: #e7946d;
+$primary-400-color: #e37f4e;
+$primary-500-color: #e36b2c;
+$primary-600-color: #d96528;
+$primary-700-color: #cb5d24;
+$primary-800-color: #be5620;
+$primary-900-color: #a64919;
+$primary-light-color: $primary-300-color;
+$primary-dark-color: $primary-800-color;
+
+// Secondary colors
+// TODO Old style guide
 $secondary-light-color: #a5bf84;
 $secondary-dark-color: #4d5e3b;
 $secondary-1-color: #e6f0d8;
 $secondary-2-color: #a5bf84;
 $secondary-3-color: $secondary-dark-color;
 
+// TODO New style guide
+$secondary-50-color: #eff4e9;
+$secondary-100-color: #d7e3c8;
+$secondary-200-color: #bed1a5;
+$secondary-300-color: #a5bf84;
+$secondary-400-color: #94b36c;
+$secondary-500-color: #81a750;
+$secondary-600-color: #749849;
+$secondary-700-color: #62853e;
+$secondary-800-color: #507235;
+$secondary-900-color: #325123;
+$secondary-light-color: $secondary-300-color;
+$secondary-dark-color: $secondary-800-color;
+
+// Disabled colors
+$disabled-low-emphasis-color: #aaaaaa;
+$disabled-medium-emphasis-color: #797979;
+$disabled-high-emphasis-color: #3d3d3d;
+$disabled-default-color: $disabled-low-emphasis-color;
+
 // Other colors.
-$tertiary-color: #f3d990;
+$highlight-color: #f3d990;
 $error-color: #e16161;
+$black-color: #202020;
+$link-color: #6d83e7;
+$background-color: #fffaf8;
 
 /**
  * STYLE GUIDE TYPOGRAPHY.
@@ -42,9 +79,10 @@ $bold-font-weight: 700;
 $regular-font-weight: 400;
 
 // Font sizes
+// TODO change to rem
 $xl-font-size: 30px;
 $lg-font-size: 24px;
-$md-font-size: 18px;
+$md-font-size: 20px;
 $sm-font-size: 16px;
 $xs-font-size: 12px;
 
@@ -56,6 +94,8 @@ $sm-border-radius: 10px;
 $input-border-radius: 8px;
 
 $lg-modal-height: 600px;
+
+$default-border-width: 3px;
 
 /**
  * WEBSITE DESIGN VARIABLES.
@@ -84,4 +124,3 @@ $darker-background-color: #f8e6d8;
 
 $rounded-lg: 40px;
 
-$default-border-width: 3px;

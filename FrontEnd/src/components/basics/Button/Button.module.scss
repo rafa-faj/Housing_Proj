@@ -1,0 +1,79 @@
+.button {
+  padding: 0.25rem 1.5rem;
+  margin: 0.5rem 1.5rem;
+  font-weight: $bold-font-weight;
+  box-shadow: none;
+  border: $default-border-width solid $primary-light-color;
+
+  &:focus {
+    outline: 1px black; // TODO
+  }
+}
+
+.icon {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+/* SIZES */
+.primary {
+  font-size: $lg-font-size;
+}
+
+.secondary {
+  font-size: $md-font-size;
+}
+
+/* VARIANTS */
+.solid {
+  background-color: $primary-light-color;
+  border-color: $primary-light-color;
+  
+  &:hover {
+    background-color: $primary-200-color;
+    border-color: $primary-200-color;
+  }
+
+  // Disabled pseudo-selector is used here instead of .button
+  // because the CSS changes from solid to outline variant
+  &:disabled {
+    color: $disabled-default-color;
+    background-color: $disabled-default-color;
+    border-color: $disabled-default-color;
+
+    &:hover {
+      background-color: $disabled-default-color;
+      border-color: $disabled-default-color;
+    }
+  }
+}
+
+.outline {
+  background-color: white;
+  border-color: $primary-light-color;
+  color: $primary-light-color;
+  
+  &:hover {
+    background-color: $primary-50-color;
+  }
+
+  // Disabled pseudo-selector is used here instead of .button
+  // because the CSS changes from solid to outline variant
+  &:disabled {
+    color: $disabled-default-color;
+    border-color: $disabled-default-color;
+
+    &:hover {
+      background-color: white;
+    }
+  }
+}
+
+.wrapper {
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
