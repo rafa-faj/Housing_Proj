@@ -12,11 +12,13 @@
   }
   
   .title{
-    margin: 10rem;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
   }
 
   .intro{
-    margin: 10rem;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
     justify-content: center;
   }
   
@@ -61,6 +63,9 @@
     justify-content: center;
     margin-bottom: 2rem;
     margin-top: 1rem;
+    @include bp-up('lg') {
+      max-width: 19rem;
+    }
   }
   
   .textSm {
@@ -69,7 +74,7 @@
   }
   
   .smallImg {
-    height: 100px;
+    height: 8.5rem;
   }
   
   .buttonInner {
@@ -82,10 +87,39 @@
   }
   
   .bigRow, .center{
+    display: flex;
     justify-content: center;
   }
 
   .iconRow{
     margin-top: 3rem;
     margin-bottom: 3rem;
+  }
+
+  .introCol{
+    margin: 2rem;
+  }
+
+  .housingicon{
+    display: flex;
+  }
+
+  .textIntro, .subtextIntro{
+    @include bp-down('md') {
+      text-align: center;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  .logoText{
+    font-size: 48px;
+    color: $primary-light-color;
+    font-weight: $bold-font-weight;
+    margin-left: 1rem;
+  }
+
+  .logo{
+    height: 4.125rem;
+    width: 4.125rem;
   }

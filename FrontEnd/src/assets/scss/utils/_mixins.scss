@@ -126,3 +126,7 @@
             Check _mixins.scss to see which sizes you can use.";
   }
 }
+
+@mixin rounded-pill {
+  border-radius: 50rem;
+}

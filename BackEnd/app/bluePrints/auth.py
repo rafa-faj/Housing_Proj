@@ -20,6 +20,7 @@ def login():
     # PART1: Secure measure to verify identity
     # first check if the domain is allowed
     if request.remote_addr not in current_app.config["ALLOWED_ORIGINS"]:
+        print('IM HERE YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO WHATS UP')
         response = generate_message(MESSAGE_WRONG_ORIGIN,401)
         return response
     # pre-flight for CORS communication
@@ -35,7 +36,7 @@ def login():
     if checked_json != True: return response
     # second check if json conatins enough info
     try:
-        google_login_token = requested_json["google_login_token"]
+        google_login_token = requested_json["googleLoginToken"]
         # check if json contains valid info(ucsd email and google auth token)
         status_code, message, user_email = verify_email(
             google_login_token, current_app.config["ALLOWED_DOMAINS"], current_app.config["GAUTH_AUDIENCE"])

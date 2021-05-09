@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CreateHousePostProperties, HousePost, FilterModel } from '@models';
-import { AppThunk, RootState } from '@redux';
-import { newHousingPostAPI } from '@apis';
+import { CreateHousePostProperties, FilterModel } from '@models';
+import { AppThunk, useSelector } from '@redux';
+import { createHousingPost } from '@apis';
 import { isRunningServer } from '@utils';
 
 export enum HousingMode {
@@ -39,7 +39,6 @@ export const housingSlice = createSlice({
   },
 });
 
-// export the reducers that should be accessible by outside files
 export const { setHousingMode } = housingSlice.actions;
 
 export const newHousingPost = (
@@ -48,7 +47,7 @@ export const newHousingPost = (
   const email = getState().auth.user?.email;
   if (!email) return;
 
-  const result = await newHousingPostAPI({ ...housePost, email });
+  const result = await createHousingPost({ ...housePost, email });
   if (result && !isRunningServer()) {
     window.location.reload(false);
   } else {
@@ -56,11 +55,8 @@ export const newHousingPost = (
   }
 };
 
-export const selectHousingMode = ({ housing }: RootState) => {
-  return housing.mode;
-};
-export const selectFilterData = ({ housing }: RootState) => {
-  return housing.filterData;
-};
+export const useHousingMode = () => useSelector((state) => state.housing.mode);
+export const useFilterData = () =>
+  useSelector((state) => state.housing.filterData);
 
 export default housingSlice.reducer;

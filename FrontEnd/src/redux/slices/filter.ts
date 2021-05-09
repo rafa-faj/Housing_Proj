@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import { useSelector } from '@redux';
 
 interface FilterState {
   show: boolean;
@@ -19,5 +19,6 @@ export const filterSlice = createSlice({
 });
 
 export const { setShow } = filterSlice.actions;
-export const selectShowFilter = (state: RootState) => state.filter.show;
+export const useShouldShowFilter = () =>
+  useSelector((state) => state.filter.show);
 export default filterSlice.reducer;
