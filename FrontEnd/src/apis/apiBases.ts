@@ -4,8 +4,9 @@ import { PRODUCTION_BASE_URL, DEV_BASE_URL } from '@constants';
 
 /**
  * // TODO
- * If error occured and there is a message in data, throw a new
- * error including message.
+ * If error occured and there is a message in data, create an error popup for that error.
+ * Then, throw a new error including message. If not message in data, then create
+ * error popup with default message depending on the status code of the error.
  */
 const transformBackendResponse: AxiosTransformer = (data) => {};
 

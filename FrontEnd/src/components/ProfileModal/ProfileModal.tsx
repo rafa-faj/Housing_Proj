@@ -2,11 +2,12 @@ import React, { useState, FunctionComponent } from 'react';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import Image from 'react-bootstrap/Image';
-import { SchoolYear, majors, BackendMapping } from '../../constants';
+import { SchoolYear, majors, BackendMapping } from '@constants';
 import { Dropdown, Input, ToggleGroup } from '@basics';
 import { miscIcons, profileIcons } from '@icons';
-import { useUser } from '@redux';
-import { User, dummyUser } from '../../models/User';
+import { logout } from '@apis';
+import { useUser, setUser } from '@redux';
+import { User, dummyUser } from '@models';
 import styles from './ProfileModal.module.scss';
 import cn from 'classnames';
 
@@ -137,9 +138,10 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                   <Button
                     className={styles.signOut}
                     variant="no-show"
-                    onClick={() => {
-                      // dispatch(logout());
+                    onClick={async () => {
+                      await logout();
                       setShow(false);
+                      dispatch(setUser(undefined)); // TODO should be with logout function
                     }}
                   >
                     Log Out

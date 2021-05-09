@@ -2,10 +2,11 @@ import React, { useState, FunctionComponent } from 'react';
 import { Button } from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
 import { useDispatch } from 'react-redux';
-import { useUser, showLogin } from '@redux';
+import { useUser, showLogin, setUser } from '@redux';
 import ProfileModal from '../ProfileModal/ProfileModal';
 import { navIcons } from '@icons';
 import styles from './NavBar.module.scss';
+import { logout } from '@apis';
 
 const NavBar: FunctionComponent = () => {
   const [showProfile, setShowProfile] = useState<boolean>(false);
@@ -45,7 +46,10 @@ const NavBar: FunctionComponent = () => {
                 <Button
                   variant="no-show"
                   className={styles.navBtn}
-                  // onClick={() => dispatch(logout())}
+                  onClick={() => {
+                    logout();
+                    dispatch(setUser(undefined)); // TODO should be with logout function
+                  }}
                 >
                   Log Out
                 </Button>

@@ -13,12 +13,10 @@ type PotentialNewUser = (User & { isNewUser: false }) | { isNewUser: true };
  * @returns - { newUser: true } if a new user or a User object
  */
 export const login = async (
-  name: string,
-  email: string,
+  googleLoginToken: string,
 ): Promise<PotentialNewUser> => {
   const response = await backendAPI.post<UserLoginResponse>('/login', {
-    name,
-    email,
+    googleLoginToken,
   });
 
   const isNewUser = 'newUser' in response.data;
@@ -27,7 +25,15 @@ export const login = async (
 
   // Typescript can't tell that data must be of type User here, so explicitly tell it
   const data = response.data as User;
-  const { profilePhoto, description, major, schoolYear, phone } = data;
+  const {
+    profilePhoto,
+    description,
+    major,
+    schoolYear,
+    phone,
+    name,
+    email,
+  } = data;
 
   return {
     isNewUser,
@@ -47,7 +53,7 @@ export const login = async (
  * @returns - void
  */
 export const logout = async () => {
-  await backendAPI.post('/logout');
+  backendAPI.get('/logout');
 };
 
 /**
@@ -73,7 +79,7 @@ export const userEditProfile = async (email: string, kvPairs: any) => {
  * @returns - void
  */
 export const createUser = async (user: User) => {
-  await backendAPI.post('/createUser', user);
+  backendAPI.post('/createUser', user);
 };
 
 /**
