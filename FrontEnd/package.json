@@ -60,7 +60,9 @@
     "build": "next build",
     "start": "next start",
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx}",
-    "lint": "eslint --fix src/**/*.{js,jsx,ts,tsx}"
+    "lint": "eslint --fix src/**/*.{js,jsx,ts,tsx}",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "eslintConfig": {
     "extends": "airbnb-typescript-prettier"
@@ -78,10 +80,16 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.14.0",
     "@babel/plugin-proposal-export-default-from": "^7.12.13",
     "@babel/plugin-proposal-export-namespace-from": "^7.12.13",
+    "@storybook/addon-actions": "^6.2.9",
+    "@storybook/addon-essentials": "^6.2.9",
+    "@storybook/addon-links": "^6.2.9",
+    "@storybook/react": "^6.2.9",
     "@svgr/webpack": "^5.5.0",
     "@types/node": "^12.19.12",
+    "babel-loader": "^8.2.2",
     "eslint-config-airbnb-typescript-prettier": "^3.1.0",
     "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^6.3.0",
