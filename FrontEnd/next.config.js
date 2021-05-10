@@ -13,10 +13,11 @@ module.exports = withPlugins([
 ],
 {
   sassOptions: {
-    includePaths: ['./src/assets/scss'],
+    includePaths: ['./src/assets/scss'], // TODO use the path module?
     prependData: `@use 'utils' as *;`
   },
   webpack: (config, options) => {
+    // TODO this is unnecessary I think since we don't use sentry
     if (!options.isServer) {
       config.resolve.alias["@sentry/node"] = "@sentry/browser";
     }
