@@ -18,19 +18,27 @@
 }
 
 .icon {
+  position: relative;
   display: flex;
   align-self: center;
   padding-right: 6px;
-  // max-width: 
-  // max-height: 1.5rem;
+  // height: 100%;
+
+  svg {
+    // vertical-align: top;
+    align-self: center;
+    height: 100%;
+  }
 }
 
+$growth-factor: 1.15;
+
 .primaryIcon {
-  max-height: $lg-font-size;
+  height: $lg-font-size * $growth-factor;
 }
 
 .secondaryIcon {
-  max-height: $md-font-size;
+  height: $md-font-size * $growth-factor;
 }
 
 /* SIZES */
