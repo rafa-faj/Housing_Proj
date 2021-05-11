@@ -1,8 +1,11 @@
 const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const withImages = require('next-images')
 const withPlugins = require('next-compose-plugins');
 // transpile homehub images upload package's css
 const withTM = require('next-transpile-modules')(['homehub-images-upload']);
+
+const toPath = (_path) => path.join(__dirname, _path);
 
 module.exports = withPlugins([
   withTM,
@@ -18,7 +21,7 @@ module.exports = withPlugins([
   sassOptions: {
     // include the path to the scss folder for easy access (it allows you to do things like
     // "@import 'utils'" without having to specify the path)
-    includePaths: [path.join(__dirname, 'src/assets/scss')],
+    includePaths: [toPath('src/assets/scss')],
     // Prepend the following line to every scss file (no need to import to use sass
     // variables and other utils in every file)
     prependData: `@use 'utils' as *;`
@@ -29,6 +32,18 @@ module.exports = withPlugins([
       test: /\.svg$/,
       use: ['@svgr/webpack']
     });
+
+    // TODO not sure if this is needed yet
+    // Use aliases (aka paths) in tsconfig.json to set the aliases in webpack as
+    // well (do this using tsconfig-paths-webpack-plugin package)
+    // config.resolve.plugins = config.resolve.plugins || [];
+    // config.resolve.plugins.push(
+    //   new TsconfigPathsPlugin({
+    //     configFile: toPath('./tsconfig.json'),
+    //   })
+    // );
+    // config.resolve.extensions.push('.ts', '.tsx');
+
     return config;
   }
 });

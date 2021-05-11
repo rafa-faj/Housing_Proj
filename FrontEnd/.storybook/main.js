@@ -1,4 +1,7 @@
 const path = require('path');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
+const toPath = (_path) => path.join(__dirname, _path);
 
 module.exports = {
   'stories': ['../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
@@ -16,7 +19,7 @@ module.exports = {
           sassOptions: {
             // include the path to the scss folder for easy access (it allows you to do things like
             // "@import 'utils'" without having to specify the path)
-            includePaths: [path.join(__dirname, '../src/assets/scss')],
+            includePaths: [toPath('../src/assets/scss')],
           },
           // Prepend the following line to every scss file (no need to import to use sass
           // variables and other utils in every file)
@@ -26,7 +29,18 @@ module.exports = {
     },
   ],
   webpackFinal: async (config) => {
-    // Needed for SVG importing using svgr
+    // SECTION: Resolve aliases used in the codebase
+    // Use aliases (aka paths) in tsconfig.json to set the aliases in webpack as
+    // well (do this using tsconfig-paths-webpack-plugin package)
+    config.resolve.plugins = config.resolve.plugins || [];
+    config.resolve.plugins.push(
+      new TsconfigPathsPlugin({
+        configFile: toPath('../tsconfig.json'),
+      })
+    );
+    config.resolve.extensions.push('.ts', '.tsx');
+
+    // SECTION: Needed for SVG importing using svgr
     // find index of the rule to handle SVG's
     const indexOfRuleToRemove = config.module.rules.findIndex(
       (rule) => rule.test && rule.test.toString().includes('svg')
@@ -40,7 +54,7 @@ module.exports = {
         name: 'static/media/[name].[hash:8].[ext]',
         esModule: false,
       },
-    })
+    });
 
     // add a new rule to handle SVG files with '@svgr/webpack' package
     config.module.rules.push({
@@ -53,9 +67,9 @@ module.exports = {
           },
         },
       ],
-    })
+    });
 
-    // Merge your next webpack config with this config
+    // SECTION: Merge your next webpack config with this config
     const nextConfig = require('../next.config.js');
     return { ...nextConfig.webpack, ...config };
   },
