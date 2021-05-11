@@ -59,4 +59,4 @@ module.exports = {
     const nextConfig = require('../next.config.js');
     return { ...nextConfig.webpack, ...config };
   },
-}
+};
