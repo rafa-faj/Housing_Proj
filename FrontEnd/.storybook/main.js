@@ -13,11 +13,11 @@ module.exports = {
           modules: true,
         },
         sassLoaderOptions: {
+          implementation: require("sass"),
           sassOptions: {
-            includePaths: [
-              path.resolve(__dirname, '../src/assets/scss')
-            ],
+            includePaths: [path.join(__dirname, '../src/assets/scss')],
           },
+          additionalData: `@use 'utils' as *;`,
         },
       },
     },

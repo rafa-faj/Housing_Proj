@@ -1,29 +1,32 @@
+const path = require('path');
 const withImages = require('next-images')
 const withPlugins = require('next-compose-plugins');
+// transpile homehub images upload package's css
 const withTM = require('next-transpile-modules')(['homehub-images-upload']);
 
 module.exports = withPlugins([
   withTM,
+  // Consume image files (listed in fileExtensions) using next-images package
   [
     withImages,
     {
-      fileExtensions: ["jpg", "jpeg", "png", "gif", "ico", "webp", "jp2", "avif"],
+      fileExtensions: ['jpg', 'jpeg', 'png', 'gif', 'ico', 'webp', 'jp2', 'avif'],
     }
   ]
 ],
 {
   sassOptions: {
-    includePaths: ['./src/assets/scss'], // TODO use the path module?
+    // include the path to the scss folder for easy access (it allows you to do things like
+    // "@import 'utils'" without having to specify the path)
+    includePaths: [path.join(__dirname, 'src/assets/scss')],
+    // Prepend the following line to every scss file (no need to import to use sass variables)
     prependData: `@use 'utils' as *;`
   },
   webpack: (config, options) => {
-    // TODO this is unnecessary I think since we don't use sentry
-    if (!options.isServer) {
-      config.resolve.alias["@sentry/node"] = "@sentry/browser";
-    }
+    // Consume SVG files for webpack
     config.module.rules.push({
       test: /\.svg$/,
-      use: ["@svgr/webpack"]
+      use: ['@svgr/webpack']
     });
     return config;
   }
