@@ -43,14 +43,15 @@ const Button: FunctionComponent<ButtonProps> = ({
 }) => {
   const Icon = icon?.icon; // React components that are rendered with JSX must be capitalized
   const iconConfig = icon?.config || {};
+  const iconSize = `${size}Icon`;
   const configuredIcon = (
-    <div className={styles.icon}>
+    <div className={cn(styles.icon, styles[iconSize])}>
       <Icon {...iconConfig} />
     </div>
   );
 
   const content = icon ? (
-    <div className="justify-content-center">
+    <div className={styles.contentWithIcon}>
       {configuredIcon} {children}
     </div>
   ) : (
