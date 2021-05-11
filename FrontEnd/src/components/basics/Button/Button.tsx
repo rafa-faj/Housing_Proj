@@ -6,21 +6,14 @@ import { Icon as IconType, IconProps } from '@icons';
 /**
  * The size of the button. Primary = bigger, Secondary = smaller.
  */
-export enum ButtonSize {
-  Primary = 'primary',
-  Secondary = 'secondary',
-}
+export type ButtonSize = 'primary' | 'secondary';
 
 /**
  * The type of the button. The wrapper type should be used for icons/images/etc; it has no
  * padding/margin and has a transparent background. To make something "inactive", use the
  * `disabled` prop.
  */
-export enum ButtonVariant {
-  Solid = 'solid',
-  Outline = 'outline',
-  Wrapper = 'wrapper',
-}
+export type ButtonVariant = 'solid' | 'outline' | 'wrapper';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -35,24 +28,31 @@ export interface ButtonProps
  * button.
  */
 const Button: FunctionComponent<ButtonProps> = ({
-  size = ButtonSize.Primary,
-  variant = ButtonVariant.Solid,
+  size = 'primary',
+  variant = 'solid',
   children,
   icon,
   ...buttonProps
 }) => {
+  // Configure icon
   const Icon = icon?.icon; // React components that are rendered with JSX must be capitalized
   const iconConfig = icon?.config || {};
   const iconSize = `${size}Icon`;
-  const configuredIcon = (
+  const styledIcon = (
     <div className={cn(styles.icon, styles[iconSize])}>
       <Icon {...iconConfig} />
     </div>
   );
 
+  // Configure children (will only be used if icon exists)
+  const styledChildren = children && (
+    <span className={styles.children}>{children}</span>
+  );
+
   const content = icon ? (
     <div className={styles.contentWithIcon}>
-      {configuredIcon} {children}
+      {styledIcon}
+      {styledChildren}
     </div>
   ) : (
     children

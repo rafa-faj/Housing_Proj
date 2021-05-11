@@ -1,5 +1,5 @@
 .button {
-  padding: 0.25rem 1.5rem;
+  padding: (0.25rem - $default-border-width) (1.5rem - $default-border-width);
   margin: 0.5rem 1.5rem;
   font-weight: $bold-font-weight;
   box-shadow: none;
@@ -17,22 +17,23 @@
   justify-content: center;
 }
 
+.children {
+  padding-left: 0.3125rem;
+}
+
 .icon {
   position: relative;
   display: flex;
   align-self: center;
-  padding-right: 6px;
-  // height: 100%;
 
   svg {
-    // vertical-align: top;
     align-self: center;
     height: 100%;
   }
 }
 
+/* SIZES */
 $growth-factor: 1.15;
-
 .primaryIcon {
   height: $lg-font-size * $growth-factor;
 }
@@ -41,7 +42,6 @@ $growth-factor: 1.15;
   height: $md-font-size * $growth-factor;
 }
 
-/* SIZES */
 .primary {
   font-size: $lg-font-size;
 }
