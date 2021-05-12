@@ -8,6 +8,7 @@ import { formatRoomType } from '../../utils';
 import { useRoomData } from '@hooks';
 import { useRouter } from 'next/dist/client/router';
 import styles from './HouseCard.module.scss';
+import { miscIcons } from '@icons'
 
 interface Props {
   roomId: number;
@@ -59,36 +60,39 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
               />
             </Col>
             <Col md={5} className={styles.secondCol}>
-              {/* 1st row */}
-              <Row className={styles.day}>
-                2 days ago
-              </Row>
-              {/* 2nd row */}
-              <Row className={styles.price}>
-                <b>$1200/mo </b>
-              </Row>
-              {/* 3rd row */}
-              <Row className={styles.distance}>
-                <b>~ {distance} transit</b>&nbsp;
-              </Row>
-              {/* 4th row */}
-              <Row className={styles.address}>
-                {address}
-              </Row>
-              {/* 5th row */}
-              <Row>
-                <div className={styles.room}>
-                  {formatRoomType(roomType)}
-                  <span className={styles.divider}> | </span>{' '}
-                  {`${numBeds} B ${numBaths} Ba`}
+              <div className={styles.textPortion}>
+                {/* 1st row */}
+                <div className={styles.day}>
+                  <miscIcons.RoundArrow />  2 days ago
                 </div>
-              </Row>
-              {/* 6th row */}
-              <Row>
-                <div className={styles.date}>
-                  {formattedMoveIn}
+                {/* 2nd row */}
+                <div className={styles.price}>
+                  <b>$1200/mo </b>
                 </div>
-              </Row>
+                {/* 3rd row */}
+                <div className={styles.distance}>
+                  <miscIcons.busIcon /> <b>~ {distance} transit</b>&nbsp;
+               </div>
+                {/* 4th row */}
+                <div className={styles.address}>
+                  <miscIcons.LocationIcon />
+                  {address}
+                </div>
+                {/* 5th row */}
+                <div>
+                  <div className={styles.room}>
+                    {`${numBeds}Bed ${numBaths}Bath`}
+                    <span className={styles.divider}> | </span>{' '}
+                    {formatRoomType(roomType)} Room
+                </div>
+                </div>
+                {/* 6th row */}
+                <div>
+                  <div className={styles.date}>
+                    {formattedMoveIn}
+                  </div>
+                </div>
+              </div>
             </Col>
           </Row>
           {/* Old design */}
