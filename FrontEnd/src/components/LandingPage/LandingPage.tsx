@@ -13,10 +13,10 @@ const Landing: FunctionComponent = () => (
         <div className={styles.text}>Find your ideal home away from home ASAP</div>
       </div>
       <div className={styles.bigRow}>
-        <div className={styles.subtext}>By students ⦿ For students ⦿ With students</div>
+        <div className={styles.subtext}>By students <span className={styles.dot}></span> For students <span className={styles.dot}></span> With students</div>
       </div>
       <div className={styles.center}>
-        <Button variant="secondary" href="https://forms.gle/jxmNTJE6L2dZBsug9">
+        <Button variant="primary" href="https://forms.gle/jxmNTJE6L2dZBsug9">
           <div className={styles.buttonInner}>Check it Out</div>
         </Button>
       </div>
@@ -71,7 +71,7 @@ const Landing: FunctionComponent = () => (
         </Col>
       </Row>
       <Row className={styles.center}>
-        <Button variant="secondary" href="https://forms.gle/jxmNTJE6L2dZBsug9">
+        <Button variant="primary" href="https://forms.gle/jxmNTJE6L2dZBsug9">
           <div className={styles.buttonInner}>Check it Out</div>
         </Button>
       </Row>

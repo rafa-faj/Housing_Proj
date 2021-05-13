@@ -1,19 +1,6 @@
-
-
-  .ellipseButton {
-    width: 54px;
-    height: 54px;
-    padding: 9.2px 21.1px 8.2px 20.1px;
-    background-color: #e7936d;
-  }
-  
-  .infoSectionWrapper {
-    margin-bottom: 1.5rem;
-  }
-  
   .title{
-    margin-top: 10rem;
-    margin-bottom: 10rem;
+    margin-top: 13rem;
+    margin-bottom: 13rem;
   }
 
   .intro{
@@ -22,15 +9,9 @@
     justify-content: center;
   }
   
-  .subtitle {
-    color: $primary-dark-color;
-    font-size: $lg-font-size;
-    margin: auto 0 auto 50px;
-  }
-  
   .caption {
     color: $primary-light-color;
-    font-size: 20px;
+    font-size: 1.5rem;
     font-weight: bold;
     justify-content: center;
     margin: 1.25rem;
@@ -38,39 +19,42 @@
   
   .text {
     color: rgb(46, 46, 46);
-    font-size: 14px;
-    margin-top: 2rem;
+    font-size: 1.25rem;
+    margin-top: 3.2rem;
+    font-weight: 400;
     justify-content: center;
+    text-align: center;
   }
   
   .textLg {
     color: rgb(46, 46, 46);
-    font-size: 20px;
+    font-size: 2.125rem;
     justify-content: center;
   }
 
   .subtext {
     color: $primary-dark-color;
-    font-size: 14px;
+    font-size: 1.25rem;
     justify-content: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3.2rem;
     margin-top: 0.25rem;
+    text-align: center;
   }
 
   .subtextIntro {
     color: rgb(46, 46, 46);
-    font-size: 14px;
+    font-size: 1.25rem;
     justify-content: center;
     margin-bottom: 2rem;
     margin-top: 1rem;
     @include bp-up('lg') {
-      max-width: 19rem;
+      max-width: 25rem;
     }
   }
   
   .textSm {
     color: rgb(46, 46, 46);
-    font-size: 12px;
+    font-size: 1rem;
   }
   
   .smallImg {
@@ -113,7 +97,7 @@
   }
 
   .logoText{
-    font-size: 48px;
+    font-size: 3rem;
     color: $primary-light-color;
     font-weight: $bold-font-weight;
     margin-left: 1rem;
@@ -122,4 +106,15 @@
   .logo{
     height: 4.125rem;
     width: 4.125rem;
+  }
+
+  .dot {
+    height: 0.5rem;
+    width: 0.5rem;
+    background-color: $primary-200-color;
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+    margin-bottom: 0.3rem;
+    border-radius: 50%;
+    display: inline-block;
   }
