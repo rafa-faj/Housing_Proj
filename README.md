@@ -1,8 +1,9 @@
 # Complete Setup Guide
 ## Backend
-All you need to do are two steps:
-1. docker build --tag homehubbackend .
-2. docker run -p 5000:5000 homehubbackend
+All you need to do are three steps:
+1. download the .env folder from Homehub Drive to the Backend folder
+2. docker build --tag homehubbackend .
+3. docker run -p 5000:5000 homehubbackend
 
 NO MORE SET UP PAIN! EMBRACE THE MAGIC OF DOCKER AND CRIS(who actually put yall through the pain at the first place)!
 
