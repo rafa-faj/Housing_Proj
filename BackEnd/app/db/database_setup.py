@@ -198,6 +198,8 @@ def createDB(db_path):
     create a DB given the database schema
     return True if the db is created successfully
     """
+    engine = create_engine(db_path)
+    Base.metadata.create_all(engine)
     try:
         engine = create_engine(db_path)
         Base.metadata.create_all(engine)
