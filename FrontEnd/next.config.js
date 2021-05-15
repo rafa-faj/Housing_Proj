@@ -1,11 +1,10 @@
-const path = require('path');
+const toPath = require('./toPath').toPath;
+
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const withImages = require('next-images')
 const withPlugins = require('next-compose-plugins');
 // transpile homehub images upload package's css
 const withTM = require('next-transpile-modules')(['homehub-images-upload']);
-
-const toPath = (_path) => path.join(__dirname, _path);
 
 module.exports = withPlugins([
   withTM,
@@ -39,7 +38,7 @@ module.exports = withPlugins([
     // config.resolve.plugins = config.resolve.plugins || [];
     // config.resolve.plugins.push(
     //   new TsconfigPathsPlugin({
-    //     configFile: toPath('./tsconfig.json'),
+    //     configFile: toPath('tsconfig.json'),
     //   })
     // );
     // config.resolve.extensions.push('.ts', '.tsx');
