@@ -67,7 +67,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
                 </div>
                 {/* 2nd row */}
                 <div className={styles.price}>
-                  <b>$1200/mo </b>
+                  Starting at <b>$1200/mo </b>
                 </div>
                 {/* 3rd row */}
                 <div className={styles.distance}>
@@ -75,8 +75,12 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
                </div>
                 {/* 4th row */}
                 <div className={styles.address}>
-                  <miscIcons.LocationIcon />
-                  {address}
+                  <div className={styles.locationIcon}>
+                    <miscIcons.LocationIcon />
+                  </div>
+                  <div>
+                    {address}
+                  </div>
                 </div>
                 {/* 5th row */}
                 <div>
@@ -89,7 +93,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
                 {/* 6th row */}
                 <div>
                   <div className={styles.date}>
-                    {formattedMoveIn}
+                    Available from June 1, 2021{/*{formattedMoveIn}*/}
                   </div>
                 </div>
               </div>

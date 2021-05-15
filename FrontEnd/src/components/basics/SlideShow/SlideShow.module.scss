@@ -19,3 +19,8 @@
 .carouselOverflow {
   height: 75%;
 }
+
+// Changing the indicator, not working right now
+.carousel-indicators li {
+  background-color: red; //this can be whatever color you want
+}

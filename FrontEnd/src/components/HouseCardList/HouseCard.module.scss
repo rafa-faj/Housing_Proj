@@ -37,32 +37,36 @@
 
 .price{
   margin-bottom: 24px;
-  color: #A64919;
-  font-size: 20px;
+  color: #A64919;  
+}
+
+.price b{
+font-size: 20px;
 }
 
 .day{
-  margin-bottom: 24px;
+  margin: 5px 0 24px 0;
   color:#AAAAAA;
   font-size: 12px
 }
 
 .distance {
   margin-bottom: 8px;
-  //margin-left: 8px;
   font-size: 13px
 }
 
 .address{
-  margin-bottom: 35px;
-  //display: flex;
-  //flex-direction: row;
-  font-size: 13px
+  margin-bottom: 30px;
+  display: flex;
+  font-size: 13px;
+  gap: 5px;
 }
 
-.address p{
-  margin:0 0 0 0;
-  padding: 0;
+.locationIcon{
+  margin-top: 1rem;
+}
+.address div{
+  height: 100%;
 }
 
 .room{
