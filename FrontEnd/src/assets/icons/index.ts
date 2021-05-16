@@ -23,6 +23,7 @@ import {
 
 export type Icon = typeof navIcons.logo;
 export type IconProps = React.SVGProps<SVGSVGElement>;
+export type IconObject = { [key: string]: Icon };
 
 export {
   navIcons,
