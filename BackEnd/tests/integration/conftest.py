@@ -12,8 +12,9 @@ def app():
     db_path = "sqlite:///"+file_path
     # setup_houses(db_path)
     app = create_app(
-        {"OFFLINE_TESTING": True,
-         "SQLALCHEMY_DATABASE_URI": db_path})
+        {"TESTING": True,
+        "OFFLINE_TESTING": True,
+        "SQLALCHEMY_DATABASE_URI": db_path})
     # create the database and load test data
     with app.app_context():
         setup_houses(db_path)

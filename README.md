@@ -1,16 +1,11 @@
 # Complete Setup Guide
-1. Download npm from [this](https://www.npmjs.com/get-npm) if not already
-2. Download this Repo and go to the local folder.
-3. Open <b> 2 </b> terminal windows and go to FrontEnd and BackEnd folders, respectively.
-4. (In <b> BackEnd </b> terminal) create the a virtual environment using the template code `pip install --upgrade virtualenv`, then `virtualenv -p python3 venv`
-5. (In <b> BackEnd </b> terminal) start the created environment with      `source venv/bin/activate `
-6. (In <b> BackEnd </b> terminal) download libraries through `pip install -r requirements.txt`
-7. (In <b> BackEnd </b> terminal) run `python setup.py install`, followed by `pip3 install -e .`. This will allow the use of the app folder itself as a package, simplifying imports.
-8. (In <b> BackEnd </b> terminal) run `aws configure`, and enter the appropriate access keys.
-9. (In <b> BackEnd </b> terminal) navigate to app/mocks folder and run `python main.py` to run backend with mock data, or navigate to app folder and run `python main.py` to run backend with real data.
-10. (In <b> FrontEnd </b> terminal) download webpack server `npm i webpack-dev-server`
-11. (In <b> FrontEnd </b> terminal) download other packages by `npm install`
-12. (In <b> FrontEnd </b> terminal) run the server by `npm run start`
+## Backend
+All you need to do are three steps:
+1. download the .env folder from Homehub Drive to the Backend folder
+2. docker build --tag homehubbackend .
+3. docker run -p 5000:5000 homehubbackend
+
+NO MORE SET UP PAIN! EMBRACE THE MAGIC OF DOCKER AND CRIS(who actually put yall through the pain at the first place)!
 
 # Potential Errata:
 

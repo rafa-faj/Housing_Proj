@@ -264,7 +264,7 @@ class TestDbOperations(unittest.TestCase):
         number_of_rows = self.session.query(House_Attribute).count()
         self.assertEqual(number_of_rows == 2, True)
 
-    def test_add_and_remove_bookmark(self):
+    def test_add_and_remove_favorite(self):
         # create an user
         user_name = "cris"
         user_email = "haha@ucsd.edu"
@@ -329,40 +329,42 @@ class TestDbOperations(unittest.TestCase):
             no_bathrooms,
             self.session)
 
-        # connect bookmark with the room and user
-        bookmark_object = crud.add_bookmark(
+        # connect favorite with the room and user
+        favorite_object = crud.add_favorite(
             room_object,
             user_object,
             self.session)
 
         # check if the return object has correct information
-        self.assertEqual(bookmark_object.room_id, room_object.id)
-        self.assertEqual(bookmark_object.user_id, user_object.id)
+        self.assertEqual(favorite_object.room_id, room_object.id)
+        self.assertEqual(favorite_object.user_id, user_object.id)
 
         # check duplicate handling
-        bookmark_object = crud.add_bookmark(
+        favorite_object = crud.add_favorite(
             room_object,
             user_object,
             self.session)
 
-        number_of_rows = self.session.query(Bookmark).count()
+        number_of_rows = self.session.query(Favorite).count()
         self.assertEqual(number_of_rows == 1, True)
 
         # check delete
-        crud.remove_bookmark(
-            room_object,
-            user_object,
+        number_rows_deleted = crud.remove_entry(
+            Favorite,
+            favorite_object.id,
             self.session)
 
-        number_of_rows = self.session.query(Bookmark).count()
+        self.assertEqual(number_rows_deleted == 1, True)
+        number_of_rows = self.session.query(Favorite).count()
         self.assertEqual(number_of_rows == 0, True)
 
-        crud.remove_bookmark(
-            room_object,
-            user_object,
+        number_rows_deleted = crud.remove_entry(
+            Favorite,
+            favorite_object.id,
             self.session)
 
-        number_of_rows = self.session.query(Bookmark).count()
+        self.assertEqual(number_rows_deleted == 0, True)
+        number_of_rows = self.session.query(Favorite).count()
         self.assertEqual(number_of_rows == 0, True)
 
     def test_get_row_if_exists(self):
@@ -401,7 +403,8 @@ class TestDbOperations(unittest.TestCase):
 
         self.assertEqual(query_object == user_object, True)
 
-    def test_read_rooms(self):
+    def test_read_all(self):
+        # in this case we sample test read all rooms
         # add room allows duplicates since one can have multiple rooms same time with same criteria
         # create an user
         user_name = "cris"
@@ -495,7 +498,7 @@ class TestDbOperations(unittest.TestCase):
             no_bathrooms,
             self.session)
 
-        number_of_rows = len(crud.read_rooms(self.session))
+        number_of_rows = len(crud.read_all(Room,self.session))
         self.assertEqual(number_of_rows == 3, True)
 
         # create a different user
@@ -562,7 +565,7 @@ class TestDbOperations(unittest.TestCase):
             no_bathrooms,
             self.session)
 
-        number_of_rows = len(crud.read_rooms(self.session))
+        number_of_rows = len(crud.read_all(Room,self.session))
         self.assertEqual(number_of_rows == 4, True)
 
     def test_room_json(self):
@@ -761,18 +764,31 @@ class TestDbOperations(unittest.TestCase):
                      "fromMonth": "June/18", "toMonth": "July/18",
                      "earlyDate": "06/01/18", "lateDate": "06/12/18",
                      "roomType": "Single", "other": [], "facilities": [],
-                     "leaserName": "cris", "leaserEmail": "haha@ucsd.edu",
-                     "leaserPhone": "858-2867-3567",
-                     "leaserSchoolYear": "Third",
-                     "leaserMajor": "Data Science",
                      "photos": ["photo1", "photo2"],
                      "profilePhoto": "profile_photo",
                      "negotiable": True,
                      "numBaths": 2.5,
                      "numBeds": 2,
                      "roomDescription": "dream house in a life time"}
+        
+        test_res_json = {"name": "75 Big Rock Cove St. Middletown",
+                     "address": "75 Big Rock Cove St. Middletown, NY 10940",
+                     "distance": "20 mins", "pricePerMonth": 500,
+                     "fromMonth": "June/18", "toMonth": "July/18",
+                     "earlyDate": "06/01/18", "lateDate": "06/12/18",
+                     "roomType": "Single", "other": [], "facilities": [],
+                     "photos": ["photo1", "photo2"],
+                     "profilePhoto": "profile_photo",
+                     "negotiable": True,
+                     "numBaths": 2.5,
+                     "numBeds": 2,
+                     "roomDescription": "dream house in a life time",
+                    "leaserName": user_name, "leaserEmail": user_email,
+                     "leaserPhone": user_phone,
+                     "leaserSchoolYear": user_school_year,
+                     "leaserMajor": user_major,}
 
-        crud.write_room(test_json, self.session, True)
+        crud.write_room(transform_json_underscore(test_json), user_object.id, self.session, True)
 
         room_object = crud.get_row_if_exists(
             Room,
@@ -786,9 +802,9 @@ class TestDbOperations(unittest.TestCase):
             self.session,
             True)
 
-        test_json["roomId"] = 1
+        test_res_json["roomId"] = 1
 
-        self.assertEqual(result_json == test_json, True)
+        self.assertEqual(result_json == test_res_json, True)
 
     def test_write_attribute(self):
         # create an user
