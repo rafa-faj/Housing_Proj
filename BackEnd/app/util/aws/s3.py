@@ -91,6 +91,9 @@ def delete_file_wname(file_key,bucket):
     return True
 
 def delete_folder(prefix,bucket):
+    """
+    Delete all files that share the same prefixes
+    """
     try:
         contents = s3_client.list_objects(
             Bucket=bucket, Prefix=prefix)["Contents"]
