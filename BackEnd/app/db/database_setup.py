@@ -14,6 +14,7 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = "user"
     __user_write_permission_field__ = {"phone","name","school_year","major","description"}
+    __user_read_permission_field__ = {"email","phone","name","school_year","major","description"}
 
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
@@ -24,7 +25,7 @@ class User(Base):
     major = Column(String(250))
     description = Column(String(1000), nullable=False)
     room = relationship("Room", backref="user")
-    bookmark = relationship("Bookmark", backref="user")
+    favorite = relationship("Favorite", backref="user")
 
     @property
     def serialize(self):
@@ -42,23 +43,24 @@ class User(Base):
 
 class Room(Base):
     __tablename__ = "room"
-    __user_write_permission_field__ = {"room_type","price","negotiable","description","description","no_rooms","no_bathrooms"}
+    __user_write_permission_field__ = {"room_type","price_per_month","negotiable","room_description","num_beds","num_baths"}
+    __user_read_permission_field__ = {"id","date_created","room_type","price_per_month","negotiable","room_description","num_beds","num_baths","user_id"}
 
     id = Column(Integer, primary_key=True)
     date_created = Column(DateTime, nullable=False)
     user_id = Column(Integer, ForeignKey("user.id"))
     room_type = Column(String(250), nullable=False)
-    price = Column(Integer, nullable=False)
+    price_per_month = Column(Integer, nullable=False)
     negotiable = Column(Boolean, nullable=False)
-    description = Column(String(1000), nullable=False)
+    room_description = Column(String(1000), nullable=False)
     move_in_id = Column(Integer, ForeignKey("move_in.id"))
     address_id = Column(Integer, ForeignKey("address.id"))
     stay_period_id = Column(Integer, ForeignKey("stay_period.id"))
-    no_rooms = Column(Integer, nullable=False)
-    no_bathrooms = Column(FLOAT, nullable=False)
+    num_beds = Column(Integer, nullable=False)
+    num_baths = Column(FLOAT, nullable=False)
     house_attribute = relationship("House_Attribute", backref="room")
     move_in = relationship("Move_In", backref="room")
-    bookmark = relationship("Bookmark", backref="room")
+    favorite = relationship("Favorite", backref="room")
     address = relationship("Address", backref="room")
     stay_period = relationship("Stay_Period", backref="room")
 
@@ -69,17 +71,18 @@ class Room(Base):
             "id": self.id,
             "user_id": self.user_id,
             "room_type": self.room_type,
-            "price": self.price,
+            "price_per_month": self.price_per_month,
             "negotiable": self.negotiable,
-            "description": self.description,
-            "no_rooms": self.no_rooms,
-            "no_bathrooms": self.no_bathrooms
+            "room_description": self.room_description,
+            "num_beds": self.num_beds,
+            "num_baths": self.num_baths
         }
 
 
 class Address(Base):
     __tablename__ = "address"
     __user_write_permission_field__ = {"address"}
+    __user_read_permission_field__ = {"distance","address"}
 
     id = Column(Integer, primary_key=True)
     distance = Column(String(250), nullable=False)
@@ -98,6 +101,7 @@ class Address(Base):
 class Stay_Period(Base):
     __tablename__ = "stay_period"
     __user_write_permission_field__ = {"from_month","to_month"}
+    __user_read_permission_field__ = {"from_month","to_month"}
 
     id = Column(Integer, primary_key=True)
     from_month = Column(DateTime, nullable=False)
@@ -116,6 +120,7 @@ class Stay_Period(Base):
 class Move_In(Base):
     __tablename__ = "move_in"
     __user_write_permission_field__ = {"early_date","late_date"}
+    __user_read_permission_field__ = {"early_date","late_date"}
 
     id = Column(Integer, primary_key=True)
     early_date = Column(DateTime, nullable=False)
@@ -134,6 +139,7 @@ class Move_In(Base):
 class House_Attribute(Base):
     __tablename__ = "house_attribute"
     __user_write_permission_field__ = {"attribute_name"}
+    __user_read_permission_field__ = {"room_id","attribute_name"}
 
     id = Column(Integer, primary_key=True)
     room_id = Column(Integer, ForeignKey("room.id"))
@@ -154,6 +160,7 @@ class House_Attribute(Base):
 class Attribute(Base):
     __tablename__ = "attribute"
     __user_write_permission_field__ = {}
+    __user_read_permission_field__ = {"name","category"}
 
     name = Column(String(250), primary_key=True)
     category = Column(String(250), nullable=False)
@@ -167,9 +174,10 @@ class Attribute(Base):
         }
 
 
-class Bookmark(Base):
-    __tablename__ = "bookmark"
+class Favorite(Base):
+    __tablename__ = "favorite"
     __user_write_permission_field__ = {}
+    __user_read_permission_field__ = {"room_id","user_id"}
 
     id = Column(Integer, primary_key=True)
     room_id = Column(Integer, ForeignKey("room.id"))
@@ -190,6 +198,8 @@ def createDB(db_path):
     create a DB given the database schema
     return True if the db is created successfully
     """
+    engine = create_engine(db_path)
+    Base.metadata.create_all(engine)
     try:
         engine = create_engine(db_path)
         Base.metadata.create_all(engine)

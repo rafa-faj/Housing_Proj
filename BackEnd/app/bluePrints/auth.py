@@ -16,11 +16,17 @@ authetication = Blueprint("auth", __name__)
 
 @authetication.route("/login", methods=["POST", "OPTIONS"])
 def login():
-    """Login function and create anti-forgery state token."""
+    """Login function and create anti-forgery state token.
+
+    
+    content_type: application/json
+    
+    example of valid json request format:
+    "google_login_token":blah blah blah
+    """
     # PART1: Secure measure to verify identity
     # first check if the domain is allowed
     if request.remote_addr not in current_app.config["ALLOWED_ORIGINS"]:
-        print('IM HERE YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO WHATS UP')
         response = generate_message(MESSAGE_WRONG_ORIGIN,401)
         return response
     # pre-flight for CORS communication
@@ -36,7 +42,7 @@ def login():
     if checked_json != True: return response
     # second check if json conatins enough info
     try:
-        google_login_token = requested_json["googleLoginToken"]
+        google_login_token = requested_json["google_login_token"]
         # check if json contains valid info(ucsd email and google auth token)
         status_code, message, user_email = verify_email(
             google_login_token, current_app.config["ALLOWED_DOMAINS"], current_app.config["GAUTH_AUDIENCE"])
@@ -89,27 +95,40 @@ def login():
 
 @authetication.route("/logout", methods=["GET"])
 def logout():
-    """Log out the user by verifying the token"""
-    try:
-        # try to get the access token possibly stored in the user's request
-        client_token = request.cookies["access_token"]
-        # verify the token
-        verified,response = verify_authentication(client_token,login_session)
-        if verified == False: return response
-        # token verified, login successful
-        # delete the token cookie during log out and user info in the backend
-        del login_session["user_id"]
-        del login_session["access_token"]
-        response = generate_message(MESSAGE_SUCCESS_LOGOUT)
-        response.delete_cookie("access_token")
-    except KeyError:
-        # access_token doesn't exist: either logged out already or never logged in
+    """Log out the user by verifying the token
+    
+    No need to provide request json since the token should be stored in the cookie
+    """
+    # already logout, stop right here
+    if not is_loggedin(login_session):
         response = generate_message(MESSAGE_ALREADY_LOGOUT)
+        return response
+    checked_and_verified, response = check_verify_token(request,login_session)
+    if not checked_and_verified: return response
+    # token verified, login successful
+    # delete the token cookie during log out and user info in the backend
+    del login_session["user_id"]
+    del login_session["access_token"]
+    response = generate_message(MESSAGE_SUCCESS_LOGOUT)
+    response.delete_cookie("access_token")
     return response
 
 @authetication.route("/createUser", methods=["POST", "OPTIONS"])
 def create_user():
-    """Create user function that is called when user is not in the database"""
+    """Create user function that is called when user is not in the database
+    
+    content_type: application/json
+
+    example of valid json request format:
+
+    "name": "CRISTIANO",
+    "email": "nonexistent@ucsd.edu",
+    "description": "YOU COULD NOT LIVE WITH YOUR OWN FAILURE, AND WHERE DID THAT BRING YOU? BACK TO ME",
+    "phone": "858-777-2345",
+    "schoolYear": "Grad",
+    "major": "MARVEL SCIENCE"
+
+    """
     # handle pre-flight for browsers CORS access
     if request.method == "OPTIONS":
         return generate_response()
@@ -135,7 +154,7 @@ def create_user():
             user_email = login_session["login_user_email"]
             user_phone = requested_json["phone"]
             user_description = requested_json["description"]
-            user_school_year = requested_json["schoolYear"]
+            user_school_year = requested_json["school_year"]
             user_major = requested_json["major"]
             # verify types
             correct_format,valid_update_pairs, response = process_request_json(User,
