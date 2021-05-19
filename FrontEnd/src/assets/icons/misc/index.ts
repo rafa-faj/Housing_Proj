@@ -13,3 +13,7 @@ export { default as smallRightArrow } from './smallRightArrow.svg';
 export { default as smallRightArrowDisabled } from './smallRightArrowDisabled.svg';
 export { default as dash } from './dash.svg';
 export { default as mapMarker } from './mapMarker.svg';
+export { default as busIcon } from './bus.svg'
+export { default as heartIcon } from './heart.svg'
+export { default as RoundArrow } from './roundArrow.svg'
+export { default as LocationIcon } from './location.svg'

@@ -1,20 +1,79 @@
 
 
 .card {
-  @include thin-border('md');
-  background-color: $secondary-1-color;
-  border-radius: 25px; // TODO make variable
+  /*@include thin-border('md');*/
+  background-color: #FFFFFF;/*$secondary-1-color;*/
+  border-radius: 0.5rem; // TODO make variable
   overflow: hidden;
+  height: 270px; //temporary, might remove later
+  box-shadow: 0 6px 10px 0 rgba(black, .14); //elevation 06dp
 }
 
 .pic {
-  height: 200px;
+  height: 270px;
   overflow: hidden;
-  min-width: 100%;
-  min-height: 100%;
+  padding: 0;
+  
 }
 
 .divider {
   color: rgba(77, 94, 59, 0.2);
   font-weight: bold;
+}
+
+.textPortion{
+  margin-left: 8px;
+  font-family: Montserrat;
+}
+
+.secondCol{
+  padding: 0;
+  margin: 0;
+}
+
+.price{
+  margin-bottom: 24px;
+  color: #A64919;
+
+  b{
+    font-size: 20px;
+  }
+}
+
+
+.day{
+  margin: 5px 0 24px 0;
+  color:#AAAAAA;
+  font-size: 12px
+}
+
+.distance {
+  margin-bottom: 8px;
+  font-size: 13px
+}
+
+.address{
+  margin-bottom: 30px;
+  display: flex;
+  font-size: 13px;
+  gap: 5px;
+
+  div{
+    height: 100%;
+  }
+}
+
+.locationIcon{
+  margin-top: 1rem;
+}
+
+.room{
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #797979
+}
+
+.date{
+  font-size: 13px;
+  color: #797979
 }
