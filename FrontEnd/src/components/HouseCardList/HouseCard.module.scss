@@ -12,8 +12,6 @@
 .pic {
   height: 270px;
   overflow: hidden;
-  //min-width: 100%;
-  //min-height: 100%;
   padding: 0;
   
 }
@@ -26,8 +24,6 @@
 .textPortion{
   margin-left: 8px;
   font-family: Montserrat;
-  //padding: 0;
-  //margin: 0;
 }
 
 .secondCol{
@@ -37,12 +33,13 @@
 
 .price{
   margin-bottom: 24px;
-  color: #A64919;  
+  color: #A64919;
+
+  b{
+    font-size: 20px;
+  }
 }
 
-.price b{
-font-size: 20px;
-}
 
 .day{
   margin: 5px 0 24px 0;
@@ -60,13 +57,14 @@ font-size: 20px;
   display: flex;
   font-size: 13px;
   gap: 5px;
+
+  div{
+    height: 100%;
+  }
 }
 
 .locationIcon{
   margin-top: 1rem;
-}
-.address div{
-  height: 100%;
 }
 
 .room{
