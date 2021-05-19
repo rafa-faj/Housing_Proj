@@ -2,13 +2,11 @@ import React, { FunctionComponent } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useSelector } from 'react-redux';
 import { loading } from '@icons';
 import HouseNotFound from '../HouseNotFound/HouseNotFound';
 import HouseCard from './HouseCard';
-import { selectHousingMode, HousingMode, selectFilterData } from '@redux';
-import { useRecentRoomIds } from '@hooks';
-import useRoomSearch from '@hooks/swr/useRoomSearch';
+import { useHousingMode, HousingMode, useFilterData } from '@redux';
+import { useRecentRoomIds, useRoomSearch } from '@hooks';
 
 const HouseCardListUI: FunctionComponent<{ roomIds: number[] }> = ({
   roomIds,
@@ -41,7 +39,7 @@ const BrowsingList: FunctionComponent = () => {
 };
 
 const FilteredList: FunctionComponent = () => {
-  const filterData = useSelector(selectFilterData);
+  const filterData = useFilterData();
 
   // we know filterData is not undefined since the housing mode is checked in HouseCardList
   const { data: roomIds, error } = useRoomSearch(filterData!);
@@ -56,7 +54,7 @@ const FilteredList: FunctionComponent = () => {
 };
 
 const HouseCardList: FunctionComponent = () => {
-  const housingMode = useSelector(selectHousingMode);
+  const housingMode = useHousingMode();
 
   return housingMode === HousingMode.Filter ? (
     <FilteredList />

@@ -113,6 +113,6 @@ def setup_houses(db_path):
     createDB(db_path)
     build_mock(db_path,k=2)
 if __name__ == "__main__":
-    print(createDB("sqlite:///housing.db"))
-    build_mock("sqlite:///housing.db")
+    print(createDB("sqlite:///app/db/housing.db"))
+    build_mock("sqlite:///app/db/housing.db")
     print("created Mock Database!")

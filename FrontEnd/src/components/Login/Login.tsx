@@ -6,30 +6,43 @@ import {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from 'react-google-login';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { selectUser, login, selectShouldShowLogin, hideLogin } from '@redux';
+import {
+  useUser,
+  useShouldShowLogin,
+  hideLogin,
+  startNewUserFlow,
+  setUser,
+} from '@redux';
 import { miscIcons } from '@icons';
 import { LOGIN_INFO_TOOLTIP } from '@constants';
 import styles from './Login.module.scss';
+import { login } from '@apis';
 
 const isOnline = (
   response: GoogleLoginResponse | GoogleLoginResponseOffline,
-): response is GoogleLoginResponse => {
-  return 'profileObj' in response;
-};
+): response is GoogleLoginResponse => 'profileObj' in response;
 
 // https://developers.google.com/identity/sign-in/web/sign-in
 const LoginUI: FunctionComponent = () => {
-  const shouldShowLogin = useSelector(selectShouldShowLogin);
   const dispatch = useDispatch();
+  const shouldShowLogin = useShouldShowLogin();
 
-  const responseGoogleSuccess = (
+  const responseGoogleSuccess = async (
     response: GoogleLoginResponse | GoogleLoginResponseOffline,
   ) => {
     if (isOnline(response)) {
-      const profile = response.profileObj;
-      dispatch(login(profile.name, profile.email));
+      const { profileObj: userInfo, tokenId } = response;
+      const { name, email } = userInfo;
+
+      const result = await login(tokenId);
+
+      if (result.isNewUser) {
+        dispatch(startNewUserFlow({ name, email }));
+      } else {
+        dispatch(setUser(result));
+      }
     } else {
       console.log('User is offline');
       console.log(response);
@@ -60,10 +73,9 @@ const LoginUI: FunctionComponent = () => {
       <GoogleLogin
         className="g-auth"
         clientId="778916194800-977823s60p7mtu1sj72ru0922p2pqh6m.apps.googleusercontent.com"
-        onSuccess={(response) => {
-          (response) => console.log(response);
-          // responseGoogleSuccess(response);
-          // dispatch(hideLogin());
+        onSuccess={async (response) => {
+          await responseGoogleSuccess(response);
+          dispatch(hideLogin());
         }}
         onFailure={(response) => console.log(response)}
         // TODO: add login cookie to onSuccess using universal-cookie
@@ -84,8 +96,9 @@ const LoginUI: FunctionComponent = () => {
 };
 
 const Login: FunctionComponent = () => {
-  const user = useSelector(selectUser);
+  const user = useUser();
 
+  // if user is logged in, there's no need to render the login component
   if (user) return null;
 
   return <LoginUI />;

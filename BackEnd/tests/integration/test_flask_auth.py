@@ -1,43 +1,8 @@
-from app import create_app
-from app.db.create_houses import setup_houses
-import pytest
-import os
 import json
 from flask import session
 from app.util.util import *
-
-
-@pytest.fixture
-def app():
-    """Create and configure a new app instance for each test."""
-    # create the app with common test config
-    file_path = os.getcwd()+"/tests/integration/housing.db"
-    db_path = "sqlite:///"+file_path
-    # setup_houses(db_path)
-    app = create_app(
-        {"OFFLINE_TESTING": True,
-         "SQLALCHEMY_DATABASE_URI": db_path})
-    # create the database and load test data
-    with app.app_context():
-        setup_houses(db_path)
-    yield app
-
-    # close and remove the temporary database
-    os.unlink(file_path)
-
-
-@pytest.fixture
-def client(app):
-    """A test client for the app."""
-    return app.test_client()
-
-
-def test_mock_db(client):
-    """Start with a mock database."""
-
-    rv = client.get("/getRecentRoomIds")
-    assert len(json.loads(rv.data)) == 2
-
+from app.assets.request_message_map import *
+import pytest
 
 @pytest.mark.parametrize(
     ("email", "user_id", "correct_response"),
@@ -53,13 +18,14 @@ def test_mock_db(client):
              "phone": "858-911-1198",
              "description": "I recently graduated with my bachelor's and will be working/volunteering fulltime. I do not smoke and I am clean (might misplace things though but)! I am also very sociable and enjoy cooking and baking 🙂 Hobbies I have are playing the violin, drawing, and watching kdramas! Feel free to message me for further questions ",
              "schoolYear": "Third",
-             "message": "Successful login for offline testing!",
+             "message": MESSAGE_SUCCESS_LOGIN,
              "major": "Data Science"}),
         # case 2: new user
         (
             "yzuaxi@ucsd.edu",
             None,
             {"newUser": True}),
+        # case 3: the google email and the request email are different
     ),
 )
 def test_single_login_valid_input(client, email, user_id, correct_response):
@@ -97,7 +63,7 @@ def test_single_login_valid_input(client, email, user_id, correct_response):
               "phone": "858-911-1198",
               "description": "I recently graduated with my bachelor's and will be working/volunteering fulltime. I do not smoke and I am clean (might misplace things though but)! I am also very sociable and enjoy cooking and baking 🙂 Hobbies I have are playing the violin, drawing, and watching kdramas! Feel free to message me for further questions ",
               "schoolYear": "Third",
-              "message": "Successful login for offline testing!",
+              "message": MESSAGE_SUCCESS_LOGIN,
               "major": "Data Science"},
              {"message": "You have already logged in"},
                 {"message": "You have already logged in"}
@@ -142,7 +108,7 @@ def test_multiple_login_valid_input(client, email, correct_response):
         (
             "haha@ucsd.edu",
             {"127.0.0.2"},
-            {"message": "Invalid Domain. How did you find us???? HAHA. TROLLED. FOLLOW HOMEHUB @ LinkedIn"},
+            {"message":MESSAGE_WRONG_ORIGIN},
             401),
     )
 )
@@ -163,19 +129,19 @@ def test_login_invalid_origin(client, app, email, allowed_origins, correct_respo
         # case 1: Testing request json without token
         ({"data": json.dumps({"name": "cris"}), "content_type": "application/json"},
          {"ALLOWED_DOMAINS": {"ucsd.edu", "homehub-312115.iam.gserviceaccount.com"}},
-         {"message": "Why Log in without giving your token? Are you an intruder? Quid pro quo bro"},
+         {"message": MESSAGE_LOGIN_NO_GTOKEN},
          400,
          False),
         # case 2: Testing request without json header but with token
         ({"data": json.dumps({"google_login_token": "lol"})},
          {"ALLOWED_DOMAINS": {"ucsd.edu", "homehub-312115.iam.gserviceaccount.com"}},
-         {"message": "Why Log in without a json? Did you forget something?"},
+         {"message": MESSAGE_LOGIN_NO_JSON},
          400,
          False),
         # case 3: Testing request without json and without data
         ({},
          {"ALLOWED_DOMAINS": {"ucsd.edu", "homehub-312115.iam.gserviceaccount.com"}},
-         {"message": "Why Log in without a json? Did you forget something?"},
+         {"message": MESSAGE_LOGIN_NO_JSON},
          400,
          False),
         # case 4: Testing an email that have a valid token but doesn't have allowed domains
@@ -187,7 +153,7 @@ def test_login_invalid_origin(client, app, email, allowed_origins, correct_respo
         # case 5: Testing an email that is whitelisted and has valid token
         ({"data": {}, "content_type": "application/json"},
          {"ALLOWED_DOMAINS": {"ucsd.edu", "homehub-312115.iam.gserviceaccount.com"}},
-         {"message": "email is verified. So you are our HOMIE! NOICE"},
+         {"message": MESSAGE_LOGIN_NEW_USER},
          200,
          True),
         # case 6: Testing request with an invalid token
@@ -205,7 +171,7 @@ def test_login_online(client, app, json_query, online_config, correct_response, 
     # online test tends to be flaky due to dependency on API. So we try 3 times before giving up.
     if fetch_token_true == True:
         for _ in range(3):
-            fetch_status, google_login_token = fetchTestToken(
+            fetch_status, google_login_token = fetch_test_token(
                 app.config["GAUTH_AUDIENCE"])
             if fetch_status == True:
                 break
@@ -265,6 +231,18 @@ def test_single_logout(client, login_first, corrupt_cookie, email, correct_respo
     for key, value in correct_response.items():
         assert response_data[key] == value
     assert rv.status_code == correct_status_code
+    # if return 200 status, check if the accesstoken is deleted in cookie
+    if rv.status_code == 200:
+        # check cookie is set properly
+        cookie_map = {cookie.name: cookie.value for cookie in client.cookie_jar}
+        # has cookie accesstoken
+        assert "access_token" not in cookie_map
+        # accesstoken doesn't exist in current session
+        with client:
+            # dummy path to submit http request and get the client session
+            client.get("/")
+            assert session.get("access_token", None) == None
+            assert session.get("user_id", None) == None
 
 
 @pytest.mark.parametrize(
@@ -384,6 +362,21 @@ def test_single_logout(client, login_first, corrupt_cookie, email, correct_respo
              },
             400
         ),
+        # case8: invalid types for some entries
+        (
+            "nonexistent@ucsd.edu",
+            True,
+            False,
+            {"data": json.dumps({"name": "CRISTIANO",
+                      "email": "nonexistent@ucsd.edu",
+                      "description": "YOU COULD NOT LIVE WITH YOUR OWN FAILURE, AND WHERE DID THAT BRING YOU? BACK TO ME",
+                      "phone": 123456,
+                      "schoolYear": "Grad",
+                      "major": "MARVEL SCIENCE",
+                      }), "content_type": "application/json"},
+            {"message":"the input data doesn't fit our schema. Did you bypass our frontend?"},
+            422
+        ),
     )
 )
 def test_create_user(client, email, login_first, corrupt_cookie, json_query, correct_response, correct_status_code):
@@ -403,6 +396,78 @@ def test_create_user(client, email, login_first, corrupt_cookie, json_query, cor
         cookie_map["access_token"].value = "fake token to see whether the engineer is dumb"
     rv = client.post(
         "/createUser", **json_query)
+    response_data = json.loads(rv.data)
+    for key, value in correct_response.items():
+        assert response_data[key] == value
+    assert rv.status_code == correct_status_code
+
+@pytest.mark.parametrize(
+    ("login_first", "online_config","json_query", 
+     "correct_response", "correct_status_code"),
+    (
+        # case1: successfully create user => right token, already verified through email
+        (
+            True,
+            {"ALLOWED_DOMAINS": {"ucsd.edu", "homehub-312115.iam.gserviceaccount.com"}},
+            {"data": json.dumps({"name": "CRISTIANO",
+                                 "email": "nonexistent@ucsd.edu",
+                                 "description": "YOU COULD NOT LIVE WITH YOUR OWN FAILURE, AND WHERE DID THAT BRING YOU? BACK TO ME",
+                                 "phone": "858-777-2345",
+                                 "schoolYear": "Grad",
+                                 "major": "MARVEL SCIENCE",
+                                 }), "content_type": "application/json"},
+            {"name": "CRISTIANO",
+             "email": "homehubtest@homehub-312115.iam.gserviceaccount.com",
+                      "description": "YOU COULD NOT LIVE WITH YOUR OWN FAILURE, AND WHERE DID THAT BRING YOU? BACK TO ME",
+                      "phone": "858-777-2345",
+                      "schoolYear": "Grad",
+                      "major": "MARVEL SCIENCE",
+                      "profile_photo": "user5/profile/headshot.jpg",
+                      "message": "Welcome to be a new HOMIE! CONGRATS!"
+             },
+            201
+        ),
+        # case2: creation success => ignore invalid email
+        (
+            True,
+            {"ALLOWED_DOMAINS": {"ucsd.edu", "homehub-312115.iam.gserviceaccount.com"}},
+            {"data": json.dumps({"name": "CRISTIANO",
+                                 "email": "nonexistent@ucsd.edu",
+                                 "description": "YOU COULD NOT LIVE WITH YOUR OWN FAILURE, AND WHERE DID THAT BRING YOU? BACK TO ME",
+                                 "phone": "858-777-2345",
+                                 "schoolYear": "Grad",
+                                 "major": "MARVEL SCIENCE",
+                                 }), "content_type": "application/json"},
+            {"name": "CRISTIANO",
+             "email": "homehubtest@homehub-312115.iam.gserviceaccount.com",
+                      "description": "YOU COULD NOT LIVE WITH YOUR OWN FAILURE, AND WHERE DID THAT BRING YOU? BACK TO ME",
+                      "phone": "858-777-2345",
+                      "schoolYear": "Grad",
+                      "major": "MARVEL SCIENCE",
+                      "profile_photo": "user5/profile/headshot.jpg",
+                      "message": "Welcome to be a new HOMIE! CONGRATS!"
+             },
+            201
+        ),
+    )
+)
+def test_create_user_online(app,client, login_first, online_config, json_query, correct_response, correct_status_code):
+    """ 
+    Test the create user process when the user is online
+    """
+    app.config["OFFLINE_TESTING"] = False
+    app.config.update(online_config)
+    for _ in range(3):
+        fetch_status, google_login_token = fetch_test_token(
+            app.config["GAUTH_AUDIENCE"])
+        if fetch_status == True:
+            break
+    if fetch_status != True:
+        print("Remote API isn't working. Maybe try again later.")
+        return
+    rv = client.post("/login", **{"data": json.dumps({"google_login_token":google_login_token}), "content_type": "application/json"})
+    rv = client.post(
+                "/createUser", **json_query)
     response_data = json.loads(rv.data)
     for key, value in correct_response.items():
         assert response_data[key] == value

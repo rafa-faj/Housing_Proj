@@ -1,18 +1,13 @@
 import React, { useState, FunctionComponent } from 'react';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Image from 'react-bootstrap/Image';
-import { SchoolYear, majors, BackendMapping } from '../../constants';
+import { SchoolYear, majors, BackendMapping } from '@constants';
 import { Dropdown, Input, ToggleGroup } from '@basics';
 import { miscIcons, profileIcons } from '@icons';
-import {
-  selectUser,
-  selectUserDraft,
-  setUserDraft,
-  logout,
-  editProfile,
-} from '@redux';
-import { User, dummyUser } from '../../models/User';
+import { logout } from '@apis';
+import { useUser, setUser } from '@redux';
+import { User, dummyUser } from '@models';
 import styles from './ProfileModal.module.scss';
 import cn from 'classnames';
 
@@ -81,11 +76,12 @@ const dummyPosts = [
 ];
 
 const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
-  const userSelected = useSelector(selectUser) || dummyUser;
-  const userSelectedDraft = useSelector(selectUserDraft) || dummyUser;
+  const userSelected = useUser() || dummyUser;
+  const [userSelectedDraft, setUserSelectedDraft] = useState(dummyUser); // TODO old code was:  useSelector(selectUserDraft) || dummyUser;
   const dispatch = useDispatch();
   const [activeIndicator, setactiveIndicator] = useState(true);
   const [editPosts, setEditPosts] = useState(false);
+
   return (
     <Modal
       dialogClassName={styles.modal}
@@ -142,9 +138,10 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                   <Button
                     className={styles.signOut}
                     variant="no-show"
-                    onClick={() => {
-                      dispatch(logout());
+                    onClick={async () => {
+                      await logout();
                       setShow(false);
+                      dispatch(setUser(undefined)); // TODO should be with logout function
                     }}
                   >
                     Log Out
@@ -177,17 +174,18 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                                 updates.constructor === Object
                               )
                             ) {
-                              dispatch(
-                                editProfile(
-                                  userSelected.email,
-                                  userSelectedDraft,
-                                  generateUpdates(
-                                    userSelected,
-                                    userSelectedDraft,
-                                  ),
-                                  setactiveIndicator,
-                                ),
-                              );
+                              // TODO
+                              // dispatch(
+                              //   editProfile(
+                              //     userSelected.email,
+                              //     userSelectedDraft,
+                              //     generateUpdates(
+                              //       userSelected,
+                              //       userSelectedDraft,
+                              //     ),
+                              //     setactiveIndicator,
+                              //   ),
+                              // );
                             } else {
                               setactiveIndicator(true);
                             }
@@ -203,7 +201,7 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                           variant="no-show"
                           onClick={() => {
                             setactiveIndicator(true);
-                            dispatch(setUserDraft(userSelected));
+                            setUserSelectedDraft(userSelected);
                           }}
                         >
                           Cancel
@@ -236,15 +234,13 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                           onChange={(event) => {
                             console.log(userSelected, 'hello');
                             const previousPhone = userSelectedDraft.phone;
-                            dispatch(
-                              setUserDraft({
-                                ...userSelectedDraft,
-                                phone: phoneFormat(
-                                  event.target.value,
-                                  previousPhone,
-                                ),
-                              }),
-                            );
+                            setUserSelectedDraft({
+                              ...userSelectedDraft,
+                              phone: phoneFormat(
+                                event.target.value,
+                                previousPhone,
+                              ),
+                            });
                           }}
                         />
                       </Form.Group>
@@ -262,12 +258,10 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                               content={Object.values(SchoolYear)}
                               initialSelected={userSelectedDraft.schoolYear}
                               onSelect={({ label }) => {
-                                dispatch(
-                                  setUserDraft({
-                                    ...userSelectedDraft,
-                                    schoolYear: label as SchoolYear,
-                                  }),
-                                );
+                                setUserSelectedDraft({
+                                  ...userSelectedDraft,
+                                  schoolYear: label as SchoolYear,
+                                });
                               }}
                             />
                           ) : (
@@ -289,14 +283,12 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                           <Dropdown
                             options={majors}
                             label=""
-                            onSelect={(s) =>
-                              dispatch(
-                                setUserDraft({
-                                  ...userSelectedDraft,
-                                  major: s || userSelectedDraft.major,
-                                }),
-                              )
-                            }
+                            onSelect={(s) => {
+                              setUserSelectedDraft({
+                                ...userSelectedDraft,
+                                major: s || userSelectedDraft.major,
+                              });
+                            }}
                             initialSelected={userSelectedDraft.major}
                             placeholder="Major"
                           />
@@ -323,12 +315,10 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                           maxLength={600}
                           value={userSelectedDraft.description}
                           onChange={(event) =>
-                            dispatch(
-                              setUserDraft({
-                                ...userSelectedDraft,
-                                description: event.target.value,
-                              }),
-                            )
+                            setUserSelectedDraft({
+                              ...userSelectedDraft,
+                              description: event.target.value,
+                            })
                           }
                         />
                         <span className={styles.charCheck}>

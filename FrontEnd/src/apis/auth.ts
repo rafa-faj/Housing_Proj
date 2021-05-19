@@ -1,37 +1,39 @@
 import { User } from '../models/User';
 import { backendAPI } from './apiBases';
 
-type UserLoginResponse = (User & { isNewUser: false }) | { isNewUser: true };
+type UserLoginResponse = User | { newUser: boolean };
+
+type PotentialNewUser = (User & { isNewUser: false }) | { isNewUser: true };
 
 /**
  * Login a user to a session.
+ *
  * @param name - the user's name
  * @param email - the user's email
- * @returns - undefined if error occured, otherwise UserLoginResponse, which includes an access token,
- *            email, message, user, imageUrl
+ * @returns - { newUser: true } if a new user or a User object
  */
-export const login = async (name: string, email: string) => {
-  const response = await backendAPI.post<UserLoginResponse>(
-    '/login',
-    JSON.stringify({ name, email }),
-  );
+export const login = async (
+  googleLoginToken: string,
+): Promise<PotentialNewUser> => {
+  const response = await backendAPI.post<UserLoginResponse>('/login', {
+    googleLoginToken,
+  });
 
   const isNewUser = 'newUser' in response.data;
 
-  if (isNewUser) {
-    response.data;
-    return { isNewUser };
-  }
+  if (isNewUser) return { isNewUser };
 
+  // Typescript can't tell that data must be of type User here, so explicitly tell it
+  const data = response.data as User;
   const {
     profilePhoto,
-    name,
-    email,
     description,
     major,
     schoolYear,
     phone,
-  } = response.data;
+    name,
+    email,
+  } = data;
 
   return {
     isNewUser,
@@ -47,49 +49,46 @@ export const login = async (name: string, email: string) => {
 
 /**
  * Logout a user from a session.
- * @param token - the token for the user's session.
- * @returns - undefined if error occured, string result message otherwise
+ *
+ * @returns - void
  */
-export const logout = async (token: string) => {
-  const response = await backendAPI.post<string>('/logout');
-
-  return response.data;
+export const logout = async () => {
+  backendAPI.get('/logout');
 };
 
 /**
  * Echo the edit of profile to backend.
+ *
  * @param kvPairs - key value pair for updates
  * @returns - undefined if error occured, otherwise UserLoginResponse, which includes an access token,
  *            email, message, user, imageUrl
  */
 export const userEditProfile = async (email: string, kvPairs: any) => {
-  const response = await backendAPI.post(
-    '/profile',
-    JSON.stringify({ email, updates: kvPairs }),
-  );
+  const response = await backendAPI.post('/profile', {
+    email,
+    updates: kvPairs,
+  });
 
   return response.data;
 };
 
 /**
  * Create a new user.
+ *
  * @param user - the user info to create
- * @returns - undefined if error occured, otherwise UserLoginResponse, which includes an access token,
- *            email, message, user, imageUrl
+ * @returns - void
  */
-export const newUser = async (user: User) => {
-  const response = await backendAPI.post<UserLoginResponse>(
-    '/createUser',
-    user,
-  );
+export const createUser = async (user: User) => {
+  backendAPI.post('/createUser', user);
+};
 
-  return {
-    profilePhoto: response.data.profile_photo,
-    name: response.data.name,
-    email: response.data.email,
-    description: response.data.description,
-    major: response.data.major,
-    schoolYear: response.data.schoolYear,
-    phone: response.data.phone,
-  } as User;
+/**
+ * Get user profile information.
+ *
+ * @returns - User profile info
+ */
+export const getCurUser = async () => {
+  const response = await backendAPI.get<User>('/me');
+
+  return response.data;
 };

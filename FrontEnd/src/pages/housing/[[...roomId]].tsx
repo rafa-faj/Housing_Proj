@@ -1,6 +1,6 @@
 import React, { useEffect, useState, FunctionComponent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectShowNewUserPopup, showLogin } from '@redux';
+import { useDispatch } from 'react-redux';
+import { useShowNewUserPopup, showLogin } from '@redux';
 import NewUserSetup from '@components/NewUserSetup';
 import SideBarLayout, { SideBar } from '@components/SideBarLayout';
 import Filter from '@components/Filter';
@@ -28,7 +28,7 @@ const Housing: FunctionComponent = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const showNewUserPopup = useSelector(selectShowNewUserPopup);
+  const showNewUserPopup = useShowNewUserPopup();
   const [showHousingPost, setShowHousingPost] = useState<boolean>(false);
   const [roomId, setRoomId] = useState<number | undefined>();
 

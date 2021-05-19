@@ -7,6 +7,7 @@ export * from './intervals';
 export * from './roomType';
 export * from './preferences';
 export * from './milliseconds';
+export * from './baseURLs';
 
 const BackendMapping = {
   // TODO should be in camelCase format when returned from backend, this is temporary

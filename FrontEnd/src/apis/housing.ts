@@ -1,147 +1,101 @@
-import { CreateHousePostProperties, HousePost } from '../models/PostModels';
-import { FilterModel } from '@models';
-import { backendAPI } from './apiBases';
-import { getDurationInMinutes } from '.';
+import { CreateHousePostProperties, HousePost, FilterModel } from '@models';
+import { backendAPI, getDurationInMinutes } from '.';
 
+/**
+ * Get IDs of recent room posts made.
+ *
+ * @returns array of id numbers
+ */
 export const getRecentHousingPostIds = async () => {
-  const result = await backendAPI.get<number[]>('/getRecentRoomIds', {
-    withCredentials: true,
-  });
+  const response = await backendAPI.get<number[]>('/getRecentRoomIds');
 
-  return result.data;
+  return response.data;
 };
 
+/**
+ * Get room information of a specific house post by ID.
+ *
+ * @param roomId - the room id of the house
+ * @returns room information of the house id provided
+ */
 export const getHousingPost = async (roomId: number) => {
-  const result = await backendAPI.get<HousePost>(`/getRoom/${roomId}`, {
-    withCredentials: true,
-  });
+  const response = await backendAPI.get<HousePost>(`/getRoom/${roomId}`);
 
-  return result.data;
+  return response.data;
 };
 
-// TODO need to handle if this is unsuccessful...
-export const searchHousingPosts = async ({
-  distance,
-  roomType,
-  priceMin,
-  priceMax,
-  earlyInterval,
-  earlyMonth,
-  lateInterval,
-  lateMonth,
-  stayPeriod,
-  other,
-  facilities,
-  numBeds,
-  numBaths,
-}: FilterModel) => {
-  const result = await backendAPI.post<number[]>(
-    '/searchRoom',
-    {
-      distance,
-      room_type: roomType,
-      price_min: priceMin,
-      price_max: priceMax,
-      early_interval: earlyInterval,
-      early_month: earlyMonth,
-      late_interval: lateInterval,
-      late_month: lateMonth,
-      stay_period: stayPeriod,
-      other,
-      facilities,
-      numBeds,
-      numBaths,
-    },
-    {
-      headers: {
-        'content-type': 'application/json',
-      },
-      withCredentials: true,
-    },
-  );
+/**
+ * Search all rooms with the specified filter.
+ *
+ * @param filter - information used to filter rooms
+ * @returns array of room IDs that match the filter
+ */
+export const searchHousingPosts = async (filter: Partial<FilterModel>) => {
+  const response = await backendAPI.post<number[]>('/searchRoom', filter);
 
-  return result.data;
+  return response.data;
 };
 
+/**
+ * Get bookmarked rooms of current user by ID.
+ *
+ * @returns array of room IDs that are bookmarked by current user
+ */
 export const getHousingBookmarks = async () => {
-  const result = await backendAPI.get<number[]>('/bookmark', {
-    headers: {
-      'content-type': 'application/json',
-    },
-    withCredentials: true,
-  });
+  const response = await backendAPI.get<number[]>('/bookmark');
 
-  return result.data;
+  return response.data;
 };
 
-// TODO need to handle if this is unsuccessful...
+/**
+ * Bookmark a room (specified by the provided roomId).
+ *
+ * @param roomId - the room to bookmark
+ */
 export const addHousingBookmark = async (roomId: number) => {
-  const result = await backendAPI.post(
-    '/bookmark',
-    JSON.stringify({ room_id: roomId, action: 'add' }),
-    {
-      headers: {
-        'content-type': 'application/json',
-      },
-      withCredentials: true,
-    },
-  );
-
-  return true;
+  await backendAPI.post('/bookmark', {
+    roomId,
+    action: 'add',
+  });
 };
 
-// TODO need to handle if this is unsuccessful...
+/**
+ * Unbookmark a room (specified by the provided roomId).
+ *
+ * @param roomId - the room to unbookmark
+ */
 export const removeHousingBookmark = async (roomId: number) => {
-  const result = await backendAPI.post(
-    '/bookmark',
-    JSON.stringify({ room_id: roomId, action: 'remove' }),
-    {
-      headers: {
-        'content-type': 'application/json',
-      },
-      withCredentials: true,
-    },
-  );
+  await backendAPI.post('/bookmark', {
+    roomId,
+    action: 'remove',
+  });
 };
 
-export const newHousingPostAPI = async (
+export const createHousingPost = async (
   roomForm: CreateHousePostProperties & { email: string }, // TODO double check that this is the correct type for param, and you need to type the promise
 ): Promise<any[] | undefined> => {
   console.log('starting the new housing post api');
-  try {
-    // TODO distance calculation not working for some reason
-    // calculate distance to location
-    const distance = await getDurationInMinutes(roomForm.location);
-    console.log('distance');
-    console.log(distance);
-    if (!distance) {
-      throw Error("Bad request - can't calculate the distance to the address.");
-    }
 
-    const formData = new FormData();
-    roomForm.photos.forEach((photo) => formData.append('photos', photo));
-    formData.append(
-      'json',
-      JSON.stringify({ ...roomForm, photos: undefined, distance }),
-    );
-
-    const result = await backendAPI.post(
-      '/postRoom',
-      // TODO { roomForm, distance: '15 min' },
-      formData,
-      {
-        headers: {
-          'content-type': 'multipart/form-data',
-        },
-        withCredentials: true,
-      },
-    );
-    console.log(result, 'get result');
-    // handle errors
-    if (result.request?.status !== 201) throw Error('Bad request');
-    return result.data;
-  } catch (err) {
-    console.error(err);
-    return undefined;
+  // TODO distance calculation not working for some reason
+  // calculate distance to location
+  const distance = await getDurationInMinutes(roomForm.address);
+  console.log('distance');
+  console.log(distance);
+  if (!distance) {
+    throw Error("Bad request - can't calculate the distance to the address.");
   }
+
+  const formData = new FormData();
+  roomForm.photos.forEach((photo) => formData.append('photos', photo));
+  formData.append('json', { ...roomForm, photos: undefined, distance });
+
+  const result = await backendAPI.post(
+    '/postRoom',
+    // TODO { roomForm, distance: '15 min' },
+    formData,
+  );
+  console.log(result, 'got result');
+  // handle errors
+
+  return result.data;
 };

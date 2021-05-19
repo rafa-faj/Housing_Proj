@@ -5,18 +5,16 @@ export interface UserNameEmail {
 
 export interface User extends UserNameEmail {
   profilePhoto: string;
-  token: string;
   description: string;
   major: string;
   schoolYear: string;
   phone: string;
 }
 
-export const dummyUser = {
+export const dummyUser: User = {
   profilePhoto: '',
   name: '',
   email: '',
-  token: '',
   description: '',
   major: '',
   schoolYear: '',
