@@ -24,6 +24,7 @@ def login():
     example of valid json request format:
     "google_login_token":blah blah blah
     """
+    print("login...")
     # PART1: Secure measure to verify identity
     # first check if the domain is allowed
     if request.remote_addr not in current_app.config["ALLOWED_ORIGINS"]:
@@ -31,6 +32,7 @@ def login():
         return response
     # pre-flight for CORS communication
     if request.method == "OPTIONS":
+        print("options")
         return generate_response()
     # if user has already logged in, tell them
     if is_loggedin(login_session):
@@ -42,6 +44,7 @@ def login():
     if checked_json != True: return response
     # second check if json conatins enough info
     try:
+        print("googlelogin block")
         google_login_token = requested_json["google_login_token"]
         # check if json contains valid info(ucsd email and google auth token)
         status_code, message, user_email = verify_email(
@@ -51,6 +54,7 @@ def login():
             response = generate_message(message,status_code)
             return response
     except KeyError:
+        print("key error block")
         # if in online test mode or production mode, return invalid response
         if current_app.config["OFFLINE_TESTING"] != True:
             response = generate_message(MESSAGE_LOGIN_NO_GTOKEN,400)
