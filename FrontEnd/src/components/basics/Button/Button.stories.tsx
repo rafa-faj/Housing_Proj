@@ -1,21 +1,10 @@
 import React, { ComponentProps } from 'react';
 import { Story } from '@storybook/react';
 import Button from './Button';
-import {
-  contactIcons,
-  miscIcons,
-  largeAmenitiesIcons,
-  Icon,
-  IconObject,
-} from '@icons';
+import { contactIcons, largeAmenitiesIcons, Icon, IconObject } from '@icons';
+import { joinObjects } from '@utils';
 
 type StorybookMapping = { [key: string]: { icon: Icon } };
-
-/**
- * { ...object1, ...object2 }, but for many objects.
- */
-const joinObjects = <T extends {}>(...objects: T[]) =>
-  objects.reduce((prev, cur) => ({ ...prev, ...cur }), {});
 
 /**
  * Changes an object from icon object { iconLabel: IconComponent }
@@ -35,7 +24,6 @@ const mapIconObjectToStorybookMapping = (
  */
 const selectableIcons = joinObjects<IconObject>(
   contactIcons,
-  miscIcons,
   largeAmenitiesIcons,
 );
 

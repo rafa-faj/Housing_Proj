@@ -1,7 +1,5 @@
-const path = require('path');
+const toPath = require('../toPath').toPath;
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-
-const toPath = (_path) => path.join(__dirname, _path);
 
 module.exports = {
   'stories': ['../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
@@ -19,7 +17,7 @@ module.exports = {
           sassOptions: {
             // include the path to the scss folder for easy access (it allows you to do things like
             // "@import 'utils'" without having to specify the path)
-            includePaths: [toPath('../src/assets/scss')],
+            includePaths: [toPath('src/assets/scss')],
           },
           // Prepend the following line to every scss file (no need to import to use sass
           // variables and other utils in every file)
@@ -35,7 +33,7 @@ module.exports = {
     config.resolve.plugins = config.resolve.plugins || [];
     config.resolve.plugins.push(
       new TsconfigPathsPlugin({
-        configFile: toPath('../tsconfig.json'),
+        configFile: toPath('tsconfig.json'),
       })
     );
     config.resolve.extensions.push('.ts', '.tsx');
