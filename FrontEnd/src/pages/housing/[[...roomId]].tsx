@@ -10,6 +10,7 @@ import HousingPost from '@components/HousingPostForm';
 import { useRouter } from 'next/router';
 import HouseProfile from '@components/HouseProfile';
 import styles from './[[...roomId]].module.scss';
+import Layout from '@components/Layout'
 
 // parses the query parameter into a number (or undefined)
 const parseQueryParam = (params?: string | string[]) => {
@@ -59,7 +60,8 @@ const Housing: FunctionComponent = () => {
       )}
 
       {/* The actual home page */}
-      <SideBarLayout>
+      {/*<SideBarLayout>*/}
+      <Layout>
         <div className={styles.filter}>
           <Filter />
         </div>
@@ -68,13 +70,14 @@ const Housing: FunctionComponent = () => {
           <HouseCardList />
         </div>
 
-        <SideBar>
+        {/*<SideBar>
           <HouseSideBar
             onLoginClick={() => dispatch(showLogin())}
             onPostClick={() => setShowHousingPost(true)}
           />
-        </SideBar>
-      </SideBarLayout>
+        </SideBar>*/}
+      </Layout>
+      {/*</SideBarLayout>*/}
     </>
   );
 };
