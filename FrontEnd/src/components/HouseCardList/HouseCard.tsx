@@ -52,10 +52,10 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
     <Col md={5} className={styles.secondCol}>
       <div className={styles.textPortion}>
         <div className={styles.day}>
-          <miscIcons.RoundArrow />  2 days ago
-                </div>
+          <miscIcons.RoundArrow /> 2 days ago
+        </div>
         <div className={styles.price}>
-          Starting at <b>$1200/mo </b>
+          <b>$1200+/mo </b>
         </div>
         <div className={styles.distance}>
           <miscIcons.busIcon /> <b>~ {distance} transit</b>&nbsp;
@@ -87,7 +87,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
   return (
     <Card className={styles.card}>
       <Card.Body className="p-0">
-        <Container>
+        <Container className={styles.container}>
           <Row >
             <Col md={7} className={styles.pic}>
               <SlideShow
