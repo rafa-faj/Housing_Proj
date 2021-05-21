@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { reduxNextWrapper } from '@redux';
 import Login from '@components/Login';
 import '../assets/scss/global/index.scss';
+import Layout from '@components/Layout'
 
 const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
   <>
@@ -15,7 +16,9 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
 
     <Login />
 
-    <Component {...pageProps} />
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
   </>
 );
 

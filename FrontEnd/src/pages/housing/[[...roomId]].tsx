@@ -2,15 +2,12 @@ import React, { useEffect, useState, FunctionComponent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useShowNewUserPopup, showLogin } from '@redux';
 import NewUserSetup from '@components/NewUserSetup';
-import SideBarLayout, { SideBar } from '@components/SideBarLayout';
 import Filter from '@components/Filter';
 import HouseCardList from '@components/HouseCardList';
-import HouseSideBar from '@components/HouseSideBar';
 import HousingPost from '@components/HousingPostForm';
 import { useRouter } from 'next/router';
 import HouseProfile from '@components/HouseProfile';
 import styles from './[[...roomId]].module.scss';
-import Layout from '@components/Layout'
 
 // parses the query parameter into a number (or undefined)
 const parseQueryParam = (params?: string | string[]) => {
@@ -59,25 +56,13 @@ const Housing: FunctionComponent = () => {
         />
       )}
 
-      {/* The actual home page */}
-      {/*<SideBarLayout>*/}
-      <Layout>
-        <div className={styles.filter}>
-          <Filter />
-        </div>
+      <div className={styles.filter}>
+        <Filter />
+      </div>
 
-        <div>
-          <HouseCardList />
-        </div>
-
-        {/*<SideBar>
-          <HouseSideBar
-            onLoginClick={() => dispatch(showLogin())}
-            onPostClick={() => setShowHousingPost(true)}
-          />
-        </SideBar>*/}
-      </Layout>
-      {/*</SideBarLayout>*/}
+      <div>
+        <HouseCardList />
+      </div>
     </>
   );
 };
