@@ -75,7 +75,7 @@ const dummyPosts = [
   },
 ];
 
-const Profile: FunctionComponent<PathProps> = ({ show, setShow }) => {
+const Profile: FunctionComponent = () => {
   const userSelected = useUser() || dummyUser;
   const [userSelectedDraft, setUserSelectedDraft] = useState(dummyUser); // TODO old code was:  useSelector(selectUserDraft) || dummyUser;
   const dispatch = useDispatch();
@@ -83,21 +83,8 @@ const Profile: FunctionComponent<PathProps> = ({ show, setShow }) => {
   const [editPosts, setEditPosts] = useState(false);
 
   return (
-    <Modal
-      dialogClassName={styles.modal}
-      show={show}
-      onHide={() => setShow(false)}
-      centered
-    >
       <div className="h-100 w-100">
-        <Button
-          variant="no-show"
-          className={styles.profileCross}
-          onClick={() => setShow(false)}
-        >
-          <miscIcons.orangeX />
-        </Button>
-        <Row className={`px-3 py-2 ${styles.topBar}`}>
+        <Col className={`px-3 py-2 ${styles.topBar}`}>
           <div
             className={cn(styles.title, {
               [styles.profileSelected]: editPosts,
@@ -114,10 +101,10 @@ const Profile: FunctionComponent<PathProps> = ({ show, setShow }) => {
             })}
             onClick={() => setEditPosts(true)}
           >
-            Manage my posts
+            My posts
             {editPosts && <div className={styles.element}>_____________</div>}
           </span>
-        </Row>
+        </Col>
         <div className={`my-4 px-4 ${styles.middleSection}`}>
           <Container fluid className="h-100">
             <Row className="h-100">
@@ -140,7 +127,6 @@ const Profile: FunctionComponent<PathProps> = ({ show, setShow }) => {
                     variant="no-show"
                     onClick={async () => {
                       await logout();
-                      setShow(false);
                       dispatch(setUser(undefined)); // TODO should be with logout function
                     }}
                   >
@@ -216,9 +202,6 @@ const Profile: FunctionComponent<PathProps> = ({ show, setShow }) => {
                   <>
                     <Form.Row className="justify-content-center m-2">
                       <Form.Group as={Col} controlId="profileEmail">
-                        <Form.Label className={styles.label}>
-                          School Email
-                        </Form.Label>
                         <Form.Control
                           type="email"
                           disabled
@@ -226,7 +209,6 @@ const Profile: FunctionComponent<PathProps> = ({ show, setShow }) => {
                         />
                       </Form.Group>
                       <Form.Group as={Col} controlId="profilePhone">
-                        <Form.Label className={styles.label}>Phone</Form.Label>
                         <Form.Control
                           readOnly={activeIndicator}
                           type="text"
@@ -371,7 +353,6 @@ const Profile: FunctionComponent<PathProps> = ({ show, setShow }) => {
           </Container>
         </div>
       </div>
-    </Modal>
   );
 };
 

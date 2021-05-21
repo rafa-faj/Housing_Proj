@@ -38,7 +38,7 @@ const Button: FunctionComponent<ButtonProps> = ({
   const Icon = icon?.icon; // React components that are rendered with JSX must be capitalized
   const iconConfig = icon?.config || {};
   const iconSize = `${size}Icon`;
-  const styledIcon = (
+  const styledIcon = Icon && (
     <div className={cn(styles.icon, styles[iconSize])}>
       <Icon {...iconConfig} />
     </div>

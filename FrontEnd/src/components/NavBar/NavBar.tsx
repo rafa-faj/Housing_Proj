@@ -39,7 +39,8 @@ const NavBar: FunctionComponent = () => {
                 <Button
                   variant="no-show"
                   className={styles.navBtn}
-                  onClick={() => setShowProfile(true)}
+                  href="/profile"
+                  //onClick={() => setShowProfile(true)}
                 >
                   Profile
                 </Button>
