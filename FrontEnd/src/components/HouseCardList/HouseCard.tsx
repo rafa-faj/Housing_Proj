@@ -87,7 +87,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
   return (
     <Card className={styles.card}>
       <Card.Body className="p-0">
-        <Container>
+        <Container className={styles.container}>
           <Row >
             <Col md={7} className={styles.pic}>
               <SlideShow

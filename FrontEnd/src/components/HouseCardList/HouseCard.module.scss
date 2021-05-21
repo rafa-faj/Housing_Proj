@@ -1,18 +1,24 @@
 
 
 .card {
-  /*@include thin-border('md');*/
-  background-color: #FFFFFF;/*$secondary-1-color;*/
+  background-color: white;
   border-radius: 0.5rem; // TODO make variable
   overflow: hidden;
-  height: 16.875rem; //temporary, might remove later
   box-shadow: 0 0.4rem 0.6rem 0 rgba(black, .14); //elevation 06dp
 }
 
+.container{
+  max-width: 100%;
+  margin: 0;
+}
+
 .pic {
-  height: 16.875rem;
   overflow: hidden;
   padding: 0;
+
+  @include bp-down('sm') {
+    height: 16.875rem;
+  }
   
 }
 
