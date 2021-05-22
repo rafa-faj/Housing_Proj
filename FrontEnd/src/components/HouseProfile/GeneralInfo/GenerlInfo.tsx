@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { SlideShow, SlideShowItem } from '@basics'
+import GoogleMap from '@basics/Map'
 import { miscIcons } from '@icons'
 import styles from './GeneralInfo.module.scss';
 
@@ -20,36 +21,37 @@ const GeneralInfo: FunctionComponent<GeneralInfoProps> = ({
   distance,
   name
 }) => {
+
+  const textCol = (
+    <div className={styles.textPortion}>
+      <div className={styles.day}>
+        <miscIcons.RoundArrow /> 2 days ago
+    </div>
+      <div className={styles.name}>{name}</div>
+      <div className={styles.address}>
+        <div className={styles.locationIcon}>
+          <miscIcons.LocationIcon />
+        </div>
+        <div> {address} </div>
+      </div>
+      <div className={styles.distance}>
+        <miscIcons.busIcon /> <b>~ {distance} transit</b>&nbsp;
+      </div>
+      <div className={styles.map}>
+        <GoogleMap address={address} />
+      </div>
+    </div>
+  )
   return (
     <>
       <Container className={styles.container}>
         <Row>
-          <Col md={7} className={styles.pic}><SlideShow
-            images={images}
-            className={styles.slide}
-          /></Col>
+          <Col md={7}>
+            <SlideShow images={images} showPreview className={styles.pic} />
+          </Col>
 
           <Col md={5}>
-            <div className={styles.textPortion}>
-              <div className={styles.day}>
-                <miscIcons.RoundArrow /> 2 days ago
-              </div>
-              <div>{name}</div>
-              <div className={styles.address}>
-                <div className={styles.locationIcon}>
-                  <miscIcons.LocationIcon />
-                </div>
-                <div> {address} </div>
-              </div>
-              <div className={styles.distance}>
-                <miscIcons.busIcon /> <b>~ {distance} transit</b>&nbsp;
-              </div>
-              <div>
-                <div className={styles.date}>
-                  Available from June 1, 2021{/*{formattedMoveIn}*/}
-                </div>
-              </div>
-            </div>
+            {textCol}
           </Col>
         </Row>
       </Container>

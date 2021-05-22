@@ -5,16 +5,24 @@
 }
 
 .pic{
-    height: 50px;
-    
+    overflow: hidden;
+    padding: 0;    
+    //height: 476px; Don't include the height to make it responsive
+    @include bp-down('sm') {
+        height: 16.875rem;
+    }
 }
 
-.slide{
-    height: 400px;
+.day{
+    margin-bottom: 14px;
+}
+
+.name{
+    @include font-type('price-related-large');
+    margin-bottom: 8px;
 }
 
 .address{
-    margin-bottom: 1.8rem;
     display: flex;
     font-size: 1rem;
     gap: 0.4rem;
@@ -23,3 +31,17 @@
       height: 100%;
     }
   }
+
+.distance{
+    margin-bottom: 1.25rem;
+}
+
+.map{
+    min-width: 500px;
+    height: 300px;
+    padding-left: 0 !important;  
+}
+
+.textPortion{
+    margin-left: 0.5rem;
+}

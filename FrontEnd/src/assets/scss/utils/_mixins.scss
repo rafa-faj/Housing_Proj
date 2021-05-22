@@ -27,7 +27,7 @@
 @mixin font-type($type) {
   font-family: $primary-font-stack;
 
-  @if &type == 'h1'{
+  @if $type == 'h1'{
     font-weight: $light-font-weight;
     font-size: $xxxl-font-size;
   } @else if $type == 'h2'{
