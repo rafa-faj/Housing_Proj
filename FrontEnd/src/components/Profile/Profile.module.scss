@@ -1,6 +1,14 @@
 // TODO: abstract common code from this and WizardForm to theme.scss
 $profile-form-middle-height: 90%;
 
+.content{
+  margin-top: 4rem;
+}
+
+.UserInput{
+  width: 100%;
+}
+
 .selectionList {
   width: 100%;
   height: 5%;
@@ -83,23 +91,16 @@ $profile-form-middle-height: 90%;
 }
 
 .name {
-  text-align: center !important;
   display: block;
   width: 100%;
   height: 25px;
   font-family: Montserrat;
   font-size: $lg-font-size;
   font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #a6623f;
+  color: #202020;
 }
 
 .verified {
-  margin-top: 15px;
-  text-align: center !important;
   color: $secondary-2-color;
   font-size: $sm-font-size;
   font-weight: bold;
@@ -153,7 +154,6 @@ $profile-form-middle-height: 90%;
 
 .profileWrap {
   margin-top: 20px;
-  display: flex;
   justify-content: center;
 }
 
@@ -167,12 +167,18 @@ $profile-form-middle-height: 90%;
   font-weight: normal;
 }
 
+.UserIdentifier{
+  color: #A64919;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
 .icon {
   border-style: solid;
   border-width: thin;
   border-color: $primary-light-color;
-  width: 100px;
-  height: 100px;
+  width: 54px;
+  height: 54px;
 }
 
 .postsList {
