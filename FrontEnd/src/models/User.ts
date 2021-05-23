@@ -16,7 +16,7 @@ export const dummyUser: User = {
   name: 'Jacob Jones',
   email: '123456@ucsd.edu',
   description: '',
-  major: 'Computer Engineering',
+  major: 'Computer Science',
   schoolYear: 'Senior',
   phone: '858-123-4567',
 };

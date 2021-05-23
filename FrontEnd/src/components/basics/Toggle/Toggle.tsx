@@ -15,6 +15,7 @@ interface ToggleProps extends Omit<ButtonProps, 'onClick'> {
     selected: boolean,
     e: React.MouseEvent<HTMLElement, MouseEvent>,
   ) => any;
+  readOnly?: boolean;
 }
 
 const Toggle: FunctionComponent<ToggleProps> = ({
@@ -27,6 +28,7 @@ const Toggle: FunctionComponent<ToggleProps> = ({
   className,
   onClick,
   children,
+  readOnly,
   ...buttonProps
 }) => {
   const [isSelected, setIsSelected] = useState<boolean>(initialSelected);
@@ -45,6 +47,7 @@ const Toggle: FunctionComponent<ToggleProps> = ({
           [styles.unselected]: !isSelected,
         })}
         onClick={(e) => {
+          if(readOnly) return;
           if (onClick) onClick(!isSelected, e);
           setIsSelected(!isSelected);
         }}

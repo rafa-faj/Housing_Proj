@@ -12,7 +12,7 @@ import carouselIcons from './carousel';
 import * as mapIcons from './map';
 import bookmarkIcons from './bookmarks';
 import loading from './loading';
-import profileIcons from './profile';
+import * as profileIcons from './profile';
 import * as landingIcons from './landing';
 import * as roomTypeIconsTemp from './roomTypeCorrect'; // TODO rename correctly
 import {

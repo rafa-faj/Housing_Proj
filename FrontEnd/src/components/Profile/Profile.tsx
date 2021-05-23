@@ -1,5 +1,5 @@
 import React, { useState, FunctionComponent } from 'react';
-import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
+import { Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import Image from 'react-bootstrap/Image';
 import { SchoolYear, majors, BackendMapping } from '@constants';
@@ -9,6 +9,7 @@ import { logout } from '@apis';
 import { useUser, setUser } from '@redux';
 import { User, dummyUser } from '@models';
 import styles from './Profile.module.scss';
+import Button from '@components/basics/Button'
 import cn from 'classnames';
 
 const phoneFormat = (phone: string, previousPhone: string) => {
@@ -93,7 +94,9 @@ const Profile: FunctionComponent = () => {
             <div className={styles.selectItem}>Profile</div>
           </div>
         </Col>
+
         <Col className={styles.selectionList}>
+
         <div className={`my-4 px-4 ${styles.middleSection}`}>
             <Row className={styles.userStaticInfo}>
               <Col md={2}>
@@ -113,11 +116,11 @@ const Profile: FunctionComponent = () => {
               </Col>
               <Col md={2}>
                 {activeIndicator ? (
-                  <Button variant="outline-secondary" onClick={() => setactiveIndicator(false)}>
+                  <Button size="secondary" variant="outline" onClick={() => setactiveIndicator(false)} icon={{icon:profileIcons.edit}}>
                     Edit
                   </Button>
                 ) : (
-                  <Button variant="secondary"
+                  <Button size="secondary" 
                     onClick={() => {
                       const updates = generateUpdates(userSelected, userSelectedDraft,);
                       // if nothing changes upon confirm, no need to send to backend
@@ -129,8 +132,12 @@ const Profile: FunctionComponent = () => {
                 )}
               </Col>
             </Row> 
-            <Row className={styles.UserInput}>
-              <Col md={8} className={cn({ [styles.postsList]: viewMyPosts })}>
+
+
+            
+              <div className={cn({ [styles.postsList]: viewMyPosts })}>
+              <div className={styles.UserInput}>
+
                 {!viewMyPosts ? (
                   <>
                     <Form.Row className="m-2 px-0">
@@ -141,6 +148,7 @@ const Profile: FunctionComponent = () => {
                             singleSelect
                             content={Object.values(SchoolYear)}
                             initialSelected={userSelectedDraft.schoolYear}
+                            readOnly
                             onSelect={({ label }) => { setUserSelectedDraft({...userSelectedDraft, schoolYear: label as SchoolYear,});}}/>
                         </Form.Row>
                       </Form.Group>
@@ -175,8 +183,8 @@ const Profile: FunctionComponent = () => {
                     </Form.Row>
                   </>
                 ) : (<></>)}
-              </Col>
-            </Row>
+               </div>
+              </div>
         </div>
       
         </Col>
