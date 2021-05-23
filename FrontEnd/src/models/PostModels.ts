@@ -60,18 +60,18 @@ export type HousePostUserData = Pick<
 export interface LandlordHousePost {
   name: string;
   address: string;
-  price: number;
+  price: string;
   roomType: string;
   availability: string;
-  leaseTerm: number;
+  leaseTerm: string;
   petPolicy: string;
   parking: string;
   utilityDetails: string;
   facility: (keyof typeof facilityToIcon)[];
-  applicationFee: number;
-  holdingPeriod: number;
-  holdingDeposit: number;
-  housingDeposit: number;
+  applicationFee: string;
+  holdingPeriod: string;
+  holdingDeposit: string;
+  housingDeposit: string;
   verification: string;
   proofOfIncome: string;
 }
