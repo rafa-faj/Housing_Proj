@@ -75,15 +75,20 @@ $primary-font-stack: 'Montserrat', 'Courier New', Courier, monospace;
 $secondary-font-stack: 'Roboto Slab', 'Courier New', Courier, monospace;
 
 // Font Weights
-$bold-font-weight: 700;
+$bold-font-weight: 600;
 $regular-font-weight: 400;
+$light-font-weight: 300;
 
 // Font sizes
-$xl-font-size: 1.875rem; // 30px
-$lg-font-size: 1.5rem; // 24px
+$xxxl-font-size: 3.75rem; // 60px
+$xxl-font-size: 3rem; // 48px
+$xl-font-size: 2.125rem; //34px
+$lg-font-size: 1.5rem; //24px
 $md-font-size: 1.25rem; // 20px
 $sm-font-size: 1rem; // 16px
-$xs-font-size: 0.75rem; // 12px
+$xs-font-size: 0.875rem;  //14px
+$xxs-font-size: 0.75rem; // 12px
+
 
 /**
  * STYLE GUIDE OTHER VARS.

@@ -27,6 +27,25 @@
 @mixin font-type($type) {
   font-family: $primary-font-stack;
 
+  @if &type == 'h1'{
+    font-weight: $light-font-weight;
+    font-size: $xxxl-font-size;
+  } @else if $type == 'h2'{
+    font-weight: $bold-font-weight;
+    font-size: $xxl-font-size;
+  } @else if $type == 'h3'{
+    font-weight: $regular-font-weight;
+    font-size: $xl-font-size;
+  } @else if $type == 'h4'{
+    font-weight: $bold-font-weight;
+    font-size: $lg-font-size;
+  } @else if $type == 'h5'{
+    font-weight: $bold-font-weight;
+    font-size: $md-font-size;
+  }
+
+
+  //Old version, will need to delete
   @if $type == 'price-related-large' {
     font-weight: $bold-font-weight;
     font-size: $lg-font-size;
@@ -130,3 +149,4 @@
 @mixin rounded-pill {
   border-radius: 50rem;
 }
+

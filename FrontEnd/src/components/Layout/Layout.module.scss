@@ -1,0 +1,13 @@
+
+.layout {
+    margin-right: 6.25rem;
+    margin-left: 6.25rem;
+    margin-top: $filter-top-margin;
+
+    @include bp-down('sm') {
+      // css is only applied to mobile
+      margin-right: 0;
+      margin-left: 0;
+    }
+  }
+
