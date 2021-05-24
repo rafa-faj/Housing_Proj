@@ -40,9 +40,14 @@ const HouseProfile: FunctionComponent<HouseProfileProps> = ({ roomId }) => {
     leaserPhone,
   } = data;
 
+  const slideShowItems = photos.map((url) => ({
+    src: url,
+    alt: `${leaserEmail} , ${address}}`,
+  }));
+
   return (
     <div>
-      <GeneralInfo />
+      <GeneralInfo images={slideShowItems} address={address} distance={distance} name={name} />
 
       <PlaceDetails />
 

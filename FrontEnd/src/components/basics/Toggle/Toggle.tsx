@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
-import { Button, ButtonProps } from 'react-bootstrap';
+import { Button, ButtonProps } from '@basics';
 import { Icon as IconType, IconProps } from '@icons';
 import cn from 'classnames';
 import styles from './Toggle.module.scss';
@@ -38,7 +38,6 @@ const Toggle: FunctionComponent<ToggleProps> = ({
   return (
     <div className={styles.root}>
       <Button
-        variant="" // TODO
         {...buttonProps}
         className={cn(className, styles.toggle, {
           [styles.selected]: isSelected,

@@ -3,15 +3,11 @@
 
 /* CHANGE BOOTSTRAP VARIABLES HERE */
 $theme-colors: (
-  'responsive-to-user': $responsive-to-user-color,
-  'focused': $focused-color,
-  'unfocused': $unfocused-color,
   'primary': $primary-light-color,
   'primary-light': $primary-light-color,
   'secondary': $primary-light-color,
-  'secondary-light': $secondary-1-color,
+  'secondary-light': $secondary-100-color,
   'secondary-dark': $secondary-dark-color,
-  'no-show': white,
 );
 
 $sizes: (

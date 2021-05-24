@@ -1,11 +1,11 @@
 
 
 .bookmarkList {
-  @include thin-border('sm', $primary-3-color);
+  @include thin-border('sm', $primary-100-color);
 
   display: flex;
   flex-direction: column;
-  background-color: $primary-2-color;
+  background-color: $primary-50-color;
   border-radius: 22px;
   width: $bookmarks-list-width;
   height: 100%;
@@ -25,7 +25,8 @@
 }
 
 .title {
-  @include font-type('secondary-title');
+  @include font-type('h4');
+  color: $primary-dark-color;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
@@ -42,7 +43,7 @@
 }
 
 .noneMessage {
-  @include font-type('subtitle');
+  @include font-type('caption');
   color: $primary-dark-color;
   padding-top: 25%;
   overflow-y: hidden;

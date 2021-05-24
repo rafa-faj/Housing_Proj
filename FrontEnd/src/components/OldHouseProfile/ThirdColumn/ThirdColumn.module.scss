@@ -20,12 +20,9 @@
   justify-content: center;
 }
 
-.distance {
-  @include font-type('address-related');
-}
-
 .address {
-  @include font-type('secondary-text');
+  @include font-type('body 2');
+  color: $secondary-dark-color;
 }
 
 .map {
@@ -43,7 +40,7 @@
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   margin-top: 0.5rem;
-  background-color: $secondary-1-color;
+  background-color: $secondary-100-color;
   display: flex;
   flex-direction: column;
   flex: 100%;
@@ -82,7 +79,8 @@
 }
 
 .speechBubble {
-  @include font-type('secondary-text');
+  @include font-type('body 2');
+  color: $secondary-dark-color;
   padding: 1rem;
   margin-top: 1.5rem;
   position: relative;

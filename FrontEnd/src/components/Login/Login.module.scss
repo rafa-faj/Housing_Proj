@@ -14,8 +14,10 @@
 }
 
 .tooltip > .tooltip-inner {
-  @include font-type('tooltip');
-  background-color: $primary-1-color;
+  @include font-type('subtitle 1');
+
+  color: $primary-dark-color;
+  background-color: $background-color;
   border-radius: 20px 0px 20px 20px;
   margin-right: 20px;
   width: 5000px !important;

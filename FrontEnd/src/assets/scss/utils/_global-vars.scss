@@ -7,22 +7,10 @@
  * STYLE GUIDE COLORS.
  */
 // Primary colors
-// TODO Old style guide
-$primary-light-color: #e7936d;
-$primary-dark-color: #a6623f;
-$primary-input-color: #e17847;
-$primary-1-color: #fffaf8;
-$primary-2-color: #fdf4f0;
-$primary-3-color: #f8e6d8;
-$primary-4-color: #e7cbb6;
-$primary-5-color: #d5b09a;
-$primary-6-color: $primary-dark-color;
-
-// TODO New style guide
 $primary-50-color: #fdf4f0;
 $primary-100-color: #f3cfbf;
 $primary-200-color: #edb096;
-$primary-300-color: #e7946d;
+$primary-300-color: #e7936d;
 $primary-400-color: #e37f4e;
 $primary-500-color: #e36b2c;
 $primary-600-color: #d96528;
@@ -33,14 +21,6 @@ $primary-light-color: $primary-300-color;
 $primary-dark-color: $primary-800-color;
 
 // Secondary colors
-// TODO Old style guide
-$secondary-light-color: #a5bf84;
-$secondary-dark-color: #4d5e3b;
-$secondary-1-color: #e6f0d8;
-$secondary-2-color: #a5bf84;
-$secondary-3-color: $secondary-dark-color;
-
-// TODO New style guide
 $secondary-50-color: #eff4e9;
 $secondary-100-color: #d7e3c8;
 $secondary-200-color: #bed1a5;
@@ -70,9 +50,8 @@ $background-color: #fffaf8;
 /**
  * STYLE GUIDE TYPOGRAPHY.
  */
-// Font stack
+// Font stacks
 $primary-font-stack: 'Montserrat', 'Courier New', Courier, monospace;
-$secondary-font-stack: 'Roboto Slab', 'Courier New', Courier, monospace;
 
 // Font Weights
 $bold-font-weight: 600;
@@ -82,13 +61,12 @@ $light-font-weight: 300;
 // Font sizes
 $xxxl-font-size: 3.75rem; // 60px
 $xxl-font-size: 3rem; // 48px
-$xl-font-size: 2.125rem; //34px
-$lg-font-size: 1.5rem; //24px
+$xl-font-size: 2.125rem; // 34px
+$lg-font-size: 1.5rem; // 24px
 $md-font-size: 1.25rem; // 20px
 $sm-font-size: 1rem; // 16px
-$xs-font-size: 0.875rem;  //14px
+$xs-font-size: 0.875rem; // 14px
 $xxs-font-size: 0.75rem; // 12px
-
 
 /**
  * STYLE GUIDE OTHER VARS.
@@ -110,21 +88,5 @@ $bookmarks-list-width: 13.75rem; // 220px
 $filter-height: 5vh;
 $filter-top-margin: 5vh;
 
-/**
- * @deprecated
- * There are 5 main colors: 3 orange variations, two green. The three orange variations seem to have 3 purposes:
- * 1) a color to represent user-responsive (user can affect it) 2) a 'background/unfocused' color 3) a 'focused'
- * color. The two green variations seem to have similar purposes, a 'focused' and 'unfocused/background' color
- * (these will just be secondary-color and secondary-light-color since there are only 2).
- */
-$responsive-to-user-color: #e7936d; // i.e. buttons
-$focused-color: #a6623f; // i.e. 'Your name'
-$unfocused-color: #d3ab98; // i.e. 'min', 'to school'
-$primary-color: $responsive-to-user-color;
-$primary-color-light: #fdf4f0;
-$secondary-color: #4d5e3b;
-$main-background-color: #fffcfb;
-$darker-background-color: #f8e6d8;
 
 $rounded-lg: 2.5rem; // 40px
-

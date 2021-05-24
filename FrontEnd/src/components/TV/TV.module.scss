@@ -1,11 +1,11 @@
 
 
-$tv-bottom-items-color: $primary-5-color;
+$tv-bottom-items-color: $primary-200-color;
 
 .container {
   display: inline-block;
   border: none;
-  background-color: $darker-background-color;
+  background-color: $primary-100-color;
   padding: 12px;
   border-radius: 22px;
   width: $bookmarks-list-width;
@@ -61,7 +61,6 @@ $tv-bottom-items-color: $primary-5-color;
 }
 
 .title {
-  @include font-type('special');
   margin-top: 2vh;
 }
 

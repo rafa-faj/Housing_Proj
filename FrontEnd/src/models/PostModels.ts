@@ -34,15 +34,15 @@ export interface HousePostUIData
 
 export interface CreateHousePostProperties
   extends Omit<
-    HousePost,
-    | 'leaserName'
-    | 'leaserEmail'
-    | 'leaserPhone'
-    | 'leaserSchoolYear'
-    | 'leaserMajor'
-    | 'profilePhoto'
-    | 'roomId'
-    | 'photos' // change photos to be of File type
+  HousePost,
+  | 'leaserName'
+  | 'leaserEmail'
+  | 'leaserPhone'
+  | 'leaserSchoolYear'
+  | 'leaserMajor'
+  | 'profilePhoto'
+  | 'roomId'
+  | 'photos' // change photos to be of File type
   > {
   photos: File[];
 }
@@ -56,3 +56,22 @@ export type HousePostUserData = Pick<
   | 'leaserMajor'
   | 'profilePhoto'
 >;
+
+export interface LandlordHousePost {
+  name: string;
+  address: string;
+  price: string;
+  roomType: string;
+  availability: string;
+  leaseTerm: string;
+  petPolicy: string;
+  parking: string;
+  utilityDetails: string;
+  facility: (keyof typeof facilityToIcon)[];
+  applicationFee: string;
+  holdingPeriod: string;
+  holdingDeposit: string;
+  housingDeposit: string;
+  verification: string;
+  proofOfIncome: string;
+}

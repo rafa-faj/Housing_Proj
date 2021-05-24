@@ -1,22 +1,28 @@
 
 
 .word {
-  @include font-type('label-text');
+  @include font-type('subtitle 1');
+
+  color: $primary-dark-color;
   font-size: 18px;
 }
 
 .title {
-  @include font-type('secondary-title');
+  @include font-type('h4');
 
+  color: $primary-dark-color;
   justify-content: center;
 }
 
 .requiredAsterisk {
-  @include font-type('primary-input-text');
+  @include font-type('body 1');
+  color: $primary-light-color;
 }
 
 .error {
-  @include font-type('error-label-text');
+  @include font-type('caption');
+
+  color: $error-color;
   text-align: center;
 }
 

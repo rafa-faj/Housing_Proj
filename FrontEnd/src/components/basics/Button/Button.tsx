@@ -32,6 +32,7 @@ const Button: FunctionComponent<ButtonProps> = ({
   variant = 'solid',
   children,
   icon,
+  className,
   ...buttonProps
 }) => {
   // Configure icon
@@ -60,7 +61,7 @@ const Button: FunctionComponent<ButtonProps> = ({
 
   return (
     <button
-      className={cn(styles.button, styles[size], styles[variant])}
+      className={cn(styles.button, styles[size], styles[variant], className)}
       {...buttonProps}
     >
       {content}
