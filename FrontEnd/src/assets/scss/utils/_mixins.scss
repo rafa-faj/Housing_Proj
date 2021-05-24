@@ -68,32 +68,8 @@
   }
 }
 
-@mixin mousedown {
-  &:active {
-    @content;
-  }
-
-  &:active:hover {
-    @content;
-  }
-
-  &:hover:active {
-    @content;
-  }
-}
-
 @mixin box-shadow($color: $primary-dark-color) {
   box-shadow: 2px 4px 8px rgba($color, $alpha: 0.3) !important;
-}
-
-@mixin no-show {
-  border: 0 !important;
-  border-radius: 0 !important;
-  background-color: rgba(255, 255, 255, 0) !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  box-shadow: none !important;
-  outline: none !important;
 }
 
 @mixin thin-border($size: 'lg', $color: $secondary-100-color) {
@@ -109,7 +85,7 @@
   }
 }
 
-@mixin rounded-pill {
+@mixin rounded-pill-shape {
   border-radius: 5000rem; // overloading border-radius results in a "pill like" shape
 }
 

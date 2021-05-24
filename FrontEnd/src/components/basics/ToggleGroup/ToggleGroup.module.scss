@@ -24,8 +24,4 @@
 
 .lineUpToggle:first-child {
   margin-left: 0;
-
-  @include mousedown {
-    margin-left: 0;
-  }
 }

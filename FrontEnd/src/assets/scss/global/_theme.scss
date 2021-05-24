@@ -1,29 +1,17 @@
-// Setup the theme here (use variables whenever possible so they can be reused)
-// in other files.
+/**
+ * Setup the theme here (use variables whenever possible so they can be reused) in other files.
+ */
 
 body {
   font-family: $primary-font-stack;
   background-color: $background-color;
 }
 
-.disappear-on-xs {
-  @extend .d-none;
-  @extend .d-sm-flex;
-}
-
-.disappear-on-sm {
-  @extend .d-none;
-  @extend .d-md-flex;
-}
-
 /**
  * STYLE GUIDE BUTTONS
  */
-
-// btn = primary btn
-// .btn,
 .btn-primary {
-  @extend .rounded-pill;
+  @include rounded-pill-shape;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   padding-left: 1.5rem;
@@ -40,11 +28,6 @@ body {
   box-shadow: none;
   border: 0;
 
-  @include mousedown {
-    background-color: $primary-dark-color !important;
-    box-shadow: none !important;
-  }
-
   &:hover {
     @include box-shadow($primary-dark-color);
     background-color: $primary-light-color;
@@ -56,69 +39,10 @@ body {
   }
 }
 
-.btn-secondary {
-  @extend .btn-primary;
-  font-size: $md-font-size;
-}
-
-.btn-tertiary {
-  @extend .btn-secondary;
-  padding-left: 3rem;
-  padding-right: 3rem;
-}
-
 .show > .btn-success.dropdown-toggle {
   background-color: $primary-light-color;
   border-color: $primary-light-color;
   &:focus {
     box-shadow: none;
   }
-}
-
-.btn-success {
-  border-color: $primary-light-color;
-
-  &:focus,
-  &:hover,
-  &:not(:disabled):not(.disabled):active {
-    background-color: $primary-light-color;
-    border-color: $primary-light-color;
-    box-shadow: none;
-    &:focus{
-      box-shadow: none;
-    }
-  }
-}
-
-.no-show {
-  @include no-show;
-
-  @include mousedown {
-    @include no-show;
-  }
-
-  &:hover,
-  &:active,
-  &:focus {
-    @include no-show;
-  }
-}
-
-.btn-no-show {
-  @extend .no-show;
-}
-
-/**
- * STYLE GUIDE BORDERS
- */
-.sm-thin-border {
-  @include thin-border('sm');
-}
-
-.md-thin-border {
-  @include thin-border('md');
-}
-
-.lg-thin-border {
-  @include thin-border('lg');
 }

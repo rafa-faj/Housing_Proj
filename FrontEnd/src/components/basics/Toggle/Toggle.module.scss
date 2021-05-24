@@ -23,11 +23,6 @@
       fill: $primary-200-color;
       stroke: none;
     }
-
-    @include mousedown {
-      @extend .selected;
-      @include box-shadow($primary-light-color);
-    }
   }
 
   .selected {
@@ -40,11 +35,6 @@
     svg {
       fill: white;
       stroke: none;
-    }
-
-    @include mousedown {
-      @extend .unselected;
-      @include box-shadow($primary-light-color);
     }
   }
 }

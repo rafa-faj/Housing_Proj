@@ -27,3 +27,6 @@ export * from './ToggleGroup';
 
 export { default as WizardForm } from './WizardForm';
 export * from './WizardForm';
+
+export { default as RequiredAsterisk } from './RequiredAsterisk';
+export * from './RequiredAsterisk';

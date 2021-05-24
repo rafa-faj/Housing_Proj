@@ -1,5 +1,5 @@
 .button {
-  @include rounded-pill;
+  @include rounded-pill-shape;
 
   padding: (0.25rem - $default-border-width) (1.5rem - $default-border-width);
   margin: 0.5rem 1.5rem;

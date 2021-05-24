@@ -91,7 +91,7 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
             {...dropdownProps}
           >
             <BootstrapDropdown.Toggle
-              variant="no-show"
+              variant="" // TODO this should use the new custom Button component
               className={styles.toggle}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
