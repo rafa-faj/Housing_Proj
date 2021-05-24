@@ -1,5 +1,5 @@
 import React, { useState, FunctionComponent } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button } from '@basics';
 import Navbar from 'react-bootstrap/Navbar';
 import { useDispatch } from 'react-redux';
 import { useUser, showLogin, setUser } from '@redux';
@@ -28,7 +28,7 @@ const NavBar: FunctionComponent = () => {
           <div>
             {!user ? (
               <Button
-                variant="no-show"
+                variant="wrapper"
                 className={styles.navBtn}
                 onClick={() => dispatch(showLogin())}
               >
@@ -37,14 +37,14 @@ const NavBar: FunctionComponent = () => {
             ) : (
               <>
                 <Button
-                  variant="no-show"
+                  variant="wrapper"
                   className={styles.navBtn}
                   onClick={() => setShowProfile(true)}
                 >
                   Profile
                 </Button>
                 <Button
-                  variant="no-show"
+                  variant="wrapper"
                   className={styles.navBtn}
                   onClick={() => {
                     logout();

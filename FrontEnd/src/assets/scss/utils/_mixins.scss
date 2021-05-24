@@ -23,80 +23,48 @@
 /**
  * STYLE GUIDE TYPOGRAPHY MIXINS.
  */
-// Mixin for the type of font. Argument should be one of the strings in the following if statements
+// Mixin for the type of font. Argument should be one of the strings in the following if statements.
+// If the string doesn't match one of the options, an error will be thrown.
 @mixin font-type($type) {
   font-family: $primary-font-stack;
 
-  @if $type == 'price-related-large' {
+  @if $type == 'h1' {
+    font-weight: $light-font-weight;
+    font-size: $xxxl-font-size;
+  } @else if $type == 'h2' {
+    font-weight: $bold-font-weight;
+    font-size: $xxl-font-size;
+  } @else if $type == 'h3' {
+    font-weight: $regular-font-weight;
+    font-size: $xl-font-size;
+  } @else if $type == 'h4' {
     font-weight: $bold-font-weight;
     font-size: $lg-font-size;
-    color: $primary-dark-color;
-  } @else if $type == 'price-related-small' {
-    font-weight: $bold-font-weight;
-    font-size: $xs-font-size;
-    color: $primary-dark-color;
-  } @else if $type == 'address-related' {
-    font-weight: $regular-font-weight;
-    font-size: $sm-font-size;
-    color: $primary-dark-color;
-  } @else if $type == 'tooltip' {
-    font-weight: $regular-font-weight;
-    font-size: $md-font-size;
-    color: $primary-dark-color;
-  } @else if $type == 'primary-input-text' {
-    font-weight: $bold-font-weight;
-    font-size: $sm-font-size;
-    color: $primary-input-color;
-  } @else if $type == 'title' {
-    font-weight: $bold-font-weight;
-    font-size: $lg-font-size;
-    color: $secondary-dark-color;
-  } @else if $type == 'secondary-title' {
-    font-weight: $bold-font-weight;
-    font-size: $lg-font-size;
-    color: $primary-dark-color;
-  } @else if $type == 'primary-text' {
-    font-weight: $bold-font-weight;
-    font-size: $sm-font-size;
-    color: $secondary-dark-color;
-  } @else if $type == 'secondary-text' {
-    font-weight: $regular-font-weight;
-    font-size: $sm-font-size;
-    color: $secondary-dark-color;
-  } @else if $type == 'label-text' {
-    font-weight: $regular-font-weight;
-    font-size: $md-font-size;
-    color: $primary-dark-color;
-  } @else if $type == 'error-label-text' {
-    font-weight: $regular-font-weight;
-    font-size: $xs-font-size;
-    color: $error-color;
-  } @else if $type == 'subtitle' {
-    font-weight: $regular-font-weight;
-    font-size: $xs-font-size;
-    color: $secondary-dark-color;
-  } @else if $type == 'special' {
-    font-family: $secondary-font-stack;
+  } @else if $type == 'h5' {
     font-weight: $bold-font-weight;
     font-size: $md-font-size;
-    color: $primary-5-color;
+  } @else if $type == 'subtitle 1' {
+    font-weight: $regular-font-weight;
+    font-size: $md-font-size;
+  } @else if $type == 'subtitle 2' {
+    font-weight: $bold-font-weight;
+    font-size: $xs-font-size;
+  } @else if $type == 'body 1' {
+    font-weight: $bold-font-weight;
+    font-size: $sm-font-size;
+  } @else if $type == 'body 2' {
+    font-weight: $regular-font-weight;
+    font-size: $sm-font-size;
+  } @else if $type == 'link' {
+    font-weight: $regular-font-weight;
+    font-size: $xxs-font-size;
+    text-decoration-line: underline;
+  } @else if $type == 'caption' {
+    font-weight: $regular-font-weight;
+    font-size: $xxs-font-size;
   } @else {
     @error "#{$type} is not one of the available font styles. \
             Check _mixins.scss to see which font styles you can use.";
-  }
-}
-
-@mixin mousedown {
-  &:active {
-    @content;
-  }
-
-  &:active:hover {
-    @content;
-  }
-
-  &:hover:active {
-    @content;
   }
 }
 
@@ -104,17 +72,7 @@
   box-shadow: 2px 4px 8px rgba($color, $alpha: 0.3) !important;
 }
 
-@mixin no-show {
-  border: 0 !important;
-  border-radius: 0 !important;
-  background-color: rgba(255, 255, 255, 0) !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-@mixin thin-border($size: 'lg', $color: $secondary-1-color) {
+@mixin thin-border($size: 'lg', $color: $secondary-100-color) {
   @if $size == 'sm' {
     border: 2px solid $color;
   } @else if $size == 'md' {
@@ -127,6 +85,7 @@
   }
 }
 
-@mixin rounded-pill {
-  border-radius: 50rem;
+@mixin rounded-pill-shape {
+  border-radius: 5000rem; // overloading border-radius results in a "pill like" shape
 }
+

@@ -1,0 +1,18 @@
+
+
+.closeBtn {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 2;
+  margin: 10px 0px 0px 10px;
+}
+
+.slideshow {
+  margin: 0;
+  overflow: hidden;
+  border-radius: $rounded-lg 0 0 $rounded-lg;
+
+  @include bp-down('md') {
+    border-radius: $rounded-lg $rounded-lg 0 0;
+  }
+}

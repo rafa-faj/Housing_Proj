@@ -1,5 +1,6 @@
 
 
 .asterisk {
-  @include font-type('primary-input-text');
+  @include font-type('body 1');
+  color: $primary-light-color;
 }

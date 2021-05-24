@@ -15,9 +15,10 @@
 }
 
 .bookmark {
-  @include font-type('subtitle');
+  @include font-type('caption');
   @include thin-border('sm');
 
+  color: $secondary-dark-color;
   background-color: white;
   height: 70px;
   width: 100%;

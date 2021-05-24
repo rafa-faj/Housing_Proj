@@ -1,3 +1,6 @@
+export { default as Button } from './Button';
+export * from './Button';
+
 export { default as Dropdown } from './Dropdown';
 export * from './Dropdown';
 
@@ -24,3 +27,6 @@ export * from './ToggleGroup';
 
 export { default as WizardForm } from './WizardForm';
 export * from './WizardForm';
+
+export { default as RequiredAsterisk } from './RequiredAsterisk';
+export * from './RequiredAsterisk';

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import { Button } from '@basics';
 import { ZodSchema, ZodIssue } from 'zod';
 import { miscIcons } from '@icons';
 import styles from './WizardForm.module.scss';
@@ -266,7 +266,7 @@ const WizardForm = <T extends {}>({
     >
       <div className="h-100 w-100">
         <div className={`${styles.topBar} px-3 py-2`}>
-          <Button variant="no-show" onClick={onHide}>
+          <Button variant="wrapper" onClick={onHide}>
             <miscIcons.orangeX />
           </Button>
           <div className={styles.title}>{title}</div>
@@ -290,7 +290,7 @@ const WizardForm = <T extends {}>({
           <div className="d-flex">
             {React.Children.map(children, (c, i) => (
               <div className="mx-1">
-                <Button variant="no-show" onClick={() => setStep(i)}>
+                <Button variant="wrapper" onClick={() => setStep(i)}>
                   {i === curIndex ? (
                     <miscIcons.smallEllipseActive />
                   ) : (
@@ -304,11 +304,11 @@ const WizardForm = <T extends {}>({
           <div className="d-flex">
             <div className="mr-2 align-self-center">
               {isFirst ? (
-                <Button variant="no-show">
+                <Button variant="wrapper">
                   <miscIcons.smallLeftArrowDisabled />
                 </Button>
               ) : (
-                <Button variant="no-show" onClick={prevStep}>
+                <Button variant="wrapper" onClick={prevStep}>
                   <miscIcons.smallLeftArrow />
                 </Button>
               )}
@@ -317,20 +317,16 @@ const WizardForm = <T extends {}>({
             <div className="ml-2 align-self-center">
               {isLast ? (
                 (lastButtonAsInactiveArrow && (
-                  <Button variant="no-show">
+                  <Button variant="wrapper">
                     <miscIcons.smallRightArrowDisabled />
                   </Button>
                 )) || (
-                  <Button
-                    variant="secondary"
-                    className="m-0"
-                    onClick={submitForm}
-                  >
+                  <Button size="secondary" className="m-0" onClick={submitForm}>
                     {lastButtonText}
                   </Button>
                 )
               ) : (
-                <Button variant="no-show" onClick={nextStep}>
+                <Button variant="wrapper" onClick={nextStep}>
                   <miscIcons.smallRightArrow />
                 </Button>
               )}

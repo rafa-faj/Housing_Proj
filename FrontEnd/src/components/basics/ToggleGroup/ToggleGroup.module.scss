@@ -11,17 +11,17 @@
 }
 
 .label {
-  @include font-type('label-text');
+  @include font-type('subtitle 1');
+
+  color: $primary-dark-color;
 }
 
 .error {
-  @include font-type('error-label-text');
+  @include font-type('caption');
+
+  color: $error-color;
 }
 
 .lineUpToggle:first-child {
   margin-left: 0;
-
-  @include mousedown {
-    margin-left: 0;
-  }
 }

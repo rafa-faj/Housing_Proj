@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Modal } from '@basics';
-import Button from 'react-bootstrap/Button';
+import { Modal, Button } from '@basics';
 import {
   GoogleLogin,
   GoogleLoginResponse,
@@ -56,7 +55,7 @@ const LoginUI: FunctionComponent = () => {
       className={styles.wrapper}
     >
       <div>
-        <Button variant="no-show" onClick={() => dispatch(hideLogin())}>
+        <Button variant="wrapper" onClick={() => dispatch(hideLogin())}>
           <img className={styles.close} src="/close.svg" alt="Close" />
         </Button>
         <OverlayTrigger

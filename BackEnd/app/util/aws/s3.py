@@ -3,12 +3,17 @@ import logging
 from botocore.exceptions import ClientError
 import sys
 import getopt
-
-s3_client = boto3.client("s3")
-
-# test whether I can upload http
-
-
+from app.util.env_setup import set_aws_config
+import json
+import os
+# set AWS credentials
+try:
+    aws_config = json.loads(os.environ["AWS_CONFIG"])
+except KeyError:
+    # path not yet set
+    set_aws_config()
+    aws_config = json.loads(os.environ["AWS_CONFIG"])
+s3_client = boto3.client("s3",**aws_config)
 def upload_file_wname(file_name, bucket, object_name=None):
     """Upload a file to an S3 bucket
 
@@ -86,6 +91,9 @@ def delete_file_wname(file_key,bucket):
     return True
 
 def delete_folder(prefix,bucket):
+    """
+    Delete all files that share the same prefixes
+    """
     try:
         contents = s3_client.list_objects(
             Bucket=bucket, Prefix=prefix)["Contents"]

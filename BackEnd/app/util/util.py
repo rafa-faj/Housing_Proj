@@ -6,7 +6,9 @@ from app.assets.request_message_map import *
 from werkzeug.exceptions import BadRequest
 from PIL import Image, UnidentifiedImageError
 import json
+import os
 from inflection import underscore
+from app.util.env_setup import set_google_cred
 
 
 
@@ -46,6 +48,11 @@ def fetch_test_token(target_audience):
 
     return: (success, token)
     """
+    try:
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
+    except KeyError:
+        # path not yet set
+        set_google_cred()
     try:
         request = requests.Request()
         iden_token = id_token.fetch_id_token(

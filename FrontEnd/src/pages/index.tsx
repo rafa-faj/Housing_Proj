@@ -12,7 +12,7 @@ const Landing: FunctionComponent = () => (
     <Row className={styles.infoSectionWrapper}>
       <Col>
         <Row className={styles.bigRow}>
-          <landingIcons.one />
+          {/* <landingIcons.one /> */}
           <div className={styles.subtitle}>
             <b>What</b> is HomeHub?
           </div>
@@ -30,7 +30,7 @@ const Landing: FunctionComponent = () => (
       </Col>
       <Col>
         <Row className={styles.bigRow}>
-          <landingIcons.two />
+          {/* <landingIcons.two /> */}
           <div className={styles.subtitle}>
             <b>Why</b> use HomeHub?
           </div>
@@ -38,7 +38,7 @@ const Landing: FunctionComponent = () => (
         <Row>
           <Col>
             <Row className={styles.smallRow}>
-              <landingIcons.safe className={styles.smallImg} />
+              {/* <landingIcons.safe className={styles.smallImg} /> */}
             </Row>
             <Row className={styles.caption}>Safe</Row>
             <div className={styles.textSm}>
@@ -48,7 +48,7 @@ const Landing: FunctionComponent = () => (
           </Col>
           <Col>
             <Row className={styles.smallRow}>
-              <landingIcons.efficient className={styles.smallImg} />
+              {/* <landingIcons.efficient className={styles.smallImg} /> */}
             </Row>
             <Row className={styles.caption}>Efficient</Row>
             <div className={styles.textSm}>
@@ -58,7 +58,7 @@ const Landing: FunctionComponent = () => (
           </Col>
           <Col>
             <Row className={styles.smallRow}>
-              <landingIcons.connection className={styles.smallImg} />
+              {/* <landingIcons.connection className={styles.smallImg} /> */}
             </Row>
             <Row className={styles.caption}>Connection</Row>
             <div className={styles.textSm}>
