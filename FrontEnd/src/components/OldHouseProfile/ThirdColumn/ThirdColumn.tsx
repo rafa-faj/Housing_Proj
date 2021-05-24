@@ -87,7 +87,7 @@ const ThirdColumn: FunctionComponent<Props> = ({
           </Button>
         </div>
 
-        <div className={styles.distance}>
+        <div>
           <b>~ {distance}</b>&nbsp;public transit from Price Center
         </div>
         <div className={styles.address}>{abbreviateAddress(address)}</div>
@@ -97,9 +97,9 @@ const ThirdColumn: FunctionComponent<Props> = ({
       <Container className={styles.bio}>
         <Row>
           <Col xs={8} lg={9} className={styles.textCenter}>
-            <div className="primary-text">{leaserName}</div>
+            <div>{leaserName}</div>
 
-            <div className="secondary-text">
+            <div>
               {leaserSchoolYear} | {leaserMajor}
             </div>
 

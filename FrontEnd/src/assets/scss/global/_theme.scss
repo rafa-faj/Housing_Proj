@@ -3,7 +3,7 @@
 
 body {
   font-family: $primary-font-stack;
-  background-color: $primary-1-color;
+  background-color: $background-color;
 }
 
 .disappear-on-xs {
@@ -106,57 +106,6 @@ body {
 
 .btn-no-show {
   @extend .no-show;
-}
-
-/**
- * STYLE GUIDE TEXT CLASSES
- */
-.price-related-large-text {
-  @include font-type('price-related-large');
-}
-
-.price-related-small-text {
-  @include font-type('price-related-small');
-}
-
-.address-related-text {
-  @include font-type('address-related');
-}
-
-.primary-input-text {
-  @include font-type('primary-input-text');
-}
-
-h1,
-.title {
-  @include font-type('title');
-}
-
-.secondary-title {
-  @include font-type('secondary-title');
-}
-
-.primary-text,
-.text-primary {
-  @include font-type('primary-text');
-}
-
-.secondary-text,
-.text-secondary {
-  @include font-type('secondary-text');
-}
-
-.tooltip-text {
-  @include font-type('tooltip');
-}
-
-p,
-.subtitle-text {
-  @include font-type('subtitle');
-}
-
-.special-text {
-  @include font-type('special');
 }
 
 /**

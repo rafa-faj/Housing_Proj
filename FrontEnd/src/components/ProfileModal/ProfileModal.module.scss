@@ -13,13 +13,13 @@ $profile-form-middle-height: 90%;
 }
 
 .title {
-  @include font-type('secondary-title');
+  @include font-type('h4');
   font-weight: $regular-font-weight;
   color: $secondary-dark-color;
 }
 
 .divider {
-  color: $secondary-1-color;
+  color: $secondary-100-color;
   font-size: x-large;
 }
 
@@ -28,7 +28,7 @@ $profile-form-middle-height: 90%;
   text-align: center;
   position: relative;
   top: -30px;
-  color: $secondary-1-color;
+  color: $secondary-100-color;
   font-size: x-large;
 }
 
@@ -72,7 +72,7 @@ $profile-form-middle-height: 90%;
 .verified {
   margin-top: 15px;
   text-align: center !important;
-  color: $secondary-2-color;
+  color: $secondary-300-color;
   font-size: $sm-font-size;
   font-weight: bold;
 }
@@ -88,11 +88,11 @@ $profile-form-middle-height: 90%;
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  color: $primary-input-color;
+  color: $primary-light-color;
 }
 
 .bio {
-  color: $primary-input-color;
+  color: $primary-light-color;
 }
 
 .signOut {
@@ -101,7 +101,7 @@ $profile-form-middle-height: 90%;
 }
 
 .cancel {
-  color: $primary-input-color;
+  color: $primary-light-color;
   text-decoration: underline;
 }
 
@@ -142,7 +142,7 @@ $profile-form-middle-height: 90%;
 }
 
 .postsList {
-  background-color: $primary-1-color;
+  background-color: $background-color;
   border-radius: 20px;
   padding: 20px;
   display: flex;

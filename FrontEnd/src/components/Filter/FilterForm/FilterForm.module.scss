@@ -1,8 +1,9 @@
 
 
 .title {
-  @include font-type('secondary-title');
+  @include font-type('h4');
 
+  color: $primary-dark-color;
   justify-content: center;
   margin: 0.5rem;
   margin-top: 1.5rem;
@@ -10,7 +11,9 @@
 }
 
 .word {
-  @include font-type('label-text');
+  @include font-type('subtitle 1');
+
+  color: $primary-dark-color;
   font-size: 18px;
   margin-bottom: 0.5rem;
 }
