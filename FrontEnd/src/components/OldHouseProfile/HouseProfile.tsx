@@ -7,7 +7,7 @@ import FirstColumn from './FirstColumn/FirstColumn';
 import SecondColumn from './SecondColumn/SecondColumn';
 import ThirdColumn from './ThirdColumn/ThirdColumn';
 import { useRoomData } from '@hooks';
-import { Button } from 'react-bootstrap';
+import { Button } from '@basics';
 import styles from './HouseProfile.module.scss';
 import cn from 'classnames';
 
@@ -22,10 +22,10 @@ const PreviewButtons: FunctionComponent<PreviewButtonsProps> = ({
 }) => (
   <div className={styles.previewButtonsWrapper}>
     <div className={styles.previewButtons}>
-      <Button variant="secondary" onClick={onExit}>
+      <Button size="secondary" onClick={onExit}>
         Edit Post
       </Button>
-      <Button variant="secondary" onClick={onPublish}>
+      <Button size="secondary" onClick={onPublish}>
         Publish Post
       </Button>
     </div>

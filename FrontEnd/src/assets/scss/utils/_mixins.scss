@@ -110,6 +110,6 @@
 }
 
 @mixin rounded-pill {
-  border-radius: 50rem;
+  border-radius: 5000rem; // overloading border-radius results in a "pill like" shape
 }
 

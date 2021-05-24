@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import Button from 'react-bootstrap/Button';
+import { Button } from '@basics';
 import { useDispatch } from 'react-redux';
 import FilterForm from './FilterForm/FilterForm';
 import { filterIcons } from '@icons';

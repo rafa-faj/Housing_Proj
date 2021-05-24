@@ -1,9 +1,9 @@
 import React, { useState, FunctionComponent } from 'react';
-import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
+import { Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import Image from 'react-bootstrap/Image';
 import { SchoolYear, majors, BackendMapping } from '@constants';
-import { Dropdown, Input, ToggleGroup } from '@basics';
+import { Dropdown, Input, ToggleGroup, Button } from '@basics';
 import { miscIcons, profileIcons } from '@icons';
 import { logout } from '@apis';
 import { useUser, setUser } from '@redux';
@@ -91,7 +91,7 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
     >
       <div className="h-100 w-100">
         <Button
-          variant="no-show"
+          variant="wrapper"
           className={styles.profileCross}
           onClick={() => setShow(false)}
         >
@@ -137,7 +137,7 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                 <div className={styles.profileWrap}>
                   <Button
                     className={styles.signOut}
-                    variant="no-show"
+                    variant="wrapper"
                     onClick={async () => {
                       await logout();
                       setShow(false);
@@ -152,7 +152,7 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                 >
                   {activeIndicator ? (
                     <Button
-                      variant="secondary"
+                      size="secondary"
                       onClick={() => setactiveIndicator(false)}
                     >
                       Edit Profile
@@ -161,7 +161,7 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                     <div>
                       <div>
                         <Button
-                          variant="secondary"
+                          size="secondary"
                           onClick={() => {
                             const updates = generateUpdates(
                               userSelected,
@@ -198,7 +198,7 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                       <div className={`mt-1 ${styles.profileWrap}`}>
                         <Button
                           className={styles.cancel}
-                          variant="no-show"
+                          variant="wrapper"
                           onClick={() => {
                             setactiveIndicator(true);
                             setUserSelectedDraft(userSelected);
@@ -352,7 +352,7 @@ const ProfileModal: FunctionComponent<PathProps> = ({ show, setShow }) => {
                             </div>
 
                             <div className={`mt-auto ${styles.myPostActions}`}>
-                              <Button variant="secondary" className="w-90">
+                              <Button size="secondary" className="w-90">
                                 Mark as occupied
                               </Button>
 
