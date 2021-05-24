@@ -15,7 +15,9 @@ TEST_DB_STRING = "sqlite:///housing_test.db"
 # modify the database is the backend. Therefore, we will verify input from user's request
 # and make sure they fit in the target database's schema.
 # the purpose of this test is to verify the crud API is correctly written and has the intended behavior
-# when the input is in the correct form. 
+# when the input is in the correct form.
+
+
 class TestDbOperations(unittest.TestCase):
     def setUp(self):
         createDB(TEST_DB_STRING)
@@ -498,7 +500,7 @@ class TestDbOperations(unittest.TestCase):
             no_bathrooms,
             self.session)
 
-        number_of_rows = len(crud.read_all(Room,self.session))
+        number_of_rows = len(crud.read_all(Room, self.session))
         self.assertEqual(number_of_rows == 3, True)
 
         # create a different user
@@ -565,7 +567,7 @@ class TestDbOperations(unittest.TestCase):
             no_bathrooms,
             self.session)
 
-        number_of_rows = len(crud.read_all(Room,self.session))
+        number_of_rows = len(crud.read_all(Room, self.session))
         self.assertEqual(number_of_rows == 4, True)
 
     def test_room_json(self):
@@ -770,25 +772,26 @@ class TestDbOperations(unittest.TestCase):
                      "numBaths": 2.5,
                      "numBeds": 2,
                      "roomDescription": "dream house in a life time"}
-        
-        test_res_json = {"name": "75 Big Rock Cove St. Middletown",
-                     "address": "75 Big Rock Cove St. Middletown, NY 10940",
-                     "distance": "20 mins", "pricePerMonth": 500,
-                     "fromMonth": "June/18", "toMonth": "July/18",
-                     "earlyDate": "06/01/18", "lateDate": "06/12/18",
-                     "roomType": "Single", "other": [], "facilities": [],
-                     "photos": ["photo1", "photo2"],
-                     "profilePhoto": "profile_photo",
-                     "negotiable": True,
-                     "numBaths": 2.5,
-                     "numBeds": 2,
-                     "roomDescription": "dream house in a life time",
-                    "leaserName": user_name, "leaserEmail": user_email,
-                     "leaserPhone": user_phone,
-                     "leaserSchoolYear": user_school_year,
-                     "leaserMajor": user_major,}
 
-        crud.write_room(transform_json_underscore(test_json), user_object.id, self.session, True)
+        test_res_json = {"name": "75 Big Rock Cove St. Middletown",
+                         "address": "75 Big Rock Cove St. Middletown, NY 10940",
+                         "distance": "20 mins", "pricePerMonth": 500,
+                         "fromMonth": "June/18", "toMonth": "July/18",
+                         "earlyDate": "06/01/18", "lateDate": "06/12/18",
+                         "roomType": "Single", "other": [], "facilities": [],
+                         "photos": ["photo1", "photo2"],
+                         "profilePhoto": "profile_photo",
+                         "negotiable": True,
+                         "numBaths": 2.5,
+                         "numBeds": 2,
+                         "roomDescription": "dream house in a life time",
+                         "leaserName": user_name, "leaserEmail": user_email,
+                         "leaserPhone": user_phone,
+                         "leaserSchoolYear": user_school_year,
+                         "leaserMajor": user_major, }
+
+        crud.write_room(transform_json_underscore(test_json),
+                        user_object.id, self.session, True)
 
         room_object = crud.get_row_if_exists(
             Room,
@@ -927,7 +930,7 @@ class TestDbOperations(unittest.TestCase):
             {"email": "haha@ucsd.edu"},
             {"description": "google man",
              "major": "Computer Science"
-            })
+             })
 
         user_object = crud.get_row_if_exists(
             User,
@@ -936,6 +939,80 @@ class TestDbOperations(unittest.TestCase):
 
         self.assertEqual(user_object.description == "google man", True)
         self.assertEqual(user_object.major == "Computer Science", True)
+
+    def test_read_criteria(self):
+        # create multiple users
+        user_names = ["cris", "keenan", "mohit", "sarthak"]
+        user_emails = ["haha@ucsd.edu", "abc@ucsd.edu",
+                       "def@ucsd.edu", "ghi@ucsd.edu"]
+        user_phones = ["858-2867-3567", "858-2867-3568",
+                       "858-2867-3566", "858-2867-3565"]
+        user_descriptions = ["cultured man",
+                             "cultured guy", "cultured men", "cultured dude"]
+        user_school_years = ["First", "Second", "Third", "Fourth"]
+        user_majors = ["Data Science", "CS", "ChemE", "CS"]
+
+        # Add users to database, store objects
+        user_objects = {}
+        for i in range(len(user_names)):
+            user_objects[user_names[i]] = crud.add_user(
+                user_names[i],
+                user_emails[i],
+                datetime.now(),
+                user_phones[i],
+                user_descriptions[i],
+                user_school_years[i],
+                user_majors[i],
+                self.session)
+
+        # Create single and multiple user queries
+        single_user_query = crud.read_criteria(
+            User, {"major": "ChemE", "school_year": "Third"}, self.session)
+        all_criteria_user_query = crud.read_criteria(User, {"name": "cris", "email": "haha@ucsd.edu",
+                                                            "phone": "858-2867-3567", "description": "cultured man", "major": "Data Science",
+                                                            "school_year": "First"}, self.session)
+        multiple_user_query = crud.read_criteria(
+            User, {"major": "CS"}, self.session, "m")
+        all_user_query = crud.read_criteria(User, {}, self.session, "m")
+
+        # Check if queries match expected values
+        self.assertEqual(user_objects['mohit'] == single_user_query, True)
+        self.assertEqual(user_objects['cris'] == all_criteria_user_query, True)
+        self.assertEqual(any([x == user_objects['keenan']
+                         for x in multiple_user_query]), True)
+        self.assertEqual(any([x == user_objects['sarthak']
+                         for x in multiple_user_query]), True)
+        self.assertEqual(len(all_user_query) == len(user_objects), True)
+
+    def test_get_insert_id(self):
+        # Check if initial ID is zero
+        initial_id = crud.get_insert_id(User, self.session)
+        self.assertEqual(initial_id == 1, True)
+
+        # create multiple users
+        user_names = ["cris", "keenan", "mohit", "sarthak"]
+        user_emails = ["haha@ucsd.edu", "abc@ucsd.edu",
+                       "def@ucsd.edu", "ghi@ucsd.edu"]
+        user_phones = ["858-2867-3567", "858-2867-3568",
+                       "858-2867-3566", "858-2867-3565"]
+        user_descriptions = ["cultured man",
+                             "cultured guy", "cultured men", "cultured dude"]
+        user_school_years = ["First", "Second", "Third", "Fourth"]
+        user_majors = ["Data Science", "CS", "ChemE", "CS"]
+
+        # Add users to database, store objects
+        for i in range(len(user_names)):
+            crud.add_user(
+                user_names[i],
+                user_emails[i],
+                datetime.now(),
+                user_phones[i],
+                user_descriptions[i],
+                user_school_years[i],
+                user_majors[i],
+                self.session)
+            current_id = crud.get_insert_id(User, self.session)
+            self.assertEqual((i+2) == current_id, True)
 
 
 if __name__ == "__main__":
