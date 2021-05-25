@@ -66,3 +66,7 @@ h4 {
 h5 {
   @include font-type('h5');
 }
+
+b {
+  font-weight: $bold-font-weight;
+}

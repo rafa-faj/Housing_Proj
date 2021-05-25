@@ -2,7 +2,8 @@
 // import * as nextImage from 'next/image'; // importing to override next/image for storybook (it won't render right with storybook)
 
 // import global styles
-import '../src/assets/scss/global/index.scss';
+// import '../src/assets/scss/global/index.scss';
+import '!style-loader!css-loader!sass-loader!../src/assets/scss/global/_storybook.scss';
 
 export const parameters = {
   layout: 'fullscreen',
