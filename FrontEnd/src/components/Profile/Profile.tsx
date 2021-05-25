@@ -12,39 +12,6 @@ import styles from './Profile.module.scss';
 import Button from '@components/basics/Button'
 import cn from 'classnames';
 
-const phoneFormat = (phone: string, previousPhone: string) => {
-  const phoneRegex = /\d+/;
-  const charArray = [];
-  const limit = 14;
-  let i;
-  for (i = 0; i < Math.min(phone.length, limit); i++) {
-    if (phone[i].match(phoneRegex)) {
-      charArray.push(phone[i]);
-    }
-  }
-  if (
-    previousPhone.length > phone.length && // if it is a delete operation
-    phone.length > 0 && // if it is non empty
-    !previousPhone[previousPhone.length - 1].match(phoneRegex)
-  ) {
-    charArray.pop();
-  }
-  const bracket = charArray.length >= 3;
-  const space = charArray.length > 3;
-  const horizontal = charArray.length > 6;
-  if (horizontal) {
-    charArray.splice(6, 0, '-');
-  }
-  if (space) {
-    charArray.splice(3, 0, ' ');
-  }
-  if (bracket) {
-    charArray.splice(0, 0, '(');
-    charArray.splice(4, 0, ')');
-  }
-  return charArray.join('');
-};
-
 // Will only be called during confirmation
 
 const generateUpdates = (original: User, draft: User) => {
@@ -81,7 +48,7 @@ const Profile: FunctionComponent = () => {
   return (
     <Container>
       <Row className={styles.content}>
-        <Col md={3} className={styles.selectionList}>
+        <Col md={2} className={styles.selectionList}>
           <div
             className={cn(styles.titleNotSelected, {[styles.selectOn]: viewMyPosts})}
             onClick={() => setViewMyPosts(true)}>
@@ -103,24 +70,25 @@ const Profile: FunctionComponent = () => {
                 <Image src={`https://houseit.s3.us-east-2.amazonaws.com/${userSelectedDraft.profilePhoto}`} 
                   roundedCircle className={styles.icon}/>
               </Col>
-              <Col md={4}>
+              <Col md={3} className={styles.name_Id}>
                 <div className={styles.name}>{userSelectedDraft.name}</div>
                 <div className={styles.UserIdentifier}>{userSelectedDraft.phone}</div>
               </Col>
-              <Col md={4}>
+              <Col md={3}>
                 <div className={styles.verified}>
                   <profileIcons.tickMark />
                   <span className={styles.smallText}>UCSD Email Verified</span>
                 </div>
                 <div className={styles.UserIdentifier}>{userSelectedDraft.email}</div>
               </Col>
-              <Col md={2}>
+              <Col className={styles.controlButton}>
                 {activeIndicator ? (
                   <Button size="secondary" variant="outline" onClick={() => setactiveIndicator(false)} icon={{icon:profileIcons.edit}}>
                     Edit
                   </Button>
                 ) : (
                   <Button size="secondary" 
+                    icon={{icon:profileIcons.save}}
                     onClick={() => {
                       const updates = generateUpdates(userSelected, userSelectedDraft,);
                       // if nothing changes upon confirm, no need to send to backend
@@ -132,59 +100,54 @@ const Profile: FunctionComponent = () => {
                 )}
               </Col>
             </Row> 
-
-
             
-              <div className={cn({ [styles.postsList]: viewMyPosts })}>
-              <div className={styles.UserInput}>
+            <div className={cn(styles.textInfo, {[styles.postsList]: viewMyPosts })}>
+              {!viewMyPosts ? (
+                <>
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="profileSchoolYear">
+                      <Form.Label className={styles.label}> School Year </Form.Label>
+                      <Form.Row className={styles.schoolYear}>
+                        <ToggleGroup
+                          singleSelect
+                          content={Object.values(SchoolYear)}
+                          initialSelected={userSelectedDraft.schoolYear}
+                          readOnly
+                          onSelect={({ label }) => { setUserSelectedDraft({...userSelectedDraft, schoolYear: label as SchoolYear,});}}/>
+                      </Form.Row>
+                    </Form.Group>
+                  </Form.Row>
 
-                {!viewMyPosts ? (
-                  <>
-                    <Form.Row className="m-2 px-0">
-                      <Form.Group as={Col} controlId="profileSchoolYear">
-                        <Form.Label className={styles.label}> School Year </Form.Label>
-                        <Form.Row className={`pl-1 ${styles.schoolYear}`}>
-                          <ToggleGroup
-                            singleSelect
-                            content={Object.values(SchoolYear)}
-                            initialSelected={userSelectedDraft.schoolYear}
-                            readOnly
-                            onSelect={({ label }) => { setUserSelectedDraft({...userSelectedDraft, schoolYear: label as SchoolYear,});}}/>
-                        </Form.Row>
-                      </Form.Group>
-                    </Form.Row>
-
-                    <Form.Row className="m-2">
-                      <Form.Group as={Col} controlId="profileMajor">
-                        <Form.Label className={styles.label}>Major</Form.Label>
-                        {!activeIndicator ? (
+                  <Form.Row className={styles.dropdown}>
+                    <Form.Group as={Col} controlId="profileMajor">
+                      <Form.Label className={styles.label}>Major</Form.Label>
+                      {!activeIndicator ? (
                           <Dropdown
-                            options={majors}
-                            label=""
-                            onSelect={(s) => { setUserSelectedDraft({ ...userSelectedDraft, major: s || userSelectedDraft.major,});}}
-                            initialSelected={userSelectedDraft.major}
-                            placeholder="Major"
-                          />
-                        ) : (
-                          <Input type="text" value={userSelectedDraft.major} readOnly placeholder="Major"/>
-                        )}
-                      </Form.Group>
-                    </Form.Row>
-                    <Form.Row className="m-2">
-                      <Form.Group as={Col} controlId="profileBio">
-                        <Form.Label className={styles.label}> Short bio </Form.Label>
-                        <Form.Control
-                          readOnly={activeIndicator} as="textarea" className={styles.bioText}
-                          type="text" maxLength={600} value={userSelectedDraft.description}
-                          onChange={(event) => setUserSelectedDraft({...userSelectedDraft, description: event.target.value,})}
+                          options={majors}
+                          label=""
+                          onSelect={(s) => { setUserSelectedDraft({ ...userSelectedDraft, major: s || userSelectedDraft.major,});}}
+                          initialSelected={userSelectedDraft.major}
+                          placeholder="Major"
                         />
-                        <span className={styles.charCheck}> {userSelectedDraft.description.length}/600 </span>
-                      </Form.Group>
-                    </Form.Row>
-                  </>
-                ) : (<></>)}
-               </div>
-              </div>
+                      ) : (
+                        <Input type="text" value={userSelectedDraft.major} readOnly placeholder="Major"/>
+                      )}
+                    </Form.Group>
+                  </Form.Row>
+                  <Form.Row className={styles.bio}>
+                    <Form.Group as={Col} controlId="profileBio">
+                      <Form.Label className={styles.label}> Short bio </Form.Label>
+                      <Form.Control
+                        readOnly={activeIndicator} as="textarea" className={styles.bioText}
+                        type="text" maxLength={600} value={userSelectedDraft.description}
+                        onChange={(event) => setUserSelectedDraft({...userSelectedDraft, description: event.target.value,})}
+                      />
+                      <span className={styles.charCheck}> {userSelectedDraft.description.length}/600 </span>
+                    </Form.Group>
+                  </Form.Row>
+                </>
+              ) : (<></>)}
+            </div>
         </div>
       
         </Col>

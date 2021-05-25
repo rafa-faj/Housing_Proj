@@ -2,7 +2,7 @@
 $profile-form-middle-height: 90%;
 
 .content{
-  margin-top: 4rem;
+  margin-top: 3rem;
 }
 
 .UserInput{
@@ -15,6 +15,7 @@ $profile-form-middle-height: 90%;
   border-radius: $lg-border-radius $lg-border-radius 0 0;
   justify-content: center;
   margin-top: 2vh;
+  margin-right: 3rem;
 }
 
 .titleNotSelected {
@@ -118,6 +119,7 @@ $profile-form-middle-height: 90%;
   letter-spacing: normal;
   text-align: left;
   color: black;
+  margin-bottom: 0;
 }
 
 .bio {
@@ -143,7 +145,7 @@ $profile-form-middle-height: 90%;
 
 .bioText {
   resize: none;
-  height: 150px !important;
+  height: 16rem !important;
 }
 
 .schoolYear {
@@ -179,6 +181,7 @@ $profile-form-middle-height: 90%;
   border-color: $primary-light-color;
   width: 54px;
   height: 54px;
+  margin-left:1rem;
 }
 
 .postsList {
@@ -283,4 +286,17 @@ $profile-form-middle-height: 90%;
     padding: 0;
     border: 0;
   }
+}
+
+.dropdown{
+  width: 65%;
+}
+
+.bio{
+  width: 85%;
+}
+
+.textInfo{
+  margin-top: 1.5rem;
+  margin-left: 1.5rem;
 }
