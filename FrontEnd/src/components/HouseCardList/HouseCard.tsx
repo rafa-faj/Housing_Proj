@@ -8,7 +8,7 @@ import { formatRoomType } from '../../utils';
 import { useRoomData } from '@hooks';
 import { useRouter } from 'next/dist/client/router';
 import styles from './HouseCard.module.scss';
-import { miscIcons } from '@icons'
+import { miscIcons } from '@icons';
 
 interface Props {
   roomId: number;
@@ -64,9 +64,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
           <div className={styles.locationIcon}>
             <miscIcons.LocationIcon />
           </div>
-          <div>
-            {address}
-          </div>
+          <div>{address}</div>
         </div>
         <div>
           <div className={styles.room}>
@@ -82,13 +80,13 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
         </div>
       </div>
     </Col>
-  )
+  );
 
   return (
     <Card className={styles.card}>
       <Card.Body className="p-0">
         <Container className={styles.container}>
-          <Row >
+          <Row>
             <Col md={7} className={styles.pic}>
               <SlideShow
                 images={slideShowItems}
