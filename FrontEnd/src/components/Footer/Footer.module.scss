@@ -1,0 +1,32 @@
+.wrapper {
+  width: 100%;
+  background-color: $primary-50-color;
+  padding: 3rem 5rem;
+}
+
+// provides margin bottom to every child except last one
+.marginBottomProvider div:not(:last-child) {
+  margin-bottom: 0.2rem;
+}
+
+.undecoratedLinks div {
+  text-decoration-line: none !important;
+  color: black;
+}
+
+.getStarted {
+  color: $primary-400-color !important;
+}
+
+.greyedOut {
+  color: $disabled-low-emphasis-color;
+}
+
+.homehubOrange {
+  color: $primary-400-color;
+}
+
+.ellipses svg {
+  fill: $primary-100-color;
+  stroke: none;
+}
