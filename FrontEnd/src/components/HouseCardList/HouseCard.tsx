@@ -54,29 +54,30 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
         <div className={styles.day}>
           <miscIcons.RoundArrow /> 2 days ago
         </div>
+
         <div className={styles.price}>
-          <b>$1200+/mo </b>
+          <b>$1200+/mo</b>
         </div>
+
         <div className={styles.distance}>
           <miscIcons.busIcon /> <b>~ {distance} transit</b>&nbsp;
         </div>
+
         <div className={styles.address}>
           <div className={styles.locationIcon}>
             <miscIcons.LocationIcon />
           </div>
           <div>{address}</div>
         </div>
-        <div>
-          <div className={styles.room}>
-            {`${numBeds}Bed ${numBaths}Bath`}
-            <span className={styles.divider}> | </span>{' '}
-            {formatRoomType(roomType)} Room
-          </div>
+
+        <div className={styles.room}>
+          {`${numBeds}Bed ${numBaths}Bath`}
+          <span className={styles.divider}> | </span> {formatRoomType(roomType)}{' '}
+          Room
         </div>
-        <div>
-          <div className={styles.date}>
-            Available from June 1, 2021{/*{formattedMoveIn}*/}
-          </div>
+
+        <div className={styles.date}>
+          Available from June 1, 2021{/*{formattedMoveIn}*/}
         </div>
       </div>
     </Col>
