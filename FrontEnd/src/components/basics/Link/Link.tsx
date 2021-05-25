@@ -6,6 +6,8 @@ import { isRunningInStorybook } from '@utils';
 
 interface LinkProps extends NextJSLinkProps {
   className?: string;
+  noNextJSLink?: boolean; // Require the use of a non NextJS Link, https://nextjs.org/docs/api-reference/next/link
+  undecorated?: boolean; // make the link text undecorated (make it black and with no underline)
 }
 
 /**
@@ -16,22 +18,31 @@ const Link: FunctionComponent<LinkProps> = ({
   className,
   children,
   href,
+  noNextJSLink,
+  undecorated,
   ...props
 }) => {
-  const joinedClassNames = cn(styles.link, className);
+  const joinedClassNames = cn(className, {
+    [styles.link]: !undecorated,
+    [styles.undecoratedLink]: undecorated,
+  });
 
-  if (isRunningInStorybook()) {
+  if (isRunningInStorybook() || noNextJSLink) {
     return (
-      <a href={href.toString()} {...props}>
-        <div className={joinedClassNames}>{children}</div>
-      </a>
+      <div className={joinedClassNames}>
+        <a href={href.toString()} {...props}>
+          {children}
+        </a>
+      </div>
     );
   }
 
   return (
-    <NextJSLink href={href} {...props}>
-      <div className={joinedClassNames}>{children}</div>
-    </NextJSLink>
+    <div className={joinedClassNames}>
+      <NextJSLink href={href} {...props}>
+        {children}
+      </NextJSLink>
+    </div>
   );
 };
 
