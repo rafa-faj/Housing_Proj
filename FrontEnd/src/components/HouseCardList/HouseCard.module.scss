@@ -46,15 +46,12 @@
 .price{
   margin-bottom: 1.5rem;
   color: #A64919;
-
-  b{
-    font-size: 1.6rem;
-  }
+  @include font-type('h4');
 }
 
 .distance {
   margin-bottom: 0.5rem;
-  font-size: 1rem
+  @include font-type('body 1')
 }
 
 .address{
