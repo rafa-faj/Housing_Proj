@@ -9,13 +9,9 @@
   margin-bottom: 0.2rem;
 }
 
-.undecoratedLinks div {
-  text-decoration-line: none !important;
-  color: black;
-}
-
 .getStarted {
   color: $primary-400-color !important;
+  text-align: left;
 }
 
 .greyedOut {
@@ -29,4 +25,9 @@
 .ellipses svg {
   fill: $primary-100-color;
   stroke: none;
+}
+
+.homehubLabel {
+  display: flex;
+  align-items: flex-end;
 }
