@@ -3,7 +3,7 @@
 }
 
 .undecoratedLink {
-  &, & a {
+  &, & a, & a:hover {
     @include font-type('link');
 
     color: black;

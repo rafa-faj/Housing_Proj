@@ -40,7 +40,7 @@ const Link: FunctionComponent<LinkProps> = ({
   return (
     <div className={joinedClassNames}>
       <NextJSLink href={href} {...props}>
-        {children}
+        <a>{children}</a>
       </NextJSLink>
     </div>
   );
