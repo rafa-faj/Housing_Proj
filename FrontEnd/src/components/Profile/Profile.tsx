@@ -14,6 +14,39 @@ import cn from 'classnames';
 
 // Will only be called during confirmation
 
+const phoneFormat = (phone: string, previousPhone: string) => {
+  const phoneRegex = /\d+/;
+  const charArray = [];
+  const limit = 14;
+  let i;
+  for (i = 0; i < Math.min(phone.length, limit); i++) {
+    if (phone[i].match(phoneRegex)) {
+      charArray.push(phone[i]);
+    }
+  }
+  if (
+    previousPhone.length > phone.length && // if it is a delete operation
+    phone.length > 0 && // if it is non empty
+    !previousPhone[previousPhone.length - 1].match(phoneRegex)
+  ) {
+    charArray.pop();
+  }
+  const bracket = charArray.length >= 3;
+  const space = charArray.length > 3;
+  const horizontal = charArray.length > 6;
+  if (horizontal) {
+    charArray.splice(6, 0, '-');
+  }
+  if (space) {
+    charArray.splice(3, 0, ' ');
+  }
+  if (bracket) {
+    charArray.splice(0, 0, '(');
+    charArray.splice(4, 0, ')');
+  }
+  return charArray.join('');
+};
+
 const generateUpdates = (original: User, draft: User) => {
   const updatePairs: { [k: string]: any } = {};
   const updateKeys = (Object.keys(original) as Array<keyof User>).filter(
@@ -72,7 +105,13 @@ const Profile: FunctionComponent = () => {
               </Col>
               <Col md={3} className={styles.name_Id}>
                 <div className={styles.name}>{userSelectedDraft.name}</div>
-                <div className={styles.UserIdentifier}>{userSelectedDraft.phone}</div>
+                {activeIndicator ? (<div className={styles.UserIdentifier}>{userSelectedDraft.phone}</div>):(
+                  <Form.Control type="text" value={userSelectedDraft.phone} className={styles.phoneNum}
+                  onChange={(event) => { console.log(userSelected, 'hello');
+                    const previousPhone = userSelectedDraft.phone;
+                    setUserSelectedDraft({...userSelectedDraft, phone: phoneFormat(event.target.value, previousPhone,),});
+                  }}/>
+                )}
               </Col>
               <Col md={3}>
                 <div className={styles.verified}>
@@ -112,7 +151,7 @@ const Profile: FunctionComponent = () => {
                           singleSelect
                           content={Object.values(SchoolYear)}
                           initialSelected={userSelectedDraft.schoolYear}
-                          readOnly
+                          readOnly={activeIndicator}
                           onSelect={({ label }) => { setUserSelectedDraft({...userSelectedDraft, schoolYear: label as SchoolYear,});}}/>
                       </Form.Row>
                     </Form.Group>

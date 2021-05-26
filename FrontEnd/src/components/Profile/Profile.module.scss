@@ -92,9 +92,8 @@ $profile-form-middle-height: 90%;
 }
 
 .name {
-  display: block;
+  height: fit-content;
   width: 100%;
-  height: 25px;
   font-family: Montserrat;
   font-size: $lg-font-size;
   font-weight: bold;
@@ -299,4 +298,8 @@ $profile-form-middle-height: 90%;
 .textInfo{
   margin-top: 1.5rem;
   margin-left: 1.5rem;
+}
+
+.phoneNum{
+  margin-top: 0.5rem;
 }
