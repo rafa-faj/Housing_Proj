@@ -161,13 +161,8 @@ const Profile: FunctionComponent = () => {
                     <Form.Group as={Col} controlId="profileMajor">
                       <Form.Label className={styles.label}>Major</Form.Label>
                       {!activeIndicator ? (
-                          <Dropdown
-                          options={majors}
-                          label=""
-                          onSelect={(s) => { setUserSelectedDraft({ ...userSelectedDraft, major: s || userSelectedDraft.major,});}}
-                          initialSelected={userSelectedDraft.major}
-                          placeholder="Major"
-                        />
+                          <Dropdown options={majors} label="" initialSelected={userSelectedDraft.major} placeholder="Major"
+                          onSelect={(s) => { setUserSelectedDraft({ ...userSelectedDraft, major: s || userSelectedDraft.major,});}}/>
                       ) : (
                         <Input type="text" value={userSelectedDraft.major} readOnly placeholder="Major"/>
                       )}
