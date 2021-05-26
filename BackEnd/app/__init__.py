@@ -16,6 +16,7 @@ from app.util.env_setup import set_backend_config
 import json
 import os
 from app.db.crud import *
+import urllib.request
 
 
 def create_app(test_config=None):
@@ -85,6 +86,15 @@ def create_app(test_config=None):
         except KeyError:
             response = generate_message(MESSAGE_UPDATE_PROFILE_NO_ENTRY,400)
         return response
+
+
+    # This needs to be unit tested + error handling
+    @ app.route("/getRecentLandlordRooms")
+    def get_recent_landlord_rooms():
+        aws_landlord_endpoint = "https://houseit.s3.us-east-2.amazonaws.com/landlord/landlord_rooms.json"
+        with urllib.request.urlopen("https://houseit.s3.us-east-2.amazonaws.com/landlord/landlord_rooms.json") as url:
+            landlord_data = json.loads(url.read().decode())
+        return generate_response(elem=landlord_data)
 
     @ app.route("/getRecentRoomIds")
     def get_recent_rooms():
