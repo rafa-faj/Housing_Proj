@@ -37,9 +37,7 @@ const GeneralInfo: FunctionComponent<GeneralInfoProps> = ({
       <div className={styles.distance}>
         <miscIcons.busIcon /> <b>~ {distance} transit</b>&nbsp;
       </div>
-      <div className={styles.map}>
-        <GoogleMap address={address} />
-      </div>
+      <GoogleMap address={address} className={styles.map} />
     </div>
   )
   return (

@@ -18,15 +18,15 @@
 
 .name{
   @include font-type('h4');
-  color: $primary-900-color;
+  color: $secondary-900-color;
   margin-bottom: 8px;
 }
 
 .address{
   display: flex;
-  font-size: 1rem;
   gap: 0.4rem;
-
+  @include font-type('body 2');
+  
   div{
     height: 100%;
   }
@@ -34,12 +34,13 @@
 
 .distance{
   margin-bottom: 1.25rem;
+  @include font-type('body 2');
 }
 
 .map{
   min-width: 500px;
   height: 300px;
-  padding-left: 0 !important;  
+  padding-left: 0rem !important;  
 }
 
 .textPortion{

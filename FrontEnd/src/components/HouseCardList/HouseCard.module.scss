@@ -47,32 +47,39 @@
   margin-bottom: 1.5rem;
   color: #A64919;
 
-  b{
+  b {
     font-size: 1.6rem;
   }
 }
 
 .distance {
   margin-bottom: 0.5rem;
-  font-size: 1rem
+  @include font-type('body 1')
 }
 
-.address{
+.address {
+  $line-height: 1.275rem;
+
   margin-bottom: 1.8rem;
   display: flex;
   font-size: 0.85rem;
   gap: 0.4rem;
+  overflow: hidden;
+  // set the height to be 2x the line-height, resulting in only 2 lines being displayed
+  line-height: $line-height;
+  height: $line-height * 2;
 
-  div{
+  div {
     height: 100%;
+    display: flex;
+  }
+
+  .locationIcon {
+    align-items: center;
   }
 }
 
-.locationIcon{
-  margin-top: 0.5rem;
-}
-
-.room{
+.oom{
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
   color: #797979

@@ -11,7 +11,10 @@ module.exports = {
       name: '@storybook/preset-scss',
       options: {
         cssLoaderOptions: {
-          modules: true,
+          // Hashes the classNames to include the className itself
+          modules: {
+            localIdentName: "[name]__[local]___[hash:base64:5]",
+        },
         },
         sassLoaderOptions: {
           sassOptions: {
