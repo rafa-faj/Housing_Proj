@@ -1,8 +1,21 @@
 // TODO we haven't used next/image yet, so leaving below commented for now
 // import * as nextImage from 'next/image'; // importing to override next/image for storybook (it won't render right with storybook)
+import { Provider } from 'react-redux'
+import { configureStore } from '@redux';
 
 // import global styles
-import '../src/assets/scss/global/index.scss';
+import '!style-loader!css-loader!sass-loader!../src/assets/scss/global/_storybook.scss';
+
+const store = configureStore();
+
+export const decorators = [
+  // Wrap every story with redux provider so components that use redux won't break
+  (Story) => (
+    <Provider store={store}>
+      <Story />
+    </Provider>
+  )
+];
 
 export const parameters = {
   layout: 'fullscreen',

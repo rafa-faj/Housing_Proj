@@ -1,8 +1,7 @@
 import {
-  configureStore,
+  configureStore as configureReduxStore,
   ThunkAction,
   Action,
-  Dispatch,
 } from '@reduxjs/toolkit';
 import { authReducer, housingReducer, filterReducer } from './slices/index';
 import { MakeStore, createWrapper, Context } from 'next-redux-wrapper';
@@ -19,9 +18,16 @@ const storeSlices = {
   filter: filterReducer,
 };
 
-const exampleStore = configureStore({
-  reducer: storeSlices,
-});
+/**
+ * Custom configureStore function with reducer included
+ */
+export const configureStore = () =>
+  configureReduxStore({
+    reducer: storeSlices,
+  });
+
+// Create an example store to use for typing later (i.e. typeof exampleStore)
+const exampleStore = configureStore();
 
 export type RootState = ReturnType<typeof exampleStore.getState>;
 export type AppThunk<ReturnType = Promise<void>> = ThunkAction<
@@ -49,9 +55,7 @@ export const useThunkDispatch = () => {
  * to keep them in sync).
  */
 const createStore: MakeStore<RootState> = (context: Context) => {
-  return configureStore({
-    reducer: storeSlices,
-  });
+  return configureStore();
 };
 
 /**
