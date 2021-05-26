@@ -89,11 +89,11 @@ def create_app(test_config=None):
 
 
     # This needs to be unit tested + error handling
-    @ app.route("/getRecentLandlordRooms")
-    def get_recent_landlord_rooms():
+    @ app.route("/getRecentLandlordRooms/<room_id>")
+    def get_recent_landlord_rooms(room_id):
         aws_landlord_endpoint = "https://houseit.s3.us-east-2.amazonaws.com/landlord/landlord_rooms.json"
-        with urllib.request.urlopen("https://houseit.s3.us-east-2.amazonaws.com/landlord/landlord_rooms.json") as url:
-            landlord_data = json.loads(url.read().decode())
+        with urllib.request.urlopen(aws_landlord_endpoint) as url:
+            landlord_data = json.loads(url.read().decode())[int(room_id) - 1]
         return generate_response(elem=landlord_data)
 
     @ app.route("/getRecentRoomIds")

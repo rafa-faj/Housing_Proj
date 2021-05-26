@@ -20,24 +20,28 @@
     min-height:150px;
 }
 
-.proof-of-income{
-    margin-top:50px;
-    min-height:250px;
-    /* Surface-white */
-    background: #FFFFFF;
-    /* Yellow */
-    box-shadow:-5px 5px #F3D990;
-    border: 2px solid #F3D990;
-    box-sizing: border-box;
-    .small-subtitle{
-        @include font-type('h5');
-        margin-left:10px;
-    }
-    .proof-of-income-inner{
-        width:100%;
-        align-items: center;
-    }
-    .profile-icon{
-        margin-left:55px;
-    }
+.proofOfIncome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4rem;
+  min-height: 15.5rem;
+
+  /* Yellow */
+  box-shadow: -5px 5px $highlight-color; // TODO
+  border: 2px solid $highlight-color; // TODO
+
+  .small-subtitle {
+    @include font-type('h5');
+    margin-left:10px;
+  }
+
+  .proof-of-income-inner{
+      width: 100%;
+      align-items: center;
+  }
+
+  .profile-icon{
+      margin-left:55px;
+  }
 }

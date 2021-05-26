@@ -1,12 +1,13 @@
 import useSWR from 'swr';
 import { getRecentLandlordHousingJSONs } from '@apis';
+import { TEN_MINUTES } from '@constants';
 
-const useLandlordRoomData = () => {
+const useLandlordRoomData = (roomId: number) => {
   const { data, error, isValidating, mutate } = useSWR(
     '/getRecentLandlordRooms',
-    getRecentLandlordHousingJSONs,
+    () => getRecentLandlordHousingJSONs(roomId),
     {
-      refreshInterval: 600000, // 10 minutes
+      refreshInterval: TEN_MINUTES,
     },
   );
 

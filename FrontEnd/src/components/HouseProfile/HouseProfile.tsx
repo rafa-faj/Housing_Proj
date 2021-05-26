@@ -47,11 +47,16 @@ const HouseProfile: FunctionComponent<HouseProfileProps> = ({ roomId }) => {
 
   return (
     <div>
-      <GeneralInfo images={slideShowItems} address={address} distance={distance} name={name} />
+      <GeneralInfo
+        images={slideShowItems}
+        address={address}
+        distance={distance}
+        name={name}
+      />
 
       <PlaceDetails />
 
-      <ApplicationDetails />
+      <ApplicationDetails roomId={roomId} />
     </div>
   );
 };
