@@ -30,3 +30,15 @@ export * from './WizardForm';
 
 export { default as RequiredAsterisk } from './RequiredAsterisk';
 export * from './RequiredAsterisk';
+
+export { default as Subtitle1 } from './Subtitle1';
+export * from './Subtitle1';
+
+export { default as Subtitle2 } from './Subtitle2';
+export * from './Subtitle2';
+
+export { default as Body1 } from './Body1';
+export * from './Body1';
+
+export { default as Body2 } from './Body2';
+export * from './Body2';

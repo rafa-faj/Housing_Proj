@@ -13,6 +13,17 @@ export const getRecentHousingPostIds = async () => {
 };
 
 /**
+ * Get Room JSON of recent room posts made.
+ *
+ * @returns array of landlord Room JSONs
+ */
+export const getRecentLandlordHousingJSONs = async (endpoint: string) => {
+  const response = await backendAPI.get<number[]>(endpoint);
+
+  return response.data;
+};
+
+/**
  * Get room information of a specific house post by ID.
  *
  * @param roomId - the room id of the house

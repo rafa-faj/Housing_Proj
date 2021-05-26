@@ -1,0 +1,43 @@
+.profile-section-divider{
+    color:$primary-100-color;
+    &::before {
+        content:"";
+        position: absolute;
+        border-bottom:2px solid $primary-100-color; /*use this to adjust underlin color and size*/
+        width:100%;  /*use this to adjust underline width*/
+        height:1.1em; /*use this to adjust underline position*/
+    }
+
+    @include font-type('h5');
+}
+
+.container{
+    max-width: 100%;
+    margin: 0;
+}
+
+.application-component{
+    min-height:150px;
+}
+
+.proof-of-income{
+    margin-top:50px;
+    min-height:250px;
+    /* Surface-white */
+    background: #FFFFFF;
+    /* Yellow */
+    box-shadow:-5px 5px #F3D990;
+    border: 2px solid #F3D990;
+    box-sizing: border-box;
+    .small-subtitle{
+        @include font-type('h5');
+        margin-left:10px;
+    }
+    .proof-of-income-inner{
+        width:100%;
+        align-items: center;
+    }
+    .profile-icon{
+        margin-left:55px;
+    }
+}
