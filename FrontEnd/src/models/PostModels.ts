@@ -61,7 +61,7 @@ export interface LandlordHousePost {
   name: string;
   icon: string;
   address: string;
-  distance:string;
+  distance: string;
   rent: string;
   roomType: string;
   availability: string;
@@ -77,4 +77,7 @@ export interface LandlordHousePost {
   verification: string;
   proofOfIncome: string;
   images: string[];
+  website: string;
+  phone: string;
+  email: string;
 }

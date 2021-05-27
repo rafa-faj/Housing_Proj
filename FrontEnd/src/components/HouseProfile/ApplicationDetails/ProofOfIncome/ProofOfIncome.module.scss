@@ -1,0 +1,35 @@
+.proofOfIncome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4rem;
+  padding: 5rem 3rem;
+  width: 100%;
+  box-shadow: -0.3125rem 0.3125rem $highlight-color;
+  border: 0.125rem solid $highlight-color;
+
+  @include bp-down('sm') {
+    padding: 3rem 1rem;
+  }
+}
+
+.iconAndLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  @include bp-down('sm') {
+    justify-content: left;
+    text-align: left;
+  }
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  
+  @include bp-up('md') {
+    justify-content: center;
+  }
+}

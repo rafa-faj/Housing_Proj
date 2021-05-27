@@ -19,10 +19,7 @@ const Contact: FunctionComponent<ContactProps> = ({ roomId }) => {
     return <div>Loading Contact Information...</div>; // TODO add a loader
   }
 
-  const { name } = data;
-
-  const email = 'lajollablue@greystar.com';
-  const websiteUrl = 'https://www.lajollablueliving.com';
+  const { name, website, phone, email } = data;
 
   return (
     <div className={styles.wrapper}>
@@ -32,21 +29,18 @@ const Contact: FunctionComponent<ContactProps> = ({ roomId }) => {
         <Body1 className={styles.title}>Contact {name}</Body1>
 
         <Body2 className={styles.contactInfo}>
-          {/* TODO this is a fake phone number */}
-          <contactIcons.phone /> (866) 559-8471
+          <contactIcons.phone /> {phone}
         </Body2>
 
         <div className={styles.contactInfo}>
-          {/* TODO this is a fake email */}
           <Link href={`mailto:${email}`} external>
             <contactIcons.email /> {email}
           </Link>
         </div>
 
         <div className={styles.contactInfo}>
-          {/* TODO this is a fake website url */}
-          <Link href={`${websiteUrl}`} external>
-            <contactIcons.internetGlobe /> {websiteUrl}
+          <Link href={website} external>
+            <contactIcons.internetGlobe /> {website}
           </Link>
         </div>
       </div>

@@ -70,7 +70,6 @@ const PlaceDetails: FunctionComponent<PlaceDetailsProps> = ({ roomId }) => {
         <Subtitle2>
           Utility Details <InfoThing />
         </Subtitle2>
-        {/* TODO this should not be hard-coded */}
         <Body2>All paid separately</Body2>
       </div>
     </Col>
