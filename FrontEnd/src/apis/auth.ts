@@ -63,10 +63,9 @@ export const logout = async () => {
  * @returns - undefined if error occured, otherwise UserLoginResponse, which includes an access token,
  *            email, message, user, imageUrl
  */
-export const userEditProfile = async (email: string, kvPairs: any) => {
+export const userEditProfile = async (updates: Partial<User>) => {
   const response = await backendAPI.post('/profile', {
-    email,
-    updates: kvPairs,
+    updates: updates,
   });
 
   return response.data;
