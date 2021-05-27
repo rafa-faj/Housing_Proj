@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FunctionComponent } from 'react';
-import { Button, ButtonProps } from '@basics';
+import { Button, ButtonProps } from 'react-bootstrap';
 import { Icon as IconType, IconProps } from '@icons';
 import cn from 'classnames';
 import styles from './Toggle.module.scss';
@@ -15,6 +15,7 @@ interface ToggleProps extends Omit<ButtonProps, 'onClick'> {
     selected: boolean,
     e: React.MouseEvent<HTMLElement, MouseEvent>,
   ) => any;
+  readOnly?: boolean;
 }
 
 const Toggle: FunctionComponent<ToggleProps> = ({
@@ -27,6 +28,7 @@ const Toggle: FunctionComponent<ToggleProps> = ({
   className,
   onClick,
   children,
+  readOnly,
   ...buttonProps
 }) => {
   const [isSelected, setIsSelected] = useState<boolean>(initialSelected);
@@ -38,12 +40,14 @@ const Toggle: FunctionComponent<ToggleProps> = ({
   return (
     <div className={styles.root}>
       <Button
+        variant="" // TODO
         {...buttonProps}
         className={cn(className, styles.toggle, {
           [styles.selected]: isSelected,
           [styles.unselected]: !isSelected,
         })}
         onClick={(e) => {
+          if(readOnly) return;
           if (onClick) onClick(!isSelected, e);
           setIsSelected(!isSelected);
         }}
