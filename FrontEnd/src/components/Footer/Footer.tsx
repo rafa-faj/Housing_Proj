@@ -33,10 +33,10 @@ const FirstColumn: FunctionComponent = () => {
   );
 };
 
-const homehubEmail = 'anemailhere@ucsd.edu';
+const homehubEmail = 'homehubdope@gmail.com';
 
 const Email = () => (
-  <Link href={`mailto:${homehubEmail}`} noNextJSLink undecorated>
+  <Link href={`mailto:${homehubEmail}`} external undecorated>
     <Subtitle1 className={styles.greyedOut}>{homehubEmail}</Subtitle1>
   </Link>
 );

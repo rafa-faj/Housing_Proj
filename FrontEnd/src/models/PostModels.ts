@@ -1,4 +1,4 @@
-import { facilityToIcon } from '@components/HouseProfile';
+import { facilityToIcon } from '@components/OldHouseProfile';
 import { RoomType } from '../constants';
 
 export interface HousePost {
@@ -34,15 +34,15 @@ export interface HousePostUIData
 
 export interface CreateHousePostProperties
   extends Omit<
-  HousePost,
-  | 'leaserName'
-  | 'leaserEmail'
-  | 'leaserPhone'
-  | 'leaserSchoolYear'
-  | 'leaserMajor'
-  | 'profilePhoto'
-  | 'roomId'
-  | 'photos' // change photos to be of File type
+    HousePost,
+    | 'leaserName'
+    | 'leaserEmail'
+    | 'leaserPhone'
+    | 'leaserSchoolYear'
+    | 'leaserMajor'
+    | 'profilePhoto'
+    | 'roomId'
+    | 'photos' // change photos to be of File type
   > {
   photos: File[];
 }
@@ -59,8 +59,10 @@ export type HousePostUserData = Pick<
 
 export interface LandlordHousePost {
   name: string;
+  icon: string;
   address: string;
-  price: string;
+  distance:string;
+  rent: string;
   roomType: string;
   availability: string;
   leaseTerm: string;
@@ -74,4 +76,5 @@ export interface LandlordHousePost {
   housingDeposit: string;
   verification: string;
   proofOfIncome: string;
+  images: string[];
 }

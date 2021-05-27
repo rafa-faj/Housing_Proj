@@ -1,0 +1,31 @@
+.greenBackground {
+  background-color: $secondary-50-color;
+  padding: 0.5rem 0.75rem;
+  margin: 0.75rem 0 1.5rem 0;
+
+  @include bp-up('md') {
+    padding: 1rem 1.5rem;
+  }
+}
+
+$base-padding: 1rem;
+
+.detailTileWrapper > div {
+  padding: $base-padding ($base-padding * 2) $base-padding 0 !important;
+  
+  @include bp('xs') {
+    padding: $base-padding 0 !important;
+  }
+}
+
+.utilityTile {
+  padding: ($base-padding * 2) 0 $base-padding 0 !important;
+}
+
+.amenitiesWrapper {
+  padding: $base-padding ($base-padding * 2) 0 0 !important;
+  
+  @include bp('xs') {
+    padding: $base-padding 0 !important;
+  }
+}

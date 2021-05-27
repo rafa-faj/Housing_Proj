@@ -17,7 +17,7 @@ import json
 import os
 from app.db.crud import *
 
-
+aws_landlord_endpoint = "https://houseit.s3.us-east-2.amazonaws.com/landlord/landlord_rooms.json"
 def create_app(test_config=None):
     try:
         backend_config = json.loads(os.environ["BACKEND_CONFIG"])
@@ -27,6 +27,7 @@ def create_app(test_config=None):
         backend_config = json.loads(os.environ["BACKEND_CONFIG"])
     backend_config["ALLOWED_ORIGINS"] = set(backend_config["ALLOWED_ORIGINS"])
     app = Flask(__name__)
+    app.debug = True
     app.config.update(backend_config)
     app.secret_key = app.config["FLASK_SECRET_KEY"]
     if test_config:
@@ -35,6 +36,7 @@ def create_app(test_config=None):
     app.register_blueprint(authetication)
     session = db.create_scoped_session()
     app.config["DB_CONNECTION"] = session
+    set_landlord_data(app,aws_landlord_endpoint)
     CORS(app, supports_credentials=True)
 
     @ app.route("/profile", methods=["POST", "OPTIONS"])
@@ -85,6 +87,34 @@ def create_app(test_config=None):
         except KeyError:
             response = generate_message(MESSAGE_UPDATE_PROFILE_NO_ENTRY,400)
         return response
+    
+    @ app.route("/updateLandlordJson")
+    def updateLandlordJson():
+        set_landlord_data(app,aws_landlord_endpoint)
+        return generate_message({"newest number of entries":len(app.config["LANDLORD_DB"])},200)
+    
+    # This needs to be unit tested + error handling
+    @ app.route("/getRecentLandlordRooms/<room_id>")
+    def get_recent_landlord_rooms(room_id):
+        try:
+            room_id = int(room_id)
+            if room_id > len(app.config["LANDLORD_DB"]) or room_id < 1:
+                raise ValueError
+            room_entry = app.config["LANDLORD_DB"][room_id - 1]
+        except ValueError:
+            room_entry = None
+        if room_entry is None:
+            room_entry = {"name":-1}
+            status_code = 404
+        else:
+            status_code = 200
+        return generate_response(room_entry,status_code)
+
+    # This needs to be unit tested + error handling
+    @ app.route("/getRecentLandlordRoomIds")
+    def get_recent_landlord_room_ids():
+        room_ids = list(range(1,len(app.config["LANDLORD_DB"])+1))
+        return generate_response(elem=room_ids)
 
     @ app.route("/getRecentRoomIds")
     def get_recent_rooms():

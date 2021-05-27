@@ -56,3 +56,14 @@ $modal-default-margin: map-get($spacers, 3);
   width: 10px;
   border-radius: 50%;
 }
+
+// Override padding and margin of container and col in bootstrap
+// (do so for columns by including .no-gutters in row)
+.container {
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  @extend .no-gutters;
+}
