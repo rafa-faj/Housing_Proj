@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { useRoomData } from '@hooks';
+import { useLandlordRoomData } from '@hooks';
 import GeneralInfo from './GeneralInfo/GenerlInfo';
 import PlaceDetails from './PlaceDetails/PlaceDetails';
 import ApplicationDetails from './ApplicationDetails/ApplicationDetails';
@@ -10,7 +10,7 @@ interface HouseProfileProps {
 }
 
 const HouseProfile: FunctionComponent<HouseProfileProps> = ({ roomId }) => {
-  const { data, error } = useRoomData(roomId);
+  const { data, error } = useLandlordRoomData(roomId);
 
   if (error) {
     return <div>Error occurred!</div>; // TODO handle error in a different way
@@ -22,9 +22,9 @@ const HouseProfile: FunctionComponent<HouseProfileProps> = ({ roomId }) => {
 
   const { leaserEmail, address, photos, name, distance } = data;
 
-  const slideShowItems = photos.map((url) => ({
+  const slideShowItems = images?.map((url) => ({
     src: url,
-    alt: `${leaserEmail} , ${address}}`,
+    alt: `${name} , ${address}}`,
   }));
 
   return (

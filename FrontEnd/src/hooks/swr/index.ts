@@ -12,3 +12,6 @@ export * from './useRoomSearch';
 
 export { default as useLandlordRoomData } from './useLandlordRoomData';
 export * from './useLandlordRoomData';
+
+export { default as useLandlordRoomIds } from './useLandlordRoomIds';
+export * from './useLandlordRoomIds';

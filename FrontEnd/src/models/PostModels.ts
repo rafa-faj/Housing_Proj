@@ -59,7 +59,9 @@ export type HousePostUserData = Pick<
 
 export interface LandlordHousePost {
   name: string;
+  icon: string;
   address: string;
+  distance:string;
   rent: string;
   roomType: string;
   availability: string;

@@ -9,6 +9,7 @@ import json
 import os
 from inflection import underscore
 from app.util.env_setup import set_google_cred
+import urllib.request
 
 
 
@@ -253,3 +254,20 @@ def check_attributes_str(value_pairs):
     for elem in value_pairs[facility_type]:
         if not isinstance(elem,str): return False, None, generate_message(MESSAGE_WRONG_TYPE_JSON+"facility types contain wrong type data",422)
     return True,value_pairs, None
+
+def download_json_data(endpoint):
+    """
+    Download json data from a remote end point
+
+    THIS NEEDS TO UNIT TESTED and error handle more specifically
+    """
+    try:
+        with urllib.request.urlopen(endpoint) as url:
+            json_data = json.loads(url.read().decode())
+    except:
+        json_data = []
+    return json_data
+
+def set_landlord_data(app,aws_landlord_endpoint):
+    landlord_data = download_json_data(aws_landlord_endpoint)
+    app.config["LANDLORD_DB"] = landlord_data
