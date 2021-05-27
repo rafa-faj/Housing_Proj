@@ -8,6 +8,7 @@ import Subtitle2 from '@basics/Subtitle2';
 import Body2 from '@basics/Body2';
 import { profileIcons } from '@icons';
 import { useLandlordRoomData } from '@hooks';
+import { getDurationInMinutes } from '@apis/google';
 
 interface ApplicationDetailsProps {
   roomId: number;
@@ -45,7 +46,10 @@ const ApplicationDetails: FunctionComponent<ApplicationDetailsProps> = ({
     proofOfIncome,
     images,
   } = data;
-  console.log(data);
+
+  console.log(getDurationInMinutes(address).then((response)=>{
+    console.log(response);
+  }));
 
   return (
     <Container fluid className={styles.container}>
@@ -57,13 +61,13 @@ const ApplicationDetails: FunctionComponent<ApplicationDetailsProps> = ({
           <Row className={styles['application-component']}>
             <Col>
               <Subtitle2>Application Fee</Subtitle2>
-              <Body2>{applicationFee}</Body2>
+              <Body2>{`$${applicationFee}/applicant`}</Body2>
             </Col>
           </Row>
           <Row className={styles['application-component']}>
             <Col>
               <Subtitle2>Housing Deposit</Subtitle2>
-              <Body2>{holdingDeposit}</Body2>
+              <Body2>{housingDeposit}</Body2>
             </Col>
           </Row>
         </Col>

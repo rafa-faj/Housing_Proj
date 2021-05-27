@@ -25,12 +25,12 @@ const Thumbnails: FunctionComponent<ThumbnailsProps> = ({
       [styles.thumbnailOverflow]: overflow,
     })}
   >
-    {images.map((image, index) => (
+    {images?.map((image, index) => (
       <Thumbnail
         image={image}
         active={activeIndex === index}
         onClick={() => onClick && onClick(index)}
-        style={{ width: widthPercent(images.length, 10) }}
+        style={{ width: widthPercent(images?.length, 10) }}
         key={image.src}
       />
     ))}

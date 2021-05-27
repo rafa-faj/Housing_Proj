@@ -39,10 +39,10 @@ const SlideShow: FunctionComponent<PathProps> = ({
         indicators={!showPreview}
         className={cn({
           [styles.preview]: showPreview,
-          [styles.carouselOverflow]: images.length > 5,
+          [styles.carouselOverflow]: images?.length > 5,
         })}
       >
-        {images.map(({ src, alt }, index) => (
+        {images?.map(({ src, alt }, index) => (
           <SlideShowItem
             src={src}
             alt={alt}
@@ -58,7 +58,7 @@ const SlideShow: FunctionComponent<PathProps> = ({
         <Thumbnails
           images={images}
           activeIndex={activeIndex}
-          overflow={images.length > 5}
+          overflow={images?.length > 5}
           onClick={(index) => !animating && setActiveIndex(index)}
         />
       )}
