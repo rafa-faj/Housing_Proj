@@ -14920,6 +14920,13 @@ use-subscription@1.5.1:
   dependencies:
     object-assign "^4.1.1"
 
+use-window-width-breakpoints@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/use-window-width-breakpoints/-/use-window-width-breakpoints-1.0.10.tgz#710d81f77772cf4904d837b2213a0a46449dbf2a"
+  integrity sha512-I8/2RO//1q8v7SLNZNgHBk0sHGR/+/aem2BHy7hAEIwK+lLfBEF2cS4swZPveoTccDGiL6O3pxtIR0hIBwb+ag==
+  dependencies:
+    lodash.debounce "^4.0.8"
+
 use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
