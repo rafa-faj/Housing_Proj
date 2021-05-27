@@ -7,11 +7,13 @@ import ProfileModal from '../ProfileModal/ProfileModal';
 import { navIcons } from '@icons';
 import styles from './NavBar.module.scss';
 import { logout } from '@apis';
+import { useRouter } from 'next/router';
 
 const NavBar: FunctionComponent = () => {
   const [showProfile, setShowProfile] = useState<boolean>(false);
   const dispatch = useDispatch();
   const user = useUser();
+  const router = useRouter();
 
   return (
     <>
@@ -27,13 +29,22 @@ const NavBar: FunctionComponent = () => {
 
           <div>
             {!user ? (
-              <Button
-                variant="wrapper"
-                className={styles.navBtn}
-                onClick={() => dispatch(showLogin())}
-              >
-                Sign In
-              </Button>
+              router.pathname !== "/" ? (
+                <Button
+                  variant="wrapper"
+                  className={styles.navBtn}
+                  onClick={() => dispatch(showLogin())}
+                >
+                  Sign In
+                </Button>
+              ) : (
+                <Button
+                  className={styles.landingNavBtn}
+                  onClick={() => dispatch(showLogin())}
+                >
+                  Get Started
+                </Button>
+              )
             ) : (
               <>
                 <Button
