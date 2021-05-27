@@ -1,26 +1,62 @@
-
-
 // TODO: abstract common code from this and WizardForm to theme.scss
 $profile-form-middle-height: 90%;
 
-.topBar {
+.content{
+  margin-top: 4rem;
+}
+
+.UserInput{
+  width: 100%;
+}
+
+.selectionList {
   width: 100%;
   height: 5%;
-  display: flex;
   border-radius: $lg-border-radius $lg-border-radius 0 0;
   justify-content: center;
   margin-top: 2vh;
 }
 
-.title {
-  @include font-type('secondary-title');
-  font-weight: $regular-font-weight;
-  color: $secondary-dark-color;
+.titleNotSelected {
+  height: 3rem;
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: $md-font-size;
+  color: rgba(32, 32, 32, 0.6);
+  display: flex;
+}
+
+.titleSelected{
+  height: 3rem;
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: $md-font-size;
+  color: #E37F4E;
+  display: flex;
+}
+
+.selectOn{
+  color: #E37F4E;
+}
+
+.selectOff{
+  color: rgba(32, 32, 32, 0.6);
+}
+
+.selectItem{
+  padding-top: 0.25rem;
 }
 
 .divider {
-  color: $secondary-1-color;
-  font-size: x-large;
+  height: 45px;
+  width: 5px;
+  background-color: #E37F4E;
+  border-radius: 6.5rem;
+  margin: 0 1.5rem;
+}
+
+.dividerOff{
+  visibility: hidden;
 }
 
 .element {
@@ -28,7 +64,7 @@ $profile-form-middle-height: 90%;
   text-align: center;
   position: relative;
   top: -30px;
-  color: $secondary-1-color;
+  //color: $secondary-1-color;
   font-size: x-large;
 }
 
@@ -38,8 +74,8 @@ $profile-form-middle-height: 90%;
   left: 42px;
 }
 
-.profileSelected {
-  font-weight: bold !important;
+.mypost {
+  color:#a6623f;
 }
 
 .profile-selected-under {
@@ -55,24 +91,15 @@ $profile-form-middle-height: 90%;
 }
 
 .name {
-  text-align: center !important;
-  display: block;
   width: 100%;
   height: 25px;
   font-family: Montserrat;
   font-size: $lg-font-size;
   font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #a6623f;
 }
 
 .verified {
-  margin-top: 15px;
-  text-align: center !important;
-  color: $secondary-2-color;
+  //color: $secondary-2-color;
   font-size: $sm-font-size;
   font-weight: bold;
 }
@@ -88,11 +115,11 @@ $profile-form-middle-height: 90%;
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  color: $primary-input-color;
+  color: black;
 }
 
 .bio {
-  color: $primary-input-color;
+  //color: $primary-input-color;
 }
 
 .signOut {
@@ -101,7 +128,7 @@ $profile-form-middle-height: 90%;
 }
 
 .cancel {
-  color: $primary-input-color;
+  //color: $primary-input-color;
   text-decoration: underline;
 }
 
@@ -125,7 +152,6 @@ $profile-form-middle-height: 90%;
 
 .profileWrap {
   margin-top: 20px;
-  display: flex;
   justify-content: center;
 }
 
@@ -133,16 +159,28 @@ $profile-form-middle-height: 90%;
   height: 85px;
 }
 
+.smallText{
+  font-size: 12px;
+  margin-left: 0.5rem;
+  font-weight: normal;
+}
+
+.UserIdentifier{
+  color: #A64919;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
 .icon {
   border-style: solid;
   border-width: thin;
   border-color: $primary-light-color;
-  width: 100px;
-  height: 100px;
+  width: 54px;
+  height: 54px;
 }
 
 .postsList {
-  background-color: $primary-1-color;
+  //background-color: $primary-1-color;
   border-radius: 20px;
   padding: 20px;
   display: flex;
