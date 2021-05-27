@@ -1,49 +1,40 @@
 .root {
   .toggle {
-    @include font-type('primary-input-text');
+    @include font-type('body 1');
+    color: $primary-light-color;
     margin: 15px 10px;
-    border: 3px $primary-5-color solid;
+    border: 3px $primary-200-color solid;
     border-radius: $sm-border-radius;
     word-break: keep-all;
 
     &:hover, &:focus {
-      @include box-shadow($primary-input-color);
+      @include box-shadow($primary-light-color);
     }
   }
 
   .unselected {
     &, &:hover, &:focus {
-      border-color: $primary-5-color;
+      border-color: $primary-200-color;
       background-color: white;
-      color: $primary-5-color;
+      color: $primary-200-color;
     }
 
     svg {
-      fill: $primary-5-color;
+      fill: $primary-200-color;
       stroke: none;
-    }
-
-    @include mousedown {
-      @extend .selected;
-      @include box-shadow($primary-input-color);
     }
   }
 
   .selected {
     &, &:hover, &:focus {
-      border-color: $primary-input-color;
-      background-color: $primary-input-color;
+      border-color: $primary-light-color;
+      background-color: $primary-light-color;
       color: white;
     }
 
     svg {
       fill: white;
       stroke: none;
-    }
-
-    @include mousedown {
-      @extend .unselected;
-      @include box-shadow($primary-input-color);
     }
   }
 }

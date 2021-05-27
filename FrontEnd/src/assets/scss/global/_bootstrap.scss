@@ -3,15 +3,11 @@
 
 /* CHANGE BOOTSTRAP VARIABLES HERE */
 $theme-colors: (
-  'responsive-to-user': $responsive-to-user-color,
-  'focused': $focused-color,
-  'unfocused': $unfocused-color,
   'primary': $primary-light-color,
   'primary-light': $primary-light-color,
   'secondary': $primary-light-color,
-  'secondary-light': $secondary-1-color,
+  'secondary-light': $secondary-100-color,
   'secondary-dark': $secondary-dark-color,
-  'no-show': white,
 );
 
 $sizes: (
@@ -59,4 +55,15 @@ $modal-default-margin: map-get($spacers, 3);
   height: 10px;
   width: 10px;
   border-radius: 50%;
+}
+
+// Override padding and margin of container and col in bootstrap
+// (do so for columns by including .no-gutters in row)
+.container {
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  @extend .no-gutters;
 }

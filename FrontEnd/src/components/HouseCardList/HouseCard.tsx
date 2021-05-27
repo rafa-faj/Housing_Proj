@@ -5,17 +5,17 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import { SlideShow } from '@basics';
 import { formatRoomType } from '../../utils';
-import { useRoomData } from '@hooks';
+import { useLandlordRoomData } from '@hooks';
 import { useRouter } from 'next/dist/client/router';
 import styles from './HouseCard.module.scss';
-import { miscIcons } from '@icons'
+import { miscIcons } from '@icons';
 
 interface Props {
   roomId: number;
 }
 
 const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
-  const { data, error } = useRoomData(roomId);
+  const { data, error } = useLandlordRoomData(roomId);
   const router = useRouter();
 
   if (error) {
@@ -31,64 +31,69 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
   };
 
   const {
-    leaserEmail,
+    name,
     address,
-    photos,
-    numBaths,
-    numBeds,
-    formattedMoveIn,
-    negotiable,
-    pricePerMonth,
-    roomType,
     distance,
+    rent,
+    roomType,
+    availability,
+    leaseTerm,
+    petPolicy,
+    parking,
+    utilityDetails,
+    facility,
+    applicationFee,
+    holdingPeriod,
+    holdingDeposit,
+    housingDeposit,
+    verification,
+    proofOfIncome,
+    images,
   } = data;
 
-  const slideShowItems = photos.map((url) => ({
+  const slideShowItems = images?.map((url) => ({
     src: url,
-    alt: `${leaserEmail} , ${address}}`,
+    alt: `${name} , ${address}}`,
   }));
 
   const textCol = (
     <Col md={5} className={styles.secondCol}>
       <div className={styles.textPortion}>
         <div className={styles.day}>
-          <miscIcons.RoundArrow />  2 days ago
-                </div>
-        <div className={styles.price}>
-          Starting at <b>$1200/mo </b>
+          <miscIcons.RoundArrow /> 2 days ago
         </div>
+
+        <div className={styles.price}>
+          <b>{rent}</b>
+        </div>
+
         <div className={styles.distance}>
           <miscIcons.busIcon /> <b>~ {distance} transit</b>&nbsp;
         </div>
+
         <div className={styles.address}>
           <div className={styles.locationIcon}>
             <miscIcons.LocationIcon />
           </div>
-          <div>
-            {address}
-          </div>
+          <div>{address}</div>
         </div>
-        <div>
-          <div className={styles.room}>
-            {`${numBeds}Bed ${numBaths}Bath`}
-            <span className={styles.divider}> | </span>{' '}
-            {formatRoomType(roomType)} Room
-          </div>
+
+        <div className={styles.room}>
+          {roomType}
         </div>
-        <div>
-          <div className={styles.date}>
-            Available from June 1, 2021{/*{formattedMoveIn}*/}
-          </div>
+
+        <div className={styles.date}>
+          {availability}
         </div>
       </div>
     </Col>
-  )
+  );
 
   return (
     <Card className={styles.card}>
       <Card.Body className="p-0">
-        <Container>
-          <Row >
+        <Container className={styles.container}>
+          <Row>
             <Col md={7} className={styles.pic}>
               <SlideShow
                 images={slideShowItems}

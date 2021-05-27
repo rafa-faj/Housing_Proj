@@ -1,0 +1,48 @@
+.container{
+  max-width: 100%;
+  margin: 0;
+}
+
+.pic{
+  overflow: hidden;
+  padding: 0;    
+  
+  @include bp-down('sm') {
+    height: 16.875rem;
+  }
+}
+
+.day{
+  margin-bottom: 14px;
+}
+
+.name{
+  @include font-type('h4');
+  color: $secondary-900-color;
+  margin-bottom: 8px;
+}
+
+.address{
+  display: flex;
+  gap: 0.4rem;
+  @include font-type('body 2');
+  
+  div{
+    height: 100%;
+  }
+}
+
+.distance{
+  margin-bottom: 1.25rem;
+  @include font-type('body 2');
+}
+
+.map{
+  min-width: 500px;
+  height: 300px;
+  padding-left: 0rem !important;  
+}
+
+.textPortion{
+  margin-left: 0.5rem;
+}

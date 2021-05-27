@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import Row from 'react-bootstrap/Row';
-import { Button } from 'react-bootstrap';
+import { Button } from '@basics';
 import { HousePost } from '@models';
 import styles from './Bookmark.module.scss';
 import { useRoomData } from '@hooks';
@@ -27,7 +27,7 @@ const Bookmark: FunctionComponent<BookmarkProps> = ({ roomId }) => {
   return (
     <>
       <Button
-        variant="no-show"
+        variant="wrapper"
         className={styles.btnWrapper}
         onClick={routeToHouseProfile}
       >

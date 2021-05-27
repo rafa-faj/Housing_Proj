@@ -1,18 +1,24 @@
 
 
 .card {
-  /*@include thin-border('md');*/
-  background-color: #FFFFFF;/*$secondary-1-color;*/
+  background-color: white;
   border-radius: 0.5rem; // TODO make variable
   overflow: hidden;
-  height: 270px; //temporary, might remove later
-  box-shadow: 0 6px 10px 0 rgba(black, .14); //elevation 06dp
+  box-shadow: 0 0.4rem 0.6rem 0 rgba(black, .14); //elevation 06dp
+}
+
+.container{
+  max-width: 100%;
+  margin: 0;
 }
 
 .pic {
-  height: 270px;
   overflow: hidden;
   padding: 0;
+
+  @include bp-down('sm') {
+    height: 16.875rem;
+  }
   
 }
 
@@ -22,7 +28,7 @@
 }
 
 .textPortion{
-  margin-left: 8px;
+  margin-left: 0.5rem;
   font-family: Montserrat;
 }
 
@@ -31,49 +37,55 @@
   margin: 0;
 }
 
-.price{
-  margin-bottom: 24px;
-  color: #A64919;
-
-  b{
-    font-size: 20px;
-  }
+.day{
+  margin: 0.3rem 0 1.5rem 0;
+  color:#AAAAAA;
+  font-size: 0.8rem
 }
 
+.price{
+  margin-bottom: 1.5rem;
+  color: #A64919;
 
-.day{
-  margin: 5px 0 24px 0;
-  color:#AAAAAA;
-  font-size: 12px
+  b {
+    font-size: 1.6rem;
+  }
 }
 
 .distance {
-  margin-bottom: 8px;
-  font-size: 13px
+  margin-bottom: 0.5rem;
+  @include font-type('body 1')
 }
 
-.address{
-  margin-bottom: 30px;
-  display: flex;
-  font-size: 13px;
-  gap: 5px;
+.address {
+  $line-height: 1.275rem;
 
-  div{
+  margin-bottom: 1.8rem;
+  display: flex;
+  font-size: 0.85rem;
+  gap: 0.4rem;
+  overflow: hidden;
+  // set the height to be 2x the line-height, resulting in only 2 lines being displayed
+  line-height: $line-height;
+  height: $line-height * 2;
+
+  div {
     height: 100%;
+    display: flex;
+  }
+
+  .locationIcon {
+    align-items: center;
   }
 }
 
-.locationIcon{
-  margin-top: 1rem;
-}
-
-.room{
-  margin-bottom: 8px;
-  font-size: 13px;
+.oom{
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
   color: #797979
 }
 
 .date{
-  font-size: 13px;
+  font-size: 0.9rem;
   color: #797979
 }

@@ -2,7 +2,10 @@ import React, { FunctionComponent } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+<<<<<<< HEAD
 import Button from 'react-bootstrap/Button';
+=======
+>>>>>>> master
 import Image from 'react-bootstrap/Image';
 import { useDispatch } from 'react-redux';
 import { HousePost } from '@models';
@@ -10,7 +13,11 @@ import { contactIcons } from '@icons';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { LOGIN_TO_VIEW } from '@constants';
 import { useUser, showLogin } from '@redux';
+<<<<<<< HEAD
 import { Map } from '@basics';
+=======
+import { Map, Button } from '@basics';
+>>>>>>> master
 import { abbreviateAddress } from '@utils';
 import { useRoomBookmarks } from '@hooks';
 import styles from './ThirdColumn.module.scss';
@@ -79,15 +86,26 @@ const ThirdColumn: FunctionComponent<Props> = ({
     <Col sm={12} md={6} lg={4} className={styles.wrapper}>
       <div className={`${styles.topHalf} pl-lg-1`}>
         <div className={styles.favoriteWrapper}>
+<<<<<<< HEAD
           <Button variant="tertiary" block onClick={handleBookmarking}>
             {isBookmarked ? 'Unfavorite' : 'Favorite'}
           </Button>
           <Button variant="no-show">
+=======
+          <Button size="secondary" onClick={handleBookmarking}>
+            {isBookmarked ? 'Unfavorite' : 'Favorite'}
+          </Button>
+          <Button variant="wrapper">
+>>>>>>> master
             <contactIcons.share />
           </Button>
         </div>
 
+<<<<<<< HEAD
         <div className={styles.distance}>
+=======
+        <div>
+>>>>>>> master
           <b>~ {distance}</b>&nbsp;public transit from Price Center
         </div>
         <div className={styles.address}>{abbreviateAddress(address)}</div>
@@ -97,9 +115,15 @@ const ThirdColumn: FunctionComponent<Props> = ({
       <Container className={styles.bio}>
         <Row>
           <Col xs={8} lg={9} className={styles.textCenter}>
+<<<<<<< HEAD
             <div className="primary-text">{leaserName}</div>
 
             <div className="secondary-text">
+=======
+            <div>{leaserName}</div>
+
+            <div>
+>>>>>>> master
               {leaserSchoolYear} | {leaserMajor}
             </div>
 

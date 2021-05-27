@@ -6,7 +6,7 @@ import { loading } from '@icons';
 import HouseNotFound from '../HouseNotFound/HouseNotFound';
 import HouseCard from './HouseCard';
 import { useHousingMode, HousingMode, useFilterData } from '@redux';
-import { useRecentRoomIds, useRoomSearch } from '@hooks';
+import { useLandlordRoomIds, useRoomSearch } from '@hooks';
 
 const HouseCardListUI: FunctionComponent<{ roomIds: number[] }> = ({
   roomIds,
@@ -25,8 +25,7 @@ const HouseCardListUI: FunctionComponent<{ roomIds: number[] }> = ({
 };
 
 const BrowsingList: FunctionComponent = () => {
-  const { data: roomIds, error } = useRecentRoomIds();
-
+  const { data: roomIds, error } = useLandlordRoomIds();
   if (error) {
     return <div>Error occurred. Please reload the page.</div>; // TODO use a popup instead...
   }

@@ -1,4 +1,9 @@
-import { CreateHousePostProperties, HousePost, FilterModel } from '@models';
+import {
+  CreateHousePostProperties,
+  HousePost,
+  FilterModel,
+  LandlordHousePost,
+} from '@models';
 import { backendAPI, getDurationInMinutes } from '.';
 
 /**
@@ -8,6 +13,30 @@ import { backendAPI, getDurationInMinutes } from '.';
  */
 export const getRecentHousingPostIds = async () => {
   const response = await backendAPI.get<number[]>('/getRecentRoomIds');
+
+  return response.data;
+};
+
+/**
+ * Get IDs of recent landlord room posts made.
+ *
+ * @returns array of id numbers
+ */
+export const getRecentLandlordHousingPostIds = async () => {
+  const response = await backendAPI.get<number[]>('/getRecentLandlordRoomIds');
+
+  return response.data;
+};
+
+/**
+ * Get Room JSON of recent room posts made.
+ *
+ * @returns landlord Room JSONs of a particular room
+ */
+export const getRecentLandlordHousingJSONs = async (roomId: number) => {
+  const response = await backendAPI.get<LandlordHousePost>(
+    `/getRecentLandlordRooms/${roomId}`,
+  );
 
   return response.data;
 };

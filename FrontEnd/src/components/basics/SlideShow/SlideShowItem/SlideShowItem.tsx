@@ -3,6 +3,7 @@ import { CarouselItem, CarouselItemProps } from 'reactstrap';
 import cn from 'classnames';
 import Image from '../../FilledImage/FilledImage';
 import styles from './SlideShowItem.module.scss';
+import { Button } from '@basics';
 
 interface SlideShowItemProps extends CarouselItemProps {
   src: string;
@@ -26,14 +27,14 @@ const SlideShowItem: FunctionComponent<SlideShowItemProps> = ({
       className={cn(styles.item, className)}
     >
       {onClick ? (
-        <button
-          className="no-show w-100 h-100"
-          type="button"
+        <Button
+          variant="wrapper"
+          className="w-100 h-100"
           onClick={onClick}
           onKeyDown={({ key }) => key === 'Enter' && onClick()}
         >
           {imageElement}
-        </button>
+        </Button>
       ) : (
         imageElement
       )}

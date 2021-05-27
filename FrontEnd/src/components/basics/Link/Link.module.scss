@@ -1,0 +1,12 @@
+.link {
+  @include font-type('link');
+}
+
+.undecoratedLink {
+  &, & a, & a:hover {
+    @include font-type('link');
+
+    color: black;
+    text-decoration: none;
+  }
+}

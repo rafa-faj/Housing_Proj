@@ -4,14 +4,14 @@
   margin-top: 0.5rem;
 
   & svg {
-    fill: $secondary-color;
+    fill: $secondary-dark-color;
     stroke: none;
   }
 }
 
 .useStroke svg {
   fill: none;
-  stroke: $secondary-color;
+  stroke: $secondary-dark-color;
 }
 
 .container {
@@ -34,28 +34,32 @@
 }
 
 .houseType {
-  @include font-type('title');
-
+  color: $secondary-dark-color;
   padding: 0.5rem 1rem;
-  background-color: $secondary-1-color;
+  background-color: $secondary-100-color;
   border-radius: 0.25rem;
+
+  @include font-type('h4');
 }
 
 .priceWrapper {
-  @include font-type('price-related-large');
+  @include font-type('h4');
+  color: $primary-900-color;
 }
 
 .priceLabel {
-  @include font-type('subtitle');
+  @include font-type('caption');
   color: $primary-dark-color;
 }
 
 .subtitle {
-  @include font-type('subtitle');
+  @include font-type('caption');
+  color: $secondary-dark-color;
 }
 
 .primary {
-  @include font-type('primary-text');
+  @include font-type('body 1');
+  color: $secondary-dark-color;
 }
 
 .justifyCenter {

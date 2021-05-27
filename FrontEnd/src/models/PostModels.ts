@@ -1,4 +1,4 @@
-import { facilityToIcon } from '@components/HouseProfile';
+import { facilityToIcon } from '@components/OldHouseProfile';
 import { RoomType } from '../constants';
 
 export interface HousePost {
@@ -56,3 +56,25 @@ export type HousePostUserData = Pick<
   | 'leaserMajor'
   | 'profilePhoto'
 >;
+
+export interface LandlordHousePost {
+  name: string;
+  icon: string;
+  address: string;
+  distance:string;
+  rent: string;
+  roomType: string;
+  availability: string;
+  leaseTerm: string;
+  petPolicy: string;
+  parking: string;
+  utilityDetails: string;
+  facility: (keyof typeof facilityToIcon)[];
+  applicationFee: string;
+  holdingPeriod: string;
+  holdingDeposit: string;
+  housingDeposit: string;
+  verification: string;
+  proofOfIncome: string;
+  images: string[];
+}

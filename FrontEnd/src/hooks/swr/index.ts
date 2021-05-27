@@ -9,3 +9,9 @@ export * from './useRoomBookmarks';
 
 export { default as useRoomSearch } from './useRoomSearch';
 export * from './useRoomSearch';
+
+export { default as useLandlordRoomData } from './useLandlordRoomData';
+export * from './useLandlordRoomData';
+
+export { default as useLandlordRoomIds } from './useLandlordRoomIds';
+export * from './useLandlordRoomIds';

@@ -1,29 +1,17 @@
-// Setup the theme here (use variables whenever possible so they can be reused)
-// in other files.
+/**
+ * Setup the theme here (use variables whenever possible so they can be reused) in other files.
+ */
 
 body {
   font-family: $primary-font-stack;
-  background-color: white;
-}
-
-.disappear-on-xs {
-  @extend .d-none;
-  @extend .d-sm-flex;
-}
-
-.disappear-on-sm {
-  @extend .d-none;
-  @extend .d-md-flex;
+  background-color: $background-color;
 }
 
 /**
  * STYLE GUIDE BUTTONS
  */
-
-// btn = primary btn
-// .btn,
 .btn-primary {
-  @extend .rounded-pill;
+  @include rounded-pill-shape;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
   padding-left: 1.5rem;
@@ -40,11 +28,6 @@ body {
   box-shadow: none;
   border: 0;
 
-  @include mousedown {
-    background-color: $primary-dark-color !important;
-    box-shadow: none !important;
-  }
-
   &:hover {
     @include box-shadow($primary-dark-color);
     background-color: $primary-light-color;
@@ -56,17 +39,6 @@ body {
   }
 }
 
-.btn-secondary {
-  @extend .btn-primary;
-  font-size: $md-font-size;
-}
-
-.btn-tertiary {
-  @extend .btn-secondary;
-  padding-left: 3rem;
-  padding-right: 3rem;
-}
-
 .show > .btn-success.dropdown-toggle {
   background-color: $primary-light-color;
   border-color: $primary-light-color;
@@ -75,101 +47,30 @@ body {
   }
 }
 
-.btn-success {
-  border-color: $primary-light-color;
-
-  &:focus,
-  &:hover,
-  &:not(:disabled):not(.disabled):active {
-    background-color: $primary-light-color;
-    border-color: $primary-light-color;
-    box-shadow: none;
-    &:focus{
-      box-shadow: none;
-    }
-  }
+h1 {
+  @include font-type('h1');
 }
 
-.no-show {
-  @include no-show;
-
-  @include mousedown {
-    @include no-show;
-  }
-
-  &:hover,
-  &:active,
-  &:focus {
-    @include no-show;
-  }
+h2 {
+  @include font-type('h2');
 }
 
-.btn-no-show {
-  @extend .no-show;
+h3 {
+  @include font-type('h3');
 }
 
-/**
- * STYLE GUIDE TEXT CLASSES
- */
-.price-related-large-text {
-  @include font-type('price-related-large');
+h4 {
+  @include font-type('h4');
 }
 
-.price-related-small-text {
-  @include font-type('price-related-small');
+h5 {
+  @include font-type('h5');
 }
 
-.address-related-text {
-  @include font-type('address-related');
+b {
+  font-weight: $bold-font-weight;
 }
 
-.primary-input-text {
-  @include font-type('primary-input-text');
-}
-
-h1,
-.title {
-  @include font-type('title');
-}
-
-.secondary-title {
-  @include font-type('secondary-title');
-}
-
-.primary-text,
-.text-primary {
-  @include font-type('primary-text');
-}
-
-.secondary-text,
-.text-secondary {
-  @include font-type('secondary-text');
-}
-
-.tooltip-text {
-  @include font-type('tooltip');
-}
-
-p,
-.subtitle-text {
-  @include font-type('subtitle');
-}
-
-.special-text {
-  @include font-type('special');
-}
-
-/**
- * STYLE GUIDE BORDERS
- */
-.sm-thin-border {
-  @include thin-border('sm');
-}
-
-.md-thin-border {
-  @include thin-border('md');
-}
-
-.lg-thin-border {
-  @include thin-border('lg');
+a {
+  @include font-type('link');
 }
