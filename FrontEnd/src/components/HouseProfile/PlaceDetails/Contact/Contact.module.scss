@@ -10,6 +10,13 @@
   padding: 0.5rem 0 0.5rem 0.5rem;
 }
 
+.landlordProfile {
+  height: 2.5rem;
+  width: 2.5rem;
+
+  @include rounded-pill-shape;
+}
+
 .title {
   color: $primary-dark-color;
   margin-bottom: 0.75rem;

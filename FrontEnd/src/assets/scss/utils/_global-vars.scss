@@ -59,14 +59,14 @@ $regular-font-weight: 400;
 $light-font-weight: 300;
 
 // Font sizes
-$xxxl-font-size: 3.625rem; // 60px
-$xxl-font-size: 2.875rem; // 48px
-$xl-font-size: 2rem; // 34px
-$lg-font-size: 1.375rem; // 24px
-$md-font-size: 1rem; // 20px
-$sm-font-size: 0.875rem; // 16px
-$xs-font-size: 0.75rem; // 14px
-$xxs-font-size: 0.5rem; // 12px
+$xxxl-font-size: 3.625rem; // old value was: 60px (which was +0.125rem of what it is now)
+$xxl-font-size: 2.875rem; // old value was: 48px (which was +0.125rem of what it is now)
+$xl-font-size: 2rem; // old value was: 34px (which was +0.125rem of what it is now)
+$lg-font-size: 1.375rem; // old value was: 24px (which was +0.125rem of what it is now)
+$md-font-size: 1rem; // old value was: 20px (which was +0.125rem of what it is now)
+$sm-font-size: 0.875rem; // old value was: 16px (which was +0.125rem of what it is now)
+$xs-font-size: 0.75rem; // old value was: 14px (which was +0.125rem of what it is now)
+$xxs-font-size: 0.5rem; // old value was: 12px (which was +0.125rem of what it is now)
 
 /**
  * STYLE GUIDE OTHER VARS.

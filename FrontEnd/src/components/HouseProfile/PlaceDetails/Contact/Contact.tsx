@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import styles from './Contact.module.scss';
 import { useLandlordRoomData } from '@hooks';
-import { Body1, Body2, Link } from '@basics';
+import { Body1, Body2, Link, FilledImage } from '@basics';
 import { contactIcons } from '@icons';
 
 interface ContactProps {
@@ -19,12 +19,16 @@ const Contact: FunctionComponent<ContactProps> = ({ roomId }) => {
     return <div>Loading Contact Information...</div>; // TODO add a loader
   }
 
-  const { name, website, phone, email } = data;
+  const { name, website, phone, email, icon } = data;
 
   return (
     <div className={styles.wrapper}>
-      {/* TODO need to put apartment icon here */}
-      Icon Here
+      <FilledImage
+        src={icon}
+        alt={`${name}'s icon`}
+        className={styles.landlordProfile}
+      />
+
       <div className={styles.textWrapper}>
         <Body1 className={styles.title}>Contact {name}</Body1>
 
