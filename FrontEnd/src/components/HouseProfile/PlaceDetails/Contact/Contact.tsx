@@ -23,11 +23,13 @@ const Contact: FunctionComponent<ContactProps> = ({ roomId }) => {
 
   return (
     <div className={styles.wrapper}>
-      <FilledImage
-        src={icon}
-        alt={`${name}'s icon`}
-        className={styles.landlordProfile}
-      />
+      <div>
+        <FilledImage
+          src={icon}
+          alt={`${name}'s icon`}
+          className={styles.landlordProfile}
+        />
+      </div>
 
       <div className={styles.textWrapper}>
         <Body1 className={styles.title}>Contact {name}</Body1>
