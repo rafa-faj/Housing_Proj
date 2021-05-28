@@ -155,8 +155,6 @@ def get_row_if_exists(db_obj, session, **condition):
 def get_insert_id(base, session):
     """
     Get the id of to-be-inserted entry
-
-    NEED TO BE UNIT TESTED
     """
     last_row = session.query(base).order_by(base.id.desc()).first()
     new_room_id = 1 + (last_row.id if last_row else 0)
@@ -175,8 +173,6 @@ def read_criteria(base, condition_dict, session, mode="s"):
     get entries from db that fits a criteria
 
     mode supports single("s") and multiple("m")
-
-    NEED TO BE UNIT TESTED
     """
     try:
         # single entry mode

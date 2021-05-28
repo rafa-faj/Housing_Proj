@@ -985,7 +985,7 @@ class TestDbOperations(unittest.TestCase):
         self.assertEqual(len(all_user_query) == len(user_objects), True)
 
     def test_get_insert_id(self):
-        # Check if initial ID is zero
+        # Check if initial ID is one
         initial_id = crud.get_insert_id(User, self.session)
         self.assertEqual(initial_id == 1, True)
 
