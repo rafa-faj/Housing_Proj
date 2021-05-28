@@ -7,6 +7,9 @@ export * from './Dropdown';
 export { default as FilledImage } from './FilledImage';
 export * from './FilledImage';
 
+export { default as ImageDropdown } from './ImageDropdown';
+export * from './ImageDropdown';
+
 export { default as Input } from './Input';
 export * from './Input';
 

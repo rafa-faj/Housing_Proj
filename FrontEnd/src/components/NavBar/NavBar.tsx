@@ -1,5 +1,5 @@
 import React, { useState, FunctionComponent } from 'react';
-import { Button } from '@basics';
+import { Button, ImageDropdown } from '@basics';
 import Navbar from 'react-bootstrap/Navbar';
 import { useDispatch } from 'react-redux';
 import { useUser, showLogin, setUser } from '@redux';
@@ -28,43 +28,17 @@ const NavBar: FunctionComponent = () => {
           </div>
 
           <div>
-            {!user ? (
-              router.pathname !== "/" ? (
+            {user ? (
+              <>
                 <Button
-                  variant="wrapper"
                   className={styles.navBtn}
-                  onClick={() => dispatch(showLogin())}
-                >
-                  Sign In
-                </Button>
-              ) : (
-                <Button
-                  className={styles.landingNavBtn}
                   onClick={() => dispatch(showLogin())}
                 >
                   Get Started
                 </Button>
-              )
-            ) : (
-              <>
-                <Button
-                  variant="wrapper"
-                  className={styles.navBtn}
-                  onClick={() => setShowProfile(true)}
-                >
-                  Profile
-                </Button>
-                <Button
-                  variant="wrapper"
-                  className={styles.navBtn}
-                  onClick={() => {
-                    logout();
-                    dispatch(setUser(undefined)); // TODO should be with logout function
-                  }}
-                >
-                  Log Out
-                </Button>
               </>
+            ) : (
+              <ImageDropdown />
             )}
           </div>
         </div>

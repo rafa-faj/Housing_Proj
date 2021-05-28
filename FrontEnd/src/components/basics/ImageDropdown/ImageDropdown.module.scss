@@ -1,0 +1,18 @@
+.profileImage {
+  border: $default-border-width solid $primary-light-color;
+  border-radius: 50%;
+}
+
+.profileToggle::after {
+  content: none !important;
+}
+
+.dropdownMenu {
+  border-radius: 0.5rem;
+}
+
+.dropdownText {
+  font-size: $sm-font-size;
+  font-weight: $bold-font-weight !important;
+  margin: 1rem;
+}
