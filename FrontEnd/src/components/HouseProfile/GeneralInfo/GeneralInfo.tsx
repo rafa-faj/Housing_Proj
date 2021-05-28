@@ -23,7 +23,7 @@ const GeneralInfo: FunctionComponent<GeneralInfoProps> = ({
   const textCol = (
     <div className={styles.textPortion}>
       <div className={styles.day}>
-        <miscIcons.RoundArrow /> 2 days ago
+        <miscIcons.RoundArrow /> 1 days ago
       </div>
       <div className={styles.name}>{name}</div>
       <div className={styles.address}>

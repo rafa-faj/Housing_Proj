@@ -1,4 +1,4 @@
-import { facilityToIcon } from '@components/OldHouseProfile';
+import { Amenity } from '@basics';
 import { RoomType } from '../constants';
 
 export interface HousePost {
@@ -19,7 +19,7 @@ export interface HousePost {
   profilePhoto: string;
   roomId: number;
   other: string[];
-  facilities: (keyof typeof facilityToIcon)[];
+  facilities: Amenity[];
   negotiable: boolean;
   numBaths: string;
   numBeds: string;
@@ -69,7 +69,7 @@ export interface LandlordHousePost {
   petPolicy: string;
   parking: string;
   utilityDetails: string;
-  facility: (keyof typeof facilityToIcon)[]; // TODO change key to 'ies'
+  facility: Amenity[]; // TODO change key to 'amenities'
   applicationFee: string;
   holdingPeriod: string;
   holdingDeposit: string;

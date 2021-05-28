@@ -6,12 +6,8 @@ import HouseCardList from '@components/HouseCardList';
 import styles from './HouseBrowsing.module.scss';
 
 const Housing: FunctionComponent = () => {
-  
   return (
     <>
-      {/* TODO not currently used in this version... <HousingPost show={showHousingPost} setShow={setShowHousingPost} /> */}
-
-
       <div className={styles.filter}>
         <Filter />
       </div>

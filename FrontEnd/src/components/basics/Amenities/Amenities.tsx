@@ -3,27 +3,45 @@ import React, {
   DetailedHTMLProps,
   HTMLAttributes,
 } from 'react';
-import { largeAmenitiesIcons, IconProps } from '@icons';
+import { amenityIcons, IconProps } from '@icons';
 import Col, { ColProps } from 'react-bootstrap/Col';
 import styles from './Amenities.module.scss';
 import cn from 'classnames';
 
 export const amenityToIcon = {
-  'Pets Friendly': largeAmenitiesIcons.petsFriendly,
-  'Common Area': largeAmenitiesIcons.sharedCommonSpace,
-  Furnished: largeAmenitiesIcons.furnished,
-  'A/C': largeAmenitiesIcons.airConditioning,
-  'No Smoking': largeAmenitiesIcons.smokeFree,
-  'Indoor Laundry': largeAmenitiesIcons.indoorWasher,
-  'Outdoor Parking': largeAmenitiesIcons.outdoorParking,
-  'Indoor Parking': largeAmenitiesIcons.indoorParking,
-  'Swimming Pool': largeAmenitiesIcons.swimmingPool,
-  'Hardwood Floor': largeAmenitiesIcons.hardwoodFloor,
-  Elevator: largeAmenitiesIcons.elevator,
-  Gym: largeAmenitiesIcons.gym,
+  'Air Conditioning': amenityIcons.AC,
+  'Balcony / Patio': amenityIcons.BalconyPatio,
+  Bath: amenityIcons.Bath,
+  Calendar: amenityIcons.Calendar,
+  'Cat Friendly': amenityIcons.CatFriendly,
+  'Ceiling Fan': amenityIcons.CeilingFan,
+  Clubhouse: amenityIcons.Clubhouse,
+  Dishwasher: amenityIcons.Dishwasher,
+  'Dog Friendly': amenityIcons.DogFriendly,
+  Elevator: amenityIcons.Elevator,
+  Furnished: amenityIcons.Furnished,
+  'Fitness Center': amenityIcons.Gym,
+  Gym: amenityIcons.Gym,
+  'Walk-in Closets': amenityIcons.Hanger,
+  'Hardwood Floor': amenityIcons.HardwoodFloor,
+  'Parking Garage': amenityIcons.IndoorParking,
+  'Indoor Laundry': amenityIcons.IndoorWasher,
+  'In-unit Laundry': amenityIcons.IndoorWasher,
+  'On-site Movie Theater': amenityIcons.MovieTheater,
+  'On-site Storage': amenityIcons.OnsiteStorage,
+  'Outdoor Parking': amenityIcons.OutdoorParking,
+  Parking: amenityIcons.Parking,
+  'Pets Friendly': amenityIcons.PetsFriendly,
+  'Pool Tables': amenityIcons.Pool,
+  'Common Space': amenityIcons.SharedCommonSpace,
+  'Smoke Free': amenityIcons.SmokeFree,
+  'Swimming Pool': amenityIcons.SwimmingPool,
+  'Tennis Courts': amenityIcons.TennisCourt,
 };
 
-const allAmenityKeys = Object.keys(amenityToIcon) as [
+export type Amenity = keyof typeof amenityToIcon;
+
+export const allAmenityKeys = Object.keys(amenityToIcon) as [
   keyof typeof amenityToIcon,
 ];
 
@@ -33,14 +51,14 @@ interface AmenitiesProps extends ColProps {
    * The selected amenities to render. If `undefined`, all of them will be rendered
    * (set selected to be an empty array if you don't want any to be rendered)
    */
-  selected?: [keyof typeof amenityToIcon];
+  selected?: Amenity[];
 
   /**
    * Component that wraps every icon (icon is passed as `children`)
    */
   // TODO iconWrapper?: FunctionComponent<any> | Component<any, any, any>;
   // temporary below
-  // useCol?: boolean;
+  useCol?: boolean;
 
   /**
    * Select which variant of the Icon/Label pair you want. By default, `horizontal` is selected.
@@ -59,42 +77,54 @@ interface AmenitiesProps extends ColProps {
    * Props to pass through to the icon
    */
   iconProps?: IconProps;
+
+  colClassName?: string;
+
+  extraContent?: any;
 }
 
 const Amenities: FunctionComponent<AmenitiesProps> = ({
   selected: selectedByProp,
   // TODO iconWrapper: IconWrapper = Col,
   variant = 'horizontal',
-  // TODO useCol,
+  useCol,
   iconProps,
+  className,
+  colClassName,
+  extraContent,
   ...props
 }) => {
-  return <div />;
   const selected = selectedByProp || allAmenityKeys;
 
-  // TODO const Wrapper: FunctionComponent<any> = (props) =>
-  //   useCol ? <Col {...props} /> : <div {...props} />;
-  const Wrapper: FunctionComponent<any> = (props) => <Col {...props} />;
+  const Wrapper: FunctionComponent<any> = (props) =>
+    useCol ? <Col {...props} /> : <div {...props} />;
 
   return (
-    <Wrapper className="d-flex" {...props}>
-      {/* {selected.map((s) => {
+    <div className={cn(styles.wrapperDefault, className)}>
+      {selected.map((s) => {
         const SelectedIcon = amenityToIcon[s];
         const Icon = () => (variant !== 'onlyLabel' ? <SelectedIcon /> : null);
         const Label = () => (variant !== 'onlyIcon' ? <div>{s}</div> : null);
 
         return (
           // TODO should return the icon wrapper... but not sure what the type should be
-          <div
-            className={cn(styles.default, {
+          <Wrapper
+            className={cn(styles.default, colClassName, {
               [styles.vertical]: variant === 'vertical',
             })}
+            {...props}
           >
-            {/* <Icon {...iconProps} /> <Label /> 
-          </div>
+            <div>
+              <Icon {...iconProps} /> <Label />
+            </div>
+          </Wrapper>
         );
-      })} */}
-    </Wrapper>
+      })}
+
+      <Wrapper className={cn(styles.default, colClassName)} {...props}>
+        {extraContent}
+      </Wrapper>
+    </div>
   );
 };
 

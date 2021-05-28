@@ -37,17 +37,6 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
     rent,
     roomType,
     availability,
-    leaseTerm,
-    petPolicy,
-    parking,
-    utilityDetails,
-    facility,
-    applicationFee,
-    holdingPeriod,
-    holdingDeposit,
-    housingDeposit,
-    verification,
-    proofOfIncome,
     images,
   } = data;
 
@@ -57,14 +46,18 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
   }));
 
   const textCol = (
-    <Col md={5} className={styles.secondCol}>
+    <Col
+      md={5}
+      className={styles.secondCol}
+      onClick={() => routeToHouseProfile(roomId)}
+    >
       <div className={styles.textPortion}>
         <div className={styles.day}>
-          <miscIcons.RoundArrow /> 2 days ago
+          <miscIcons.RoundArrow /> 1 days ago
         </div>
 
         <div className={styles.price}>
-          <b>{rent}</b>
+          <b>{rent} /mo</b>
         </div>
 
         <div className={styles.distance}>
@@ -78,13 +71,9 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
           <div>{address}</div>
         </div>
 
-        <div className={styles.room}>
-          {roomType}
-        </div>
+        <div className={styles.room}>{roomType}</div>
 
-        <div className={styles.date}>
-          {availability}
-        </div>
+        <div className={styles.date}>Available {availability}</div>
       </div>
     </Col>
   );

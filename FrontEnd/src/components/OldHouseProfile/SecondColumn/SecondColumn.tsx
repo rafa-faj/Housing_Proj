@@ -15,7 +15,7 @@ const Ellipse: FunctionComponent = () => (
   </Row>
 );
 
-export const facilityToIcon = {
+const facilityToIcon = {
   'Pets Friendly': <largeAmenitiesIcons.petsFriendly />,
   'Common Area': <largeAmenitiesIcons.sharedCommonSpace />,
   Furnished: <largeAmenitiesIcons.furnished />,

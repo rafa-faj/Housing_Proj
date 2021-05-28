@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import useBreakpoints from 'use-window-width-breakpoints';
-import { Subtitle2, Body2, Amenities } from '@basics';
+import { Subtitle2, Body2, Amenities, Link } from '@basics';
 import SectionTitle from '../SectionTitle/SectionTitle';
 
 interface PlaceDetailsProps {
@@ -34,6 +34,7 @@ const PlaceDetails: FunctionComponent<PlaceDetailsProps> = ({ roomId }) => {
     parking,
     utilityDetails,
     facility,
+    website,
   } = data;
 
   // Used in RentAndHouseDetails to display information with labels
@@ -75,14 +76,32 @@ const PlaceDetails: FunctionComponent<PlaceDetailsProps> = ({ roomId }) => {
     </Col>
   );
 
-  const Amenities: FunctionComponent = () => (
+  const amenityColConfigurations = {
+    sm: 6,
+    md: 4,
+    lg: 3,
+    xl: 2,
+  };
+
+  const AmenitiesSection: FunctionComponent = () => (
     <Row className={styles.amenitiesWrapper}>
       <Subtitle2>Amenities</Subtitle2>
 
       <Container>
         <Body2>
           <Row>
-            <Amenities />
+            <Amenities
+              selected={facility}
+              {...amenityColConfigurations}
+              className={styles.amenities}
+              colClassName={styles.amenity}
+              extraContent={
+                <Link href={website} external>
+                  More on website
+                </Link>
+              }
+              useCol
+            />
           </Row>
         </Body2>
       </Container>
@@ -105,7 +124,9 @@ const PlaceDetails: FunctionComponent<PlaceDetailsProps> = ({ roomId }) => {
           <RentAndHouseDetails />
         </Col>
 
-        <Col xs={12} md={4} className="pl-md-3">
+        {breakpoint.down.md && <AmenitiesSection />}
+
+        <Col xs={12} lg={4} className="pl-md-3">
           {breakpoint.up.lg ? (
             <>
               <Contact roomId={roomId} />
@@ -120,7 +141,7 @@ const PlaceDetails: FunctionComponent<PlaceDetailsProps> = ({ roomId }) => {
         </Col>
       </Row>
 
-      <Amenities />
+      {breakpoint.up.lg && <AmenitiesSection />}
     </Container>
   );
 };

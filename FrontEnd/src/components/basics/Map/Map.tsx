@@ -47,7 +47,7 @@ const GoogleMap: FunctionComponent<PathProps> = ({ address, className }) => {
   ));
 
   return (
-    <div className={cn(styles.wrapper, 'px-3', className)}>
+    <div className={cn(styles.wrapper, className)}>
       <GoogleMapRender
         containerElement={<div style={{ height: `100%` }} />}
         mapElement={<div style={{ height: `100%` }} />}

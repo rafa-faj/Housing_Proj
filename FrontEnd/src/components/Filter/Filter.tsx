@@ -1,29 +1,22 @@
 import React, { FunctionComponent } from 'react';
-import { Button } from '@basics';
 import { useDispatch } from 'react-redux';
-import FilterForm from './FilterForm/FilterForm';
 import { filterIcons } from '@icons';
-import { setShow, useShouldShowFilter } from '@redux';
+import { setShow } from '@redux';
 import styles from './Filter.module.scss';
 
 const Filter: FunctionComponent = () => {
   const dispatch = useDispatch();
-  const showFilter = useShouldShowFilter();
   const setShowFilter = (value: boolean) => dispatch(setShow(value));
 
   return (
     <>
-      {/* Header in the home page */}
       <div className={`${styles.filter} px-lg-5 px-md-4`}>
         <filterIcons.hello className="d-none d-md-flex" />
         <filterIcons.arrow className="d-none d-md-flex" />
-        <Button onClick={() => setShowFilter(true)}>Find your place</Button>
+        <h2 className={styles.homehubOrange}>Homehub</h2>
         <filterIcons.arrow className="d-none d-md-flex" />
         <filterIcons.loveHouse className="d-none d-md-flex" />
       </div>
-
-      {/* The filter itself */}
-      <FilterForm show={showFilter} setShow={setShowFilter} />
     </>
   );
 };

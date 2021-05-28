@@ -30,6 +30,26 @@ $base-padding: 1rem;
   }
 }
 
+.amenity {
+  padding-right: $base-padding;
+  
+  @include bp('xs') {
+    padding: $base-padding 0;
+  }
+}
+
+.amenities {
+  display: flex;
+
+  div {
+    flex-basis: 0;
+    padding-right: 0.5rem;
+    display: inline-flex;
+    white-space: nowrap;
+    align-items: center;
+  }
+}
+
 .detailFormat{
   white-space: pre-line;
 }

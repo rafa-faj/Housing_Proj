@@ -7,13 +7,14 @@ import HouseNotFound from '../HouseNotFound/HouseNotFound';
 import HouseCard from './HouseCard';
 import { useHousingMode, HousingMode, useFilterData } from '@redux';
 import { useLandlordRoomIds, useRoomSearch } from '@hooks';
+import styles from './HouseCardList.module.scss';
 
 const HouseCardListUI: FunctionComponent<{ roomIds: number[] }> = ({
   roomIds,
 }) => {
   return (
     <Container fluid>
-      <Row>
+      <Row className={styles.cardRow}>
         {roomIds.map((roomId) => (
           <Col xs={12} md={10} lg={6} key={roomId} className="mb-5">
             <HouseCard roomId={roomId} />

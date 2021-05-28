@@ -1,22 +1,26 @@
-import * as smallAmenitiesIcons from './small';
-import * as largeAmenitiesIcons from './large';
-
-const translations: Record<
-  keyof typeof largeAmenitiesIcons | keyof typeof smallAmenitiesIcons,
-  string
-> = {
-  petsFriendly: 'Pets Friendly',
-  sharedCommonSpace: 'Common Area',
-  furnished: 'Furnished',
-  airConditioning: 'A/C',
-  smokeFree: 'No Smoking',
-  indoorWasher: 'Indoor Laundry',
-  outdoorParking: 'Outdoor Parking',
-  indoorParking: 'Indoor Parking',
-  swimmingPool: 'Swimming Pool',
-  hardwoodFloor: 'Hardwood Floor',
-  elevator: 'Elevator',
-  gym: 'Gym',
-};
-
-export { smallAmenitiesIcons, largeAmenitiesIcons, translations };
+export { default as AC } from './AC.svg';
+export { default as BalconyPatio } from './BalconyPatio.svg';
+export { default as Bath } from './Bath.svg';
+export { default as Calendar } from './Calendar.svg';
+export { default as CatFriendly } from './Cat friendly.svg';
+export { default as CeilingFan } from './CeilingFan.svg';
+export { default as Clubhouse } from './Clubhouse.svg';
+export { default as Dishwasher } from './Dishwasher.svg';
+export { default as DogFriendly } from './Dog friendly.svg';
+export { default as Elevator } from './Elevator.svg';
+export { default as Furnished } from './Furnished.svg';
+export { default as Gym } from './Gym.svg';
+export { default as Hanger } from './Hanger.svg';
+export { default as HardwoodFloor } from './Hardwood floor.svg';
+export { default as IndoorParking } from './Indoor Parking.svg';
+export { default as IndoorWasher } from './Indoor washer.svg';
+export { default as MovieTheater } from './Movie theater.svg';
+export { default as OnsiteStorage } from './On-site storage.svg';
+export { default as OutdoorParking } from './Outdoor Parking.svg';
+export { default as Parking } from './Parking.svg';
+export { default as PetsFriendly } from './Pets friendly.svg';
+export { default as Pool } from './Pool.svg';
+export { default as SharedCommonSpace } from './Shared common space.svg';
+export { default as SmokeFree } from './Smoke free.svg';
+export { default as SwimmingPool } from './Swimming pool.svg';
+export { default as TennisCourt } from './Tennis court.svg';

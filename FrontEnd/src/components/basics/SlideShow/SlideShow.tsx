@@ -54,7 +54,7 @@ const SlideShow: FunctionComponent<PathProps> = ({
         ))}
       </Carousel>
 
-      {showPreview && (
+      {showPreview && images.length > 1 && (
         <Thumbnails
           images={images}
           activeIndex={activeIndex}

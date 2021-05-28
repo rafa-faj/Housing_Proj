@@ -1,5 +1,3 @@
-
-
 .filter {
   display: flex;
   align-items: center;
@@ -8,4 +6,8 @@
   box-shadow: 2px 4px 8px rgba(164, 97, 62, 0.3);
   border-radius: 22px;
   margin-bottom: 5vh;
+}
+
+.homehubOrange {
+  color: $primary-400-color;
 }
