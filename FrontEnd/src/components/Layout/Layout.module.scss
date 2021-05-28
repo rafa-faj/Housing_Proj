@@ -1,6 +1,6 @@
 .layout {
-    margin-right: 6.25rem;
-    margin-left: 6.25rem;
+    margin-right: $entire-site-margin-x;
+    margin-left: $entire-site-margin-x;
     margin-top: $filter-top-margin;
 
     @include bp-down('sm') {

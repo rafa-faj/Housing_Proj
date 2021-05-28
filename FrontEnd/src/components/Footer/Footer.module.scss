@@ -1,8 +1,12 @@
 .wrapper {
   width: 100%;
   background-color: $primary-50-color;
-  padding: 3rem 5rem;
+  padding: 3rem $entire-site-margin-x;
   margin-top: $filter-top-margin;
+
+  @include bp-down('sm') {
+    padding: 3rem 0;
+  }
 }
 
 // provides margin bottom to every child except last one

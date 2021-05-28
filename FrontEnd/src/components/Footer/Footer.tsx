@@ -90,15 +90,15 @@ const Footer: FunctionComponent = () => (
     <div className={cn(styles.wrapper)}>
       <Container className="m-0">
         <Row>
-          <Col md={2} className="mb-5 mb-md-0">
+          <Col xs={4} md={3} className="mb-5 mb-md-0">
             <FirstColumn />
           </Col>
 
-          <Col md={6} className="mb-5 mb-md-0">
+          <Col xs={4} md={6} className="mb-5 mb-md-0">
             <SecondColumn />
           </Col>
 
-          <Col md={4}>
+          <Col xs={4} md={3}>
             <ThirdColumn />
           </Col>
         </Row>
