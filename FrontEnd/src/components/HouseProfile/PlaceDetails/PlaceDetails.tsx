@@ -44,7 +44,7 @@ const PlaceDetails: FunctionComponent<PlaceDetailsProps> = ({ roomId }) => {
       </span>
     ),
     'Lease Term': leaseTerm,
-    'Pet Policy': petPolicy,
+    'Pet Policy': <div className={styles.detailFormat}>{petPolicy}</div>,
     Parking: parking,
   };
 
