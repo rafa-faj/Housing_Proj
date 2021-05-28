@@ -45,3 +45,6 @@ export * from './Body1';
 
 export { default as Body2 } from './Body2';
 export * from './Body2';
+
+export { default as Amenities } from './Amenities';
+export * from './Amenities';

@@ -69,7 +69,7 @@ export interface LandlordHousePost {
   petPolicy: string;
   parking: string;
   utilityDetails: string;
-  facility: (keyof typeof facilityToIcon)[];
+  facility: (keyof typeof facilityToIcon)[]; // TODO change key to 'ies'
   applicationFee: string;
   holdingPeriod: string;
   holdingDeposit: string;

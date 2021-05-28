@@ -1,0 +1,10 @@
+.default {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vertical {
+  flex-direction: column;
+  text-align: center;
+}

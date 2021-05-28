@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import useBreakpoints from 'use-window-width-breakpoints';
-import { Subtitle2, Body2 } from '@basics';
+import { Subtitle2, Body2, Amenities } from '@basics';
 import SectionTitle from '../SectionTitle/SectionTitle';
 
 interface PlaceDetailsProps {
@@ -80,13 +80,11 @@ const PlaceDetails: FunctionComponent<PlaceDetailsProps> = ({ roomId }) => {
       <Subtitle2>Amenities</Subtitle2>
 
       <Container>
-        <Row>
-          {/* TODO for each amenity, display 
-          <Col>
-            it's icon, <Body2>it's amenity</Body2> // TODO Body2 returns a div, not a span? How to handle this?
-          </Col>
-        */}
-        </Row>
+        <Body2>
+          <Row>
+            <Amenities />
+          </Row>
+        </Body2>
       </Container>
     </Row>
   );

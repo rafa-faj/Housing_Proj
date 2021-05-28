@@ -16,14 +16,6 @@ const Ellipse: FunctionComponent = () => (
 );
 
 export const facilityToIcon = {
-  // Parking: <facilityIcons.parking />,
-  // Elevator: <facilityIcons.elevator />,
-  // 'Gym room': <facilityIcons.gym />,
-  // 'Swimming pool': <facilityIcons.swimmingPool />,
-  // 'Pets friendly': <facilityIcons.petsFriendly />,
-  // 'Indoor washer': <facilityIcons.indoorWasher />,
-
-  // TODO need to edit above icons in new format and make actual icons for the below ones
   'Pets Friendly': <largeAmenitiesIcons.petsFriendly />,
   'Common Area': <largeAmenitiesIcons.sharedCommonSpace />,
   Furnished: <largeAmenitiesIcons.furnished />,
