@@ -4,11 +4,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import { SlideShow } from '@basics';
-import { formatRoomType } from '../../utils';
+import { formatRoomType, formatHouseCardRent } from '@utils';
 import { useLandlordRoomData } from '@hooks';
-import { useRouter } from 'next/dist/client/router';
+import { isRunningDev } from '@utils';
 import styles from './HouseCard.module.scss';
 import { miscIcons } from '@icons';
+import { PRODUCTION_BASE_URL, DEV_BASE_URL } from '@constants';
 
 interface Props {
   roomId: number;
@@ -16,7 +17,6 @@ interface Props {
 
 const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
   const { data, error } = useLandlordRoomData(roomId);
-  const router = useRouter();
 
   if (error) {
     return <div>Error occurred!</div>; // TODO handle error in a different way
@@ -27,7 +27,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
   }
 
   const routeToHouseProfile = (id: number) => {
-    router.push(`/housing/${id}`, undefined, { shallow: true });
+    window.open(`/housing/${id}`, '_ blank')
   };
 
   const {
@@ -40,6 +40,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
     images,
   } = data;
 
+  const formattedRent = formatHouseCardRent(rent);
   const slideShowItems = images?.map((url) => ({
     src: url,
     alt: `${name} , ${address}}`,
@@ -57,7 +58,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
         </div>
 
         <div className={styles.price}>
-          <b>{rent} /mo</b>
+          <b>{formattedRent}+ /mo</b>
         </div>
 
         <div className={styles.distance}>
