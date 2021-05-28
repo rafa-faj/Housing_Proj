@@ -7,6 +7,7 @@ import { isRunningInStorybook } from '@utils';
 interface LinkProps extends NextJSLinkProps {
   className?: string;
   external?: boolean; // Require the use of a non NextJS Link (primarily useful for external links), https://nextjs.org/docs/api-reference/next/link
+  openInNewTab?: boolean; // makes the link open in a new tab
   undecorated?: boolean; // make the link text undecorated (make it black and with no underline)
 }
 
@@ -19,6 +20,7 @@ const Link: FunctionComponent<LinkProps> = ({
   children,
   href,
   external,
+  openInNewTab,
   undecorated,
   ...props
 }) => {
@@ -27,10 +29,13 @@ const Link: FunctionComponent<LinkProps> = ({
     [styles.undecoratedLink]: undecorated,
   });
 
+  // Create the target that will be used to open link in new tab if necessary
+  const target = external || openInNewTab ? '_blank' : '';
+
   if (isRunningInStorybook() || external) {
     return (
       <div className={joinedClassNames}>
-        <a href={href.toString()} {...props}>
+        <a href={href.toString()} target={target} {...props}>
           {children}
         </a>
       </div>
@@ -40,7 +45,7 @@ const Link: FunctionComponent<LinkProps> = ({
   return (
     <div className={joinedClassNames}>
       <NextJSLink href={href} {...props}>
-        <a>{children}</a>
+        <a target={target}>{children}</a>
       </NextJSLink>
     </div>
   );

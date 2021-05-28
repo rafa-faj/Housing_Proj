@@ -46,7 +46,7 @@ const Contact: FunctionComponent<ContactProps> = ({ roomId }) => {
 
         <div className={styles.contactInfo}>
           <Link href={website} external>
-            <contactIcons.internetGlobe /> {website}
+            <contactIcons.internetGlobe /> Website
           </Link>
         </div>
       </div>

@@ -41,7 +41,7 @@ const ApplicationDetails: FunctionComponent<ApplicationDetailsProps> = ({
   const details = {
     'Application Fee': (
       <div className="d-flex">
-        ${applicationFee}/applicant
+        {applicationFee}
         <Link href={website} external className={styles.applyNowLink}>
           Apply Now
         </Link>
