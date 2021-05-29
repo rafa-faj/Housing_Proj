@@ -21,7 +21,7 @@ interface PathProps {
 
 const GoogleMap: FunctionComponent<PathProps> = ({ address, className }) => {
   const [center, setCenter] = useState<Coords>({ lat: 32.8801, lng: -117.234 }); // TODO this is no good. We need to have a loading symbol in the map when this is not set. Solution: Keep track of when the center is set from useEffect (use a var with useState). If it hasn't been set yet, then instead of showing the mapPin, show the loading gif
-  const [zoom, setZoom] = useState(12);
+  const [zoom, setZoom] = useState(14);
 
   useAsyncEffect(
     async (isMounted) => {
