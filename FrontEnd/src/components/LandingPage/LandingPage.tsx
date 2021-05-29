@@ -76,9 +76,9 @@ const Landing: FunctionComponent = () => {
     <Row className={styles.intro}>
           <Col className={styles.housingicon}><landingIcons.housing /></Col>
           <Col className={styles.textIntro}>
-            <div className={styles.textLg}>What is HomeHub?</div>
+            <div className={styles.textLg}>What is Homehub?</div>
             <div className={styles.subtextIntro}>
-              Homehub connects students with their peers within UCSD, 
+              Homehub connects students with their peers within UCSD 
               to create a reliable housing network for college students 
               to find great places to live.
             </div>
@@ -87,7 +87,7 @@ const Landing: FunctionComponent = () => {
 
     <Row className={styles.intro}>
       <Row className={styles.bigRow}>
-        <div className={styles.textLg}>Why HomeHub?</div>
+        <div className={styles.textLg}>Why Homehub?</div>
       </Row>
       <WhyHomeHubInfo></WhyHomeHubInfo>
       <Row className={styles.center}>

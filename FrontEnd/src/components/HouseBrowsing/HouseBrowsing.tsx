@@ -14,7 +14,7 @@ const Housing: FunctionComponent = () => {
         <Filter />
       </div>
 
-      <div className="px-md-0 px-3">
+      <div className="px-md-0 px-3 pb-3">
         <Body2>Posts are arranged by earliest to latest available time</Body2>
       </div>
 
