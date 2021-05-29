@@ -67,11 +67,15 @@ const ApplicationDetails: FunctionComponent<ApplicationDetailsProps> = ({
 
   return (
     <Container>
-      <SectionTitle>To Apply</SectionTitle>
+      <Row>
+        <Col>
+          <SectionTitle>To Apply</SectionTitle>
+        </Col>
+        
+        <ApplicationDetailTiles />
 
-      <ApplicationDetailTiles />
-
-      <ProofOfIncome proofOfIncome={proofOfIncome} />
+        <ProofOfIncome proofOfIncome={proofOfIncome} />
+      </Row>
     </Container>
   );
 };

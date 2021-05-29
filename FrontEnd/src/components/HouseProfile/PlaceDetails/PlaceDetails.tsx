@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 import useBreakpoints from 'use-window-width-breakpoints';
 import { Subtitle2, Body2, Amenities, Link } from '@basics';
 import SectionTitle from '../SectionTitle/SectionTitle';
+import cn from 'classnames';
 
 interface PlaceDetailsProps {
   roomId: number;
@@ -126,7 +127,7 @@ const PlaceDetails: FunctionComponent<PlaceDetailsProps> = ({ roomId }) => {
 
         {breakpoint.down.md && <AmenitiesSection />}
 
-        <Col xs={12} lg={4} className="pl-md-3">
+        <Col xs={12} lg={4} className={cn(styles.ColWrapper, "pl-md-3")}>
           {breakpoint.up.lg ? (
             <>
               <Contact roomId={roomId} />

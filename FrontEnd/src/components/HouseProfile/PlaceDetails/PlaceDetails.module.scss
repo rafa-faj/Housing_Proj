@@ -32,6 +32,7 @@ $base-padding: 1rem;
 
 .amenity {
   padding-right: $base-padding;
+  padding-left: 0;
   
   @include bp('xs') {
     padding: $base-padding 0;
@@ -40,7 +41,9 @@ $base-padding: 1rem;
 
 .amenities {
   display: flex;
-
+  a {
+    @include font-type('body 2');
+  }
   div {
     flex-basis: 0;
     padding-right: 0.5rem;
@@ -52,4 +55,8 @@ $base-padding: 1rem;
 
 .detailFormat{
   white-space: pre-line;
+}
+
+.ColWrapper{
+  margin-top: 1.25rem;
 }

@@ -13,6 +13,7 @@
 }
 
 .day{
+  color:#AAAAAA;
   margin-bottom: 14px;
 }
 
@@ -35,6 +36,10 @@
 
 .distance{
   margin-bottom: 1.25rem;
+  @include font-type('body 2');
+}
+
+.distancePCLink{
   @include font-type('body 2');
 }
 
