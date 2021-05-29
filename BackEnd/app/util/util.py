@@ -10,6 +10,7 @@ import os
 from inflection import underscore
 from app.util.env_setup import set_google_cred
 import urllib.request
+from datetime import datetime
 
 
 
@@ -270,4 +271,5 @@ def download_json_data(endpoint):
 
 def set_landlord_data(app,aws_landlord_endpoint):
     landlord_data = download_json_data(aws_landlord_endpoint)
+    landlord_data.sort(key=lambda elem: datetime.now() if elem['availability'].lower() == "now" else datetime.strptime(elem['availability'],'%m/%d/%Y'))
     app.config["LANDLORD_DB"] = landlord_data
