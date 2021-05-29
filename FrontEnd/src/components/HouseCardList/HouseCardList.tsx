@@ -13,10 +13,10 @@ const HouseCardListUI: FunctionComponent<{ roomIds: number[] }> = ({
   roomIds,
 }) => {
   return (
-    <Container fluid>
+    <Container fluid className="px-md-0">
       <Row className={styles.cardRow}>
         {roomIds.map((roomId) => (
-          <Col xs={12} md={10} lg={6} key={roomId} className="mb-5">
+          <Col xs={12} lg={6} key={roomId} className="mb-5">
             <HouseCard roomId={roomId} />
           </Col>
         ))}

@@ -27,7 +27,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
   }
 
   const routeToHouseProfile = (id: number) => {
-    window.open(`/housing/${id}`, '_ blank')
+    window.open(`/housing/${id}`, '_blank');
   };
 
   const {
