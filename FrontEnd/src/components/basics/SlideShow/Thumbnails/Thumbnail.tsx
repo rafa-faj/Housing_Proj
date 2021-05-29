@@ -23,7 +23,7 @@ const Thumbnail: FunctionComponent<ThumbnailProps> = ({
     variant="wrapper"
     {...buttonProps}
     className={cn(className, {
-      [styles.selectedPreview]: active,
+      [styles.selectedPreview]: !active,
     })}
   >
     <FilledImage src={image.src} alt={image.alt} />
