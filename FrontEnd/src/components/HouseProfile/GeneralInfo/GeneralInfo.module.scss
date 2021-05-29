@@ -25,6 +25,7 @@
 .address{
   display: flex;
   gap: 0.4rem;
+  margin-bottom: 1.25rem;
   @include font-type('body 2');
   
   div{

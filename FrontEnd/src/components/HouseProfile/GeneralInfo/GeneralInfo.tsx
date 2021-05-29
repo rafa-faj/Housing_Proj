@@ -26,14 +26,14 @@ const GeneralInfo: FunctionComponent<GeneralInfoProps> = ({
         <miscIcons.RoundArrow /> 1 days ago
       </div>
       <div className={styles.name}>{name}</div>
+      <div className={styles.distance}>
+        <miscIcons.busIcon /> <b>~ {distance} transit</b>&nbsp;
+      </div>
       <div className={styles.address}>
         <div className={styles.locationIcon}>
           <miscIcons.LocationIcon />
         </div>
         <div> {address} </div>
-      </div>
-      <div className={styles.distance}>
-        <miscIcons.busIcon /> <b>~ {distance} transit</b>&nbsp;
       </div>
       <GoogleMap address={address} className={styles.map} />
     </div>

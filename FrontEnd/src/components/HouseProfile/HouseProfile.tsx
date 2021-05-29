@@ -28,7 +28,7 @@ const HouseProfile: FunctionComponent<HouseProfileProps> = ({ roomId }) => {
   }));
 
   return (
-    <div>
+    <div className="px-md-0 px-3">
       <div className={styles.section}>
         <GeneralInfo
           images={slideShowItems}
