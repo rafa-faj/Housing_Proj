@@ -1,6 +1,9 @@
 export { default as Button } from './Button';
 export * from './Button';
 
+export { default as Caption } from './Caption';
+export * from './Caption';
+
 export { default as Dropdown } from './Dropdown';
 export * from './Dropdown';
 
