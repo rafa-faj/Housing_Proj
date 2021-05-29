@@ -10,12 +10,12 @@ import cn from 'classnames';
 const Housing: FunctionComponent = () => {
   return (
     <>
-      <div className={cn(styles.filter, "px-md-0", "px-3")}>
+      <div className="px-md-0 pb-5 px-3">
         <Filter />
       </div>
 
       <div className="px-md-0 px-3 pb-3">
-        <Body2>Posts are arranged by earliest to latest available time</Body2>
+        <Body2>Posts are arranged by earliest to latest <b>available time</b> </Body2>
       </div>
 
       <div>
