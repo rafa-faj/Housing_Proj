@@ -3,8 +3,14 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { landingIcons } from '@icons';
 import styles from './LandingPage.module.scss';
 import Button from '@components/basics/Button'
+import { useRouter } from 'next/dist/client/router';
 
-const HomehubWelcomeInfo : FunctionComponent = () => (
+const HomehubWelcomeInfo : FunctionComponent = () => {
+  const router = useRouter();
+  const routeToHouseListings = () => {
+    router.push("/housing", undefined, { shallow: true });
+  };  
+  return (
   <div className={styles.title}>
     <div className={styles.bigRow}>
       <landingIcons.logo className={styles.logo}/> <span className={styles.logoText}>Homehub</span>
@@ -16,12 +22,12 @@ const HomehubWelcomeInfo : FunctionComponent = () => (
       <div className={styles.subtext}>By students <span className={styles.dot}></span> For students <span className={styles.dot}></span> With students</div>
     </div>
     <div className={styles.center}>
-      <Button variant="solid" href="/housing">
+      <Button onClick={routeToHouseListings}>
         <div className={styles.buttonInner}>Check it Out</div>
       </Button>
     </div>
   </div>
-);
+);}
 
 const WhyHomeHubInfo : FunctionComponent = () => (
   <Row className={styles.iconRow}>
@@ -58,7 +64,12 @@ const WhyHomeHubInfo : FunctionComponent = () => (
   </Row>
 );
 
-const Landing: FunctionComponent = () => (
+const Landing: FunctionComponent = () => {
+  const router = useRouter();
+  const routeToHouseListings = () => {
+    router.push("/housing", undefined, { shallow: true });
+  };  
+  return (
   <Container className={styles.container}>
     <HomehubWelcomeInfo></HomehubWelcomeInfo>
 
@@ -80,12 +91,15 @@ const Landing: FunctionComponent = () => (
       </Row>
       <WhyHomeHubInfo></WhyHomeHubInfo>
       <Row className={styles.center}>
-        <Button variant="solid" href="/housing" className={styles.buttonLink}>
+        <Button onClick={routeToHouseListings}>
           <div className={styles.buttonInner}>Check it Out</div>
         </Button>
       </Row>
     </Row>
   </Container>
-);
+  );
+
+}
+
 
 export default Landing;
