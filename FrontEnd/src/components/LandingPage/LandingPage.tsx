@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { landingIcons } from '@icons';
 import styles from './LandingPage.module.scss';
+import Button from '@components/basics/Button'
 
 const HomehubWelcomeInfo : FunctionComponent = () => (
   <div className={styles.title}>
@@ -15,7 +16,7 @@ const HomehubWelcomeInfo : FunctionComponent = () => (
       <div className={styles.subtext}>By students <span className={styles.dot}></span> For students <span className={styles.dot}></span> With students</div>
     </div>
     <div className={styles.center}>
-      <Button variant="primary" href="/housing">
+      <Button variant="solid" href="/housing">
         <div className={styles.buttonInner}>Check it Out</div>
       </Button>
     </div>
@@ -58,7 +59,7 @@ const WhyHomeHubInfo : FunctionComponent = () => (
 );
 
 const Landing: FunctionComponent = () => (
-  <Container>
+  <Container className={styles.container}>
     <HomehubWelcomeInfo></HomehubWelcomeInfo>
 
     <Row className={styles.intro}>
@@ -79,7 +80,7 @@ const Landing: FunctionComponent = () => (
       </Row>
       <WhyHomeHubInfo></WhyHomeHubInfo>
       <Row className={styles.center}>
-        <Button variant="primary" href="/housing">
+        <Button variant="solid" href="/housing" className={styles.buttonLink}>
           <div className={styles.buttonInner}>Check it Out</div>
         </Button>
       </Row>

@@ -64,6 +64,13 @@
   .buttonInner {
     margin: inherit;
   }
+
+  .buttonLink {
+    text-decoration: none;
+    &:hover {
+      
+    }
+  }
   
   .smallRow {
     justify-content: center;
@@ -117,4 +124,8 @@
     margin-bottom: 0.3rem;
     border-radius: 50%;
     display: inline-block;
+  }
+
+  .container{
+    max-width: 100%;
   }
