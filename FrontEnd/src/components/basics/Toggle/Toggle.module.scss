@@ -3,6 +3,7 @@
     @include font-type('body 1');
     color: $primary-light-color;
     margin: 15px 10px;
+    margin-bottom: 0;
     border: 3px $primary-200-color solid;
     border-radius: $sm-border-radius;
     word-break: keep-all;

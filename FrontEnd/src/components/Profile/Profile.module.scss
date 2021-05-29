@@ -2,7 +2,7 @@
 $profile-form-middle-height: 90%;
 
 .content{
-  margin-top: 4rem;
+  margin-top: 3rem;
 }
 
 .UserInput{
@@ -15,6 +15,7 @@ $profile-form-middle-height: 90%;
   border-radius: $lg-border-radius $lg-border-radius 0 0;
   justify-content: center;
   margin-top: 2vh;
+  margin-right: 3rem;
 }
 
 .titleNotSelected {
@@ -45,6 +46,7 @@ $profile-form-middle-height: 90%;
 
 .selectItem{
   padding-top: 0.25rem;
+  font-size: 1.25rem;
 }
 
 .divider {
@@ -57,15 +59,6 @@ $profile-form-middle-height: 90%;
 
 .dividerOff{
   visibility: hidden;
-}
-
-.element {
-  width: 100%;
-  text-align: center;
-  position: relative;
-  top: -30px;
-  //color: $secondary-1-color;
-  font-size: x-large;
 }
 
 .profileCross {
@@ -96,12 +89,16 @@ $profile-form-middle-height: 90%;
   font-family: Montserrat;
   font-size: $lg-font-size;
   font-weight: bold;
+  color: #202020;
+  display: block;
 }
 
 .verified {
-  //color: $secondary-2-color;
-  font-size: $sm-font-size;
+  color: #81A750;
+  font-size: 0.75rem;
   font-weight: bold;
+  height: 25px;
+  padding: 0.5rem 0;
 }
 
 .label {
@@ -118,20 +115,6 @@ $profile-form-middle-height: 90%;
   color: black;
 }
 
-.bio {
-  //color: $primary-input-color;
-}
-
-.signOut {
-  color: $secondary-dark-color;
-  text-decoration: underline;
-}
-
-.cancel {
-  //color: $primary-input-color;
-  text-decoration: underline;
-}
-
 .charCheck {
   position: absolute;
   right: 15px;
@@ -141,7 +124,7 @@ $profile-form-middle-height: 90%;
 
 .bioText {
   resize: none;
-  height: 150px !important;
+  height: 16rem !important;
 }
 
 .schoolYear {
@@ -177,15 +160,7 @@ $profile-form-middle-height: 90%;
   border-color: $primary-light-color;
   width: 54px;
   height: 54px;
-}
-
-.postsList {
-  //background-color: $primary-1-color;
-  border-radius: 20px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  margin-left:1rem;
 }
 
 .noPostsText {
@@ -281,4 +256,23 @@ $profile-form-middle-height: 90%;
     padding: 0;
     border: 0;
   }
+}
+
+.dropdown{
+  width: 65%;
+}
+
+.bio{
+  width: 85%;
+}
+
+.textInfo{
+  margin-top: 1.5rem;
+  margin-left: 1.5rem;
+}
+
+.phoneNum{
+  margin-top: 0.5rem;
+  width: 70%;
+  height: 2rem;
 }

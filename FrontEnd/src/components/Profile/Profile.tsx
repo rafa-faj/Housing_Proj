@@ -95,7 +95,7 @@ const Profile: FunctionComponent = () => {
                   </Button>
                 ) : (
                   <Button size="secondary" icon={{ icon: profileIcons.save }}
-                    onClick={() => { userEditProfile(userSelectedDraft); setactiveIndicator(true); }}>
+                    onClick={() => { /*userEditProfile(userSelectedDraft);*/ setactiveIndicator(true); }}>
                     Save
                   </Button>
                 )}
@@ -105,7 +105,7 @@ const Profile: FunctionComponent = () => {
             <div className={styles.textInfo}>
               <Form.Row>
                 <Form.Group as={Col} controlId="profileSchoolYear">
-                  <Form.Label className={styles.label}> School Year </Form.Label>
+                  <Form.Label className={styles.label}> School year </Form.Label>
                   <Form.Row className={styles.schoolYear}>
                     <ToggleGroup
                       singleSelect
@@ -121,7 +121,7 @@ const Profile: FunctionComponent = () => {
                 <Form.Group as={Col} controlId="profileMajor">
                   <Form.Label className={styles.label}>Major</Form.Label>
                   {!activeIndicator ? (
-                    <Dropdown options={majors} label="" initialSelected={userSelectedDraft.major} placeholder="Major"
+                    <Dropdown options={majors} label="" initialSelected={userSelectedDraft.major} placeholder="Major" className={styles.drop}
                       onSelect={(s) => { setUserSelectedDraft({ ...userSelectedDraft, major: s || userSelectedDraft.major, }); }} />
                   ) : (
                     <Input type="text" value={userSelectedDraft.major} readOnly placeholder="Major" />
