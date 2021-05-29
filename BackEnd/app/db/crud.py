@@ -4,8 +4,8 @@ from app.util.aws.s3 import get_images, upload_file_wobject
 from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm.exc import NoResultFound,MultipleResultsFound
-import os 
+from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
+import os
 
 # delete these
 from app.util.util import verify_image
@@ -151,30 +151,28 @@ def get_row_if_exists(db_obj, session, **condition):
     row = session.query(db_obj).filter_by(**condition).first()
     return row
 
-def get_insert_id(base,session):
+
+def get_insert_id(base, session):
     """
     Get the id of to-be-inserted entry
-
-    NEED TO BE UNIT TESTED
     """
     last_row = session.query(base).order_by(base.id.desc()).first()
-    new_room_id = 1 + last_row.id if last_row else 0
+    new_room_id = 1 + (last_row.id if last_row else 0)
     return new_room_id
 
 
-def read_all(base,session):
+def read_all(base, session):
     """
     get all entries from a table
     """
     return session.query(base).all()
 
-def read_criteria(base,condition_dict,session, mode="s"):
+
+def read_criteria(base, condition_dict, session, mode="s"):
     """
     get entries from db that fits a criteria
 
     mode supports single("s") and multiple("m")
-
-    NEED TO BE UNIT TESTED
     """
     try:
         # single entry mode
@@ -184,8 +182,9 @@ def read_criteria(base,condition_dict,session, mode="s"):
             return session.query(base).filter_by(**condition_dict).one()
         elif mode == "m":
             return session.query(base).filter_by(**condition_dict).all()
-    except (NoResultFound,MultipleResultsFound):
+    except (NoResultFound, MultipleResultsFound):
         return None
+
 
 def room_json(room, session, offline_test_mode=False, login_session=None):
     """
@@ -302,21 +301,22 @@ def write_room(room_json, user_id, session, offline_test_mode=False, test_mode=F
     # gets room owner, assuming when a new room gets added the user exists
     room_owner = get_row_if_exists(
         User, session, **{"id": user_id})
-    new_room_id = get_insert_id(Room,session)
+    new_room_id = get_insert_id(Room, session)
     # upload photos first since if we fails to upload images, we shouldn't add entry to the db
     upload_status = False
     if offline_test_mode == False:
-        for index,photo in enumerate(room_json["photos"]):
-            user_prefix =  "test_user" if test_mode else "user"
+        for index, photo in enumerate(room_json["photos"]):
+            user_prefix = "test_user" if test_mode else "user"
             _, file_extension = os.path.splitext(photo.filename)
             # standardize file name by index
             path_name = "/".join([user_prefix+str(room_owner.id), "housing",
-                str(new_room_id), str(index)+"."+file_extension])
+                                  str(new_room_id), str(index)+"."+file_extension])
             upload_status = upload_file_wobject(photo, "houseit", path_name)
     else:
         upload_status = True
 
-    if upload_status == False: return upload_status
+    if upload_status == False:
+        return upload_status
     early_date = datetime.strptime(
         room_json["early_date"], "%m/%d/%y")
     late_date = datetime.strptime(
@@ -349,12 +349,13 @@ def write_room(room_json, user_id, session, offline_test_mode=False, test_mode=F
 
 # DELETE
 
+
 def remove_entry(base, entry_id, session):
     """
     removes an entry from a db with its unique id
 
     return number of deleted rows
     """
-    deleted_rows = session.query(base).filter_by(id = entry_id).delete()
+    deleted_rows = session.query(base).filter_by(id=entry_id).delete()
     session.commit()
     return deleted_rows
