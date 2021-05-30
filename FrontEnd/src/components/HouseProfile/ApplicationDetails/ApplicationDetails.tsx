@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from 'react';
 import styles from './ApplicationDetails.module.scss';
+import styles_parent from '../HouseProfile.module.scss'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -66,7 +67,7 @@ const ApplicationDetails: FunctionComponent<ApplicationDetailsProps> = ({
   );
 
   return (
-    <Container>
+    <Container className={styles_parent.container}>
       <Row>
         <Col>
           <SectionTitle>To Apply</SectionTitle>
