@@ -1,8 +1,8 @@
 export enum SchoolYear {
   First = 'First',
-  Second = 'Second',
-  Third = 'Third',
-  Fourth = 'Fourth',
+  Second = 'Sophomore',
+  Third = 'Junior',
+  Fourth = 'Senior',
   Fifth = 'Fifth',
   Grad = 'Grad',
 }

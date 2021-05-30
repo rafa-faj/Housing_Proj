@@ -28,6 +28,7 @@
   align-self: center;
 
   svg {
+    margin-top: 1rem;
     align-self: center;
     height: 100%;
   }
@@ -40,7 +41,7 @@ $growth-factor: 1.15;
 }
 
 .secondaryIcon {
-  height: $md-font-size * $growth-factor;
+  height: $md-font-size * $growth-factor * 2;
 }
 
 .primary {
