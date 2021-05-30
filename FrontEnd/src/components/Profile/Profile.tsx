@@ -118,7 +118,7 @@ const Profile: FunctionComponent = () => {
               </Form.Row>
 
               <Form.Row className={styles.dropdown}>
-                <Form.Group as={Col} controlId="profileMajor">
+                <Form.Group as={Col} controlId="profileMajor" className="pl-0">
                   <Form.Label className={styles.label}>Major</Form.Label>
                   {!activeIndicator ? (
                     <Dropdown options={majors} label="" initialSelected={userSelectedDraft.major} placeholder="Major" className={styles.drop}
@@ -129,7 +129,7 @@ const Profile: FunctionComponent = () => {
                 </Form.Group>
               </Form.Row>
               <Form.Row className={styles.bio}>
-                <Form.Group as={Col} controlId="profileBio">
+                <Form.Group as={Col} controlId="profileBio" className="pl-0">
                   <Form.Label className={styles.label}> Short bio </Form.Label>
                   <Form.Control
                     readOnly={activeIndicator} as="textarea" className={styles.bioText}

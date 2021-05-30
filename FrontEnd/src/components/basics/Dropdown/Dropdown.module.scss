@@ -10,6 +10,7 @@
 
 .root { // used only for specificity to override bootstrap css
   .moreSpecificity { // similarly needed to override bootstrap css specificity (still looking for a better solution than this...)
+
     .unfilled {
       @include font-type('body 1');
       color: $primary-light-color;
@@ -99,6 +100,7 @@
     .toggle {
       width: 100%;
       box-shadow: none;
+      padding-left: 0;
 
       input,
       .form-control:disabled,
@@ -118,7 +120,6 @@
 
     .dropdown {
       flex-grow: 1;
-
       .dropdown-menu {
         max-height: 200px;
         overflow-y: auto;
