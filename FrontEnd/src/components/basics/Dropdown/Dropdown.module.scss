@@ -120,15 +120,15 @@
 
     .dropdown {
       flex-grow: 1;
-      .dropdown-menu {
+      .dropdownMenu {
         max-height: 200px;
         overflow-y: auto;
         background-color: $background-color;
-
-        .dropdown-item {
+  
+        .dropdownItem {
           background-color: $background-color;
           color: $primary-dark-color;
-
+  
           &:active,
           &.active,
           &:hover,
@@ -138,5 +138,6 @@
         }
       }
     }
+
   }
 }

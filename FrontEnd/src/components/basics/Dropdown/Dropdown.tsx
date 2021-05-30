@@ -7,6 +7,7 @@ import { useClickAwayListener } from '@hooks';
 import cn from 'classnames';
 import styles from './Dropdown.module.scss';
 import RequiredAsterisk from '../RequiredAsterisk';
+import { Body2 } from '@basics';
 
 interface DropdownProps extends BootstrapDropdownMetadata.DropdownProps {
   options: string[];
@@ -126,11 +127,12 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
                 </div>
               </div>
             </BootstrapDropdown.Toggle>
-
-            <BootstrapDropdown.Menu ref={dropdownMenuRef}>
+            
+            {/* styles won't work unless you specify it explicitly aka: bootstrap style cannot be overriden by just adding a div with the same name */}
+            <BootstrapDropdown.Menu ref={dropdownMenuRef} className={styles.dropdownMenu}>
               {filteredOptions.map((option) => (
-                <BootstrapDropdown.Item key={option} eventKey={option}>
-                  {option}
+                <BootstrapDropdown.Item key={option} eventKey={option} className={styles.dropdownItem}>
+                  <Body2>{option}</Body2>
                 </BootstrapDropdown.Item>
               ))}
             </BootstrapDropdown.Menu>
