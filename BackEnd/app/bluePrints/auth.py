@@ -24,27 +24,29 @@ def login():
     example of valid json request format:
     "google_login_token":blah blah blah
     """
-    print("login...")
+    session = current_app.config["DB_CONNECTION"]
     # PART1: Secure measure to verify identity
-    # first check if the domain is allowed
+    # first check if the origin is allowed
     if request.remote_addr not in current_app.config["ALLOWED_ORIGINS"]:
         response = generate_message(MESSAGE_WRONG_ORIGIN,401)
         return response
     # pre-flight for CORS communication
     if request.method == "OPTIONS":
-        print("options")
         return generate_response()
-    # if user has already logged in, tell them
+    # if user has already logged in, tell them and return the user data since they might be wanting to re fetch data
     if is_loggedin(login_session):
-        response = generate_message(MESSAGE_ALREADY_LOGIN)
-        return response
+        # use user id stored in login session
+        user = get_row_if_exists(
+            User, session, **{"id": login_session["user_id"]})
+        json_response = generate_user_login_data(user)
+        json_response["message"] = MESSAGE_ALREADY_LOGIN
+        return json_response
     # check requested json, see if the json contains required login info
     # first check if json exists from request
     checked_json, response, requested_json = check_json_form(request,MESSAGE_BAD_JSON,MESSAGE_LOGIN_NO_JSON)
     if checked_json != True: return response
     # second check if json conatins enough info
     try:
-        print("googlelogin block")
         google_login_token = requested_json["google_login_token"]
         # check if json contains valid info(ucsd email and google auth token)
         status_code, message, user_email = verify_email(
@@ -54,7 +56,6 @@ def login():
             response = generate_message(message,status_code)
             return response
     except KeyError:
-        print("key error block")
         # if in online test mode or production mode, return invalid response
         if current_app.config["OFFLINE_TESTING"] != True:
             response = generate_message(MESSAGE_LOGIN_NO_GTOKEN,400)
@@ -70,7 +71,6 @@ def login():
                            for x in range(32))
     login_session["access_token"] = access_token
     # check in with db to see if user is new
-    session = current_app.config["DB_CONNECTION"]
     # Assumption: user email is a unique identifier
     user = get_row_if_exists(
         User, session, **{"email": user_email})
@@ -80,18 +80,8 @@ def login():
         response = generate_response(json_response)
         response.set_cookie("access_token", access_token)
         return response
-    photo_path_name = "/".join(["user"+str(user.id),
-                                "profile", "headshot.jpg"])
     login_session["user_id"] = user.id
-    json_response = {"name": user.name,
-                     "email": user_email,
-                     "message": MESSAGE_SUCCESS_LOGIN,
-                     "description": user.description,
-                     "phone": user.phone,
-                     "schoolYear": user.school_year,
-                     "major": user.major,
-                     "profile_photo": photo_path_name
-                     }
+    json_response = generate_user_login_data(user)
     response = generate_response(json_response)
     response.set_cookie("access_token", access_token)
     return response

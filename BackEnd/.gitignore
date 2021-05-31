@@ -9,3 +9,4 @@ app/img
 /bin
 /.env
 homehub_backend/
+homehub_backend.egg-info/

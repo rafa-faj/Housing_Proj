@@ -82,6 +82,7 @@ def test_multiple_login_valid_input(client, email, correct_response):
     rv = client.post(
         "/login", data=json.dumps({"email": email}), content_type="application/json")
     response_data = json.loads(rv.data)
+    # TODO: this test can be shortened, can use a for loop
     assert rv.status_code == 200
     # first time, same as previous single atomic test
     for key, value in correct_response[0].items():

@@ -273,3 +273,17 @@ def set_landlord_data(app,aws_landlord_endpoint):
     landlord_data = download_json_data(aws_landlord_endpoint)
     landlord_data.sort(key=lambda elem: datetime.now() if elem['availability'].lower() == "now" else datetime.strptime(elem['availability'],'%m/%d/%Y'))
     app.config["LANDLORD_DB"] = landlord_data
+
+def generate_user_login_data(user):
+    photo_path_name = "/".join(["user"+str(user.id),
+                                "profile", "headshot.jpg"])
+    json_response = {"name": user.name,
+                     "email": user.email,
+                     "message": MESSAGE_SUCCESS_LOGIN,
+                     "description": user.description,
+                     "phone": user.phone,
+                     "schoolYear": user.school_year,
+                     "major": user.major,
+                     "profilePhoto": photo_path_name
+                     }
+    return json_response
