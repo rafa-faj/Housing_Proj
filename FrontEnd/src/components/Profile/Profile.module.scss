@@ -16,6 +16,9 @@ $profile-form-middle-height: 90%;
   justify-content: center;
   margin-top: 2vh;
   margin-right: 3rem;
+  @include bp-down('md') {
+    text-align: center;
+  }
 }
 
 .titleNotSelected {
@@ -34,6 +37,17 @@ $profile-form-middle-height: 90%;
   font-size: $md-font-size;
   color: $primary-400-color;
   display: flex;
+}
+
+.phoneNum{
+  margin-top: 0.5rem;
+  width: 10rem;
+  height: 2rem;
+  @include bp-down('md') {
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+  }
 }
 
 .selectOn{
@@ -90,7 +104,7 @@ $profile-form-middle-height: 90%;
   font-size: $lg-font-size;
   font-weight: bold;
   color: #202020;
-  display: block;
+  display:inline-block;
 }
 
 .verified {
@@ -99,6 +113,7 @@ $profile-form-middle-height: 90%;
   font-weight: bold;
   height: 25px;
   padding: 0.5rem 0;
+  display:inline-block;
 }
 
 .label {
@@ -161,6 +176,9 @@ $profile-form-middle-height: 90%;
   width: 54px;
   height: 54px;
   margin-left:1rem;
+  @include bp-down('md') {
+    margin-left:0;
+  }
 }
 
 .noPostsText {
@@ -271,8 +289,3 @@ $profile-form-middle-height: 90%;
   margin-left: 1.5rem;
 }
 
-.phoneNum{
-  margin-top: 0.5rem;
-  width: 70%;
-  height: 2rem;
-}
