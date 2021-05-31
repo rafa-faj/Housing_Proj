@@ -25,6 +25,7 @@ export const authSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<User | undefined>) => {
       state.user = action.payload;
+      // This should be using backend cookies
     },
     startNewUserFlow: (
       state,

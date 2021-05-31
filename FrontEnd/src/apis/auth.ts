@@ -25,16 +25,8 @@ export const login = async (
 
   // Typescript can't tell that data must be of type User here, so explicitly tell it
   const data = response.data as User;
-  const {
-    profilePhoto,
-    description,
-    major,
-    schoolYear,
-    phone,
-    name,
-    email,
-  } = data;
-
+  const { profilePhoto, description, major, schoolYear, phone, name, email } =
+    data;
   return {
     isNewUser,
     profilePhoto,

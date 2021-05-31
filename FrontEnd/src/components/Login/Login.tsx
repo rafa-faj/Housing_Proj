@@ -18,8 +18,8 @@ import { miscIcons } from '@icons';
 import { LOGIN_INFO_TOOLTIP } from '@constants';
 import styles from './Login.module.scss';
 import { login } from '@apis';
-import NewUserSetup from '@components/NewUserSetup'
-import { useShowNewUserPopup } from '@redux'
+import NewUserSetup from '@components/NewUserSetup';
+import { useShowNewUserPopup } from '@redux';
 
 const isOnline = (
   response: GoogleLoginResponse | GoogleLoginResponseOffline,
@@ -100,20 +100,21 @@ const Login: FunctionComponent = () => {
   const user = useUser();
   const showNewUserPopup = useShowNewUserPopup();
 
-
   // if user is logged in, there's no need to render the login component
   if (user) return null;
 
-  return (<>
-    <LoginUI />
-    {showNewUserPopup !== undefined && ( // only render the modal when user info exists, to initialize the wizard form with the user info
-      <NewUserSetup
-        show={showNewUserPopup !== undefined}
-        name={showNewUserPopup?.name}
-        email={showNewUserPopup?.email}
-      />
-    )}
-  </>)
+  return (
+    <>
+      <LoginUI />
+      {showNewUserPopup !== undefined && ( // only render the modal when user info exists, to initialize the wizard form with the user info
+        <NewUserSetup
+          show={showNewUserPopup !== undefined}
+          name={showNewUserPopup?.name}
+          email={showNewUserPopup?.email}
+        />
+      )}
+    </>
+  );
 };
 
 export default Login;

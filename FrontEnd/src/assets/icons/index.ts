@@ -1,4 +1,3 @@
-export * as navIcons from './nav';
 export {
   default as preferencesIcons,
   preferencesChosen,

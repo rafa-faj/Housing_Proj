@@ -13,17 +13,14 @@
   margin: 0 auto;
 }
 
-.navBtn {
-  display: flex;
-  align-items: flex-end;
-  letter-spacing: 0.2em;
-  color: $secondary-dark-color !important;
-}
-
 .container {
   display: flex;
   align-items: center;
   margin: 0 $entire-site-margin-x;;
   width: 100%;
   height: $navbar-height;
+}
+
+.logoutText{
+  color: rgba(32, 32, 32, 0.6);
 }

@@ -2,7 +2,7 @@
 
 .card {
   background-color: white;
-  border-radius: 0.5rem; // TODO make variable
+  border-radius: $input-border-radius;
   overflow: hidden;
   box-shadow: 0 0.4rem 0.6rem 0 rgba(black, .14); //elevation 06dp
 }

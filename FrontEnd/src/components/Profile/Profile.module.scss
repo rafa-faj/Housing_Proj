@@ -32,12 +32,12 @@ $profile-form-middle-height: 90%;
   margin-top: 1rem;
   font-weight: 600;
   font-size: $md-font-size;
-  color: #E37F4E;
+  color: $primary-400-color;
   display: flex;
 }
 
 .selectOn{
-  color: #E37F4E;
+  color: $primary-400-color;
 }
 
 .selectOff{
@@ -52,7 +52,7 @@ $profile-form-middle-height: 90%;
 .divider {
   height: 45px;
   width: 5px;
-  background-color: #E37F4E;
+  background-color: $primary-400-color;
   border-radius: 6.5rem;
   margin: 0 1.5rem;
 }

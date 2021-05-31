@@ -28,7 +28,7 @@ const NewUserSetup: FunctionComponent<NewUserSetupProps> = ({
       show={show}
       onHide={() => console.log('todo, shouldnt have an onHide for this...')}
       onSubmit={(data) => {
-        console.log('clicked');
+        console.log('clicked, set up new user');
         console.log(data);
 
         // Currently no way for users to select a profile photo. the backend will pick one at random.

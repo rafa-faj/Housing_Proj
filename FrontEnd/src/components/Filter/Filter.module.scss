@@ -4,7 +4,7 @@
   justify-content: space-around;
   border: $primary-100-color solid 3px;
   box-shadow: 2px 4px 8px rgba(164, 97, 62, 0.3);
-  border-radius: 0.5rem;
+  border-radius: $input-border-radius;
 }
 
 .homehubOrange {

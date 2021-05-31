@@ -1,18 +1,37 @@
 .profileImage {
   border: $default-border-width solid $primary-light-color;
   border-radius: 50%;
+  width: 3.375rem;
+  height: 3.375rem;
 }
 
 .profileToggle::after {
   content: none !important;
 }
 
-.dropdownMenu {
-  border-radius: 0.5rem;
-}
+.dropdown {
+  flex-grow: 1;
+  .dropdownMenu {
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: $input-border-radius;
+    border: $border-color2;
 
-.dropdownText {
-  font-size: $sm-font-size;
-  font-weight: $bold-font-weight !important;
-  margin: 1rem;
+    .dropdownItem {
+      text-decoration: none;
+      color: black;
+
+      &:active,
+      &.active,
+      &:hover,
+      &:focus {
+        background-color: $primary-50-color;
+      }
+
+      .isSelected {
+        color: $primary-400-color;
+      }
+    }
+  }
 }
