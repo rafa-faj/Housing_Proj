@@ -7,19 +7,12 @@ import {
 } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import {
-  useUser,
-  useShouldShowLogin,
-  hideLogin,
-  startNewUserFlow,
-  setUser,
-} from '@redux';
+import { useShouldShowLogin, hideLogin, startNewUserFlow } from '@redux';
 import { miscIcons } from '@icons';
 import { LOGIN_INFO_TOOLTIP } from '@constants';
 import styles from './Login.module.scss';
-import { login } from '@apis';
 import NewUserSetup from '@components/NewUserSetup';
-import { useShowNewUserPopup } from '@redux';
+import { useUser } from '@hooks';
 
 const isOnline = (
   response: GoogleLoginResponse | GoogleLoginResponseOffline,
@@ -29,6 +22,7 @@ const isOnline = (
 const LoginUI: FunctionComponent = () => {
   const dispatch = useDispatch();
   const shouldShowLogin = useShouldShowLogin();
+  const { login } = useUser();
 
   const responseGoogleSuccess = async (
     response: GoogleLoginResponse | GoogleLoginResponseOffline,
@@ -41,8 +35,6 @@ const LoginUI: FunctionComponent = () => {
 
       if (result.isNewUser) {
         dispatch(startNewUserFlow({ name, email }));
-      } else {
-        dispatch(setUser(result));
       }
     } else {
       console.log('User is offline');
@@ -97,22 +89,15 @@ const LoginUI: FunctionComponent = () => {
 };
 
 const Login: FunctionComponent = () => {
-  const user = useUser();
-  const showNewUserPopup = useShowNewUserPopup();
+  const { data: user } = useUser();
 
   // if user is logged in, there's no need to render the login component
-  if (user) return null;
+  if (user.isLoggedIn) return null;
 
   return (
     <>
       <LoginUI />
-      {showNewUserPopup !== undefined && ( // only render the modal when user info exists, to initialize the wizard form with the user info
-        <NewUserSetup
-          show={showNewUserPopup !== undefined}
-          name={showNewUserPopup?.name}
-          email={showNewUserPopup?.email}
-        />
-      )}
+      <NewUserSetup />
     </>
   );
 };

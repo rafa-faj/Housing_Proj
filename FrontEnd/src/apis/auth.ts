@@ -1,7 +1,8 @@
-import { User } from '../models/User';
+import { User } from '@models';
 import { backendAPI } from './apiBases';
+import { formatWithAws } from '@utils';
 
-type UserLoginResponse = User | { newUser: boolean };
+export type UserLoginResponse = User | { newUser: boolean };
 
 type PotentialNewUser = (User & { isNewUser: false }) | { isNewUser: true };
 
@@ -25,11 +26,19 @@ export const login = async (
 
   // Typescript can't tell that data must be of type User here, so explicitly tell it
   const data = response.data as User;
-  const { profilePhoto, description, major, schoolYear, phone, name, email } =
-    data;
+  const {
+    profilePhoto,
+    description,
+    major,
+    schoolYear,
+    phone,
+    name,
+    email,
+  } = data;
+
   return {
     isNewUser,
-    profilePhoto,
+    profilePhoto: formatWithAws(profilePhoto),
     name,
     email,
     description,
@@ -51,11 +60,9 @@ export const logout = async () => {
 /**
  * Echo the edit of profile to backend.
  *
- * @param kvPairs - key value pair for updates
- * @returns - undefined if error occured, otherwise UserLoginResponse, which includes an access token,
- *            email, message, user, imageUrl
+ * @param updates - key value pair for updates
  */
-export const userEditProfile = async (updates: Partial<User>) => {
+export const updateUser = async (updates: Partial<User>) => {
   const response = await backendAPI.post('/profile', {
     updates: updates,
   });
@@ -75,11 +82,20 @@ export const createUser = async (user: User) => {
 
 /**
  * Get user profile information.
+ * 400 error gets thrown if not logged in.
  *
  * @returns - User profile info
  */
 export const getCurUser = async () => {
-  const response = await backendAPI.get<User>('/me');
+  // Google login token unnecessary when user is already logged in
+  const data = await login('');
 
-  return response.data;
+  // For typescript purposes, will never actually run
+  if (data.isNewUser) {
+    throw Error(
+      'This should never be run since the passed google login token is an empty string.',
+    );
+  }
+
+  return { ...data, isNewUser: undefined } as User;
 };

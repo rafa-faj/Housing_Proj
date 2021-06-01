@@ -15,3 +15,6 @@ export * from './useLandlordRoomData';
 
 export { default as useLandlordRoomIds } from './useLandlordRoomIds';
 export * from './useLandlordRoomIds';
+
+export { default as useUser } from './useUser';
+export * from './useUser';

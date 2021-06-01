@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { bookmarkIcons } from '@icons';
-import { useUser } from '@redux';
+import { useUser } from '@hooks';
 import Bookmark from './Bookmark/Bookmark';
 import styles from './BookmarkList.module.scss';
 import { useRoomBookmarks } from '@hooks';
@@ -41,14 +41,14 @@ const NotSignedIn: FunctionComponent = () => (
 );
 
 const Controller: FunctionComponent = () => {
-  const user = useUser();
+  const { data: user } = useUser();
 
   return (
     <div className={styles.bookmarkList}>
       <BookmarkHeader />
 
       <div className={styles.listWrapper}>
-        {user ? <BookmarksList /> : <NotSignedIn />}
+        {user.isLoggedIn ? <BookmarksList /> : <NotSignedIn />}
       </div>
     </div>
   );
