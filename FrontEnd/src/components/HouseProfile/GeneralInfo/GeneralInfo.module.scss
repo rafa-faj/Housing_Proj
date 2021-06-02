@@ -1,9 +1,9 @@
-.container{
+.container {
   max-width: 100%;
   margin: 0;
 }
 
-.pic{
+.pic {
   overflow: hidden;
   padding: 0;    
   
@@ -12,42 +12,41 @@
   }
 }
 
-.day{
+.day {
   color:#AAAAAA;
   margin-bottom: 14px;
 }
 
-.name{
+.name {
   @include font-type('h4');
   color: $secondary-900-color;
   margin-bottom: 8px;
 }
 
-.address{
+.address {
   display: flex;
   gap: 0.4rem;
   margin-bottom: 1.25rem;
   @include font-type('body 2');
   
-  div{
+  div {
     height: 100%;
   }
 }
 
-.distance{
+.distance {
   margin-bottom: 1.25rem;
-  @include font-type('body 2');
 }
 
-.distancePCLink{
-  @include font-type('body 2');
+.priceCenterLink {
+  display: inline-block;
 }
 
-.map{
+.map {
   height: 300px;
   padding-left: 0rem !important;  
 }
 
-.textPortion{
+.textPortion {
   margin-left: 0.5rem;
 }
