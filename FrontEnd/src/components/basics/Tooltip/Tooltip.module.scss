@@ -1,0 +1,34 @@
+.tooltip {
+  max-width: 30vw;
+  background-color: white;
+  color: black;
+  border-radius: 0.5rem;
+  border: 1px solid $border-color;
+  padding: 0.75rem;
+
+  @include bp-down('sm') {
+    max-width: 80vw;
+  }
+}
+
+.MUITooltip {
+  padding: 0 !important;
+  background: none !important;
+  background-color: none !important;
+}
+
+.wrapper {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.infoIcon {
+  padding-right: 0.5rem;
+}
+
+.childrenWrapper {
+  color: $primary-900-color;
+}
