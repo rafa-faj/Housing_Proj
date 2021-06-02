@@ -3,7 +3,7 @@ import {
   ThunkAction,
   Action,
 } from '@reduxjs/toolkit';
-import { authReducer, housingReducer, filterReducer } from './slices/index';
+import { authReducer, filterReducer } from './slices/index';
 import { MakeStore, createWrapper, Context } from 'next-redux-wrapper';
 import { isRunningDev } from '@utils';
 import {
@@ -14,7 +14,6 @@ import {
 
 const storeSlices = {
   auth: authReducer,
-  housing: housingReducer,
   filter: filterReducer,
 };
 

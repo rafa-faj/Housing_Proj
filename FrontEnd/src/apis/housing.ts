@@ -99,32 +99,3 @@ export const removeHousingBookmark = async (roomId: number) => {
     action: 'remove',
   });
 };
-
-export const createHousingPost = async (
-  roomForm: CreateHousePostProperties & { email: string }, // TODO double check that this is the correct type for param, and you need to type the promise
-): Promise<any[] | undefined> => {
-  console.log('starting the new housing post api');
-
-  // TODO distance calculation not working for some reason
-  // calculate distance to location
-  const distance = await getDurationInMinutes(roomForm.address);
-  console.log('distance');
-  console.log(distance);
-  if (!distance) {
-    throw Error("Bad request - can't calculate the distance to the address.");
-  }
-
-  const formData = new FormData();
-  roomForm.photos.forEach((photo) => formData.append('photos', photo));
-  formData.append('json', { ...roomForm, photos: undefined, distance });
-
-  const result = await backendAPI.post(
-    '/postRoom',
-    // TODO { roomForm, distance: '15 min' },
-    formData,
-  );
-  console.log(result, 'got result');
-  // handle errors
-
-  return result.data;
-};
