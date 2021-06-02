@@ -1,10 +1,5 @@
-import {
-  CreateHousePostProperties,
-  HousePost,
-  FilterModel,
-  LandlordHousePost,
-} from '@models';
-import { backendAPI, getDurationInMinutes } from '.';
+import { HousePost, LandlordHousePost } from '@models';
+import { backendAPI, getDurationInMinutes } from '@apis';
 
 /**
  * Get IDs of recent room posts made.
@@ -49,18 +44,6 @@ export const getRecentLandlordHousingJSONs = async (roomId: number) => {
  */
 export const getHousingPost = async (roomId: number) => {
   const response = await backendAPI.get<HousePost>(`/getRoom/${roomId}`);
-
-  return response.data;
-};
-
-/**
- * Search all rooms with the specified filter.
- *
- * @param filter - information used to filter rooms
- * @returns array of room IDs that match the filter
- */
-export const searchHousingPosts = async (filter: Partial<FilterModel>) => {
-  const response = await backendAPI.post<number[]>('/searchRoom', filter);
 
   return response.data;
 };

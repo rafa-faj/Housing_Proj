@@ -32,31 +32,6 @@ export interface HousePostUIData
   roomType: RoomType;
 }
 
-export interface CreateHousePostProperties
-  extends Omit<
-    HousePost,
-    | 'leaserName'
-    | 'leaserEmail'
-    | 'leaserPhone'
-    | 'leaserSchoolYear'
-    | 'leaserMajor'
-    | 'profilePhoto'
-    | 'roomId'
-    | 'photos' // change photos to be of File type
-  > {
-  photos: File[];
-}
-
-export type HousePostUserData = Pick<
-  HousePost,
-  | 'leaserName'
-  | 'leaserEmail'
-  | 'leaserPhone'
-  | 'leaserSchoolYear'
-  | 'leaserMajor'
-  | 'profilePhoto'
->;
-
 export interface LandlordHousePost {
   name: string;
   icon: string;

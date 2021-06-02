@@ -1,2 +1,2 @@
-export { default as HouseBrowsing } from './HouseBrowsing';
+export { default } from './HouseBrowsing';
 export * from './HouseBrowsing';
