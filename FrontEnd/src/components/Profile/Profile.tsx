@@ -75,9 +75,9 @@ const Profile: FunctionComponent = () => {
   }
 
   return (
-    <Container>
+    <Container className={styles.wrapper}>
       <Row className={styles.content}>
-        <Col md={2} className={styles.selectionList}>
+        <Col md={2}>
           <div
             className={cn(styles.titleSelected, {
               [styles.selectOff]: viewMyPosts,
@@ -93,7 +93,7 @@ const Profile: FunctionComponent = () => {
           </div>
         </Col>
 
-        <Col className={styles.selectionList}>
+        <Col>
           <div className={`my-4 px-4 ${styles.middleSection}`}>
             <Row className={styles.userStaticInfo}>
               <Col md={2}>
@@ -103,7 +103,8 @@ const Profile: FunctionComponent = () => {
                   className={styles.icon}
                 />
               </Col>
-              <Col md={3} className={styles.name_Id}>
+
+              <Col md={3}>
                 <div className={styles.name}>{userDraft.name}</div>
                 {isNotEditing ? (
                   <div className={styles.UserIdentifier}>{userDraft.phone}</div>
@@ -123,6 +124,7 @@ const Profile: FunctionComponent = () => {
                   />
                 )}
               </Col>
+
               <Col md={3}>
                 <div className={styles.verified}>
                   <profileIcons.tickMark />
@@ -130,6 +132,7 @@ const Profile: FunctionComponent = () => {
                 </div>
                 <div className={styles.UserIdentifier}>{userDraft.email}</div>
               </Col>
+
               <Col className={styles.controlButton}>
                 {isNotEditing ? (
                   <Button
@@ -159,7 +162,7 @@ const Profile: FunctionComponent = () => {
               <Form.Row>
                 <Form.Group as={Col} controlId="profileSchoolYear">
                   <Form.Label className={styles.label}>School year</Form.Label>
-                  <Form.Row className={styles.schoolYear}>
+                  <Form.Row>
                     <ToggleGroup
                       singleSelect
                       content={Object.values(SchoolYear)}
@@ -202,9 +205,10 @@ const Profile: FunctionComponent = () => {
                   )}
                 </Form.Group>
               </Form.Row>
+
               <Form.Row className={styles.bio}>
                 <Form.Group as={Col} controlId="profileBio" className="pl-0">
-                  <Form.Label className={styles.label}> Short bio </Form.Label>
+                  <Form.Label className={styles.label}>Short bio</Form.Label>
                   <Form.Control
                     readOnly={isNotEditing}
                     as="textarea"
