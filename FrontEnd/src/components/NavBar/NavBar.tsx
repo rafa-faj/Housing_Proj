@@ -1,19 +1,16 @@
-import React, { useState, FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import { Button, ImageDropdown, Link } from '@basics';
 import Navbar from 'react-bootstrap/Navbar';
 import { useDispatch } from 'react-redux';
-import { useUser, showLogin, setUser } from '@redux';
-import ProfileModal from '../ProfileModal/ProfileModal';
+import { showLogin } from '@redux';
 import { landingIcons } from '@icons';
 import styles from './NavBar.module.scss';
-import { logout } from '@apis';
-import { useRouter } from 'next/router';
 import { Row } from 'react-bootstrap';
+import { useUser } from '@hooks';
 
 const NavBar: FunctionComponent = () => {
-  const [showProfile, setShowProfile] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const user = useUser();
+  const { data: user, logout } = useUser();
   const itemProps = [
     {
       href: '/profile',
@@ -22,17 +19,12 @@ const NavBar: FunctionComponent = () => {
     {
       label: 'Logout',
       labelClassName: styles.logoutText,
-      onClick: async () => {
-        await logout();
-        dispatch(setUser(undefined)); // TODO should be with logout function
-      },
+      onClick: logout,
     },
   ];
 
   return (
     <>
-      <ProfileModal show={showProfile} setShow={setShowProfile} />
-
       <Navbar sticky="top" className={`${styles.wrapper} p-0 m-0 mb-4`}>
         <div className={styles.container}>
           <div className="mr-auto">
@@ -44,10 +36,10 @@ const NavBar: FunctionComponent = () => {
             <Link href="/" undecorated>
               <h5 className="mb-0">About</h5>
             </Link>
-            {user ? (
+            {user.isLoggedIn ? (
               <ImageDropdown
                 items={itemProps}
-                profileIcon={`https://houseit.s3.us-east-2.amazonaws.com/${user?.profilePhoto}`}
+                profileIcon={user.profilePhoto}
                 className="ml-4"
               />
             ) : (

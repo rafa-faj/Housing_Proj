@@ -31,6 +31,9 @@ export * from './Toggle';
 export { default as ToggleGroup } from './ToggleGroup';
 export * from './ToggleGroup';
 
+export { default as Tooltip } from './Tooltip';
+export * from './Tooltip';
+
 export { default as WizardForm } from './WizardForm';
 export * from './WizardForm';
 

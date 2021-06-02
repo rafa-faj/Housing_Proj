@@ -1,5 +1,5 @@
 import React, { useEffect, useState, FunctionComponent } from 'react';
-import { HouseProfile } from '@components/HouseProfile';
+import { HouseProfile } from '@components';
 import { useRouter } from 'next/router';
 
 // parses the query parameter into a number (or undefined)

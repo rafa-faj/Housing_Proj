@@ -1,7 +1,7 @@
 .button {
   @include rounded-pill-shape;
 
-  padding: (0.25rem - $default-border-width) (1.5rem - $default-border-width);
+  padding: (0.75rem - $default-border-width) (1.5rem - $default-border-width);
   margin: 0.5rem 1.5rem;
   font-weight: $bold-font-weight;
   box-shadow: none;
@@ -28,7 +28,6 @@
   align-self: center;
 
   svg {
-    margin-top: 1rem;
     align-self: center;
     height: 100%;
   }
@@ -41,7 +40,7 @@ $growth-factor: 1.15;
 }
 
 .secondaryIcon {
-  height: $md-font-size * $growth-factor * 2;
+  height: $md-font-size * $growth-factor;
 }
 
 .primary {

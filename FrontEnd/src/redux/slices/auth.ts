@@ -3,13 +3,11 @@ import { useSelector } from '@redux';
 import { User, UserNameEmail } from '@models';
 
 interface AuthState {
-  user?: User;
   shouldShowLogin: boolean;
   showNewUserPopup?: UserNameEmail;
 }
 
 const initialState: AuthState = {
-  user: undefined,
   shouldShowLogin: false,
   showNewUserPopup: undefined,
 };
@@ -23,10 +21,6 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<User | undefined>) => {
-      state.user = action.payload;
-      // This should be using backend cookies
-    },
     startNewUserFlow: (
       state,
       action: PayloadAction<UserNameEmail | undefined>,
@@ -49,7 +43,6 @@ export const authSlice = createSlice({
  * Exporting action creators.
  */
 export const {
-  setUser,
   startNewUserFlow,
   endNewUserFlow,
   showLogin,
@@ -59,7 +52,6 @@ export const {
 /**
  * Exporting select hooks for this slice.
  */
-export const useUser = () => useSelector((state) => state.auth.user);
 export const useShouldShowLogin = () => {
   return useSelector((state) => state.auth.shouldShowLogin);
 };

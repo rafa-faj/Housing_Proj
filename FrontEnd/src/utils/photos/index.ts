@@ -1,8 +1,7 @@
-import { isStringArray } from '../../utils/typing/index';
+import { isStringArray } from '@utils';
+import { S3_BASE_URL } from '@constants';
 
-const formatWithAws = (url: string) => {
-  return `https://houseit.s3.us-east-2.amazonaws.com/${url}`;
-};
+export const formatWithAws = (url: string) => `${S3_BASE_URL}${url}`;
 
 /**
  * Takes in a string array and returns the strings formatted to access user photos on aws.

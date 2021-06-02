@@ -1,1 +1,1 @@
-export { HouseBrowsing as default } from '@components/HouseBrowsing';
+export { HouseBrowsing as default } from '@components';

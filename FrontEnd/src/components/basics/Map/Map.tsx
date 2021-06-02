@@ -8,6 +8,7 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import styles from './Map.module.scss';
 import cn from 'classnames';
 import useAsyncEffect from 'use-async-effect';
+import { formatWithAws } from '@utils';
 
 interface Coords {
   lat: number;
@@ -39,7 +40,7 @@ const GoogleMap: FunctionComponent<PathProps> = ({ address, className }) => {
       <Marker
         position={center}
         icon={{
-          url: 'https://houseit.s3.us-east-2.amazonaws.com/assets/mapPin.svg',
+          url: formatWithAws('assets/mapPin.svg'),
           anchor: new google.maps.Point(17, 46),
         }}
       />

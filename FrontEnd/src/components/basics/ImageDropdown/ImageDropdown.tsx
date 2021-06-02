@@ -19,11 +19,16 @@ interface itemConfig {
 
 interface itemProps extends BootstrapDropdownMetadata.DropdownProps {
   items: itemConfig[];
-  profileIcon:string;
+  profileIcon: string;
 }
 
-const ImageDropdown: FunctionComponent<itemProps> = ({ items, className, profileIcon}) => {
+const ImageDropdown: FunctionComponent<itemProps> = ({
+  items,
+  className,
+  profileIcon,
+}) => {
   const router = useRouter();
+
   return (
     <BootstrapDropdown className={cn(className, styles.dropdown)}>
       <BootstrapDropdown.Toggle
@@ -31,13 +36,16 @@ const ImageDropdown: FunctionComponent<itemProps> = ({ items, className, profile
         className={styles.profileToggle}
         variant="wrapper"
       >
-        <img className={styles.profileImage} src={profileIcon}>
-        </img>
+        <img className={styles.profileImage} src={profileIcon}></img>
       </BootstrapDropdown.Toggle>
       {/* might need to make the menu a basic  component itself */}
       <BootstrapDropdown.Menu className={styles.dropdownMenu} align="right">
         {items.map(({ href, label, labelClassName, onClick }) => (
-          <BootstrapDropdown.Item href={href} className={styles.dropdownItem} onClick={onClick}>
+          <BootstrapDropdown.Item
+            href={href}
+            className={styles.dropdownItem}
+            onClick={onClick}
+          >
             <h5
               className={cn(
                 labelClassName,

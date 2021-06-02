@@ -2,34 +2,41 @@ import React, { FunctionComponent } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { landingIcons } from '@icons';
 import styles from './LandingPage.module.scss';
-import Button from '@components/basics/Button'
+import Button from '@components/basics/Button';
 import { useRouter } from 'next/dist/client/router';
 
-const HomehubWelcomeInfo : FunctionComponent = () => {
+const HomehubWelcomeInfo: FunctionComponent = () => {
   const router = useRouter();
   const routeToHouseListings = () => {
-    router.push("/housing", undefined, { shallow: true });
-  };  
+    router.push('/housing', undefined, { shallow: true });
+  };
   return (
-  <div className={styles.title}>
-    <div className={styles.bigRow}>
-      <landingIcons.logo className={styles.logo}/> <span className={styles.logoText}>Homehub</span>
+    <div className={styles.title}>
+      <div className={styles.bigRow}>
+        <landingIcons.logo className={styles.logo} />{' '}
+        <span className={styles.logoText}>Homehub</span>
+      </div>
+      <div className={styles.bigRow}>
+        <div className={styles.text}>
+          Find your ideal home away from home ASAP
+        </div>
+      </div>
+      <div className={styles.bigRow}>
+        <div className={styles.subtext}>
+          By students <span className={styles.dot}></span> For students{' '}
+          <span className={styles.dot}></span> With students
+        </div>
+      </div>
+      <div className={styles.center}>
+        <Button onClick={routeToHouseListings}>
+          <div className={styles.buttonInner}>Check it Out</div>
+        </Button>
+      </div>
     </div>
-    <div className={styles.bigRow}>
-      <div className={styles.text}>Find your ideal home away from home ASAP</div>
-    </div>
-    <div className={styles.bigRow}>
-      <div className={styles.subtext}>By students <span className={styles.dot}></span> For students <span className={styles.dot}></span> With students</div>
-    </div>
-    <div className={styles.center}>
-      <Button onClick={routeToHouseListings}>
-        <div className={styles.buttonInner}>Check it Out</div>
-      </Button>
-    </div>
-  </div>
-);}
+  );
+};
 
-const WhyHomeHubInfo : FunctionComponent = () => (
+const WhyHomeHubInfo: FunctionComponent = () => (
   <Row className={styles.iconRow}>
     <Col className={styles.introCol}>
       <Row className={styles.smallRow}>
@@ -57,7 +64,7 @@ const WhyHomeHubInfo : FunctionComponent = () => (
       </Row>
       <Row className={styles.caption}>Community</Row>
       <div className={styles.textSm}>
-        After signing up, you will be grouped with peer students at UCSD to 
+        After signing up, you will be grouped with peer students at UCSD to
         <b> get more involved with others in the community.</b>
       </div>
     </Col>
@@ -67,39 +74,40 @@ const WhyHomeHubInfo : FunctionComponent = () => (
 const Landing: FunctionComponent = () => {
   const router = useRouter();
   const routeToHouseListings = () => {
-    router.push("/housing", undefined, { shallow: true });
-  };  
+    router.push('/housing', undefined, { shallow: true });
+  };
+
   return (
-  <Container className={styles.container}>
-    <HomehubWelcomeInfo></HomehubWelcomeInfo>
+    <Container className={styles.container}>
+      <HomehubWelcomeInfo></HomehubWelcomeInfo>
 
-    <Row className={styles.intro}>
-          <Col className={styles.housingicon}><landingIcons.housing /></Col>
-          <Col className={styles.textIntro}>
-            <div className={styles.textLg}>What is Homehub?</div>
-            <div className={styles.subtextIntro}>
-              Homehub connects students with their peers within UCSD 
-              to create a reliable housing network for college students 
-              to find great places to live.
-            </div>
-          </Col>
-    </Row>
+      <Row className={styles.intro}>
+        <Col className={styles.housingicon}>
+          <landingIcons.housing />
+        </Col>
+        <Col className={styles.textIntro}>
+          <div className={styles.textLg}>What is Homehub?</div>
+          <div className={styles.subtextIntro}>
+            Homehub connects students with their peers within UCSD to create a
+            reliable housing network for college students to find great places
+            to live.
+          </div>
+        </Col>
+      </Row>
 
-    <Row className={styles.intro}>
-      <Row className={styles.bigRow}>
-        <div className={styles.textLg}>Why Homehub?</div>
+      <Row className={styles.intro}>
+        <Row className={styles.bigRow}>
+          <div className={styles.textLg}>Why Homehub?</div>
+        </Row>
+        <WhyHomeHubInfo></WhyHomeHubInfo>
+        <Row className={styles.center}>
+          <Button onClick={routeToHouseListings}>
+            <div className={styles.buttonInner}>Check it Out</div>
+          </Button>
+        </Row>
       </Row>
-      <WhyHomeHubInfo></WhyHomeHubInfo>
-      <Row className={styles.center}>
-        <Button onClick={routeToHouseListings}>
-          <div className={styles.buttonInner}>Check it Out</div>
-        </Button>
-      </Row>
-    </Row>
-  </Container>
+    </Container>
   );
-
-}
-
+};
 
 export default Landing;

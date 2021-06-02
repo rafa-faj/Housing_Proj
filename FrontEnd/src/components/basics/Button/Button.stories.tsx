@@ -1,7 +1,7 @@
 import React, { ComponentProps } from 'react';
 import { Story } from '@storybook/react';
 import Button from './Button';
-import { contactIcons, largeAmenitiesIcons, Icon, IconObject } from '@icons';
+import { contactIcons, amenityIcons, Icon, IconObject } from '@icons';
 import { joinObjects } from '@utils';
 
 type StorybookMapping = { [key: string]: { icon: Icon } };
@@ -22,10 +22,7 @@ const mapIconObjectToStorybookMapping = (
 /**
  * Icons that will be in the storybook icon dropdown.
  */
-const selectableIcons = joinObjects<IconObject>(
-  contactIcons,
-  largeAmenitiesIcons,
-);
+const selectableIcons = joinObjects<IconObject>(contactIcons, amenityIcons);
 
 export default {
   title: 'Button',
@@ -50,7 +47,7 @@ Default.args = {
 
 export const SimpleIcon = Template.bind({});
 SimpleIcon.args = {
-  icon: { icon: largeAmenitiesIcons.petsFriendly, config: { fill: '#ffffff' } },
+  icon: { icon: amenityIcons.PetsFriendly, config: { fill: '#ffffff' } },
   children: 'Click me!',
 };
 
@@ -63,5 +60,5 @@ LongLabel.args = {
 export const Wrapper = Template.bind({});
 Wrapper.args = {
   variant: 'wrapper',
-  icon: { icon: largeAmenitiesIcons.petsFriendly },
+  icon: { icon: amenityIcons.PetsFriendly },
 };

@@ -1,2 +1,2 @@
-export { default as HouseProfile } from './HouseProfile';
+export { default } from './HouseProfile';
 export * from './HouseProfile';

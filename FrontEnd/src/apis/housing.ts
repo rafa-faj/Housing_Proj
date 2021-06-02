@@ -1,10 +1,5 @@
-import {
-  CreateHousePostProperties,
-  HousePost,
-  FilterModel,
-  LandlordHousePost,
-} from '@models';
-import { backendAPI, getDurationInMinutes } from '.';
+import { HousePost, LandlordHousePost } from '@models';
+import { backendAPI, getDurationInMinutes } from '@apis';
 
 /**
  * Get IDs of recent room posts made.
@@ -54,18 +49,6 @@ export const getHousingPost = async (roomId: number) => {
 };
 
 /**
- * Search all rooms with the specified filter.
- *
- * @param filter - information used to filter rooms
- * @returns array of room IDs that match the filter
- */
-export const searchHousingPosts = async (filter: Partial<FilterModel>) => {
-  const response = await backendAPI.post<number[]>('/searchRoom', filter);
-
-  return response.data;
-};
-
-/**
  * Get bookmarked rooms of current user by ID.
  *
  * @returns array of room IDs that are bookmarked by current user
@@ -98,33 +81,4 @@ export const removeHousingBookmark = async (roomId: number) => {
     roomId,
     action: 'remove',
   });
-};
-
-export const createHousingPost = async (
-  roomForm: CreateHousePostProperties & { email: string }, // TODO double check that this is the correct type for param, and you need to type the promise
-): Promise<any[] | undefined> => {
-  console.log('starting the new housing post api');
-
-  // TODO distance calculation not working for some reason
-  // calculate distance to location
-  const distance = await getDurationInMinutes(roomForm.address);
-  console.log('distance');
-  console.log(distance);
-  if (!distance) {
-    throw Error("Bad request - can't calculate the distance to the address.");
-  }
-
-  const formData = new FormData();
-  roomForm.photos.forEach((photo) => formData.append('photos', photo));
-  formData.append('json', { ...roomForm, photos: undefined, distance });
-
-  const result = await backendAPI.post(
-    '/postRoom',
-    // TODO { roomForm, distance: '15 min' },
-    formData,
-  );
-  console.log(result, 'got result');
-  // handle errors
-
-  return result.data;
 };

@@ -1,25 +1,25 @@
 import React, { FunctionComponent } from 'react';
-import { Modal, Button } from '@basics';
+import { Modal, Button, Tooltip, Caption } from '@basics';
 import {
   GoogleLogin,
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from 'react-google-login';
 import { useDispatch } from 'react-redux';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import {
-  useUser,
-  useShouldShowLogin,
-  hideLogin,
-  startNewUserFlow,
-  setUser,
-} from '@redux';
+import { useShouldShowLogin, hideLogin, startNewUserFlow } from '@redux';
 import { miscIcons } from '@icons';
-import { LOGIN_INFO_TOOLTIP } from '@constants';
 import styles from './Login.module.scss';
-import { login } from '@apis';
 import NewUserSetup from '@components/NewUserSetup';
-import { useShowNewUserPopup } from '@redux';
+import { useUser } from '@hooks';
+
+// Used in tooltip as the title
+const TooltipContent = (
+  <span>
+    We use school email addresses to ensure all users are current students of
+    universities in an attempt to{' '}
+    <b>enhance reliability and credibility of posts</b>.
+  </span>
+);
 
 const isOnline = (
   response: GoogleLoginResponse | GoogleLoginResponseOffline,
@@ -29,6 +29,7 @@ const isOnline = (
 const LoginUI: FunctionComponent = () => {
   const dispatch = useDispatch();
   const shouldShowLogin = useShouldShowLogin();
+  const { login } = useUser();
 
   const responseGoogleSuccess = async (
     response: GoogleLoginResponse | GoogleLoginResponseOffline,
@@ -41,8 +42,6 @@ const LoginUI: FunctionComponent = () => {
 
       if (result.isNewUser) {
         dispatch(startNewUserFlow({ name, email }));
-      } else {
-        dispatch(setUser(result));
       }
     } else {
       console.log('User is offline');
@@ -58,61 +57,44 @@ const LoginUI: FunctionComponent = () => {
     >
       <div>
         <Button variant="wrapper" onClick={() => dispatch(hideLogin())}>
-          <img className={styles.close} src="/close.svg" alt="Close" />
+          <miscIcons.orangeX />
         </Button>
-        <OverlayTrigger
-          placement="bottom-end"
-          overlay={<Tooltip id="tooltip">{LOGIN_INFO_TOOLTIP}</Tooltip>}
-        >
-          <div className={styles.whyText}>
-            Why school account? <miscIcons.infoCircle />
-          </div>
-        </OverlayTrigger>
       </div>
 
-      <img src="/login.svg" alt="LogIn" />
+      <div className="d-flex justify-content-center">
+        <img className={styles.loginImg} src="/login.svg" alt="LogIn" />
+      </div>
+
       <GoogleLogin
-        className="g-auth"
+        className={styles.gAuth}
         clientId="778916194800-977823s60p7mtu1sj72ru0922p2pqh6m.apps.googleusercontent.com"
         onSuccess={async (response) => {
           await responseGoogleSuccess(response);
           dispatch(hideLogin());
         }}
-        onFailure={(response) => console.log(response)}
-        // TODO: add login cookie to onSuccess using universal-cookie
         cookiePolicy="single_host_origin"
         icon={false}
       >
-        {/* 
-        isSignedIn={true} attribute will call onSuccess callback on load to keep the user signed in
-         */}
-        <img
-          className={styles.loginButton}
-          src="/loginButton.svg"
-          alt="LogInButton"
-        />
+        <Button icon={{ icon: miscIcons.GoogleLogo }}>
+          Start with school account
+        </Button>
       </GoogleLogin>
+
+      <Tooltip title={TooltipContent}>Why school account?</Tooltip>
     </Modal>
   );
 };
 
 const Login: FunctionComponent = () => {
-  const user = useUser();
-  const showNewUserPopup = useShowNewUserPopup();
+  const { data: user } = useUser();
 
   // if user is logged in, there's no need to render the login component
-  if (user) return null;
+  if (user.isLoggedIn) return null;
 
   return (
     <>
       <LoginUI />
-      {showNewUserPopup !== undefined && ( // only render the modal when user info exists, to initialize the wizard form with the user info
-        <NewUserSetup
-          show={showNewUserPopup !== undefined}
-          name={showNewUserPopup?.name}
-          email={showNewUserPopup?.email}
-        />
-      )}
+      <NewUserSetup />
     </>
   );
 };

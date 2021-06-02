@@ -46,6 +46,7 @@ $error-color: #e16161;
 $black-color: #202020;
 $link-color: #6d83e7;
 $background-color: #fffaf8;
+$border-color: #f8e6d8;
 
 /**
  * STYLE GUIDE TYPOGRAPHY.
@@ -66,20 +67,18 @@ $lg-font-size: 1.375rem; // old value was: 24px (which was +0.125rem of what it 
 $md-font-size: 1rem; // old value was: 20px (which was +0.125rem of what it is now)
 $sm-font-size: 0.875rem; // old value was: 16px (which was +0.125rem of what it is now)
 $xs-font-size: 0.75rem; // old value was: 14px (which was +0.125rem of what it is now)
-$xxs-font-size: 0.5rem; // old value was: 12px (which was +0.125rem of what it is now)
+$xxs-font-size: 0.625rem; // old value was: 12px (which was +0.125rem of what it is now)
 
 /**
  * STYLE GUIDE OTHER VARS.
  */
-$lg-border-radius: 1.375rem; // 22px
-$sm-border-radius: 0.625rem; // 10px
+$lg-border-radius: 1.25rem; // 20px
+$sm-border-radius: 0.5rem; // 8px
 $input-border-radius: 0.5rem; // 8px
 
 $lg-modal-height: 37.5rem; // 600px
 
 $default-border-width: 0.1875rem; // 3px
-
-$border-color2: 3px solid #F8E6D8;
 
 /**
  * WEBSITE DESIGN VARIABLES.

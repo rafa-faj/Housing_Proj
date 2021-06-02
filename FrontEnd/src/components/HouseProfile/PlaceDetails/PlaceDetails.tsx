@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import Contact from './Contact/Contact';
 import styles from './PlaceDetails.module.scss';
-import styles_parent from '../HouseProfile.module.scss'
+import styles_parent from '../HouseProfile.module.scss';
 import { useLandlordRoomData } from '@hooks';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -15,24 +15,42 @@ interface PlaceDetailsProps {
   roomId: number;
 }
 
-interface ColSpanConfig{
+interface RentAndHouseDetailsKeys {
+  Availability: JSX.Element;
+  'Lease Term': string;
+  'Pet Policy': JSX.Element;
+  Parking: string;
+  'Utility Details': string;
+}
+
+interface ColSpanConfig {
   xs: number;
   sm: number;
   md: number;
   lg: number;
 }
 
-interface RentAndHouseDetailsKeys{
-  Availability: HTMLElement;
-  'Lease Term': string;
-  'Pet Policy': HTMLElement;
-  Parking: string;
-  'Utility Details':string;
+interface RentAndHouseDetailsProps extends ColSpanConfig {
+  details: Partial<RentAndHouseDetailsKeys>;
 }
 
-interface RentAndHouseDetailsProps extends ColSpanConfig{
-  details: RentAndHouseDetailsKeys;
-}
+// Changes details specified above into appropriate text + columns
+const RentAndHouseDetails: FunctionComponent<RentAndHouseDetailsProps> = ({
+  details,
+  xs,
+  sm,
+  md,
+  lg,
+}) => (
+  <Row className={styles.detailTileWrapper}>
+    {Object.entries(details).map(([label, value]) => (
+      <Col xs={xs} sm={sm} md={md} lg={lg}>
+        <Subtitle2>{label}</Subtitle2>
+        <Body2>{value}</Body2>
+      </Col>
+    ))}
+  </Row>
+);
 
 const PlaceDetails: FunctionComponent<PlaceDetailsProps> = ({ roomId }) => {
   const { data, error } = useLandlordRoomData(roomId);
@@ -58,57 +76,26 @@ const PlaceDetails: FunctionComponent<PlaceDetailsProps> = ({ roomId }) => {
     website,
   } = data;
 
-  // Used in RentAndHouseDetails to display information with labels
+  // Used in RentAndHouseDetails to display information with labels (format is { label: value })
+  // TODO make this more readable
   const detailsInCol = {
     Availability: (
       <span>
         The apartment is available <b>{availability}</b>
       </span>
     ),
-    'Lease Term': leaseTerm
-  };
-  const detailsInColColConfigurations = {
-    xs: 12,
-    sm: 6,
-    md: 12,
-    lg: 6,
+    'Lease Term': leaseTerm,
   };
 
   const detailsInRow = {
     'Pet Policy': <div className={styles.detailFormat}>{petPolicy}</div>,
     Parking: parking,
-    'Utility Details':'All paid separately'
-  }
-
-  const detailsInRowColConfigurations = {
-    xs: 12,
-    sm: 4,
-    md: 12,
-    lg: 4,
+    'Utility Details': 'All paid separately',
   };
-
-  // Changes details specified above into appropriate text + columns
-  const RentAndHouseDetails: FunctionComponent<RentAndHouseDetailsProps> = ({details, xs, sm, md, lg}) => (
-    <Row className={styles.detailTileWrapper}>
-      {Object.entries(details).map(([label, value]) => (
-        <Col xs={xs} sm={sm} md={md} lg={lg}>
-          <Subtitle2>{label}</Subtitle2>
-          <Body2>{value}</Body2>
-        </Col>
-      ))}
-    </Row>
-  )
 
   // TODO
   // use {utilityDetails} inside here
   const InfoThing = () => <div />;
-
-  const amenityColConfigurations = {
-    sm: 6,
-    md: 4,
-    lg: 3,
-    xl: 4,
-  };
 
   const AmenitiesSection: FunctionComponent = () => (
     <Row className={styles.amenitiesWrapper}>
@@ -121,7 +108,10 @@ const PlaceDetails: FunctionComponent<PlaceDetailsProps> = ({ roomId }) => {
               <Row>
                 <Amenities
                   selected={facility}
-                  {...amenityColConfigurations}
+                  sm={6}
+                  md={4}
+                  lg={3}
+                  xl={4}
                   className={styles.amenities}
                   colClassName={styles.amenity}
                   extraContent={
@@ -152,16 +142,33 @@ const PlaceDetails: FunctionComponent<PlaceDetailsProps> = ({ roomId }) => {
             </Row>
           </h5>
 
-          <RentAndHouseDetails details={detailsInCol} {...detailsInColColConfigurations}/>
+          <RentAndHouseDetails
+            details={detailsInCol}
+            xs={12}
+            sm={6}
+            md={12}
+            lg={6}
+          />
         </Col>
 
         {breakpoint.down.md && <AmenitiesSection />}
 
-        <Col xs={12} lg={4} className={cn(styles.ColWrapper, "pl-md-3 order-first order-lg-last")}>
+        <Col
+          xs={12}
+          lg={4}
+          className={cn(styles.ColWrapper, 'order-first order-lg-last')}
+        >
           <Contact roomId={roomId} />
         </Col>
       </Row>
-      <RentAndHouseDetails details={detailsInRow} {...detailsInRowColConfigurations}/>
+
+      <RentAndHouseDetails
+        details={detailsInRow}
+        xs={12}
+        sm={4}
+        md={12}
+        lg={4}
+      />
 
       {breakpoint.up.lg && <AmenitiesSection />}
     </Container>

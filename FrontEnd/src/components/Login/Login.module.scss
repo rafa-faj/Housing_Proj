@@ -1,55 +1,15 @@
-
-
-// TODO this isn't used but should be
-.overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  opacity: 0;
-  opacity: 0;
-  transition: 0.5s ease;
-  background-color: black;
-}
-
-.tooltip > .tooltip-inner {
-  @include font-type('subtitle 1');
-
-  color: $primary-dark-color;
-  background-color: $background-color;
-  border-radius: 20px 0px 20px 20px;
-  margin-right: 20px;
-  width: 5000px !important;
-}
-
-.tooltip-inner {
-  max-width: 25vw; // for laptop
-  // TODO: max-width for mobile
-}
-
-.tooltip > .arrow {
-  display: none;
-}
-
-.whyText {
-  float: right;
-  padding-right: 0.5rem;
-  padding-top: 0.25rem;
-  color: $primary-dark-color;
-}
-
 .wrapper {
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  padding-bottom: 0px;
+  padding: 1rem;
 }
 
-.close {
-  padding-left: 0.5rem;
+.loginImg {
+  width: 14.375rem;
+  height: 12.5rem;
 }
 
-.loginButton {
-  display: block;
+.gAuth {
+  box-shadow: none !important;
+  margin: 0 auto;
 }
