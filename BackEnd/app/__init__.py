@@ -78,7 +78,7 @@ def create_app(test_config=None):
         try:
             update_pairs = requested_json["updates"]
             if isinstance(update_pairs,dict) != True:
-                response = generate_message(MESSAGE_PROFILE_UPDATE_NON_DICT,400)
+                response = generate_message(MESSAGE_UPDATE_PROFILE_NON_DICT,400)
             else:
                 correct_format,valid_update_pairs, response = process_request_json(User,update_pairs)
                 if correct_format == True: 

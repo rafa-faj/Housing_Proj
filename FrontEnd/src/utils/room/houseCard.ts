@@ -3,5 +3,5 @@
  * @param rent - rent to format
  */
 export const formatHouseCardRent = (rent: string): string => {
-    return rent.split(' - ')[0];
+    return rent.split('-')[0];
 };

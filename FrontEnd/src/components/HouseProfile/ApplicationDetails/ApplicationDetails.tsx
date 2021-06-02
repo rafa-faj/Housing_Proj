@@ -19,6 +19,7 @@ const ApplicationDetails: FunctionComponent<ApplicationDetailsProps> = ({
   roomId,
 }) => {
   const { data, error } = useLandlordRoomData(roomId);
+  // console.log(getDurationInMinutes("7936 Avenida Navidad San Diego, CA 92122"));
 
   if (error) {
     return <div>Error occurred!</div>; // TODO handle error in a different way
