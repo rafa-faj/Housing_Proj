@@ -40,13 +40,17 @@ const Contact: FunctionComponent<ContactProps> = ({ roomId }) => {
 
         <div className={styles.contactInfo}>
           <Link href={`mailto:${email}`} external>
-            <contactIcons.email /> Email
+            <Body2>
+              <contactIcons.email /> Email
+            </Body2>
           </Link>
         </div>
 
         <div className={styles.contactInfo}>
           <Link href={website} external>
-            <contactIcons.internetGlobe /> Website
+            <Body2>
+              <contactIcons.internetGlobe /> Website
+            </Body2>
           </Link>
         </div>
       </div>

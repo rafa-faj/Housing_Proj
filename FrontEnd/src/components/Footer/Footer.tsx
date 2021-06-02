@@ -37,7 +37,9 @@ const homehubEmail = 'homehubdope@gmail.com';
 
 const Email = () => (
   <Link href={`mailto:${homehubEmail}`} external undecorated>
-    <Subtitle1 className={styles.greyedOut}>{homehubEmail}</Subtitle1>
+    <Subtitle1 className={cn(styles.greyedOut, styles.email)}>
+      {homehubEmail}
+    </Subtitle1>
   </Link>
 );
 

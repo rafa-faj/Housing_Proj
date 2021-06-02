@@ -62,14 +62,14 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
         </div>
 
         <div className={styles.distance}>
-          <miscIcons.busIcon /> <b>~ {distance} to Price Center </b>&nbsp;
+          <miscIcons.busIcon /> <b>~ {distance} to Price Center </b>
         </div>
 
         <div className={styles.address}>
           <div className={styles.locationIcon}>
             <miscIcons.LocationIcon />
           </div>
-          <div>{address}</div>
+          <div className={styles.addressText}>{address}</div>
         </div>
 
         <div className={styles.room}>{roomType}</div>
