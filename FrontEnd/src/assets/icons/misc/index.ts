@@ -18,3 +18,4 @@ export { default as heartIcon } from './heart.svg';
 export { default as RoundArrow } from './roundArrow.svg';
 export { default as LocationIcon } from './location.svg';
 export { default as Logo } from './logo.svg';
+export { default as GoogleLogo } from './GoogleLogo.svg';
