@@ -155,6 +155,13 @@ def check_verify_token(request,login_session):
     # if successfully checked, return true, None(indicating to proceed next actions)
     return True, None
 
+def convert_to_underscore(json_form):
+    """
+    Convert all the keys from camelCase to underscore case (snake_case)
+    """
+    new_json = {underscore(key):value for key,value in json_form.items()}
+    return new_json
+
 def check_json_form(request, bad_req_message, no_json_message):
     """
     Check the existence of JSON before actually processing the data
@@ -168,8 +175,8 @@ def check_json_form(request, bad_req_message, no_json_message):
     if requested_json is None:
         response = generate_message(no_json_message,400)
         return False, response, None
-    # if json is invalid, transform the key names from js native to python native
-    new_json = {underscore(key):value for key,value in requested_json.items()}
+
+    new_json = convert_to_underscore(requested_json)
     return True, None, new_json
 
 def transform_json_underscore(json_form):

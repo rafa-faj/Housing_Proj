@@ -16,6 +16,7 @@ from app.util.env_setup import set_backend_config
 import json
 import os
 from app.db.crud import *
+from app.assets.request_message_map import *
 
 aws_landlord_endpoint = "https://houseit.s3.us-east-2.amazonaws.com/landlord/landlord_rooms.json"
 def create_app(test_config=None):
@@ -76,9 +77,10 @@ def create_app(test_config=None):
         # design decision: if there are invalid field names, only update the valid fields.
         # check updates keys and formats
         try:
-            update_pairs = requested_json["updates"]
+            update_pairs = convert_to_underscore(requested_json["updates"])
+            
             if isinstance(update_pairs,dict) != True:
-                response = generate_message(MESSAGE_PROFILE_UPDATE_NON_DICT,400)
+                response = generate_message(MESSAGE_UPDATE_PROFILE_NON_DICT,400)
             else:
                 correct_format,valid_update_pairs, response = process_request_json(User,update_pairs)
                 if correct_format == True: 
