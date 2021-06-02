@@ -17,13 +17,14 @@ const Modal: FunctionComponent<ModalProps> = ({
   open,
   className,
   size = 'md',
+  // default keepMounted is true (necessary for SSR/nextjs, so that it will be sent to client)
+  keepMounted = true,
   ...passedProps
 }) => {
   return (
-    // default keepMounted is true for SSR in nextjs (necessary to be sent to client). Can be overridden (from passedProps)
     <MaterialUIModal
       open={open}
-      keepMounted
+      keepMounted={keepMounted}
       {...passedProps}
       className={styles.materialUIModal}
       disableBackdropClick

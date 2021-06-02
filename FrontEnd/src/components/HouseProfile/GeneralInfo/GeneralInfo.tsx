@@ -23,11 +23,21 @@ const GeneralInfo: FunctionComponent<GeneralInfoProps> = ({
   const textCol = (
     <div className={styles.textPortion}>
       <div className={styles.day}>
-        <miscIcons.RoundArrow /> 1 days ago
+        <miscIcons.RoundArrow /> 1 day ago
       </div>
       <div className={styles.name}>{name}</div>
       <div className={styles.distance}>
-        <miscIcons.busIcon /> <b>~ {distance} to <a className={styles.distancePCLink} href="https://www.google.com/maps/place/Price+Center,+La+Jolla,+CA+92093/@32.8797205,-117.2383839,17z/data=!3m1!4b1!4m5!3m4!1s0x80dc06c46a524fb9:0x68571efb243bc289!8m2!3d32.8797205!4d-117.2361952">Price Center</a></b>&nbsp;
+        <miscIcons.busIcon />{' '}
+        <b>
+          ~ {distance} to{' '}
+          <a
+            className={styles.distancePCLink}
+            href="https://www.google.com/maps/place/Price+Center,+La+Jolla,+CA+92093/@32.8797205,-117.2383839,17z/data=!3m1!4b1!4m5!3m4!1s0x80dc06c46a524fb9:0x68571efb243bc289!8m2!3d32.8797205!4d-117.2361952"
+          >
+            Price Center
+          </a>
+        </b>
+        &nbsp;
       </div>
       <div className={styles.address}>
         <div className={styles.locationIcon}>

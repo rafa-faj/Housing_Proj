@@ -54,7 +54,7 @@ const HouseCard: FunctionComponent<Props> = ({ roomId }) => {
     >
       <div className={styles.textPortion}>
         <div className={styles.day}>
-          <miscIcons.RoundArrow /> 1 days ago
+          <miscIcons.RoundArrow /> 1 day ago
         </div>
 
         <div className={styles.price}>

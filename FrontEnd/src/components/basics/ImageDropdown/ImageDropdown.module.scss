@@ -16,7 +16,7 @@
     overflow-y: auto;
     background-color: white;
     border-radius: $input-border-radius;
-    border: $border-color2;
+    border: 3px solid $border-color;
 
     .dropdownItem {
       text-decoration: none;

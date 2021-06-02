@@ -13,7 +13,7 @@ const FirstColumn: FunctionComponent = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className={cn(styles.marginBottomProvider,"px-md-0 px-3")}>
+    <div className={cn(styles.marginBottomProvider, 'px-md-0 px-3')}>
       <Button
         variant="wrapper"
         className={styles.getStarted}
@@ -75,7 +75,7 @@ const ThirdColumn: FunctionComponent = () => (
     </Row>
 
     <Subtitle2 className={styles.ellipses}>
-    <miscIcons.ellipse />  By students <miscIcons.ellipse /> For students <miscIcons.ellipse /> With
+      By students <miscIcons.ellipse /> For students <miscIcons.ellipse /> With
       students
     </Subtitle2>
   </div>
@@ -87,7 +87,7 @@ const ThirdColumn: FunctionComponent = () => (
  */
 const Footer: FunctionComponent = () => (
   <footer>
-    <div className={cn(styles.wrapper)}>
+    <div className={styles.wrapper}>
       <Container className="m-0">
         <Row>
           <Col xs={6} md={3} className="mb-5 mb-md-0">
@@ -98,7 +98,7 @@ const Footer: FunctionComponent = () => (
             <SecondColumn />
           </Col>
 
-          <Col xs={{span:8,offset:2}} md={{span:3,offset:0}}>
+          <Col xs={{ span: 8, offset: 2 }} md={{ span: 3, offset: 0 }}>
             <ThirdColumn />
           </Col>
         </Row>

@@ -45,6 +45,8 @@ const Button: FunctionComponent<ButtonProps> = ({
     </div>
   );
 
+  // TODO const Typography = () => size === 'primary' ?
+
   // Configure children (will only be used if icon exists)
   const styledChildren = children && (
     <span className={styles.children}>{children}</span>
