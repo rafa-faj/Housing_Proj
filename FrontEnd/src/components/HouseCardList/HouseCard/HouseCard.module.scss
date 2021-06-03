@@ -1,4 +1,4 @@
-
+$padding-between-icon-and-label: 0.25rem;
 
 .card {
   background-color: white;
@@ -56,6 +56,10 @@
 .distance {
   margin-bottom: 0.5rem;
   @include font-type('body 1');
+
+  > svg {
+    margin-right: $padding-between-icon-and-label;
+  }
 }
 
 .address {
@@ -68,6 +72,7 @@
 
   .locationIcon {
     align-items: center;
+    margin-right: $padding-between-icon-and-label;
   }
 
   .addressText {
