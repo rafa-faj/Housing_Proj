@@ -214,7 +214,7 @@ def test_get_room(client, app, room_id, correct_status_code, correct_id, login_f
                 "school_year": "Grad",
                 "major": "MARVEL SCIENCE",
             }), "content_type": "application/json"},
-            {"message": "no update entries sent"},
+            {"message": MESSAGE_UPDATE_PROFILE_NO_ENTRY},
             {"name": "cris",
              "email": "haha@ucsd.edu",
              "phone": "858-911-1198",

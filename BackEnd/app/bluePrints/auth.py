@@ -18,9 +18,9 @@ authetication = Blueprint("auth", __name__)
 def login():
     """Login function and create anti-forgery state token.
 
-    
+
     content_type: application/json
-    
+
     example of valid json request format:
     "google_login_token":blah blah blah
     """
@@ -28,7 +28,7 @@ def login():
     # PART1: Secure measure to verify identity
     # first check if the origin is allowed
     if request.remote_addr not in current_app.config["ALLOWED_ORIGINS"]:
-        response = generate_message(MESSAGE_WRONG_ORIGIN,401)
+        response = generate_message(MESSAGE_WRONG_ORIGIN, 401)
         return response
     # pre-flight for CORS communication
     if request.method == "OPTIONS":
@@ -43,8 +43,10 @@ def login():
         return json_response
     # check requested json, see if the json contains required login info
     # first check if json exists from request
-    checked_json, response, requested_json = check_json_form(request,MESSAGE_BAD_JSON,MESSAGE_LOGIN_NO_JSON)
-    if checked_json != True: return response
+    checked_json, response, requested_json = check_json_form(
+        request, MESSAGE_BAD_JSON, MESSAGE_LOGIN_NO_JSON)
+    if checked_json != True:
+        return response
     # second check if json conatins enough info
     try:
         google_login_token = requested_json["google_login_token"]
@@ -53,12 +55,12 @@ def login():
             google_login_token, current_app.config["ALLOWED_DOMAINS"], current_app.config["GAUTH_AUDIENCE"])
         # if not valid, troll them(very likely to be a hacker)
         if status_code != 200:
-            response = generate_message(message,status_code)
+            response = generate_message(message, status_code)
             return response
     except KeyError:
         # if in online test mode or production mode, return invalid response
         if current_app.config["OFFLINE_TESTING"] != True:
-            response = generate_message(MESSAGE_LOGIN_NO_GTOKEN,400)
+            response = generate_message(MESSAGE_LOGIN_NO_GTOKEN, 400)
             return response
         user_email = requested_json["email"]
         # else just continue the flow for offline testing
@@ -90,15 +92,16 @@ def login():
 @authetication.route("/logout", methods=["GET"])
 def logout():
     """Log out the user by verifying the token
-    
+
     No need to provide request json since the token should be stored in the cookie
     """
     # already logout, stop right here
     if not is_loggedin(login_session):
         response = generate_message(MESSAGE_ALREADY_LOGOUT)
         return response
-    checked_and_verified, response = check_verify_token(request,login_session)
-    if not checked_and_verified: return response
+    checked_and_verified, response = check_verify_token(request, login_session)
+    if not checked_and_verified:
+        return response
     # token verified, login successful
     # delete the token cookie during log out and user info in the backend
     del login_session["user_id"]
@@ -107,10 +110,11 @@ def logout():
     response.delete_cookie("access_token")
     return response
 
+
 @authetication.route("/createUser", methods=["POST", "OPTIONS"])
 def create_user():
     """Create user function that is called when user is not in the database
-    
+
     content_type: application/json
 
     example of valid json request format:
@@ -130,17 +134,20 @@ def create_user():
     # part1: verify that the request is legit
     session = current_app.config["DB_CONNECTION"]
     # verify the token
-    checked_and_verified, response = check_verify_token(request,login_session)
-    if checked_and_verified == False: return response
+    checked_and_verified, response = check_verify_token(request, login_session)
+    if checked_and_verified == False:
+        return response
     try:
         # if some existing users are techie, troll them
         user_id = login_session["user_id"]
-        response = generate_message(MESSAGE_CREATE_USER_DUPLICATE_REQUEST,405)
+        response = generate_message(MESSAGE_CREATE_USER_DUPLICATE_REQUEST, 405)
         return response
     except KeyError:
         # nice error. This means we can proceed to process their json
-        checked_json, response, requested_json = check_json_form(request,MESSAGE_BAD_JSON,MESSAGE_CREATE_USER_NO_JSON)
-        if checked_json == False: return response
+        checked_json, response, requested_json = check_json_form(
+            request, MESSAGE_BAD_JSON, MESSAGE_CREATE_USER_NO_JSON)
+        if checked_json == False:
+            return response
         try:
             user_name = requested_json["name"]
             # user must complete account creation in the same session
@@ -151,14 +158,15 @@ def create_user():
             user_school_year = requested_json["school_year"]
             user_major = requested_json["major"]
             # verify types
-            correct_format,valid_update_pairs, response = process_request_json(User,
-            {"name":user_name,
-            "email":user_email,
-            "phone":user_phone,
-            "description":user_description,
-            "school_year":user_school_year,
-            "major":user_major})
-            if correct_format == False: return response
+            correct_format, valid_update_pairs, response = process_request_json(User,
+                                                                                {"name": user_name,
+                                                                                 "email": user_email,
+                                                                                 "phone": user_phone,
+                                                                                 "description": user_description,
+                                                                                 "school_year": user_school_year,
+                                                                                 "major": user_major})
+            if correct_format == False:
+                return response
             user = add_user(user_name,
                             user_email,
                             datetime.now(),
@@ -180,18 +188,12 @@ def create_user():
                 upload_file_wname(icon_path+selected_icon,
                                   "houseit", photo_path_name)
             # finally, send the sensitive data to be displayed on frontend/some techie user
-            json_response = {"name": user_name,
-                             "email": user_email,
-                             "message": "Welcome to be a new HOMIE! CONGRATS!",
-                             "description": user_description,
-                             "phone": user_phone,
-                             "schoolYear": user_school_year,
-                             "major": user_major,
-                             "profile_photo": photo_path_name
-                             }
+            json_response = generate_user_login_data(user)
+            json_response["message"] = "Welcome to be a new HOMIE! CONGRATS!"
             status_code = 201
             response = generate_response(json_response, status_code)
             return response
         except KeyError:
-            response = generate_message(MESSAGE_CREATE_USER_INCOMPLETE_JSON,400)
+            response = generate_message(
+                MESSAGE_CREATE_USER_INCOMPLETE_JSON, 400)
             return response

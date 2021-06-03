@@ -29,7 +29,7 @@ const SlideShowItem: FunctionComponent<SlideShowItemProps> = ({
       {onClick ? (
         <Button
           variant="wrapper"
-          className="w-100 h-100"
+          className="w-100 h-100 d-flex"
           onClick={onClick}
           onKeyDown={({ key }) => key === 'Enter' && onClick()}
         >

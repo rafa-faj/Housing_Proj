@@ -26,7 +26,7 @@ class MyDocument extends Document {
           <meta name="theme-color" content="#000000" />
           <meta
             name="description"
-            content="Web site for University of California, San Diego (UCSD) students to find housing and roommates in an easy and conveniant manner."
+            content="Web site for University of California, San Diego (UCSD) students to find housing and roommates in an easy and convenient manner."
           />
 
           <link rel="apple-touch-icon" href="/logo192.png" />
