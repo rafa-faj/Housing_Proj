@@ -13,13 +13,7 @@ import { User } from '@models';
  *
  */
 const useUser = () => {
-  const { data, error, isValidating, mutate } = useSWR(
-    '/api/user',
-    getCurUser,
-    {
-      refreshInterval: TEN_MINUTES,
-    },
-  );
+  const { data, error, isValidating, mutate } = useSWR('/api/user', getCurUser);
 
   // user is only logged in if there is NO ERROR and we have the appropriate user information.
   // explicitly check that `data.name` exists since `data` might exist with `data.message` for
