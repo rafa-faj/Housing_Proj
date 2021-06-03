@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Page1, { Page1Store, page1InitialStore, page1Schema } from './Page1';
 import Page2, { Page2Store, page2InitialStore, page2Schema } from './Page2';
 import { WizardForm } from '@basics';
-import { createUser } from '@apis';
+import { useUser } from '@hooks';
 import {
   endNewUserFlow,
   useShowNewUserPopup,
@@ -18,6 +18,7 @@ const NewUserSetup: FunctionComponent = () => {
   const dispatch = useDispatch();
   const showNewUserPopup = useShowNewUserPopup();
   const shouldShowLogin = useShouldShowLogin();
+  const { createUser } = useUser();
 
   if (!showNewUserPopup) return null;
 

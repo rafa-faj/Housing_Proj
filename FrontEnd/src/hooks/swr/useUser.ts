@@ -5,6 +5,7 @@ import {
   login as loginAPI,
   updateUser as updateUserAPI,
   logout as logoutAPI,
+  createUser as createUserAPI,
 } from '@apis';
 import { User } from '@models';
 
@@ -48,6 +49,14 @@ const useUser = () => {
     mutate(newUserData);
   };
 
+  // create user wrapper which will also mutate the user with their info
+  const createUser = async (user: User) => {
+    const data = await createUserAPI(user);
+
+    if (data) mutate(data);
+    return data;
+  };
+
   // logout wrapper which will also mutate the user
   const logout = async () => {
     await logoutAPI();
@@ -59,6 +68,7 @@ const useUser = () => {
     isLoading: !data && !error, // TODO redesign this in the future to be more consistent with other SWR hooks (i.e. so you can do if (!data) rather than if (isLoading))
     login,
     updateUser,
+    createUser,
     logout,
     isValidating,
     error,

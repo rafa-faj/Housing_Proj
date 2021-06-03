@@ -77,7 +77,9 @@ export const updateUser = async (updates: Partial<User>) => {
  * @returns - void
  */
 export const createUser = async (user: User) => {
-  backendAPI.post('/createUser', user);
+  const response = await backendAPI.post<User>('/createUser', user);
+
+  return response.data;
 };
 
 /**
