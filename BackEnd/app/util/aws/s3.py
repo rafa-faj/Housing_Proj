@@ -52,7 +52,10 @@ def upload_file_wobject(file_object, bucket, object_name=None):
 
     # If S3 object_name was not specified, use file_name
     if object_name is None:
-        object_name = file_object.filename
+        try:
+            object_name = file_object.filename
+        except AttributeError:
+            object_name = file_object.name
 
     # Upload the file
     try:
