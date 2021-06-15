@@ -20,6 +20,7 @@ export const login = async (
     googleLoginToken,
   });
 
+  console.log(response)
   const isNewUser = 'newUser' in response.data;
 
   if (isNewUser) return { isNewUser };

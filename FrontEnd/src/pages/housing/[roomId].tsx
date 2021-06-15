@@ -1,6 +1,7 @@
 import React, { useEffect, useState, FunctionComponent } from 'react';
 import { HouseProfile } from '@components';
 import { useRouter } from 'next/router';
+import {TriggerPageView} from '@components/ga'
 
 // parses the query parameter into a number (or undefined)
 // TODO should show 404 type page if the roomid that is passed doesn't exist
@@ -27,6 +28,9 @@ const Housing: FunctionComponent = () => {
 
     const roomId = parseQueryParam(router.query.roomId);
     setRoomId(roomId);
+
+    TriggerPageView('housing/'+ roomId?.toString())
+    
   }, [router]);
 
   if (roomId) return <HouseProfile roomId={roomId} />;
