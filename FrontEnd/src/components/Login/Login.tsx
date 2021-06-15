@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { useShouldShowLogin, hideLogin, startNewUserFlow } from '@redux';
 import { miscIcons } from '@icons';
 import styles from './Login.module.scss';
-import NewUserSetup from '@components/NewUserSetup';
+import { NewUserSetup } from '@components';
 import { useUser } from '@hooks';
 
 // Used in tooltip as the title

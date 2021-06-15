@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import Header from './Header';
 import { Body2 } from '@basics';
-import HouseCardList from '@components/HouseCardList';
+import { HouseCardList } from '@components';
 
 const Housing: FunctionComponent = () => {
   return (

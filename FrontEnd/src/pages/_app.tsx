@@ -2,9 +2,8 @@ import React, { FunctionComponent } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { reduxNextWrapper } from '@redux';
-import Login from '@components/Login';
+import { Login, Layout } from '@components';
 import '../assets/scss/global/index.scss';
-import Layout from '@components/Layout';
 
 const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
   <>

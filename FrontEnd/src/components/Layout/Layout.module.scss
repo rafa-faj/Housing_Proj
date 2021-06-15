@@ -1,10 +1,32 @@
-.layout {
-    margin-right: $entire-site-margin-x;
-    margin-left: $entire-site-margin-x;
-    margin-top: $filter-top-margin;
+$margin-right: $entire-site-margin-x;
+$margin-left: $entire-site-margin-x;
+$margin-top: $filter-top-margin;
 
-    @include bp-down('sm') {
-      margin-right: 0;
-      margin-left: 0;
-    }
+.layout {
+  margin-right: $margin-right;
+  margin-left: $margin-left;
+  margin-top: $margin-top;
+
+  @include bp-down('sm') {
+    margin-right: 0;
+    margin-left: 0;
   }
+}
+
+/**
+ * Undos for the horizontal and vertical margin. It simply multiplies the
+ * margin used in the layout by -1.
+ */
+.undoHorizontalMargin {
+  margin-right: -1 * $margin-right;
+  margin-left: -1 * $margin-left;
+
+  @include bp-down('sm') {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+.undoVerticalMargin {
+  margin-top: -1 * $margin-top;
+}
