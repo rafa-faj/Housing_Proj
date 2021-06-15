@@ -2,7 +2,7 @@
  * This file is a config file for jest-css-modules-transform, which is used in
  * jest to handle style files. https://www.npmjs.com/package/jest-css-modules-transform
  */
-const toPath = require('./toPath').toPath;
+const toPath = require('./toPath');
 
 module.exports = {
   prepend: [
