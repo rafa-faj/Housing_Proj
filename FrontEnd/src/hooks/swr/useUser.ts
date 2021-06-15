@@ -1,5 +1,4 @@
 import useSWR from 'swr';
-import { TEN_MINUTES } from '@constants';
 import {
   getCurUser,
   login as loginAPI,
@@ -10,7 +9,10 @@ import {
 import { User } from '@models';
 
 /**
- *
+ * SWR hook to access user data. Also provides helpful functions to login,
+ * logout, update user, etc. Note: check if user is logged in by doing
+ * `data.isLoggedIn` and check if it's loading by using `isLoading`
+ * (do NOT do `if (!data) { ... }` with useUser)
  */
 const useUser = () => {
   const { data, error, isValidating, mutate } = useSWR('/api/user', getCurUser);
@@ -54,7 +56,9 @@ const useUser = () => {
   // logout wrapper which will also mutate the user
   const logout = async () => {
     await logoutAPI();
-    mutate();
+
+    // hard set user as undefined. Don't mutate() by re-fetching data as it'll result in a race condition (...we think)
+    mutate(undefined);
   };
 
   return {
