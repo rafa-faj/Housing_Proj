@@ -1,6 +1,16 @@
-import React from 'react';
 import ReactGA from 'react-ga';
+import TagManager from 'react-gtm-module'
 
+export const InitTagManager = () => {
+  const tagManagerArgs = {
+    gtmId: 'GTM-000000'
+    /*events: {
+        sendUserInfo: 'userInfo'
+    }*/
+  }
+
+  TagManager.initialize(tagManagerArgs)
+}
 
 export const InitGA = () => {
     ReactGA.initialize('UA-199317849-1');

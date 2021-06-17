@@ -5,9 +5,10 @@ import { reduxNextWrapper } from '@redux';
 import Login from '@components/Login';
 import '../assets/scss/global/index.scss';
 import Layout from '@components/Layout';
-import {InitGA} from '@components/ga'
+import {InitGA, InitTagManager} from '@components/ga'
 
 InitGA()
+InitTagManager()
 const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
   <>
     <Head>
@@ -18,7 +19,7 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => (
     <Login />
 
     <Layout>
-      <Component {...pageProps} />
+      <Component {...pageProps} /> 
     </Layout>
   </>
 );
