@@ -5,7 +5,7 @@ import { reduxNextWrapper } from '@redux';
 import Login from '@components/Login';
 import '../assets/scss/global/index.scss';
 import Layout from '@components/Layout';
-import {InitGA, InitTagManager} from '@components/ga';
+import {InitGA} from '@components/ga';
 import TagManager from 'react-gtm-module';
 
 const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => {
