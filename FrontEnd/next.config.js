@@ -1,6 +1,4 @@
-const toPath = require('./toPath').toPath;
-
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const toPath = require('./toPath');
 const withImages = require('next-images')
 const withPlugins = require('next-compose-plugins');
 // transpile homehub images upload package's css
@@ -31,17 +29,6 @@ module.exports = withPlugins([
       test: /\.svg$/,
       use: ['@svgr/webpack']
     });
-
-    // TODO not sure if this is needed yet
-    // Use aliases (aka paths) in tsconfig.json to set the aliases in webpack as
-    // well (do this using tsconfig-paths-webpack-plugin package)
-    // config.resolve.plugins = config.resolve.plugins || [];
-    // config.resolve.plugins.push(
-    //   new TsconfigPathsPlugin({
-    //     configFile: toPath('tsconfig.json'),
-    //   })
-    // );
-    // config.resolve.extensions.push('.ts', '.tsx');
 
     return config;
   }

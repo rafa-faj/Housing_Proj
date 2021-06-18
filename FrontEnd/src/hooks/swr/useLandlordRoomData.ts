@@ -10,6 +10,7 @@ const useLandlordRoomData = (roomId: number) => {
       refreshInterval: TEN_MINUTES,
     },
   );
+
   return {
     data,
     isValidating,

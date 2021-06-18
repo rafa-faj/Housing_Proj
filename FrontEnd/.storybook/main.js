@@ -1,4 +1,4 @@
-const toPath = require('../toPath').toPath;
+const toPath = require('../toPath');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {

@@ -14,6 +14,4 @@ const path = require('path');
  */
 const toPath = (_path) => path.join(__dirname, _path);
 
-module.exports = {
-  toPath,
-};
+module.exports = toPath;
