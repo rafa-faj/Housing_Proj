@@ -31,6 +31,11 @@ const useUser = () => {
   const login = async (googleLoginToken: string) => {
     const data = await loginAPI(googleLoginToken);
 
+    if (data.unsupportedDomain) {
+      // TODO unhandled, here is where the popup should occur...
+      throw Error();
+    }
+
     if (data && !data.isNewUser) mutate(data);
     return data;
   };

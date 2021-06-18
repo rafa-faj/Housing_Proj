@@ -4,9 +4,12 @@ import { formatWithAws } from '@utils';
 
 export type UserLoginResponse = User | { newUser: boolean };
 
-type PotentialNewUser =
-  | (User & { isNewUser: false; unsupportedDomain: false })
-  | { isNewUser: true; unsupportedDomain: false }
+// potential new user
+type PotentialNewUser = (User & { isNewUser: false }) | { isNewUser: true };
+
+// potential new user with unsupported domain handled
+type PotentialInvalidUser =
+  | (PotentialNewUser & { unsupportedDomain: false })
   | { unsupportedDomain: true };
 
 /**
@@ -18,7 +21,7 @@ type PotentialNewUser =
  */
 export const login = async (
   googleLoginToken: string,
-): Promise<PotentialNewUser> => {
+): Promise<PotentialInvalidUser> => {
   try {
     const response = await backendAPI.post<UserLoginResponse>('/login', {
       googleLoginToken,
@@ -28,8 +31,15 @@ export const login = async (
     if (isNewUser) return { isNewUser, unsupportedDomain: false };
     // Typescript can't tell that data must be of type User here, so explicitly tell it
     const data = response.data as User;
-    const { profilePhoto, description, major, schoolYear, phone, name, email } =
-      data;
+    const {
+      profilePhoto,
+      description,
+      major,
+      schoolYear,
+      phone,
+      name,
+      email,
+    } = data;
 
     return {
       isNewUser,
@@ -91,12 +101,19 @@ export const getCurUser = async () => {
   // Google login token unnecessary when user is already logged in
   const data = await login('');
 
-  // For typescript purposes, will never actually run
-  if (data.isNewUser) {
+  if (data.unsupportedDomain || data.isNewUser) {
+    // For typescript purposes, will never actually run. Either user is already logged in, in which case
+    // we would get user data, OR user is not logged in, in which case we would get an unauthorized error.
+    // Should never have unsupported domain or new user
     throw Error(
       'This should never be run since the passed google login token is an empty string.',
     );
   }
 
-  return { ...data, isNewUser: undefined } as User;
+  return {
+    ...data,
+    // Overwrite isNewUser and unsupportedDomain to make data a User type
+    isNewUser: undefined,
+    unsupportedDomain: undefined,
+  } as User;
 };
