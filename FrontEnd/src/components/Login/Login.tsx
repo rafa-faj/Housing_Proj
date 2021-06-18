@@ -40,12 +40,18 @@ const LoginUI: FunctionComponent = () => {
       const { name, email } = userInfo;
 
       const result = await login(tokenId);
-      
-      console.log(result)
-      
-      if (result.isNewUser) {
-        dispatch(startNewUserFlow({ name, email }));
+      if (result.unsupportedDomain) {
+        // TODO this should display the not supported modal
+        // trigger event that user login fails
+        TriggerButtonGA('Button', 'Click', 'LogInNotSupported');
+        return;
       }
+      if (result.isNewUser) {
+        TriggerButtonGA('Button', 'Click', 'LogInNewUser');
+        dispatch(startNewUserFlow({ name, email }));
+        return;
+      }
+      TriggerButtonGA('Button', 'Click', 'LogInSuccess');
     } else {
       console.log('User is offline');
       console.log(response);
@@ -73,19 +79,15 @@ const LoginUI: FunctionComponent = () => {
         clientId="778916194800-977823s60p7mtu1sj72ru0922p2pqh6m.apps.googleusercontent.com"
         onSuccess={async (response) => {
           await responseGoogleSuccess(response);
-          
-          TriggerButtonGA("Button", "Click", "LogInSuccess")
           dispatch(hideLogin());
         }}
-
-        /*onFailure={async (response) => {          
-          TriggerButtonGA("Button", "Click", "LogInFailure")
-        }}  */   
-
         cookiePolicy="single_host_origin"
         icon={false}
       >
-        <Button icon={{ icon: miscIcons.GoogleLogo }} onClick={()=> TriggerButtonGA("Button", "Click", "LogIn")}>
+        <Button
+          icon={{ icon: miscIcons.GoogleLogo }}
+          onClick={() => TriggerButtonGA('Button', 'Click', 'LogIn')}
+        >
           Start with school account
         </Button>
       </GoogleLogin>
