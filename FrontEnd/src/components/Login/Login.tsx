@@ -11,6 +11,7 @@ import { miscIcons } from '@icons';
 import styles from './Login.module.scss';
 import NewUserSetup from '@components/NewUserSetup';
 import { useUser } from '@hooks';
+import { TriggerButtonGA } from '@components/ga';
 
 // Used in tooltip as the title
 const TooltipContent = (
@@ -39,10 +40,18 @@ const LoginUI: FunctionComponent = () => {
       const { name, email } = userInfo;
 
       const result = await login(tokenId);
-
-      if (result.isNewUser) {
-        dispatch(startNewUserFlow({ name, email }));
+      if (result.unsupportedDomain) {
+        // TODO this should display the not supported modal
+        // trigger event that user login fails
+        TriggerButtonGA('Button', 'Click', 'LogInNotSupported');
+        return;
       }
+      if (result.isNewUser) {
+        TriggerButtonGA('Button', 'Click', 'LogInNewUser');
+        dispatch(startNewUserFlow({ name, email }));
+        return;
+      }
+      TriggerButtonGA('Button', 'Click', 'LogInSuccess');
     } else {
       console.log('User is offline');
       console.log(response);
@@ -75,7 +84,10 @@ const LoginUI: FunctionComponent = () => {
         cookiePolicy="single_host_origin"
         icon={false}
       >
-        <Button icon={{ icon: miscIcons.GoogleLogo }}>
+        <Button
+          icon={{ icon: miscIcons.GoogleLogo }}
+          onClick={() => TriggerButtonGA('Button', 'Click', 'LogIn')}
+        >
           Start with school account
         </Button>
       </GoogleLogin>

@@ -4,7 +4,10 @@ import { formatWithAws } from '@utils';
 
 export type UserLoginResponse = User | { newUser: boolean };
 
-type PotentialNewUser = (User & { isNewUser: false }) | { isNewUser: true };
+type PotentialNewUser =
+  | (User & { isNewUser: false; unsupportedDomain: false })
+  | { isNewUser: true; unsupportedDomain: false }
+  | { unsupportedDomain: true };
 
 /**
  * Login a user to a session.
@@ -16,36 +19,32 @@ type PotentialNewUser = (User & { isNewUser: false }) | { isNewUser: true };
 export const login = async (
   googleLoginToken: string,
 ): Promise<PotentialNewUser> => {
-  const response = await backendAPI.post<UserLoginResponse>('/login', {
-    googleLoginToken,
-  });
+  try {
+    const response = await backendAPI.post<UserLoginResponse>('/login', {
+      googleLoginToken,
+    });
+    const isNewUser = 'newUser' in response.data;
 
-  const isNewUser = 'newUser' in response.data;
+    if (isNewUser) return { isNewUser, unsupportedDomain: false };
+    // Typescript can't tell that data must be of type User here, so explicitly tell it
+    const data = response.data as User;
+    const { profilePhoto, description, major, schoolYear, phone, name, email } =
+      data;
 
-  if (isNewUser) return { isNewUser };
-
-  // Typescript can't tell that data must be of type User here, so explicitly tell it
-  const data = response.data as User;
-  const {
-    profilePhoto,
-    description,
-    major,
-    schoolYear,
-    phone,
-    name,
-    email,
-  } = data;
-
-  return {
-    isNewUser,
-    profilePhoto: formatWithAws(profilePhoto),
-    name,
-    email,
-    description,
-    major,
-    schoolYear,
-    phone,
-  };
+    return {
+      isNewUser,
+      profilePhoto: formatWithAws(profilePhoto),
+      name,
+      email,
+      description,
+      major,
+      schoolYear,
+      phone,
+      unsupportedDomain: false,
+    };
+  } catch (err) {
+    return { unsupportedDomain: true };
+  }
 };
 
 /**

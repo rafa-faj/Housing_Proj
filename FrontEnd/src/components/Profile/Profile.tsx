@@ -9,6 +9,7 @@ import cn from 'classnames';
 import { useUser } from '@hooks';
 import { User } from '@models';
 import { useRouter } from 'next/router';
+import {TriggerPageView} from '@components/ga'
 
 const phoneFormat = (phone: string, previousPhone: string) => {
   const phoneRegex = /\d+/;
@@ -60,6 +61,9 @@ const Profile: FunctionComponent = () => {
     }
   }, [isLoading]);
 
+  // GA page tracking 
+  TriggerPageView('/profile')
+
   if (isLoading) {
     return <div>Loading user data...</div>;
   }
@@ -72,6 +76,7 @@ const Profile: FunctionComponent = () => {
 
   if (!userDraft) {
     return <div>Loading user draft...</div>;
+ 
   }
 
   return (

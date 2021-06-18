@@ -1,15 +1,21 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { landingIcons } from '@icons';
 import styles from './LandingPage.module.scss';
 import Button from '@components/basics/Button';
 import { useRouter } from 'next/dist/client/router';
+import { TriggerPageView } from  '@components/ga'
 
 const HomehubWelcomeInfo: FunctionComponent = () => {
   const router = useRouter();
   const routeToHouseListings = () => {
     router.push('/housing', undefined, { shallow: true });
   };
+
+  useEffect(()=>{
+    TriggerPageView('landing_page')
+  }, [])
+
   return (
     <div className={styles.title}>
       <div className={styles.bigRow}>
