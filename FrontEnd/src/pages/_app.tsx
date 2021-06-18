@@ -15,6 +15,7 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => {
       page: 'home',
     },
   };
+
   useEffect(() => {
     InitGA();
     TagManager.initialize(tagManagerArgs);
