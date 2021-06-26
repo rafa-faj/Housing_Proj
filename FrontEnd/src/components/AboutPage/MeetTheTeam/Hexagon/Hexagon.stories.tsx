@@ -11,4 +11,4 @@ const Template: Story<ComponentProps<typeof Hexagon>> = (args) => (
   <Hexagon {...args} />
 );
 
-export const Default = Template.bind({});
+// export const Default = Template.bind({});
