@@ -1,7 +1,20 @@
-.wrapper {
+.relativeWrapper {
+  // This wrapper is necessary to use the absolute wrapper
+  // below. Elements with `position: div` will be positioned
+  // relative to the nearest parent that is `absolute` or
+  // `relative`. Thus, we must require this to be relative
+  // (default is static)
+  position: relative;
+
+  // needed to make the image fill all height/width by default (same is used for .image)
+  width: 100%;
+  height: 100%;
+}
+
+.absoluteWrapper {
   // This wrapper is just necessary for older safari versions.
   // For some reason, the `background-size: cover;` doesn't
-  // work without this in safari version 13.
+  // work without this in safari version 13.)
   position: absolute;
   top: 0;
   left: 0;
@@ -10,8 +23,11 @@
 }
 
 .image {
+  // needed to make the image fill all height/width by default
   width: 100%;
   height: 100%;
+
+  // Fill but don't stretch image: https://stackoverflow.com/questions/11757537/css-image-size-how-to-fill-but-not-stretch/11763434#11763434
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
