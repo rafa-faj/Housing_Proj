@@ -89,7 +89,7 @@ const HomehubPlanSmallRow: FunctionComponent<HomehubPlanRowDeatils> = ({
 );
 
 const HomehubPlanSmall: FunctionComponent = () => (
-  <Container fluid>
+  <Container fluid className="px-0">
     <HomehubPlanSmallRow {...HomehubPlanRow1Deatils} />
     <HomehubPlanSmallRow {...HomehubPlanRow2Deatils} />
     <HomehubPlanSmallRow {...HomehubPlanRow3Deatils} />
@@ -111,7 +111,7 @@ const HomehubPlanBigCol: FunctionComponent<HomehubPlanRowDeatils> = ({
 );
 
 const HomehubPlanBig: FunctionComponent = () => (
-  <Container fluid>
+  <Container fluid className="px-0">
     <Row>
       <HomehubPlanBigCol {...HomehubPlanRow1Deatils} />
       <HomehubPlanBigCol {...HomehubPlanRow2Deatils} />
@@ -122,7 +122,14 @@ const HomehubPlanBig: FunctionComponent = () => (
 
 const HomehubPlan: FunctionComponent = () => {
   const breakpoint = useBreakpoints();
-  return <>{breakpoint.down.sm ? <HomehubPlanSmall /> : <HomehubPlanBig />}</>;
+  return (
+    <div className={styles.plan_wrapper}>
+      <Row className="justify-content-center mb-4">
+        <h3>the Plan of Homehub</h3>
+      </Row>
+      {breakpoint.down.sm ? <HomehubPlanSmall /> : <HomehubPlanBig />}
+    </div>
+  );
 };
 
 export default HomehubPlan;

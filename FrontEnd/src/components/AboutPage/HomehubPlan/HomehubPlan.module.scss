@@ -19,6 +19,10 @@
   justify-content: center;
 }
 
+.plan_wrapper{
+  padding: 7.5rem 0;
+}
+
 .plan_md_center_wrapper {
   @include bp-up('md') {
     justify-content: center;
