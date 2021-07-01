@@ -46,18 +46,13 @@ const HomehubPlanRow3Deatils = {
 
 const TimeLineHorizontal: FunctionComponent = () => (
   <div className={styles.timeline_wrapper}>
-    <div className={styles.timeline}></div>
-    <div className={styles.timedot}>
-      <aboutUsIcons.timeDot />
-    </div>
+    <aboutUsIcons.timeDot className={styles.timedot} />
   </div>
 );
 
 const TimeLineVertical: FunctionComponent = () => (
   <Col xs={1} className={styles.timeline_small}>
-    <div className={styles.timedot_small}>
-      <aboutUsIcons.timeDot />
-    </div>
+    <aboutUsIcons.timeDot className={styles.timedot_small} />
   </Col>
 );
 
@@ -118,9 +113,9 @@ const HomehubPlanBigCol: FunctionComponent<HomehubPlanRowDeatils> = ({
 const HomehubPlanBig: FunctionComponent = () => (
   <Container fluid>
     <Row>
-    <HomehubPlanBigCol {...HomehubPlanRow1Deatils}/>
-    <HomehubPlanBigCol {...HomehubPlanRow2Deatils}/>
-    <HomehubPlanBigCol {...HomehubPlanRow3Deatils}/>
+      <HomehubPlanBigCol {...HomehubPlanRow1Deatils} />
+      <HomehubPlanBigCol {...HomehubPlanRow2Deatils} />
+      <HomehubPlanBigCol {...HomehubPlanRow3Deatils} />
     </Row>
   </Container>
 );
