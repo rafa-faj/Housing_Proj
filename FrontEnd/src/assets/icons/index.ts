@@ -1,3 +1,6 @@
+// import any logo to be used in the `Icon` type below
+import ExampleIcon from './misc/logo.svg';
+
 export {
   default as preferencesIcons,
   preferencesChosen,
@@ -16,9 +19,7 @@ export * as profileIcons from './profile';
 export * as landingIcons from './landing';
 export * as roomTypeIconsTemp from './roomTypeCorrect'; // TODO rename correctly
 export * as amenityIcons from './amenities';
-
-// import any logo to be used in the `Icon` type below
-import { default as ExampleIcon } from './misc/logo.svg';
+export * as aboutIcons from './about';
 
 export type Icon = typeof ExampleIcon;
 export type IconProps = React.SVGProps<SVGSVGElement>;

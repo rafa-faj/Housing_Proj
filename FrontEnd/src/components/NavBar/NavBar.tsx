@@ -4,9 +4,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import { useDispatch } from 'react-redux';
 import { showLogin } from '@redux';
 import { landingIcons } from '@icons';
-import styles from './NavBar.module.scss';
 import { Row } from 'react-bootstrap';
 import { useUser } from '@hooks';
+import styles from './NavBar.module.scss';
 
 const NavBar: FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const NavBar: FunctionComponent = () => {
 
   return (
     <>
-      <Navbar sticky="top" className={`${styles.wrapper} p-0 m-0 mb-4`}>
+      <Navbar sticky="top" className={`${styles.wrapper} p-0 m-0`}>
         <div className={styles.container}>
           <div className="mr-auto">
             <a href="/">

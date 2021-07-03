@@ -1,0 +1,118 @@
+.title {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 5rem;
+  margin-bottom: 7rem;
+
+  .titleHomehub {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    color: $primary-light-color;
+  }
+}
+
+.logo {
+  height: 3.5rem;
+  display: inline;
+}
+
+.row {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 5rem;
+
+  @include bp-down('md') {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+}
+
+.visual {
+  display: contents;
+  flex: 1;
+  overflow: hidden;
+  width: 100%;
+}
+
+.UCScamDiego img {
+  width: 100%;
+  max-width: 44.5rem;
+}
+
+.reasonsList {
+  display: inline-block;
+  text-align: left;
+}
+
+.overwhelmedWrapper {
+  justify-content: space-around;
+}
+
+.overwhelmedText {
+  max-width: 33rem;
+}
+
+.overwhelmedVisual svg {
+  width: 100%;
+  max-width: 22.5rem;
+}
+
+.problemsVisual svg {
+  width: 100%;
+  max-width: 36.25rem;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 35rem;
+  padding: 3rem;
+}
+
+.problems {
+  justify-content: center;
+}
+
+.problemsSubtitle {
+  color: $primary-500-color;
+  margin-top: 1rem;
+}
+
+.inComesHomehub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 7.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.byStudents {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 7rem;
+
+  .by {
+    padding: 0.5rem 3rem;
+    background-color: $primary-700-color;
+    color: white;
+  }
+
+  .students {
+    padding: 0.5rem 3rem;
+    color: $primary-700-color;
+  }
+}

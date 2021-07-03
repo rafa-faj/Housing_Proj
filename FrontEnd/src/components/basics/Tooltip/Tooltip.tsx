@@ -1,10 +1,10 @@
 import React, { FunctionComponent, ReactElement } from 'react';
-import styles from './Tooltip.module.scss';
 import MaterialUITooltip, {
   TooltipProps as MaterialUITooltipProps,
 } from '@material-ui/core/Tooltip';
 import { miscIcons } from '@icons';
 import { Body2, Caption } from '@basics';
+import styles from './Tooltip.module.scss';
 
 export interface TooltipProps extends Omit<MaterialUITooltipProps, 'children'> {
   hideInfoIcon?: boolean; // hides the info icon
@@ -37,11 +37,12 @@ const Tooltip: FunctionComponent<TooltipProps> = ({
   hideInfoIcon,
   children,
   title,
+  classes,
   ...props
 }) => (
   <MaterialUITooltip
     title={<PopperWrapper>{title}</PopperWrapper>}
-    classes={{ tooltip: styles.MUITooltip }}
+    classes={{ ...{ tooltip: styles.MUITooltip }, ...classes }}
     {...props}
   >
     <div className={styles.wrapper}>

@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 import NavBar from '../NavBar';
 import Footer from '../Footer';
 import styles from './Layout.module.scss';
-import cn from 'classnames';
 
 /**
  * Layout component which provides the navbar, footer, and margin around
@@ -18,25 +17,11 @@ const Layout: FunctionComponent = ({ children }) => (
 
 export default Layout;
 
-interface RemoveLayoutMarginProps {
-  direction: 'horizontal' | 'vertical';
-}
-
 /**
  * Wrap this around any page to remove the margin in that page.
  * IMPORTANT! Can only be used in a page and must be the outermost
  * element in the page.
  */
-export const RemoveLayoutMargin: FunctionComponent<RemoveLayoutMarginProps> = ({
-  children,
-  direction,
-}) => (
-  <div
-    className={cn({
-      [styles.undoHorizontalMargin]: direction === 'horizontal',
-      [styles.undoVerticalMargin]: direction === 'vertical',
-    })}
-  >
-    {children}
-  </div>
+export const RemoveLayoutMargin: FunctionComponent = ({ children }) => (
+  <div className={styles.undoHorizontalMargin}>{children}</div>
 );

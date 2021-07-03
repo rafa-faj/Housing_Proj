@@ -1,21 +1,22 @@
 import React, { FunctionComponent } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
-import styles from './AboutPage.module.scss';
 import { RemoveLayoutMargin } from '@components';
+import styles from './AboutPage.module.scss';
 import WhyWeStartedHomehub from './WhyWeStartedHomehub/WhyWeStartedHomehub';
 import MeetTheTeam from './MeetTheTeam/MeetTheTeam';
 import HomehubPlan from './HomehubPlan/HomehubPlan';
 import JoinUs from './JoinUs/JoinUs';
 
 const AboutPage: FunctionComponent = () => (
-  <RemoveLayoutMargin direction="horizontal">
-    <WhyWeStartedHomehub />
+  <RemoveLayoutMargin>
+    <div className={styles.background}>
+      <WhyWeStartedHomehub />
 
-    <MeetTheTeam />
+      <MeetTheTeam />
 
-    <HomehubPlan />
+      <HomehubPlan />
 
-    <JoinUs />
+      <JoinUs />
+    </div>
   </RemoveLayoutMargin>
 );
 
