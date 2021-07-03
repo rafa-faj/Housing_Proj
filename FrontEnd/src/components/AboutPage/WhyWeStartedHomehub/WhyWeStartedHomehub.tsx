@@ -4,6 +4,7 @@ import { aboutIcons, landingIcons } from '@icons';
 import { Body2, Subtitle2 } from '@basics';
 import useBreakpoints from 'use-window-width-breakpoints';
 import styles from './WhyWeStartedHomehub.module.scss';
+import Typewriter from 'typewriter-effect';
 
 const OverwhelmedSectionDescription = () => (
   <div className={styles.description}>
@@ -130,7 +131,15 @@ const WhyWeStartedHomehub: FunctionComponent = () => {
       </div>
 
       <div className={styles.byStudents}>
-        <h2 className={styles.by}>By</h2>
+        <h2 className={styles.by}>
+          <Typewriter
+            options={{
+              strings: ['By', 'With', 'For'],
+              autoStart: true,
+              loop: true,
+            }}
+          />
+        </h2>
         <h2 className={styles.students}>students</h2>
       </div>
     </>
