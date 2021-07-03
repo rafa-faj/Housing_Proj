@@ -1,0 +1,19 @@
+.join_title {
+    text-align: center;
+}
+
+.join_content {
+  text-align: justify;
+  @include bp-up('md') {
+    width: 40%;
+  }
+}
+
+.join_container {
+  background-color: white;
+  height: 26rem;
+  flex-wrap: wrap;
+  display: flex;
+  align-content: center;
+}
+

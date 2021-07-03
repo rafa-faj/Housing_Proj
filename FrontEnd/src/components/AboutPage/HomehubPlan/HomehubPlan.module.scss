@@ -1,0 +1,66 @@
+.timeline_small {
+  border-left: 0.3125rem solid $primary-500-color;
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.timedot_small {
+  margin-left: -0.9rem;
+}
+
+.timedot {
+  margin-bottom: -0.9rem;
+}
+
+.timeline_wrapper {
+  border-bottom: 0.3125rem solid $primary-500-color;
+  display: flex;
+  justify-content: center;
+}
+
+.plan_wrapper{
+  padding: 7.5rem 0;
+}
+
+.plan_md_center_wrapper {
+  @include bp-up('md') {
+    justify-content: center;
+  }
+}
+
+.plan_row {
+  height: 5rem;
+  margin: 4rem 2rem !important;
+  @include bp-down('sm') {
+    margin: 1rem 0rem !important;
+  }
+}
+
+.plan_title {
+  margin-top: 7rem;
+  @include bp-down('sm') {
+    margin-top: 2rem;
+  }
+}
+
+.plan_time {
+  color: $primary-500-color;
+  margin-top: 2rem;
+  margin-bottom: 7rem;
+  @include bp-down('sm') {
+    margin-bottom: 0;
+  }
+}
+
+.plan_1 {
+  background-color: #f7f9f4;
+}
+
+.plan_2 {
+  background-color: #eef0fc;
+}
+
+.plan_3 {
+  background-color: #fcf7e9;
+}
