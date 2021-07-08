@@ -5,7 +5,6 @@ import styles from './LandingPage.module.scss';
 import Button from '@components/basics/Button';
 import { useRouter } from 'next/dist/client/router';
 import { TriggerPageView } from '@components/ga';
-import { Calendar } from '@basics';
 
 const HomehubWelcomeInfo: FunctionComponent = () => {
   const router = useRouter();
@@ -86,7 +85,6 @@ const Landing: FunctionComponent = () => {
 
   return (
     <Container className={styles.container}>
-      <Calendar />
       <HomehubWelcomeInfo></HomehubWelcomeInfo>
 
       <Row className={styles.intro}>
