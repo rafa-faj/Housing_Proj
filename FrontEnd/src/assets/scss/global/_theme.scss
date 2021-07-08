@@ -74,3 +74,65 @@ b {
 a {
   @include font-type('link');
 }
+
+// override react-dates style here
+
+.DayPickerNavigation_svg__horizontal {
+  fill: $primary-300-color !important;
+}
+
+.CalendarDay__default:hover {
+  background: $primary-50-color;
+  border: none;
+}
+
+.CalendarDay {
+  border: none;
+}
+
+.CalendarDay__blocked_out_of_range,
+.CalendarDay__blocked_out_of_range:active,
+.CalendarDay__blocked_out_of_range:hover {
+  background: #fff;
+}
+
+.CalendarDay__selected_span {
+  background: $primary-50-color; //background
+  color: $black-color; //text
+  border: none;
+  &:active,
+  &:hover,
+  &:focus {
+    border: none;
+    background: $primary-300-color;
+  }
+}
+
+// Will edit selected date or the endpoints of a range of dates
+.CalendarDay__selected,
+.CalendarDay__selected:active,
+.CalendarDay__selected:hover {
+  background: $primary-300-color;
+  color: $black-color;
+  border: none !important;
+  border-radius: 1.875rem;
+}
+
+.CalendarDay__hovered_span:hover,
+.CalendarDay__hovered_span {
+  background: $primary-50-color;
+  color: $black-color;
+  border: none;
+}
+
+.DayPickerKeyboardShortcuts_buttonReset {
+  display: none;
+}
+
+.DateInput_input__focused {
+  border-bottom-color: $primary-300-color;
+}
+
+.DateInput_input{
+  text-align:center;
+}

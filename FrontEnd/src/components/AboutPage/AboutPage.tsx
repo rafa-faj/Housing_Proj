@@ -5,6 +5,7 @@ import WhyWeStartedHomehub from './WhyWeStartedHomehub/WhyWeStartedHomehub';
 import MeetTheTeam from './MeetTheTeam/MeetTheTeam';
 import HomehubPlan from './HomehubPlan/HomehubPlan';
 import JoinUs from './JoinUs/JoinUs';
+import { Calendar } from '@basics';
 
 const AboutPage: FunctionComponent = () => (
   <RemoveLayoutMargin>

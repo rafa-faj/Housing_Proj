@@ -52,6 +52,7 @@
     "reactstrap": "^8.8.1",
     "sass": "^1.32.8",
     "swr": "^0.4.2",
+    "typewriter-effect": "^2.18.0",
     "universal-cookie": "^4.0.4",
     "use-async-effect": "^2.2.3",
     "use-window-width-breakpoints": "^1.0.10",

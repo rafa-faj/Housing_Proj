@@ -113,7 +113,7 @@ const WhyWeStartedHomehub: FunctionComponent = () => {
           </Body2>
 
           <Subtitle2 className={styles.problemsSubtitle}>
-            The hidden criterias
+            The hidden criteria
           </Subtitle2>
           <Body2>
             Navigating a rental agreement/lease can be hard enough when you have
@@ -124,7 +124,7 @@ const WhyWeStartedHomehub: FunctionComponent = () => {
       </div>
 
       <div className={styles.inComesHomehub}>
-        <h4>In comes Homehub</h4>
+        <h4>It comes Homehub</h4>
         <Body2>
           a centralized community for housing, roommates, and connections
         </Body2>
