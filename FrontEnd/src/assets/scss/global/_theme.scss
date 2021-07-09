@@ -10,34 +10,6 @@ body {
 /**
  * STYLE GUIDE BUTTONS
  */
-.btn-primary {
-  @include rounded-pill-shape;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-
-  font-weight: $bold-font-weight;
-  font-size: $xl-font-size;
-  background-color: $primary-light-color;
-  color: white;
-  box-shadow: none;
-  border: 0;
-
-  &:hover {
-    @include box-shadow($primary-dark-color);
-    background-color: $primary-light-color;
-  }
-
-  &:focus {
-    box-shadow: none;
-    background-color: $primary-light-color;
-  }
-}
 
 .show > .btn-success.dropdown-toggle {
   background-color: $primary-light-color;
@@ -73,66 +45,4 @@ b {
 
 a {
   @include font-type('link');
-}
-
-// override react-dates style here
-
-.DayPickerNavigation_svg__horizontal {
-  fill: $primary-300-color !important;
-}
-
-.CalendarDay__default:hover {
-  background: $primary-50-color;
-  border: none;
-}
-
-.CalendarDay {
-  border: none;
-}
-
-.CalendarDay__blocked_out_of_range,
-.CalendarDay__blocked_out_of_range:active,
-.CalendarDay__blocked_out_of_range:hover {
-  background: #fff;
-}
-
-.CalendarDay__selected_span {
-  background: $primary-50-color; //background
-  color: $black-color; //text
-  border: none;
-  &:active,
-  &:hover,
-  &:focus {
-    border: none;
-    background: $primary-300-color;
-  }
-}
-
-// Will edit selected date or the endpoints of a range of dates
-.CalendarDay__selected,
-.CalendarDay__selected:active,
-.CalendarDay__selected:hover {
-  background: $primary-300-color;
-  color: $black-color;
-  border: none !important;
-  border-radius: 1.875rem;
-}
-
-.CalendarDay__hovered_span:hover,
-.CalendarDay__hovered_span {
-  background: $primary-50-color;
-  color: $black-color;
-  border: none;
-}
-
-.DayPickerKeyboardShortcuts_buttonReset {
-  display: none;
-}
-
-.DateInput_input__focused {
-  border-bottom-color: $primary-300-color;
-}
-
-.DateInput_input{
-  text-align:center;
 }

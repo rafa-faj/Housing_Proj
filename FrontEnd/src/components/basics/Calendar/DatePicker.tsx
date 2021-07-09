@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
 import 'react-dates/initialize';
@@ -8,11 +8,15 @@ import { miscIcons } from '@icons';
 import cn from 'classnames';
 
 const PrevArrow = () => (
-  <miscIcons.largeLeftArrow className={cn(styles.arrow, styles.left)} />
+  <miscIcons.largeLeftArrow
+    className={cn(styles.arrow, styles.left, styles.mounted)}
+  />
 );
 
 const NextArrow = () => (
-  <miscIcons.largeRightArrow className={cn(styles.arrow, styles.right)} />
+  <miscIcons.largeRightArrow
+    className={cn(styles.arrow, styles.right, styles.mounted)}
+  />
 );
 
 const RangeArrow = () => (
@@ -21,7 +25,7 @@ const RangeArrow = () => (
 
 type CalendarDate = moment.Moment | null;
 
-function DatePicker() {
+const DatePicker: FunctionComponent = () => {
   const [dateRange, setDateRange] = useState<{
     startDate: CalendarDate;
     endDate: CalendarDate;
@@ -33,20 +37,11 @@ function DatePicker() {
 
   const { startDate, endDate } = dateRange;
 
-  const handleOnDateChange = ({
-    startDate,
-    endDate,
-  }: {
-    startDate: CalendarDate;
-    endDate: CalendarDate;
-  }) => {
-    setDateRange({ startDate, endDate });
-  };
   return (
     <DateRangePicker
       startDatePlaceholderText="Start"
       startDate={startDate}
-      onDatesChange={handleOnDateChange}
+      onDatesChange={setDateRange}
       endDatePlaceholderText="End"
       endDate={endDate}
       numberOfMonths={1}
@@ -54,7 +49,7 @@ function DatePicker() {
       showClearDates={true}
       focusedInput={focus}
       keepOpenOnDateSelect={true}
-      onFocusChange={(focus) => setFocus(focus)}
+      onFocusChange={setFocus}
       startDateId="startDateMookh"
       endDateId="endDateMookh"
       customArrowIcon={<RangeArrow />}
@@ -63,6 +58,6 @@ function DatePicker() {
       navNext={<NextArrow />}
     />
   );
-}
+};
 
 export default DatePicker;
