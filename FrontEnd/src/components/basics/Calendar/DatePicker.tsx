@@ -50,8 +50,8 @@ const DatePicker: FunctionComponent = () => {
       focusedInput={focus}
       keepOpenOnDateSelect={true}
       onFocusChange={setFocus}
-      startDateId="startDateMookh"
-      endDateId="endDateMookh"
+      startDateId="startDate"
+      endDateId="endDate"
       customArrowIcon={<RangeArrow />}
       minimumNights={0}
       navPrev={<PrevArrow />}
