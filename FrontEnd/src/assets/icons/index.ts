@@ -16,7 +16,7 @@ export * as profileIcons from './profile';
 export * as landingIcons from './landing';
 export * as roomTypeIconsTemp from './roomTypeCorrect'; // TODO rename correctly
 export * as amenityIcons from './amenities';
-
+export * as imageUpload from './imageUpload';
 // import any logo to be used in the `Icon` type below
 import { default as ExampleIcon } from './misc/logo.svg';
 
