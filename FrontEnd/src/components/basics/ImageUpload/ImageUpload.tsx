@@ -31,14 +31,18 @@ const ImageUpload: FunctionComponent = () => {
   const [files, setFiles] = useState<File[]>([]);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
-      setFiles([...files, ...Array.from(e.target.files)]);
+      setFiles([...files, ...Array.from(e.target.files)].slice(0, 6));
+      e.target.value = '';
     }
   };
   return (
     <Row className={styles.images_wrapper}>
       {files.map((file, index) => (
         <div
-          className={cn(styles.single_image, index % 3 === 1 ? 'mx-3' : undefined)}
+          className={cn(
+            styles.single_image,
+            index % 3 === 1 ? 'mx-3' : undefined,
+          )}
         >
           <FilledImage
             src={URL.createObjectURL(file)}
