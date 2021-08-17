@@ -102,7 +102,7 @@ const Amenities: FunctionComponent<AmenitiesProps> = ({
   return (
     <div className={cn(styles.wrapperDefault, className)}>
       {selected.map((s) => {
-        const SelectedIcon = amenityToIcon[s];
+        const SelectedIcon = amenityToIcon[s]; // change to fallback
         const Icon = () => (variant !== 'onlyLabel' ? <SelectedIcon /> : null);
         const Label = () => (variant !== 'onlyIcon' ? <div>{s}</div> : null);
 
