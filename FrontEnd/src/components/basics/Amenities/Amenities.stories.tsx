@@ -12,3 +12,9 @@ const Template: Story<ComponentProps<typeof Amenities>> = (args) => (
 );
 
 export const Default = Template.bind({});
+
+export const BathAmenity = Template.bind({});
+BathAmenity.args = {
+  selected: ['Air Conditioning', 'Bath'],
+  useCol: true,
+};
