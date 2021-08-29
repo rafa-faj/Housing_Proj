@@ -17,3 +17,7 @@ dock:
 	cd BackEnd; \
 	docker build --tag $(DOCKNAME) . && \
 	docker run -p 5000:5000 $(DOCKNAME)
+
+front:
+	cd FrontEnd; \
+	npm run dev
