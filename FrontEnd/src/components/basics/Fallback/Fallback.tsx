@@ -21,7 +21,6 @@ const FallbackIcon: FunctionComponent<FallbackProps> = ({ amenity }) => {
   if (isAmenity(amenity)) {
     const Icon: IconType = amenityToIcon[amenity];
 
-    // return <>{amenityToIcon[amenity]}</>;
     return (
       <div>
         <Icon />
@@ -29,6 +28,7 @@ const FallbackIcon: FunctionComponent<FallbackProps> = ({ amenity }) => {
     );
   } else {
     const Icon: IconType = miscIcons.Fallback;
+
     return (
       <div>
         <Icon />
