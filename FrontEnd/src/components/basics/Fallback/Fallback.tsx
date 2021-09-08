@@ -9,32 +9,15 @@ interface FallbackProps {
 
 // Type guard to check if key is of Amenity type
 const isAmenity = (key: any): key is Amenity => {
-  if (key in amenityToIcon) {
-    return true;
-  }
-
-  return false;
+  return key in amenityToIcon;
 };
 
 // Fallback Icon Component (could be a normal amenity svg too)
 const FallbackIcon: FunctionComponent<FallbackProps> = ({ amenity }) => {
-  if (isAmenity(amenity)) {
-    const Icon: IconType = amenityToIcon[amenity];
-
-    return (
-      <div>
-        <Icon />
-      </div>
-    );
-  } else {
-    const Icon: IconType = miscIcons.Fallback;
-
-    return (
-      <div>
-        <Icon />
-      </div>
-    );
-  }
+  const Icon: IconType = isAmenity(amenity)
+    ? amenityToIcon[amenity]
+    : miscIcons.Fallback;
+  return <Icon />;
 };
 
 export default FallbackIcon;
