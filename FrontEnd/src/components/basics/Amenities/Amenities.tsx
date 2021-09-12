@@ -6,7 +6,7 @@ import React, {
 import { amenityIcons, IconProps } from '@icons';
 import Col, { ColProps } from 'react-bootstrap/Col';
 import styles from './Amenities.module.scss';
-import FallbackIcon from '../Fallback/Fallback';
+import FallbackIcon from '@basics/Fallback';
 import cn from 'classnames';
 
 export const amenityToIcon = {
@@ -103,7 +103,6 @@ const Amenities: FunctionComponent<AmenitiesProps> = ({
   return (
     <div className={cn(styles.wrapperDefault, className)}>
       {selected.map((s) => {
-        // const SelectedIcon = amenityToIcon[s]; // change to fallback
         const SelectedIcon = <FallbackIcon amenity={s} />;
         const Icon = () => (variant !== 'onlyLabel' ? SelectedIcon : null);
         const Label = () => (variant !== 'onlyIcon' ? <div>{s}</div> : null);

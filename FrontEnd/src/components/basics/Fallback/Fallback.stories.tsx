@@ -1,15 +1,16 @@
 import React, { ComponentProps } from 'react';
-import { Story } from '@storybook/react';
 import FallbackIcon from './Fallback';
+import { StoryTemplate } from '@utils';
 
 export default {
   title: 'FallbackIcon',
   component: FallbackIcon,
 };
 
-const Template: Story<ComponentProps<typeof FallbackIcon>> = (args) => (
-  <FallbackIcon {...args} />
-);
+const Template = StoryTemplate<
+  ComponentProps<typeof FallbackIcon>,
+  typeof FallbackIcon
+>(FallbackIcon);
 
 export const Default = Template.bind({});
 

@@ -1,15 +1,16 @@
 import React, { ComponentProps } from 'react';
-import { Story } from '@storybook/react';
 import Amenities from './Amenities';
+import { StoryTemplate } from '@utils';
 
 export default {
   title: 'Amenities',
   component: Amenities,
 };
 
-const Template: Story<ComponentProps<typeof Amenities>> = (args) => (
-  <Amenities {...args} />
-);
+const Template = StoryTemplate<
+  ComponentProps<typeof Amenities>,
+  typeof Amenities
+>(Amenities);
 
 export const Default = Template.bind({});
 
@@ -28,4 +29,5 @@ TwoAmenities.args = {
 export const MixedTypes = Template.bind({});
 MixedTypes.args = {
   selected: ['On-site Movie Theater', 'Glass Ceilings'],
+  useCol: true,
 };

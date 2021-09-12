@@ -23,3 +23,4 @@ export { default as check } from './check.svg';
 export { default as dollar } from './dollar.svg';
 export { default as alert } from './alert.svg';
 export { default as valid } from './valid.svg';
+export { default as Fallback } from './fallback.svg';
