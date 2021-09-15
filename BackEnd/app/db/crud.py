@@ -48,49 +48,60 @@ def add_user(name, email, date_created, phone, description, school_year, major,
     return User_to_add
 
 
-def add_address(distance, address, session):
+def add_address(distance, address, place_name, session):
     """
     add a row to the Address table
     """
-    address_to_add = Address(address=address, distance=distance)
+    address_to_add = Address(
+        address=address, distance=distance, place_name=place_name)
     add_and_commit(address_to_add, session)
     return address_to_add
 
 
-def add_room(date_created, room_type, price_per_month, negotiable, room_description,
-             stay_period, address,
-             user, move_in, num_beds, num_baths,
-             session):
+def add_room(date_created, room_type,
+             rent, negotiable,
+             place_description, stay_period,
+             address, user,
+             move_in, num_bed,
+             num_bath, utility,
+             looking_for_count, session):
     """
     add a row to the Room table
     """
-    Room_to_add = Room(date_created=date_created, room_type=room_type,
-                       price_per_month=price_per_month,
+    Room_to_add = Room(date_created=date_created,
+                       room_type=room_type,
+                       rent=rent,
                        negotiable=negotiable,
-                       room_description=room_description, stay_period=stay_period,
+                       place_description=place_description,
+                       stay_period=stay_period,
                        address=address,
-                       user=user, move_in=move_in, num_beds=num_beds,
-                       num_baths=num_baths)
+                       user=user,
+                       move_in=move_in,
+                       num_bed=num_bed,
+                       num_bath=num_bath,
+                       utility=utility,
+                       looking_for_count=looking_for_count,
+                       )
     add_and_commit(Room_to_add, session)
     return Room_to_add
 
 
-def add_move_in(early_date, late_date, session):
+def add_move_in(start_date, end_date, session):
     """
     add a row to the Move_In table
     """
-    Move_In_to_add = Move_In(early_date=early_date,
-                             late_date=late_date)
+    Move_In_to_add = Move_In(start_date=start_date,
+                             end_date=end_date)
     add_and_commit(Move_In_to_add, session)
     return Move_In_to_add
 
 
-def add_stay_period(from_month, to_month, session):
+def add_stay_period(avail_time, until_time, session):
     """
     add a row to the Stay_Period table
     """
-    Stay_Period_to_add = Stay_Period(from_month=from_month,
-                                     to_month=to_month)
+    Stay_Period_to_add = Stay_Period(avail_time=avail_time,
+                                     until_time=until_time)
     add_and_commit(Stay_Period_to_add, session)
     return Stay_Period_to_add
 
@@ -196,7 +207,8 @@ def room_json(room, session, offline_test_mode=False, login_session=None):
     offline_test_mode is used to separate online logic from offline logic since online method is tested separately
     in this method, test mode would disable fetching images from s3 bucket
     """
-    other_map = {"other": [], "facilities": []}
+    other_map = {"genders": [], "amenities": [],
+                 "habits": [], "room_capacities": []}
     house_attrs = session.query(House_Attribute).filter(
         House_Attribute.room_id == room.id).all()
     house_move_in = session.query(Move_In).filter(
@@ -208,7 +220,6 @@ def room_json(room, session, offline_test_mode=False, login_session=None):
             Attribute.name == ha.attribute_name).first().category
         other_map[category_name].append(ha.attribute_name)
     r_json = room.serialize
-    room_name = room.address.serialize["address"].split(",")[0]
 
     if offline_test_mode == True:
         room_photos = ["photo1", "photo2"]
@@ -231,29 +242,37 @@ def room_json(room, session, offline_test_mode=False, login_session=None):
             user_phone = user_email = ""
 
     return_json = {
-        "name": room_name,
+        "photos": room_photos,
         "address": room.address.serialize["address"],
         "distance": room.address.serialize["distance"],
-        "pricePerMonth": r_json["price_per_month"],
-        "fromMonth": room.stay_period.from_month.strftime("%B/%y"),
-        "toMonth": room.stay_period.to_month.strftime("%B/%y"),
-        "earlyDate": house_move_in.early_date.strftime("%m/%d/%y"),
-        "lateDate": house_move_in.late_date.strftime("%m/%d/%y"),
+        "placeName": room.address.serialize["place_name"],
+        "rent": r_json["rent"],
+        "numBed": r_json["num_bed"],
+        "numBath": r_json["num_bath"],
+        "utility": r_json["utility"],
         "roomType": r_json["room_type"],
-        "other": other_map["other"],
-        "facilities": other_map["facilities"],
-        "leaserName": house_user.name,
-        "leaserEmail": user_email,
-        "leaserPhone": user_phone,
-        "leaserSchoolYear": house_user.school_year,
-        "leaserMajor": house_user.major,
-        "photos": room_photos,
-        "profilePhoto": profile_photo,
-        "roomId": r_json["id"],
+        "roomCapacity": other_map["room_capacities"],
+        "lookingForCount": r_json["looking_for_count"],
+        "availMonth": room.stay_period.avail_time.strftime("%B"),
+        "availYear": room.stay_period.avail_time.strftime("%y"),
+        "untilMonth": room.stay_period.until_time.strftime("%B"),
+        "untilYear": room.stay_period.until_time.strftime("%y"),
+        "amenities": other_map["amenities"],
+        "startDate": house_move_in.start_date.strftime("%m/%d/%y") if house_move_in.start_date else "",
+        "endDate": house_move_in.end_date.strftime("%m/%d/%y") if house_move_in.end_date else "",
+        "genders": other_map["genders"],
+        "habits": other_map["habits"],
+        "placeDescription": r_json["place_description"],
+        "userName": house_user.name,
+        "major": house_user.major,
+        "schoolYear": house_user.school_year,
+        "userBio": house_user.description,
+        "userEmail": user_email,
+        "userPhone": user_phone,
+        "userPhoto": profile_photo,
+        "roomId": r_json["id"],  # not supported for current version
+        # not supported for current version
         "negotiable": r_json["negotiable"],
-        "numBaths": r_json["num_baths"],
-        "numBeds": r_json["num_beds"],
-        "roomDescription": r_json["room_description"],
     }
     return return_json
 
@@ -317,34 +336,42 @@ def write_room(room_json, user_id, session, offline_test_mode=False, test_mode=F
 
     if upload_status == False:
         return upload_status
-    early_date = datetime.strptime(
-        room_json["early_date"], "%m/%d/%y")
-    late_date = datetime.strptime(
-        room_json["late_date"], "%m/%d/%y")
+
     new_move_in = get_row_if_exists(Move_In, session, **{
-        "early_date": early_date,
-        "late_date": late_date
+        "start_date": room_json["start_date"],
+        "end_date": room_json["end_date"]
     })
+
     if not new_move_in:
-        new_move_in = add_move_in(early_date,
-                                  late_date, session)
+        new_move_in = add_move_in(room_json["start_date"],
+                                  room_json["end_date"], session)
 
     new_address = add_address(room_json["distance"],
-                              room_json["address"], session)
+                              room_json["address"],
+                              room_json["place_name"],
+                              session)
+
     new_stay_period = add_stay_period(
-        datetime.strptime(room_json["from_month"], "%B/%y"),
-        datetime.strptime(room_json["to_month"], "%B/%y"), session)
+        room_json["avail_time_dt"], room_json["until_time_dt"], session)
+
     new_room = add_room(datetime.now(),
                         room_json["room_type"],
-                        room_json["price_per_month"],
+                        room_json["rent"],
                         room_json["negotiable"],
-                        room_json["room_description"],
+                        room_json["place_description"],
                         new_stay_period,
                         new_address,
-                        room_owner, new_move_in, int(room_json["num_beds"]),
-                        float(room_json["num_baths"]), session)
-    write_attribute(room_json["other"], "other", new_room, session)
-    write_attribute(room_json["facilities"], "facilities", new_room, session)
+                        room_owner,
+                        new_move_in,
+                        room_json["num_bed"],
+                        room_json["num_bath"],
+                        room_json["utility"],
+                        room_json["looking_for_count"],
+                        session)
+    write_attribute(room_json["room_capacities"],
+                    "room_capacities", new_room, session)
+    write_attribute(room_json["genders"], "genders", new_room, session)
+    write_attribute(room_json["habits"], "habits", new_room, session)
     return upload_status
 
 # DELETE

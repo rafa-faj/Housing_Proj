@@ -1,0 +1,65 @@
+$base-padding: 1rem;
+.orangeBox {
+  background: #fdf4f0;
+  border-radius: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.amenity {
+  padding-right: $base-padding;
+  padding-left: 0;
+  padding-bottom: 1rem;
+}
+
+.amenities {
+  display: flex;
+  margin-top: 1rem;
+
+  div {
+    padding-right: 0.5rem;
+    display: inline-flex;
+    white-space: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
+
+.priceWrapper {
+  padding: 1rem 1.5rem !important;
+}
+
+.rent {
+  @include font-type('subtitle 1');
+  color: #a64919;
+}
+
+.utility {
+  @include font-type('subtitle 4');
+  color: #a64919;
+}
+
+.roomType {
+  @include font-type('subtitle 2');
+  color: $black-color;
+  margin: auto auto;
+  @include bp-down('sm') {
+    padding-left: 1.5rem !important;
+    padding-bottom: 1rem;
+  }
+}
+
+.subtitle3 {
+  @include font-type('subtitle 3');
+}
+
+.wrapper {
+  position: relative;
+  @include bp-up('md') {
+    margin-top: 3.5rem;
+    > div {
+      &:nth-child(n + 3) {
+        margin-top: 2.5rem !important;
+      }
+    }
+  }
+}

@@ -5,18 +5,38 @@
   color: $primary-dark-color;
 }
 
+.charCheckError {
+  bottom: 2rem;
+}
+
 .label {
   @include font-type('subtitle 1');
 }
 
 .content {
-  @include font-type('body 2');
+  @include font-type('body 3');
   resize: none;
   border: 0.125rem solid $primary-300-color;
   &:focus {
     border-color: $primary-300-color !important;
     box-shadow: none;
   }
+}
+
+.inputStatus {
+  margin-right: 0.25rem;
+}
+
+.invalid {
+  border: 3px solid $error-color !important;
+  color: $error-color !important;
+}
+
+.error {
+  @include font-type('caption');
+
+  color: $error-color;
+  margin-top: 0.125rem;
 }
 
 .unfilled {
@@ -28,5 +48,5 @@
 }
 
 .placeHolder {
-  color: #797979;
+  color: $disabled-medium-emphasis-color;
 }

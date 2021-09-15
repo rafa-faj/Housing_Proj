@@ -1,14 +1,13 @@
 import React, { FunctionComponent, useRef } from 'react';
 import styles from './RadioButton.module.scss';
-import { Body1 } from '@basics';
 import { useRandomID } from '@hooks';
 
-export interface RadioButtonProps {
+export interface RadioButtonProps extends React.HTMLAttributes<HTMLDivElement> {
   id?: string;
   value: string; // required for value extracting
   withLabel?: boolean; // used when we want to add text on the side
   name: string;
-  // TODO add onChange here when actually coding the wizard form
+  checked?: boolean;
 }
 
 // radio button customizes typical html radio button and takes in same arguments
@@ -17,6 +16,8 @@ const RadioButton: FunctionComponent<RadioButtonProps> = ({
   value,
   withLabel,
   name,
+  onChange,
+  checked,
 }) => {
   const buttonID = useRandomID(id);
   return (
@@ -27,10 +28,12 @@ const RadioButton: FunctionComponent<RadioButtonProps> = ({
         name={name}
         value={value}
         id={buttonID}
+        onChange={onChange}
+        checked={checked}
       />
       {withLabel && (
-        <label htmlFor={buttonID}>
-          <Body1 className={styles.radioLabelBody}>{value}</Body1>
+        <label htmlFor={buttonID} className="mb-0">
+          <div className={styles.radioLabelBody}>{value}</div>
         </label>
       )}
     </div>

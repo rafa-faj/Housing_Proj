@@ -70,7 +70,11 @@ const Input: FunctionComponent<InputProps> = ({
               if (onChange) onChange(e);
             }}
           />
-          {icon && <Icon className={styles.inputIcon} />}
+          {icon && (
+            <div className={styles.inputIcon}>
+              <Icon />
+            </div>
+          )}
           {(isInvalid || error) && (
             <miscIcons.alert className={styles.inputStatus} />
           )}

@@ -64,6 +64,10 @@
       color: $error-color;
     }
 
+    .inputStatus {
+      margin-right: 0.25rem;
+    }
+
     .straightenRight {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
@@ -122,6 +126,7 @@
     .dropdown {
       flex-grow: 1;
       .dropdownMenu {
+        width: 100%;
         min-width: 7.75rem;
         max-height: 12.5rem;
         overflow-y: auto;
@@ -151,6 +156,7 @@
           background-color: white;
           color: $disabled-high-emphasis-color;
           text-decoration-line: none;
+          min-width: 2rem;
 
           &:active,
           &.active,

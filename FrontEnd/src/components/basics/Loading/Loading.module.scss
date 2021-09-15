@@ -1,0 +1,14 @@
+.loadingWrapper {
+  position: fixed;
+  z-index: 1300;
+  inset: 0px;
+  color: white;
+}
+
+.loadingBackground {
+  z-index: -1;
+  position: fixed;
+  inset: 0px;
+  background-color: rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(1.25rem);
+}

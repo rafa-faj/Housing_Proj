@@ -10,8 +10,6 @@
 <rect width="4.022" height="12.0724" transform="matrix(0.739133 0.67356 -0.742524 0.66982 14.5372 23.2795)" stroke="#202020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <rect width="4.022" height="12.0724" transform="matrix(0.739133 -0.67356 -0.742524 -0.66982 23.782 19.8242)" stroke="#202020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <rect width="4.022" height="12.0724" transform="matrix(-0.739133 -0.67356 0.742524 -0.66982 27.036 22.3403)" stroke="#202020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M7.73149 11.1947L4.6393 8.53591L8.03343 5.75336" stroke="#202020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M32.6846 29.145L35.7768 31.8037L32.3827 34.5863" stroke="#202020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M15.4108 29.1458L18.5546 32.078M21.3279 34.5926L18.5546 32.078M15.4108 35.0115L18.5546 32.078" stroke="#202020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M27.7073 10.3542L24.5636 7.42204M21.7903 4.90736L24.5636 7.42204M27.7074 4.48852L24.5636 7.42204" stroke="#202020" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

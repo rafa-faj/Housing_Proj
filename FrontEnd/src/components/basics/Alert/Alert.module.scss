@@ -2,15 +2,9 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   position: relative;
-}
-
-.icon {
-  position: absolute;
-  top: 0.75rem;
 }
 
 .button {
@@ -38,7 +32,7 @@
   font-size: 20px;
   line-height: 120%;
   letter-spacing: 0.03rem;
-  color: #202020;
+  color: $black-color;
 }
 
 .button:hover {
@@ -46,8 +40,8 @@
 }
 
 .success {
-  background: #eff4e9;
-  color: #325123;
+  background: $secondary-50-color;
+  color: $secondary-900-color;
   .button {
     @include svg-fill(#94b36c);
   }
@@ -63,7 +57,7 @@
 
 .warning {
   background: #fffaea;
-  color: #202020;
+  color: $black-color;
   .button {
     @include svg-fill(#f3d990);
   }
@@ -71,8 +65,8 @@
 
 .info {
   background: #e2e6fa;
-  color: #6d83e7;
+  color: $link-color;
   .button {
-    @include svg-fill(#6d83e7);
+    @include svg-fill($link-color);
   }
 }

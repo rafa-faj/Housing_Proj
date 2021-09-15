@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { Button, ImageDropdown, Link } from '@basics';
 import Navbar from 'react-bootstrap/Navbar';
 import { useDispatch } from 'react-redux';
-import { showLogin } from '@redux';
-import { landingIcons } from '@icons';
+import { showLogin, showPost } from '@redux';
+import { landingIcons, miscIcons } from '@icons';
 import { Row } from 'react-bootstrap';
 import { useUser } from '@hooks';
 import { useRouter } from 'next/router';
@@ -37,23 +37,30 @@ const NavBar: FunctionComponent = () => {
           </a>
         </div>
         <Row className="align-items-center">
-          <Link href="/about" undecorated>
-            <h5 className="mb-0">About</h5>
-          </Link>
           {user.isLoggedIn ? (
-            <ImageDropdown
-              items={itemProps}
-              profileIcon={user.profilePhoto}
-              className="ml-4"
-            />
+            <>
+              <Button variant="wrapper" onClick={() => dispatch(showPost())}>
+                <miscIcons.post />
+              </Button>
+              <ImageDropdown
+                items={itemProps}
+                profileIcon={user.profilePhoto}
+                className="ml-4"
+              />
+            </>
           ) : (
-            <Button
-              size="secondary"
-              variant="solid"
-              onClick={() => dispatch(showLogin())}
-            >
-              Get Started
-            </Button>
+            <>
+              <Link href="/about" undecorated>
+                <h5 className="mb-0">About</h5>
+              </Link>
+              <Button
+                size="secondary"
+                variant="solid"
+                onClick={() => dispatch(showLogin())}
+              >
+                Get Started
+              </Button>
+            </>
           )}
         </Row>
       </div>

@@ -8,6 +8,7 @@ import cn from 'classnames';
 import styles from './Dropdown.module.scss';
 import RequiredAsterisk from '../RequiredAsterisk';
 import { Body2 } from '@basics';
+import { Icon as IconType, miscIcons } from '@icons';
 
 interface DropdownProps extends BootstrapDropdownMetadata.DropdownProps {
   options: string[];
@@ -153,7 +154,7 @@ const Dropdown: FunctionComponent<DropdownProps> = ({
             </div>
           )}
         </div>
-
+        {error && <miscIcons.alert className={styles.inputStatus} />}
         {error && (
           <Form.Label className={cn(styles.error, errorClassName)}>
             {error}

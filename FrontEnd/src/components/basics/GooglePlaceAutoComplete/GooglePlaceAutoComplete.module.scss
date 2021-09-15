@@ -1,4 +1,4 @@
-$complete-width: 33.25rem;
+$complete-width: 100%;
 
 .suggestionWrapper {
   width: $complete-width;
@@ -28,6 +28,20 @@ $complete-width: 33.25rem;
   }
 }
 
+.invalid {
+  border: 3px solid $error-color !important;
+}
+
 .input {
   width: $complete-width;
+}
+
+.error {
+  @include font-type('caption');
+  color: $error-color;
+  position: absolute;
+}
+
+.wrapper {
+  position: relative;
 }

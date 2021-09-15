@@ -6,16 +6,25 @@ import { miscIcons } from '@icons';
 import cn from 'classnames';
 import { Body2, Caption } from '@basics';
 import styles from './Tooltip.module.scss';
+import { makeStyles } from '@material-ui/core/styles';
 
-export interface TooltipProps extends Omit<MaterialUITooltipProps, 'children'> {
+export interface TooltipProps extends MaterialUITooltipProps {
   hideInfoIcon?: boolean; // hides the info icon
-  children?: ReactElement<any, any> | string;
   isSingleLine: boolean;
+  title: string | React.ReactFragment;
+  maxWidth?: number;
 }
 
 export interface PopperWrapperProps {
   isSingleLine: boolean;
 }
+
+var useStyles = (width: number) =>
+  makeStyles(() => ({
+    customWidth: {
+      maxWidth: width,
+    },
+  }));
 
 /**
  * The Info Icon with styling.
@@ -50,21 +59,29 @@ const PopperWrapper: FunctionComponent<PopperWrapperProps> = ({
  */
 const Tooltip: FunctionComponent<TooltipProps> = ({
   hideInfoIcon,
-  children,
-  title,
+  children = '',
+  title = '',
   isSingleLine,
+  maxWidth = 300,
+  className,
   ...props
-}) => (
-  <MaterialUITooltip
-    title={<PopperWrapper isSingleLine={isSingleLine}>{title}</PopperWrapper>}
-    classes={{ tooltip: styles.MUITooltip }}
-    {...props}
-  >
-    <div className={styles.wrapper}>
-      {!hideInfoIcon && <InfoIcon />}
-      <Caption className={styles.childrenWrapper}>{children}</Caption>
-    </div>
-  </MaterialUITooltip>
-);
+}) => {
+  const classes = useStyles(maxWidth)();
+
+  return (
+    <MaterialUITooltip
+      title={<PopperWrapper isSingleLine={isSingleLine}>{title}</PopperWrapper>}
+      classes={{
+        tooltip: cn(classes.customWidth, styles.MUITooltip),
+      }}
+      {...props}
+    >
+      <div className={cn(styles.wrapper, className)}>
+        {!hideInfoIcon && <InfoIcon />}
+        <Caption className={styles.childrenWrapper}>{children}</Caption>
+      </div>
+    </MaterialUITooltip>
+  );
+};
 
 export default Tooltip;

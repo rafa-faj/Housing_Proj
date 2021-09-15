@@ -31,34 +31,79 @@
   @if $type == 'h1' {
     font-weight: $light-font-weight;
     font-size: $xxxl-font-size;
+    line-height: $xxl-line-height;
+    letter-spacing: $neg-letter-spacing;
   } @else if $type == 'h2' {
     font-weight: $bold-font-weight;
     font-size: $xxl-font-size;
+    line-height: $xxl-line-height;
   } @else if $type == 'h3' {
     font-weight: $regular-font-weight;
     font-size: $xl-font-size;
+    line-height: $xl-line-height;
   } @else if $type == 'h4' {
+    // notes: h4 and h5 are deprecated in the new versions, will be reserved for backward compatibility
+    // in the future they will be removed
     font-weight: $bold-font-weight;
     font-size: $lg-font-size;
   } @else if $type == 'h5' {
     font-weight: $bold-font-weight;
     font-size: $md-font-size;
   } @else if $type == 'subtitle 1' {
-    font-weight: $regular-font-weight;
-    font-size: $md-font-size;
+    font-weight: $bold-font-weight;
+    font-size: $lg-font-size;
+    line-height: $xxl-line-height;
+    letter-spacing: $normal-letter-spacing;
   } @else if $type == 'subtitle 2' {
     font-weight: $bold-font-weight;
-    font-size: $xs-font-size;
-  } @else if $type == 'body 1' {
+    font-size: $md-font-size;
+    line-height: $xxl-line-height;
+    letter-spacing: $normal-letter-spacing;
+  } @else if $type == 'subtitle 3' {
     font-weight: $bold-font-weight;
     font-size: $sm-font-size;
+    line-height: $xxxl-line-height;
+    letter-spacing: $normal-letter-spacing;
+  } @else if $type == 'subtitle 4' {
+    font-weight: $bold-font-weight;
+    font-size: $xs-font-size;
+    line-height: $xxxl-line-height;
+    letter-spacing: $normal-letter-spacing;
+  } @else if $type == 'subtitle 5' {
+    font-weight: $bold-font-weight;
+    font-size: $xxs-font-size;
+    line-height: $xxl-line-height;
+    letter-spacing: $normal-letter-spacing;
+  } @else if $type == 'body 1' {
+    font-weight: $regular-font-weight;
+    font-size: $lg-font-size;
+    line-height: $xxxl-line-height;
+    letter-spacing: $normal-letter-spacing;
   } @else if $type == 'body 2' {
     font-weight: $regular-font-weight;
-    font-size: $sm-font-size;
-  } @else if $type == 'link' {
+    font-size: $md-font-size;
+    line-height: $xxxl-line-height;
+    letter-spacing: $normal-letter-spacing;
+  } @else if $type == 'body 3' {
     font-weight: $regular-font-weight;
     font-size: $sm-font-size;
+    line-height: $xxxl-line-height;
+    letter-spacing: $normal-letter-spacing;
+  } @else if $type == 'body 4' {
+    font-weight: $regular-font-weight;
+    font-size: $xs-font-size;
+    line-height: $xxxl-line-height;
+    letter-spacing: $normal-letter-spacing;
+  } @else if $type == 'body 5' {
+    font-weight: $regular-font-weight;
+    font-size: $xxs-font-size;
+    line-height: $xxl-line-height;
+    letter-spacing: $normal-letter-spacing;
+  } @else if $type == 'link' {
+    font-weight: $bold-font-weight;
+    font-size: $sm-font-size;
     text-decoration-line: underline;
+    color: $link-color;
   } @else if $type == 'caption' {
     font-weight: $regular-font-weight;
     font-size: $sm-font-size;
@@ -106,6 +151,7 @@
   svg {
     width: $width;
     height: $height;
+    flex-shrink: 0;
 
     @content;
 
@@ -113,5 +159,31 @@
       fill: $fill;
       stroke: $stroke;
     }
+  }
+}
+
+/* mixin for multiline */
+@mixin multiLineEllipsis($lineHeight: 1.2em, $lineCount: 1, $bgColor: white) {
+  overflow: hidden;
+  position: relative;
+  line-height: $lineHeight;
+  max-height: $lineHeight * $lineCount;
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+  &:before {
+    content: '...';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.2em;
+    background: $bgColor;
   }
 }

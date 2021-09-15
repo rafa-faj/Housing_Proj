@@ -39,7 +39,7 @@ $padding-between-icon-and-label: 0.25rem;
 
 .day {
   margin: 0.3rem 0 1.5rem 0;
-  color: #aaaaaa;
+  color: $disabled-low-emphasis-color;
   font-size: 0.8rem;
 }
 
@@ -82,11 +82,11 @@ $padding-between-icon-and-label: 0.25rem;
 .oom {
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
-  color: #797979;
+  color: $disabled-medium-emphasis-color;
 }
 
 .date {
   font-size: 0.9rem;
-  color: #797979;
+  color: $disabled-medium-emphasis-color;
   margin-bottom: 0.25rem;
 }

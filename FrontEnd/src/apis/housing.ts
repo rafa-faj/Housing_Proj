@@ -1,5 +1,5 @@
-import { HousePost, LandlordHousePost } from '@models';
-import { backendAPI, getDurationInMinutes } from '@apis';
+import { HousePost, LandlordHousePost, StudentHousePost } from '@models';
+import { backendAPI } from '@apis';
 
 /**
  * Get IDs of recent room posts made.
@@ -8,6 +8,30 @@ import { backendAPI, getDurationInMinutes } from '@apis';
  */
 export const getRecentHousingPostIds = async () => {
   const response = await backendAPI.get<number[]>('/getRecentRoomIds');
+
+  return response.data;
+};
+
+/**
+ * Get IDs of recent Student room posts made.
+ *
+ * @returns array of id numbers
+ */
+export const getRecentStudentHousingPostIds = async () => {
+  const response = await backendAPI.get<number[]>('/getRecentStudentRoomIds');
+
+  return response.data;
+};
+
+/**
+ * Get Room JSON of recent room posts made by students.
+ *
+ * @returns Student Room JSONs of a particular room
+ */
+export const getRecentStudentHousingJSONs = async (roomId: number) => {
+  const response = await backendAPI.get<StudentHousePost>(
+    `/getRecentStudentRooms/${roomId}`,
+  );
 
   return response.data;
 };
@@ -46,6 +70,19 @@ export const getHousingPost = async (roomId: number) => {
   const response = await backendAPI.get<HousePost>(`/getRoom/${roomId}`);
 
   return response.data;
+};
+
+/** Post a housing made by the user
+ * @param roomForm - the room form data provided by the user
+ * @returns whether the post is successful
+ */
+export const generateHousingPost = async (roomForm: FormData) => {
+  const response = await backendAPI.post('/postRoom', roomForm, {
+    headers: {
+      'content-type': 'multipart/form-data',
+    },
+  });
+  return response.status;
 };
 
 /**

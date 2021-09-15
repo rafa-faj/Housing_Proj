@@ -13,7 +13,6 @@ import urllib.request
 from datetime import datetime
 
 
-
 def generate_response(elem={}, status_code=200):
     """Simple wrapper to return consumable json response"""
     # generated response in default has 200 status code
@@ -91,19 +90,21 @@ def verify_email(google_login_token, whitelisted_domains, target_audience):
     except (GoogleAuthError, ValueError):
         return 401, MESSAGE_INVALID_TOKEN, None
 
-def get_type_map(base,mode="write"):
+
+def get_type_map(base, mode="write"):
     """
     Get a map between database entry name and its corresponding python types
 
     mode supports write and read
-    
     If write, this also checks whether the keys are allowed as set in __user_write_permission_field__ of the base
     If read, this checks __user_read_permission_field__ 
     """
     check_fields = base.__user_write_permission_field__ if mode == "write" else base.__user_read_permission_field__
     # Get the db table column names and their corresponding python types
-    type_map = {c.name: c.type.python_type for c in base.__table__.c if c.name in check_fields}
+    type_map = {
+        c.name: c.type.python_type for c in base.__table__.c if c.name in check_fields}
     return type_map
+
 
 def get_valid_request_keys(keys, type_map):
     """
@@ -115,17 +116,20 @@ def get_valid_request_keys(keys, type_map):
     return set(key for key in keys if key in type_map)
 
 
-def verify_request_datatype(valid_keys,name_val_dict, type_map):
+def verify_request_datatype(valid_keys, name_val_dict, type_map):
     """
     Assumption: it assumes all the keys should be matched with those on the base
     Verify that the request json user submitted has the correct types defined in the database schema
     base is the data model we defined in the database setup
     return (whether all the data are correctly formatted, key value pair if correctly formatted)
     """
-    valid_dict = {key:value for key, value in name_val_dict.items() if key in valid_keys}
+    valid_dict = {key: value for key,
+                  value in name_val_dict.items() if key in valid_keys}
     # has to be non-empty dict
-    correct_format = all(isinstance(value, type_map[key]) for key,value in valid_dict.items()) and len(valid_dict) > 0
-    return correct_format,valid_dict
+    correct_format = all(isinstance(
+        value, type_map[key]) for key, value in valid_dict.items()) and len(valid_dict) > 0
+    return correct_format, valid_dict
+
 
 def verify_authentication(client_token, login_session):
     """
@@ -134,10 +138,11 @@ def verify_authentication(client_token, login_session):
     """
     # verify the token
     if client_token != login_session["access_token"]:
-        return False,generate_message(MESSAGE_INVALID_TOKEN,401)
+        return False, generate_message(MESSAGE_INVALID_TOKEN, 401)
     return True, None
 
-def check_verify_token(request,login_session):
+
+def check_verify_token(request, login_session):
     """
     Check the existence of the token and verify the validity of the token
 
@@ -146,11 +151,12 @@ def check_verify_token(request,login_session):
     try:
         client_token = request.cookies["access_token"]
         # verify the token
-        verified,response = verify_authentication(client_token,login_session)
-        if verified == False: return False,response
+        verified, response = verify_authentication(client_token, login_session)
+        if verified == False:
+            return False, response
     except KeyError:
         # access_token doesn't exist: user hasn't been authorized to create an entry in the db
-        response = generate_message(MESSAGE_NO_ACCESS_TOKEN,401)
+        response = generate_message(MESSAGE_NO_ACCESS_TOKEN, 401)
         return False, response
     # if successfully checked, return true, None(indicating to proceed next actions)
     return True, None
@@ -159,8 +165,9 @@ def convert_to_underscore(json_form):
     """
     Convert all the keys from camelCase to underscore case (snake_case)
     """
-    new_json = {underscore(key):value for key,value in json_form.items()}
+    new_json = {underscore(key): value for key, value in json_form.items()}
     return new_json
+
 
 def check_json_form(request, bad_req_message, no_json_message):
     """
@@ -170,18 +177,20 @@ def check_json_form(request, bad_req_message, no_json_message):
     try:
         requested_json = request.json
     except BadRequest:
-        response = generate_message(bad_req_message,400)
-        return False,response, None
+        response = generate_message(bad_req_message, 400)
+        return False, response, None
     if requested_json is None:
-        response = generate_message(no_json_message,400)
+        response = generate_message(no_json_message, 400)
         return False, response, None
 
     new_json = convert_to_underscore(requested_json)
     return True, None, new_json
 
+
 def transform_json_underscore(json_form):
-    new_json = {underscore(key):value for key,value in json_form.items()}
+    new_json = {underscore(key): value for key, value in json_form.items()}
     return new_json
+
 
 def check_multi_form_json(request):
     """
@@ -191,38 +200,43 @@ def check_multi_form_json(request):
     try:
         requested_json = json.loads(request.form["json"])
     except KeyError:
-        response = generate_message(MESSAGE_MULTI_FORM_NO_JSON,400)
-        return False,response, None
+        response = generate_message(MESSAGE_MULTI_FORM_NO_JSON, 400)
+        return False, response, None
     except json.decoder.JSONDecodeError:
-        response = generate_message(MESSAGE_MULTI_FORM_JSON_DECODE_ERROR,400)
-        return False,response, None
-    if isinstance(requested_json,dict) != True:
-        response = generate_message(MESSAGE_MULTI_FORM_INVALID_JSON + " : json isn't a dict.",400)
-        return False,response, None
+        response = generate_message(MESSAGE_MULTI_FORM_JSON_DECODE_ERROR, 400)
+        return False, response, None
+    if isinstance(requested_json, dict) != True:
+        response = generate_message(
+            MESSAGE_MULTI_FORM_INVALID_JSON + " : json isn't a dict.", 400)
+        return False, response, None
     elif len(requested_json) == 0:
-        response = generate_message(MESSAGE_MULTI_FORM_EMPTY_JSON,400)
-        return False,response, None
+        response = generate_message(MESSAGE_MULTI_FORM_EMPTY_JSON, 400)
+        return False, response, None
     # if json is invalid, transform the key names from js native to python native
     new_json = transform_json_underscore(requested_json)
     return True, None, new_json
 
-def process_request_json(base,value_pairs, strict_mode=False, original=False, access_mode="write", nondb_type_map={}):
+
+def process_request_json(base, value_pairs, strict_mode=False, original=False, access_mode="write", nondb_type_map={}):
     """
     wrapper to process db related request json
     original determines whether return only valid key value pairs or the original unprocessed json
     if strict_mode is on, all keys in the db must be provided. This is helpful when user creates an entry rather than update it
     return (whether the json is in correct format, updates dictionary, error response)
     """
-    type_map = get_type_map(base,access_mode)
+    type_map = get_type_map(base, access_mode)
     type_map.update(nondb_type_map)
     # if there are non db related keys in extra_keys, check them as well
-    valid_keys = get_valid_request_keys(value_pairs.keys(),type_map)
+    valid_keys = get_valid_request_keys(value_pairs.keys(), type_map)
     if strict_mode and len(valid_keys) != len(type_map):
-        return False, None, generate_message(MESSAGE_INCOMPLETE_JSON,422)
+        return False, None, generate_message(MESSAGE_INCOMPLETE_JSON, 422)
     # verify the json data types
-    correct_format,valid_value_pairs = verify_request_datatype(valid_keys,value_pairs,type_map)
-    response = None if correct_format else generate_message(MESSAGE_WRONG_TYPE_JSON,422)
-    return correct_format,value_pairs if original else valid_value_pairs, response
+    correct_format, valid_value_pairs = verify_request_datatype(
+        valid_keys, value_pairs, type_map)
+    response = None if correct_format else generate_message(
+        MESSAGE_WRONG_TYPE_JSON, 422)
+    return correct_format, value_pairs if original else valid_value_pairs, response
+
 
 def verify_image(upload_file):
     """
@@ -251,17 +265,17 @@ def check_attributes_str(value_pairs):
 
     return (whether the json is in correct format, value_pairs if correct, error response)
     """
-    other_type = "other"
-    facility_type = "facilities"
-    if other_type not in value_pairs or facility_type not in value_pairs:
-        return False, None, generate_message(MESSAGE_INCOMPLETE_JSON,422)
-    if not isinstance(value_pairs[other_type],list) or not isinstance(value_pairs[facility_type],list):
-        return False, None, generate_message(MESSAGE_WRONG_TYPE_JSON,422)
-    for elem in value_pairs[other_type]:
-        if not isinstance(elem,str): return False, None, generate_message(MESSAGE_WRONG_TYPE_JSON+"other types contain wrong type data",422)
-    for elem in value_pairs[facility_type]:
-        if not isinstance(elem,str): return False, None, generate_message(MESSAGE_WRONG_TYPE_JSON+"facility types contain wrong type data",422)
-    return True,value_pairs, None
+    attributes = ["amenities", "habits", "genders"]
+    for attr in attributes:
+        if attr not in value_pairs:
+            return False, None, generate_message(MESSAGE_INCOMPLETE_JSON, 422)
+        if not isinstance(value_pairs[attr], list):
+            return False, None, generate_message(MESSAGE_WRONG_TYPE_JSON, 422)
+        for elem in value_pairs[attr]:
+            if not isinstance(elem, str):
+                return False, None, generate_message(MESSAGE_WRONG_TYPE_JSON+f"{attr} types contain wrong type data", 422)
+    return True, value_pairs, None
+
 
 def download_json_data(endpoint):
     """
@@ -276,12 +290,15 @@ def download_json_data(endpoint):
         json_data = []
     return json_data
 
-def set_landlord_data(app,aws_landlord_endpoint):
+
+def set_landlord_data(app, aws_landlord_endpoint):
     landlord_data = download_json_data(aws_landlord_endpoint)
-    landlord_data.sort(key=lambda elem: datetime.now() if elem['availability'].lower() in ["today","now"] else datetime.strptime(elem['availability'],'%m/%d/%Y'))
+    landlord_data.sort(key=lambda elem: datetime.now() if elem['availability'].lower(
+    ) in ["today", "now"] else datetime.strptime(elem['availability'], '%m/%d/%Y'))
     app.config["LANDLORD_DB"] = landlord_data
 
-def generate_user_login_data(user,test=False):
+
+def generate_user_login_data(user, test=False):
     user_prefix = "test_user" if test else "user"
     photo_path_name = "/".join([user_prefix+str(user.id),
                                 "profile", "headshot.jpg"])
@@ -295,3 +312,55 @@ def generate_user_login_data(user,test=False):
                      "profilePhoto": photo_path_name
                      }
     return json_response
+
+
+def make_a_post_processor(request_json):
+    # utility to none if conversion error
+    try:
+        request_json["utility"] = int(request_json["utility"])
+    except:
+        request_json["utility"] = -1
+    # move in is optional and so we just set them to none if invalid
+    try:
+        request_json["start_date"] = datetime.strptime(
+            request_json["start_date"], "%b/%d/%Y")
+        request_json["end_date"] = datetime.strptime(
+            request_json["end_date"], "%b/%d/%Y")
+    except ValueError:
+        request_json["start_date"] = None
+        request_json["end_date"] = None
+    # this is needed since they verify functions only check the Room database entries
+    # stay period is a foreign table
+    try:
+        avail_month = request_json["avail_month"]
+        avail_year = request_json["avail_year"]
+        until_month = request_json["until_month"]
+        until_year = request_json["until_year"]
+        num_bed = request_json["num_bed"]
+        num_bath = request_json["num_bath"]
+        rent = request_json["rent"]
+        looking_for_count = request_json["looking_for_count"]
+    except KeyError:
+        return False, None, generate_message(
+            MESSAGE_INCOMPLETE_JSON, 422)
+
+    avail_time = "/".join([avail_month, avail_year])
+    until_time = "/".join([until_month, until_year])
+
+    try:
+        request_json["avail_time_dt"] = datetime.strptime(avail_time, "%B/%Y")
+        request_json["until_time_dt"] = datetime.strptime(until_time, "%B/%Y")
+        request_json["num_bed"] = int(num_bed)
+        request_json["num_bath"] = float(num_bath)
+        request_json["looking_for_count"] = int(looking_for_count)
+        request_json["rent"] = int(rent)
+    except ValueError:
+        return False, None, generate_message(
+            MESSAGE_WRONG_TYPE_JSON, 422)
+
+    try:  # future feature included here
+        request_json["negotiable"]
+    except:
+        request_json["negotiable"] = True
+
+    return True, request_json, None

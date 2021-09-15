@@ -25,13 +25,23 @@ const RangeArrow = () => (
 
 type CalendarDate = moment.Moment | null;
 
-const DatePicker: FunctionComponent = () => {
+export interface DatePickerProps {
+  onChange?: (startDate: CalendarDate, endDate: CalendarDate) => void;
+  defaultStartDate?: CalendarDate;
+  defaultEndDate?: CalendarDate;
+}
+
+const DatePicker: FunctionComponent<DatePickerProps> = ({
+  onChange,
+  defaultStartDate = null,
+  defaultEndDate = null,
+}) => {
   const [dateRange, setDateRange] = useState<{
     startDate: CalendarDate;
     endDate: CalendarDate;
   }>({
-    startDate: null,
-    endDate: null,
+    startDate: defaultStartDate,
+    endDate: defaultEndDate,
   });
   const [focus, setFocus] = useState<'startDate' | 'endDate' | null>(null);
 
@@ -41,7 +51,12 @@ const DatePicker: FunctionComponent = () => {
     <DateRangePicker
       startDatePlaceholderText="Start"
       startDate={startDate}
-      onDatesChange={setDateRange}
+      onDatesChange={({ startDate, endDate }) => {
+        if (onChange) {
+          onChange(startDate, endDate);
+        }
+        setDateRange({ startDate, endDate });
+      }}
       endDatePlaceholderText="End"
       endDate={endDate}
       numberOfMonths={1}

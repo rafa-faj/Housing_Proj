@@ -1,8 +1,8 @@
 .notChecked {
   width: 1.25rem;
   height: 1.25rem;
-  border: 2px solid #aaaaaa;
-  border-radius: 4px;
+  border: 0.125rem solid $disabled-low-emphasis-color;
+  border-radius: 0.25rem;
 }
 
 .checkbox {
@@ -10,7 +10,7 @@
 }
 
 .CheckBoxLabelBody {
-  max-width: 10rem;
+  @include font-type('body 3');
   align-self: center;
   margin-left: 0.75rem;
 

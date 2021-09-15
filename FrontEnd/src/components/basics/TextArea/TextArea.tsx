@@ -2,61 +2,66 @@ import React, { FunctionComponent, useState } from 'react';
 import { Form, Col, FormControlProps } from 'react-bootstrap';
 import styles from './TextArea.module.scss';
 import { Body2 } from '@basics';
+import * as z from 'zod';
 import cn from 'classnames';
+import { Icon as IconType, miscIcons } from '@icons';
+import { useRandomID } from '@hooks';
 
 interface TextAreaProps extends FormControlProps {
   maxLength: number;
-  label: string;
-  controlId: string;
-  defaultContent: string;
+  label?: string;
+  error?: string | z.ZodIssue; // Will make the input border red as well
+  controlId?: string;
+  defaultContent?: string;
   placeHolder?: string;
   className?: string;
+  isInvalid?: boolean;
 }
 
 const TextArea: FunctionComponent<TextAreaProps> = ({
   maxLength,
   label,
+  error,
   controlId,
-  defaultContent,
+  isInvalid,
+  defaultContent = '',
   readOnly,
   placeHolder = '',
   onChange,
   className,
 }) => {
-  var [showPlaceHolder, clearPlaceHolder] = useState<boolean>(
-    defaultContent.length == 0,
-  );
-  if (showPlaceHolder) defaultContent = placeHolder;
+  const RandomID = useRandomID(controlId); // random id if controlId isn't specified
   var [content, setContent] = useState<string>(defaultContent);
   return (
     <Form.Row className={className}>
-      <Form.Group as={Col} controlId={controlId} className="pl-0">
-        <Form.Label className={styles.label}>{label}</Form.Label>
+      <Form.Group as={Col} controlId={RandomID} className="pl-0">
+        {label && <Form.Label className={styles.label}>{label}</Form.Label>}
         <Form.Control
+          placeholder={placeHolder}
           readOnly={readOnly}
           as="textarea"
           className={cn(styles.content, {
             [styles.unfilled]: content.length === 0,
             [styles.readOnly]: readOnly,
-            [styles.placeHolder]: showPlaceHolder,
+            [styles.invalid]: isInvalid || error,
           })}
           type="text"
           maxLength={maxLength}
           value={content}
-          onClick={() => {
-            if (showPlaceHolder) {
-              setContent('');
-              clearPlaceHolder(false);
-            }
-          }}
           onChange={(e) => {
             setContent(e.target.value);
             if (onChange) onChange(e);
           }}
         />
-        <Body2 className={styles.charCheck}>
-          {showPlaceHolder ? 0 : content.length}/{maxLength.toString()}
+        <Body2
+          className={cn(styles.charCheck, {
+            [styles.charCheckError]: error,
+          })}
+        >
+          {content.length}/{maxLength.toString()}
         </Body2>
+        {error && <miscIcons.alert className={styles.inputStatus} />}
+        {error && <Form.Label className={cn(styles.error)}>{error}</Form.Label>}
       </Form.Group>
     </Form.Row>
   );

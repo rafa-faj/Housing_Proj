@@ -1,37 +1,51 @@
 import React, { useState, FunctionComponent } from 'react';
 import styles from './CheckBoxButton.module.scss';
-import { Body1 } from '@basics';
 import { checkboxIcons } from '@icons';
+import { useRandomID } from '@hooks';
 
 export interface CheckBoxButtonProps {
-  id: string;
+  id?: string;
   value: string;
   withLabel: boolean;
-  // TODO add onChange here when actually coding the wizard form
+  onChange?: (value: string, state: boolean) => void;
+  defaultChecked?: boolean;
 }
 
 const CheckBoxButton: FunctionComponent<CheckBoxButtonProps> = ({
   id,
   value,
   withLabel,
+  onChange,
+  defaultChecked,
 }) => {
-  const [checked, changState] = useState(false);
+  const buttonID = useRandomID(id);
+  const [checked, changeState] = useState(!!defaultChecked);
   return (
-    <div className="d-flex">
+    <div className="d-flex" id={buttonID}>
       {checked ? (
         <checkboxIcons.checked
           className={styles.checkbox}
-          onClick={() => changState(false)}
+          onClick={() => {
+            changeState(false);
+            if (onChange) {
+              onChange(value, false);
+            }
+          }}
         />
       ) : (
         <div
           className={styles.notChecked}
-          onClick={() => changState(true)}
+          onClick={() => {
+            changeState(true);
+            if (onChange) {
+              onChange(value, true);
+            }
+          }}
         ></div>
       )}
       {withLabel && (
-        <label htmlFor={id}>
-          <Body1 className={styles.CheckBoxLabelBody}>{value}</Body1>
+        <label htmlFor={buttonID}>
+          <div className={styles.CheckBoxLabelBody}>{value}</div>
         </label>
       )}
     </div>

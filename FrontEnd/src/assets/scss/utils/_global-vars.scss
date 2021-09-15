@@ -40,6 +40,10 @@ $disabled-medium-emphasis-color: #797979;
 $disabled-high-emphasis-color: #3d3d3d;
 $disabled-default-color: $disabled-low-emphasis-color;
 
+// Coral
+$coral-900-color: #a64919;
+$coral-400-color: #e37f4e;
+
 // Other colors.
 $highlight-color: #f3d990;
 $error-color: #e16161;
@@ -61,14 +65,14 @@ $regular-font-weight: 400;
 $light-font-weight: 300;
 
 // Font sizes
-$xxxl-font-size: 3.625rem; // old value was: 60px (which was +0.125rem of what it is now)
-$xxl-font-size: 2.875rem; // old value was: 48px (which was +0.125rem of what it is now)
-$xl-font-size: 2rem; // old value was: 34px (which was +0.125rem of what it is now)
-$lg-font-size: 1.375rem; // old value was: 24px (which was +0.125rem of what it is now)
-$md-font-size: 1rem; // old value was: 20px (which was +0.125rem of what it is now)
-$sm-font-size: 0.875rem; // old value was: 16px (which was +0.125rem of what it is now)
-$xs-font-size: 0.75rem; // old value was: 14px (which was +0.125rem of what it is now)
-$xxs-font-size: 0.625rem; // old value was: 12px (which was +0.125rem of what it is now)
+$xxxl-font-size: 3.75rem;
+$xxl-font-size: 3rem;
+$xl-font-size: 2rem;
+$lg-font-size: 1.5rem;
+$md-font-size: 1.25rem;
+$sm-font-size: 1rem;
+$xs-font-size: 0.875rem;
+$xxs-font-size: 0.75rem;
 
 /**
  * STYLE GUIDE OTHER VARS.
@@ -91,3 +95,16 @@ $filter-height: 5vh;
 $filter-top-margin: 5vh;
 
 $rounded-lg: 2.5rem; // 40px
+
+/**
+ * STYLE GUIDE Letter Spacing
+ */
+$neg-letter-spacing: -0.01em;
+$normal-letter-spacing: 0.03em;
+
+/**
+ * STYLE GUIDE Line Height
+ */
+$xxxl-line-height: 150%;
+$xxl-line-height: 120%;
+$xl-line-height: 106%;

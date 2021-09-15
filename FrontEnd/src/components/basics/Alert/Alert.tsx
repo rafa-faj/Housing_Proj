@@ -11,6 +11,7 @@ interface AlertProps {
   title?: string;
   text: string;
   button?: string;
+  onClick?: () => void;
 }
 
 const iconMapping = {
@@ -25,12 +26,14 @@ const Alert: FunctionComponent<AlertProps> = ({
   title = '',
   text,
   button = '',
+  children,
+  onClick,
 }) => {
   let Icon = iconMapping[variant];
 
   return (
     <div className={cn(styles[variant], styles.alertContainer)}>
-      <div className={styles.icon}>
+      <div>
         <Icon />
       </div>
       <div className={styles.content}>
@@ -38,13 +41,15 @@ const Alert: FunctionComponent<AlertProps> = ({
         <div className={styles.text}>{text}</div>
       </div>
       <div className={styles.button}>
-        {button == '' ? (
+        {children}
+        {button === '' ? (
           <alertIcons.X />
         ) : (
           <Button
             variant="wrapper"
             size="secondary"
             className={styles[variant]}
+            onClick={onClick}
           >
             {button}
           </Button>

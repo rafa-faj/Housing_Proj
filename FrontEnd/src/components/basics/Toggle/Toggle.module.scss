@@ -1,8 +1,8 @@
 .root {
   .toggle {
-    @include font-type('body 1');
+    @include font-type('subtitle 4');
     color: $primary-light-color;
-    margin: 15px 10px;
+    margin: 0.9375rem 0.625rem;
     margin-bottom: 0;
     border: 0.0625rem $primary-300-color solid;
     border-radius: $sm-border-radius;
@@ -26,7 +26,12 @@
       background-color: $primary-50-color;
       color: $primary-200-color;
     }
-    @include svg-fill($primary-200-color);
+    @include svg-fill($primary-300-color);
+    svg {
+      rect {
+        stroke: $primary-300-color;
+      }
+    }
   }
 
   .selected {
@@ -37,6 +42,12 @@
       color: white;
     }
     @include svg-fill(white);
+    svg {
+      // override the rectangle stroke
+      rect {
+        stroke: white;
+      }
+    }
   }
 
   .readOnly {

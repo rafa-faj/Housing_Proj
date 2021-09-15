@@ -16,3 +16,21 @@ export type OneFrom<P> = { [K in keyof P]: Pick<P, K> };
 export type Props = {
   [key: string]: any;
 };
+
+/**
+ * generics to transform values in an array to union types
+ */
+export type ArrayUnionTransform<
+  T extends ReadonlyArray<unknown>
+> = T extends ReadonlyArray<infer Type> ? Type : never;
+
+/**
+ * generics to map all values of a const array to a particular type
+ *
+ */
+export type TransformArray<
+  ArrayType extends ReadonlyArray<string | number | symbol>,
+  ElementType
+> = {
+  [P in ArrayUnionTransform<ArrayType>]: ElementType;
+};

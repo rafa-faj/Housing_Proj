@@ -41,15 +41,12 @@ const LoginUI: FunctionComponent = () => {
       const { name, email } = userInfo;
 
       const result = await login(tokenId);
-
       if (result.unsupportedDomain) return;
-
       if (result.isNewUser) {
         TriggerButtonGA('Button', 'Click', 'LogInNewUser');
         dispatch(startNewUserFlow({ name, email }));
         return;
       }
-
       TriggerButtonGA('Button', 'Click', 'LogInSuccess');
     } else {
       console.log('User is offline');
@@ -64,7 +61,7 @@ const LoginUI: FunctionComponent = () => {
       className={styles.wrapper}
       modalGraphic={{ src: '/login.svg', alt: 'LogIn' }}
     >
-      <Tooltip title={TooltipContent}>Why school account?</Tooltip>
+      <Tooltip title={TooltipContent} isSingleLine><>Why school account?</></Tooltip>
 
       <GoogleLogin
         className={styles.gAuth}

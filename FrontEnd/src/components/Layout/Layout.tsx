@@ -2,18 +2,25 @@ import React, { FunctionComponent } from 'react';
 import NavBar from '../NavBar';
 import Footer from '../Footer';
 import styles from './Layout.module.scss';
+import { useShouldOverlay } from '@redux';
+import cn from 'classnames';
 
 /**
  * Layout component which provides the navbar, footer, and margin around
  * the body of the website. Wrapped across all pages.
  */
-const Layout: FunctionComponent = ({ children }) => (
-  <>
-    <NavBar />
-    <div className={styles.layout}>{children}</div>
-    <Footer />
-  </>
-);
+const Layout: FunctionComponent = ({ children }) => {
+  const ShouldOverlay = useShouldOverlay();
+  return (
+    <>
+      <NavBar />
+      <div className={cn(styles.layout, { 'd-none': ShouldOverlay })}>
+        {children}
+      </div>
+      <Footer />
+    </>
+  );
+};
 
 export default Layout;
 

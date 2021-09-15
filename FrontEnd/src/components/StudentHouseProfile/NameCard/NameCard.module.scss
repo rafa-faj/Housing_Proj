@@ -1,0 +1,69 @@
+.orangeBox {
+  background: #fdf4f0;
+  border-radius: 0.5rem;
+  min-height: 14.5rem;
+  padding: 1.5rem;
+  @include bp-up('md') {
+    margin-top: 3.5rem;
+  }
+}
+
+.userPhoto {
+  height: 2.5rem;
+  width: 2.5rem;
+
+  @include circular-shape;
+}
+
+.userName {
+  @include font-type('subtitle 2');
+}
+
+.userInfo {
+  margin-left: 1rem;
+  display: flex;
+}
+
+.userBasicInfo {
+  @include font-type('body 3');
+  display: flex;
+  color: $coral-400-color;
+  margin-top: 0.625rem;
+  margin-bottom: 0.625rem;
+}
+
+.userBio {
+  @include font-type('body 4');
+}
+
+.contactWrapper {
+  margin-left: auto;
+}
+
+.copy {
+  > div {
+    color: $black-color !important;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.contactButton {
+  margin: 0;
+  border: 0.1875rem solid $primary-300-color;
+  border-radius: 0.9375rem;
+  padding: 0.75rem 1.5rem;
+
+  @include font-type('subtitle 2');
+}
+
+.dot {
+  height: 0.3125rem;
+  width: 0.3125rem;
+  background-color: $coral-400-color;
+  border-radius: 50%;
+  display: inline-block;
+  margin: auto 0.625rem;
+}

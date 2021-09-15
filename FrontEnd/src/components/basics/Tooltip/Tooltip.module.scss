@@ -1,19 +1,23 @@
 .tooltip {
-  max-width: 30vw;
+  width: 100%;
   background-color: white;
   color: black;
   border-radius: 0.5rem;
   border: 1px solid $border-color;
   padding: 0.75rem;
   box-shadow: 0rem 0.0625rem 0.5rem rgba(0, 0, 0, 0.18);
+  white-space: pre-line;
+  justify-content: left;
 
   .tooltipText {
+    width: 100%;
     line-height: 150%;
     letter-spacing: 0.03em;
+    white-space: pre-line;
   }
 
   @include bp-down('sm') {
-    max-width: 80vw;
+    // max-width: 80vw;
   }
 }
 
@@ -26,12 +30,14 @@
   padding: 0 !important;
   background: none !important;
   background-color: none !important;
+  width: 100%;
+  max-width: none;
 }
 
 .wrapper {
   display: flex;
   text-align: center;
-  justify-content: center;
+  // justify-content: center;
   align-items: center;
   align-content: center;
 }

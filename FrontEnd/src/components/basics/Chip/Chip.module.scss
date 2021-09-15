@@ -1,0 +1,38 @@
+.chip {
+  display: flex;
+  border-radius: 1.25rem;
+  @include font-type('body 5');
+  padding: 0.5625rem 1rem;
+  align-items: center;
+  > div {
+    margin-left: 0.5rem;
+    &:nth-child(1) {
+      margin-left: 0 !important;
+    }
+  }
+}
+
+.chipWithIcon {
+  padding: 0.25rem 0.75rem;
+}
+
+.cross {
+  @include svg-fill(black, 0.8125rem, 0.8125rem);
+}
+
+.opacity {
+  color: $disabled-medium-emphasis-color;
+  @include svg-fill($disabled-medium-emphasis-color, 0.8125rem, 0.8125rem);
+}
+
+.default {
+  background-color: $secondary-200-color;
+}
+
+.hover {
+  background-color: $secondary-100-color;
+}
+
+.disabled {
+  background-color: $secondary-50-color;
+}

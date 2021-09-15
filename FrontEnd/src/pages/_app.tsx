@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import { reduxNextWrapper } from '@redux';
-import { Login, Layout } from '@components';
+import { Login, Layout, MakeAPost } from '@components';
 import '../assets/scss/global/index.scss';
 import { InitGA } from '@components/ga';
 import TagManager from 'react-gtm-module';
@@ -25,6 +25,8 @@ const App: FunctionComponent<AppProps> = ({ Component, pageProps }) => {
       <DefaultHead />
 
       <Login />
+
+      <MakeAPost />
 
       <Layout>
         <Component {...pageProps} />

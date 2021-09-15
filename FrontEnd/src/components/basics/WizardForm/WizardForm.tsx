@@ -6,11 +6,11 @@ import { miscIcons } from '@icons';
 import styles from './WizardForm.module.scss';
 import cn from 'classnames';
 
-type ValidationError =
+export type ValidationError =
   | { success: true; error: undefined; data?: string }
   | { success: false; error: ZodIssue; data?: string }; // TODO maybe make data just undefined here
 
-type ValidationErrors<P> = Partial<
+export type ValidationErrors<P> = Partial<
   {
     [key in keyof P]: ValidationError;
   }
@@ -24,7 +24,7 @@ type ValidationErrors<P> = Partial<
  * // TODO
  */
 type SubmitForm = () => Promise<{ success: boolean; message?: string }>;
-type SetStore<P> = (value: Partial<P>) => void;
+export type SetStore<P> = (value: Partial<P>) => void;
 export type WizardFormStep<P> = Partial<P> & {
   exitWizardForm: () => void;
   nextStep: () => void;
@@ -33,6 +33,15 @@ export type WizardFormStep<P> = Partial<P> & {
   submitForm: SubmitForm; // returns success or failure with a message
   validations: ValidationErrors<P> | undefined; // validation errors
   setStore: SetStore<P>;
+};
+
+export type customModifierFunc<P> = (
+  curIndex: number,
+  success: boolean,
+  storeValues: Partial<P>,
+  validations?: ValidationErrors<P> | undefined,
+) => {
+  [k: string]: { success: boolean; error: ZodIssue | undefined } | undefined;
 };
 
 // T is whatever is in the store
@@ -48,6 +57,8 @@ interface WizardFormProps<T = {}> {
   schemas: ZodSchema<Partial<T>>[];
   lastButtonAsInactiveArrow?: boolean;
   lastButtonText?: string;
+  customModifierFuncs?: customModifierFunc<T>[]; // customized functions for overriding/adding fields to enable advanced validation behaviors like grouping
+  externalFunction?: (s: Partial<T>[]) => void; // external function for utilizing internal store and will be called during set store
 }
 
 // Not using FunctionComponent as a work around to allow for generics for Wizard Form. Do not do this normally.
@@ -66,6 +77,8 @@ const WizardForm = <T extends {}>({
   schemas,
   lastButtonAsInactiveArrow,
   lastButtonText = 'Submit',
+  customModifierFuncs,
+  externalFunction,
 }: WizardFormProps<T>) => {
   const [curIndex, setCurIndex] = useState<number>(0);
   const [isFirst, setIsFirst] = useState<boolean>(true);
@@ -116,17 +129,21 @@ const WizardForm = <T extends {}>({
    * @param schema is the schema used to validate toParse
    * @param toParse holds the values that should be validated/parsed
    * @param toValidate is an array of keys within toParse that should be validated/parsed
+   * @param currenIdx different from curindex which is current page, this is a separate value provided by the function consumer
+   * @param pageSwitch whether it is a page switch
    * @returns
    */
   const validatePickedValues = <P extends Partial<T>>(
     schema: ZodSchema<P>,
     toParse: P,
     toValidate: Array<keyof P>,
+    currenIdx: number,
+    pageSwitch?: boolean,
   ): ValidationErrors<P> => {
     const parseResult = schema.safeParse(toParse);
     const { success } = parseResult;
     const initialValidationErrors: ValidationErrors<P> = {
-      ...validations[curIndex],
+      ...validations[currenIdx],
     };
 
     // extractFirstError returns the first error from all the errors in a field `key` (if there are any errors in that field)
@@ -153,7 +170,25 @@ const WizardForm = <T extends {}>({
       return { ...prevErrors, [curKey]: { success, error } };
     };
 
-    return toValidate.reduce(combineErrorsReducer, initialValidationErrors);
+    var validatedResults = toValidate.reduce(
+      combineErrorsReducer,
+      initialValidationErrors,
+    );
+
+    if (customModifierFuncs && pageSwitch) {
+      const aggregatedFields = customModifierFuncs.reduce(
+        (prev, customFunc) => {
+          return {
+            ...prev,
+            ...customFunc(curIndex, success, toParse, validatedResults),
+          };
+        },
+        {},
+      );
+      validatedResults = { ...validatedResults, ...aggregatedFields };
+    }
+
+    return validatedResults;
   };
 
   /**
@@ -167,6 +202,8 @@ const WizardForm = <T extends {}>({
       schemas[i],
       store[i],
       Object.keys(store[i]) as (keyof T)[],
+      i,
+      true,
     );
 
     setValidations({
@@ -218,7 +255,7 @@ const WizardForm = <T extends {}>({
    */
   const nextStep = () => {
     const dataIsValid = validateCurrent();
-
+    // get rid of this later
     if (dataIsValid && curIndex + 1 < children.length) {
       setCurIndex(curIndex + 1);
     }
@@ -250,7 +287,6 @@ const WizardForm = <T extends {}>({
       ...pre,
       ...cur,
     }));
-
     const success = await onSubmit(combined as T);
     if (success) exitWizardForm();
     return { success };
@@ -266,6 +302,10 @@ const WizardForm = <T extends {}>({
     const changedValues = { ...store[curIndex], ...value };
     setCompleteStore({ ...store, [curIndex]: changedValues });
 
+    if (externalFunction) {
+      externalFunction({ ...store, [curIndex]: changedValues });
+    }
+
     // get the changed edited fields and set that they were changed
     const changedEditedFields = (Object.keys(value) as Array<keyof T>).reduce<
       Partial<{ [key in keyof T]: boolean }>
@@ -279,6 +319,7 @@ const WizardForm = <T extends {}>({
       schemas[curIndex],
       changedValues,
       Object.keys(changedEditedFields) as (keyof T)[],
+      curIndex,
     );
 
     setValidations({

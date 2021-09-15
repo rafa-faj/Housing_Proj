@@ -51,17 +51,15 @@ const GeneralInfo: FunctionComponent<GeneralInfoProps> = ({
     </div>
   );
   return (
-    <>
-      <Container className={styles.container}>
-        <Row>
-          <Col md={7}>
-            <SlideShow images={images} showPreview className={styles.pic} />
-          </Col>
+    <Container className={styles.container}>
+      <Row>
+        <Col md={7}>
+          <SlideShow images={images} showPreview className={styles.pic} />
+        </Col>
 
-          <Col md={5}>{textCol}</Col>
-        </Row>
-      </Container>
-    </>
+        <Col md={5}>{textCol}</Col>
+      </Row>
+    </Container>
   );
 };
 

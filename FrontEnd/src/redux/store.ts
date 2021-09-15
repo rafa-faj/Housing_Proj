@@ -3,7 +3,12 @@ import {
   ThunkAction,
   Action,
 } from '@reduxjs/toolkit';
-import { authReducer, filterReducer } from './slices/index';
+import {
+  authReducer,
+  filterReducer,
+  postReducer,
+  overlayReducer,
+} from './slices/index';
 import { MakeStore, createWrapper, Context } from 'next-redux-wrapper';
 import { isRunningDev } from '@utils';
 import {
@@ -15,6 +20,8 @@ import {
 const storeSlices = {
   auth: authReducer,
   filter: filterReducer,
+  post: postReducer,
+  overlay: overlayReducer,
 };
 
 /**
