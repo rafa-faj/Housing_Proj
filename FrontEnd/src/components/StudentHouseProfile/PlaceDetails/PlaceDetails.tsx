@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { SectionTitle, Body2, Amenities, Amenity, Subtitle2 } from '@basics';
 import { Col, Row } from 'react-bootstrap';
+import { formatAvail } from '@utils';
 import styles from './PlaceDetails.module.scss';
 
 interface PlaceDetailsProps {
@@ -63,18 +64,19 @@ const PlaceDetails: FunctionComponent<PlaceDetailsProps> = ({
     </Row>
     <Row>
       <Col className="mt-3 mt-md-0">
-        <div className={styles.subtitle3}></div>
-        <Body2>{`Looking for ${lookingForCount} person/people to fill`}</Body2>
+        {lookingForCount && (
+          <>
+            <div className={styles.subtitle3}>#People to fill</div>
+            <Body2>{`Looking for ${lookingForCount} person/people to fill`}</Body2>
+          </>
+        )}
       </Col>
     </Row>
     <Row>
       <Col md={6} className="mt-3 mt-md-0">
         <div className={styles.subtitle3}>Stay period</div>
         <Body2>
-          {`${availMonth.slice(0, 3)} ${availYear} - ${untilMonth.slice(
-            0,
-            3,
-          )} ${untilYear}`}
+          {formatAvail(availMonth, availYear, untilMonth, untilYear)}
         </Body2>
       </Col>
       <Col md={6} className="mt-3 mt-md-0">

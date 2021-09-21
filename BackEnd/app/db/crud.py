@@ -246,17 +246,17 @@ def room_json(room, session, offline_test_mode=False, login_session=None):
         "address": room.address.serialize["address"],
         "distance": room.address.serialize["distance"],
         "placeName": room.address.serialize["place_name"],
-        "rent": r_json["rent"],
-        "numBed": r_json["num_bed"],
-        "numBath": r_json["num_bath"],
-        "utility": r_json["utility"],
+        "rent": str(r_json["rent"]),
+        "numBed": str(r_json["num_bed"]),
+        "numBath": str(int(r_json["num_bath"])),
+        "utility": str(r_json["utility"]) if r_json["utility"] > 0 else "",
         "roomType": r_json["room_type"],
-        "roomCapacity": other_map["room_capacities"],
-        "lookingForCount": r_json["looking_for_count"],
+        "roomCapacities": other_map["room_capacities"],
+        "lookingForCount": str(r_json["looking_for_count"]) if r_json["looking_for_count"] > 0 else "",
         "availMonth": room.stay_period.avail_time.strftime("%B"),
-        "availYear": room.stay_period.avail_time.strftime("%y"),
+        "availYear": room.stay_period.avail_time.strftime("%Y"),
         "untilMonth": room.stay_period.until_time.strftime("%B"),
-        "untilYear": room.stay_period.until_time.strftime("%y"),
+        "untilYear": room.stay_period.until_time.strftime("%Y"),
         "amenities": other_map["amenities"],
         "startDate": house_move_in.start_date.strftime("%m/%d/%y") if house_move_in.start_date else "",
         "endDate": house_move_in.end_date.strftime("%m/%d/%y") if house_move_in.end_date else "",
@@ -329,7 +329,7 @@ def write_room(room_json, user_id, session, offline_test_mode=False, test_mode=F
             _, file_extension = os.path.splitext(photo.filename)
             # standardize file name by index
             path_name = "/".join([user_prefix+str(room_owner.id), "housing",
-                                  str(new_room_id), str(index)+"."+file_extension])
+                                  str(new_room_id), str(index)+file_extension])
             upload_status = upload_file_wobject(photo, "houseit", path_name)
     else:
         upload_status = True
@@ -372,6 +372,7 @@ def write_room(room_json, user_id, session, offline_test_mode=False, test_mode=F
                     "room_capacities", new_room, session)
     write_attribute(room_json["genders"], "genders", new_room, session)
     write_attribute(room_json["habits"], "habits", new_room, session)
+    write_attribute(room_json["amenities"], "amenities", new_room, session)
     return upload_status
 
 # DELETE
@@ -384,5 +385,16 @@ def remove_entry(base, entry_id, session):
     return number of deleted rows
     """
     deleted_rows = session.query(base).filter_by(id=entry_id).delete()
+    session.commit()
+    return deleted_rows
+
+
+def remove_all(base, session):
+    """
+    removes all rows from a db
+
+    return number of deleted rows
+    """
+    deleted_rows = session.query(base).delete()
     session.commit()
     return deleted_rows

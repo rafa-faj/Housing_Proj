@@ -99,3 +99,6 @@ export * from './ErrorBox';
 
 export { default as Loading } from './Loading';
 export * from './Loading';
+
+export { default as ToggleSwitchBar } from './ToggleSwitchBar';
+export * from './ToggleSwitchBar';

@@ -1,21 +1,7 @@
 import React, { useEffect, useState, FunctionComponent } from 'react';
-import { HouseProfile } from '@components';
+import { StudentHousePost } from '@components';
 import { useRouter } from 'next/router';
-import { TriggerPageView } from '@components/ga';
-
-// parses the query parameter into a number (or undefined)
-// TODO should show 404 type page if the roomid that is passed doesn't exist
-const parseQueryParam = (params?: string | string[]) => {
-  let roomIdString;
-  if (typeof params === 'string') {
-    roomIdString = params;
-  } else {
-    roomIdString = params ? params[0] : '';
-  }
-
-  const roomId = parseInt(roomIdString);
-  return isNaN(roomId) ? undefined : roomId;
-};
+import { parseQueryParam } from '@utils';
 
 const Housing: FunctionComponent = () => {
   const router = useRouter();
@@ -28,11 +14,9 @@ const Housing: FunctionComponent = () => {
 
     const roomId = parseQueryParam(router.query.roomId);
     setRoomId(roomId);
-
-    TriggerPageView('housing/' + roomId?.toString());
   }, [router]);
 
-  if (roomId) return <HouseProfile roomId={roomId} />;
+  if (roomId) return <StudentHousePost roomId={roomId} />;
 
   return <div>Loading...</div>;
 };

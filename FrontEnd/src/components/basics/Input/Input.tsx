@@ -62,6 +62,7 @@ const Input: FunctionComponent<InputProps> = ({
               [styles.readOnly]: readOnly,
               [styles.invalid]: (isInvalid || error) && !readOnly,
               [styles.isValid]: isValid,
+              'pl-3': !!!icon,
             })}
             isValid={!readOnly && isValid}
             readOnly={readOnly}

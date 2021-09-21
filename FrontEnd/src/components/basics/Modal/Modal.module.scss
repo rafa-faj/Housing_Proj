@@ -31,13 +31,8 @@
   margin-bottom: 2rem;
 }
 
-// TODO need to add appropriate breakpoints for different screen sizes
 .md {
-  width: 450px;
-
-  @include bp-down('sm') {
-    width: 90%;
-  }
+  width: 30rem;
 }
 
 .lg {

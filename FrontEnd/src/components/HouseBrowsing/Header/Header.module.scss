@@ -7,6 +7,33 @@
   border-radius: $input-border-radius;
 }
 
+.postBulletin {
+  margin-left: 1.5rem;
+  position: relative;
+  svg {
+    z-index: -1;
+  }
+}
+
+.postButton {
+  position: absolute;
+  height: 3rem;
+  border: 0.1875rem solid #e7946d;
+  box-sizing: border-box;
+  border-radius: 0.9375rem;
+  margin: 0 1.2rem;
+  bottom: 38px;
+  left: 0;
+}
+
 .homehubOrange {
   color: $primary-400-color;
+}
+
+.subtitle3 {
+  @include font-type('subtitle 3');
+  position: absolute;
+  color: $primary-500-color;
+  top: 59px;
+  left: 1rem;
 }

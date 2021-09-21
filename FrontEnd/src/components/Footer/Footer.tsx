@@ -4,7 +4,7 @@ import styles from './Footer.module.scss';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Link, Subtitle1, Subtitle2, Button } from '@basics';
+import { Link, Subtitle2, Button } from '@basics';
 import { miscIcons } from '@icons';
 import { showLogin } from '@redux';
 import { useDispatch } from 'react-redux';
@@ -19,15 +19,15 @@ const FirstColumn: FunctionComponent = () => {
         className={styles.getStarted}
         onClick={() => dispatch(showLogin())}
       >
-        <h5>Get Started</h5>
+        <Subtitle2>Get Started</Subtitle2>
       </Button>
 
       <Link href="/" undecorated>
-        <Subtitle1>About</Subtitle1>
+        <div className={styles.childrenText}>About</div>
       </Link>
 
       <Link href="/" undecorated>
-        <Subtitle1>Join Us</Subtitle1>
+        <div className={styles.childrenText}>Join Us</div>
       </Link>
     </div>
   );
@@ -37,26 +37,26 @@ const homehubEmail = 'homehubdope@gmail.com';
 
 const Email = () => (
   <Link href={`mailto:${homehubEmail}`} external undecorated>
-    <Subtitle1 className={cn(styles.greyedOut, styles.email)}>
+    <div className={cn(styles.greyedOut, styles.email, styles.childrenText)}>
       {homehubEmail}
-    </Subtitle1>
+    </div>
   </Link>
 );
 
 const SecondColumn: FunctionComponent = () => (
   <div className={styles.marginBottomProvider}>
     <div>
-      <h5>Got feedback or questions?</h5>
+      <Subtitle2>Got feedback or questions?</Subtitle2>
     </div>
 
-    <Subtitle1>
+    <div className={styles.childrenText}>
       Shoot us an email @ <Email />
-    </Subtitle1>
+    </div>
 
-    <Subtitle1 className={styles.greyedOut}>
+    <div className={(styles.greyedOut, styles.childrenText)}>
       {/* copyright symbol */}
       &copy; All rights reserved @Homehub 2020
-    </Subtitle1>
+    </div>
   </div>
 );
 
@@ -76,10 +76,10 @@ const ThirdColumn: FunctionComponent = () => (
       </Col>
     </Row>
 
-    <Subtitle2 className={styles.ellipses}>
+    <div className={styles.ellipses}>
       By students <miscIcons.ellipse /> For students <miscIcons.ellipse /> With
       students
-    </Subtitle2>
+    </div>
   </div>
 );
 

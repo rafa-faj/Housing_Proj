@@ -7,9 +7,19 @@ import GeneralInfo from './GeneralInfo/GeneralInfo';
 import ProfileSlideShow from './ProfileSlideShow/ProfileSlideShow';
 import useBreakpoints from 'use-window-width-breakpoints';
 import { useUser } from '@hooks';
-import { StudentHousePost } from '@models';
+import { StudentHousePost, StudentHousePostConsume } from '@models';
+import { formatUrlsWithAws } from '@utils';
 
-const StudentHousingProfile: FunctionComponent<StudentHousePost> = ({
+const photosStringChecker = (photos: File[] | string[]) => {
+  for (var i = 0; i < photos.length; i++) {
+    if (typeof photos[i] !== 'string') return false;
+  }
+  return true;
+}; // TODO: find ways to do type narrowing directly from this function
+
+const StudentHousingProfile: FunctionComponent<
+  StudentHousePost | StudentHousePostConsume
+> = ({
   photos,
   placeName,
   address,
@@ -41,8 +51,18 @@ const StudentHousingProfile: FunctionComponent<StudentHousePost> = ({
 }) => {
   const { data: user } = useUser();
   const breakpoint = useBreakpoints();
-  const photoUrls = photos.map((photoFile) => URL.createObjectURL(photoFile));
-  const slideShowItems = photoUrls.map((url) => ({
+  var photoUrls = photos;
+  if (!photosStringChecker(photoUrls)) {
+    // if not an array of strings, convert files to url strings
+    photoUrls = (photos as File[]).map((photoFile) =>
+      URL.createObjectURL(photoFile),
+    );
+  } else {
+    // they are strings from backend, then format them
+    photoUrls = formatUrlsWithAws(photoUrls as string[]);
+  }
+
+  const slideShowItems = (photoUrls as string[]).map((url) => ({
     src: url,
     alt: `${placeName} , ${address}}`,
   }));

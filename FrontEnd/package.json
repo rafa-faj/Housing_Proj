@@ -56,7 +56,7 @@
     "react-redux": "^7.2.0",
     "reactstrap": "^8.8.1",
     "sass": "^1.32.8",
-    "swr": "^0.4.2",
+    "swr": "^1.0.1",
     "typewriter-effect": "^2.18.0",
     "universal-cookie": "^4.0.4",
     "use-async-effect": "^2.2.3",

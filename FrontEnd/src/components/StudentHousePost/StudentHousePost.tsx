@@ -26,7 +26,7 @@ const StudentHousePost: FunctionComponent<StudentHousePostProps> = ({
   }
   return (
     <Row className={styles.wrapperRow}>
-      <StudentHouseProfile {...data} />;
+      <StudentHouseProfile {...data} />
     </Row>
   );
 };

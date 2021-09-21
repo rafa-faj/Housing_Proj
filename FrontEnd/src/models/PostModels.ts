@@ -89,3 +89,7 @@ export interface StudentHousePost {
   userPhone: string;
   userPhoto: string;
 }
+
+export type StudentHousePostConsume = Omit<StudentHousePost, 'photos'> & {
+  photos: string[];
+};

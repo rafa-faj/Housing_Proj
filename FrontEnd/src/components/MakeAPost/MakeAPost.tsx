@@ -3,7 +3,8 @@ import { MakeAPost as MPIcons } from '@icons';
 import { getDurationInMinutes } from '@apis';
 import { StudentHousePostPreview } from '@components';
 import { useDispatch } from 'react-redux';
-import { useShouldShowPost, hidePost, showPost } from '@redux';
+import { useSWRConfig } from 'swr';
+import { useShouldShowPost, hidePost, showPost, setShowPostType } from '@redux';
 import Page1, { Page1Store, page1InitialStore, page1Schema } from './Page1';
 import Page2, {
   Page2Store,
@@ -38,8 +39,8 @@ import Page8, { Page8Store, page8InitialStore, page8Schema } from './Page8';
 import { StudentHousePost } from '@models';
 import { useUser } from '@hooks';
 import { generateHousingPost } from '@apis';
-
 import { WizardForm } from '@basics';
+import { SuccessPopUp } from './PopUps';
 export type Store = Page1Store &
   Page2Store &
   Page3Store &
@@ -137,9 +138,7 @@ const dataProcessHelper = async (
 };
 
 const MakeAPost: FunctionComponent = () => {
-  const [showPreview, setShowPreview] = useState(false);
-  const [previewData, setPreviewData] = useState<StudentHousePost>();
-  const [initialStore, setInitialStore] = useState<Partial<Store>[]>([
+  const initialStoreArray = [
     page1InitialStore,
     page2InitialStore,
     page3InitialStore,
@@ -148,10 +147,18 @@ const MakeAPost: FunctionComponent = () => {
     page6InitialStore,
     page7InitialStore,
     page8InitialStore,
-  ]);
+  ];
+  const [showPreview, setShowPreview] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [cleanUp, setCleanUp] = useState<() => void>();
+  const [previewData, setPreviewData] = useState<StudentHousePost>();
+  const [initialStore, setInitialStore] = useState<Partial<Store>[]>(
+    initialStoreArray,
+  );
 
   const dispatch = useDispatch();
   const ShouldShowPost = useShouldShowPost();
+  const { mutate } = useSWRConfig();
 
   const { data: user } = useUser();
   const major = user.isLoggedIn ? user.major : ''; // it should always be true. used for ts requirement
@@ -161,25 +168,43 @@ const MakeAPost: FunctionComponent = () => {
   const userBio = user.isLoggedIn ? user.description : '';
   const userName = user.isLoggedIn ? user.name : '';
   const userPhoto = user.isLoggedIn ? user.profilePhoto : '';
+
+  const postFunction = async () => {
+    if (previewData) {
+      const roomForm = new FormData();
+      previewData.photos.forEach((photo) => roomForm.append('photos', photo));
+      roomForm.append(
+        'json',
+        JSON.stringify({ ...previewData, photos: undefined }),
+      );
+      await generateHousingPost(roomForm);
+    }
+  };
+
   return (
     <>
+      <SuccessPopUp
+        open={showSuccess}
+        onClose={() => {
+          setShowSuccess(false);
+        }}
+      />
+
       {showPreview &&
         previewData && ( // need the preview data to be processed
           <StudentHousePostPreview
-            post={async () => {
-              const roomForm = new FormData();
-              previewData.photos.forEach((photo) =>
-                roomForm.append('photos', photo),
-              );
-              roomForm.append(
-                'json',
-                JSON.stringify({ ...previewData, photos: undefined }),
-              );
-              const status = await generateHousingPost(roomForm);
-              console.log('api call finished, status: ', status);
+            post={postFunction}
+            onSuccess={async () => {
+              setShowPreview(false);
+              setShowSuccess(true);
+              setInitialStore(initialStoreArray); // clean up the form
+              setPreviewData(undefined);
+              setCleanUp(() => () => setCleanUp(undefined));
+              dispatch(setShowPostType('student'));
+              mutate('/api/rooms');
             }}
             edit={() => {
-              setShowPreview(false);
+              setShowPreview(false); // normally this isn't a problem, but we could use useEffect if there is
               dispatch(showPost());
             }}
             {...previewData}
@@ -189,10 +214,9 @@ const MakeAPost: FunctionComponent = () => {
       <WizardForm<Store>
         show={ShouldShowPost}
         onHide={() => console.log('todo, shouldnt have an onHide for this...')}
-        onSubmit={(data) => {
+        onSubmit={async (data) => {
           setShowPreview(true);
-          console.log(data);
-          dataProcessHelper({
+          const post = await dataProcessHelper({
             ...data,
             ...{
               major,
@@ -203,10 +227,9 @@ const MakeAPost: FunctionComponent = () => {
               userPhoto,
               userBio,
             },
-          }).then((post) => {
-            dispatch(hidePost());
-            setPreviewData(post);
           });
+          dispatch(hidePost());
+          setPreviewData(post);
           return true;
         }}
         title="Make A Post"
@@ -229,6 +252,7 @@ const MakeAPost: FunctionComponent = () => {
         ]}
         externalFunction={(updatedStore) => setInitialStore(updatedStore)}
         lastButtonText="Preview"
+        cleanUpReset={cleanUp}
       >
         <Page1 />
         <Page2 />

@@ -1,4 +1,8 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import React, {
+  FunctionComponent,
+  ReactElement,
+  MouseEventHandler,
+} from 'react';
 import {
   default as MaterialUIModal,
   ModalProps as MaterialUIModalProps,
@@ -6,9 +10,7 @@ import {
 import cn from 'classnames';
 import styles from './Modal.module.scss';
 import { Subtitle1, Button } from '@basics';
-import { miscIcons } from '@icons';
-
-export type ImageTypeName = { src: string; alt?: string };
+import { miscIcons, Icon } from '@icons';
 
 interface ModalProps
   extends Omit<MaterialUIModalProps, 'disableBackdropClick' | 'children'> {
@@ -16,7 +18,9 @@ interface ModalProps
   size?: 'md' | 'lg';
   title?: string;
   caption?: string;
-  modalGraphic?: string | ImageTypeName;
+  modalGraphic?: Icon;
+  topBar?: ReactElement; // whether we need the default cross button
+  parentClassName?: string;
 }
 
 /**
@@ -41,33 +45,38 @@ const Modal: FunctionComponent<ModalProps> = ({
   open,
   className,
   size = 'md',
+  topBar,
   // default keepMounted is true (necessary for SSR/nextjs, so that it will be sent to client)
   keepMounted = true,
+  parentClassName,
   ...passedProps
 }) => {
+  const ModalGraphic = modalGraphic;
   return (
     <MaterialUIModal
       onClose={onClose}
       open={open}
       keepMounted={keepMounted}
       {...passedProps}
-      className={styles.materialUIModal}
+      className={cn(styles.materialUIModal, parentClassName)}
       disableBackdropClick
     >
       <div className={cn(styles.modal, styles[size], className)}>
-        <div>
-          <Button variant="wrapper" className={styles.close} onClick={onClose}>
-            <miscIcons.orangeX />
-          </Button>
-        </div>
+        {topBar || (
+          <div>
+            <Button
+              variant="wrapper"
+              className={styles.close}
+              onClick={onClose as MouseEventHandler<HTMLButtonElement>}
+            >
+              <miscIcons.orangeX />
+            </Button>
+          </div>
+        )}
 
-        {modalGraphic && (
+        {ModalGraphic && (
           <div className={styles.modalGraphic}>
-            {typeof modalGraphic === 'string' ? (
-              <img src={modalGraphic} />
-            ) : (
-              <img src={modalGraphic.src} alt={modalGraphic.alt} />
-            )}
+            <ModalGraphic />
           </div>
         )}
 

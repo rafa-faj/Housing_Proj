@@ -9,26 +9,49 @@ import { StudentHousePost } from '@models';
 import cn from 'classnames';
 import { useDispatch } from 'react-redux';
 import { showOverlay, hideOverlay } from '@redux';
+import { FailurePopUp } from '@components';
 
 interface StudentHousePostPreviewProps extends StudentHousePost {
   edit: () => void;
+  onSuccess: () => void;
   post: () => Promise<any>;
 }
 
 const StudentHousePostPreview: FunctionComponent<StudentHousePostPreviewProps> = ({
   edit,
   post,
+  onSuccess,
   ...props
 }) => {
   const [loading, setLoading] = useState(false);
+  const [showFailure, setShowFailure] = useState(false);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(showOverlay());
   }, [dispatch]);
 
+  const postFlow = async () => {
+    setLoading(true);
+    setShowFailure(false);
+    try {
+      await post();
+      setTimeout(() => {
+        onSuccess();
+      }, 30);
+    } catch (err) {
+      setShowFailure(true);
+    }
+    setLoading(false);
+    dispatch(hideOverlay());
+  };
   return (
     <>
+      <FailurePopUp
+        open={showFailure}
+        onClose={() => setShowFailure(false)}
+        retry={postFlow}
+      />
       {loading && <Loading text="Getting your post ready..." />}
       <Row className={cn(parentStyles.wrapperRow, styles.previewBody)}>
         <StudentHouseProfile {...props} />
@@ -53,19 +76,7 @@ const StudentHousePostPreview: FunctionComponent<StudentHousePostPreviewProps> =
             <Button
               icon={{ icon: miscIcons.plus }}
               className={parentStyles.postButton}
-              onClick={() => {
-                setLoading(true);
-                post()
-                  .then((response) => {
-                    setTimeout(function () {
-                      console.log('Hello');
-                    }, 3000);
-                  })
-                  .finally(() => {
-                    setLoading(false);
-                  });
-                dispatch(hideOverlay());
-              }}
+              onClick={postFlow}
             >
               Post
             </Button>

@@ -21,7 +21,7 @@ const UploadButton: FunctionComponent<UploadButtonProps> = ({ onChange }) => (
       type="file"
       onChange={onChange}
       multiple
-      accept="image/*"
+      accept="image/png, image/jpeg"
       className={styles.imageInput}
     />
   </div>

@@ -26,7 +26,7 @@ const AfterReportIssue: FunctionComponent = () => {
       open={shouldShowReportIssue}
       onClose={() => dispatch(hideReportIssue())}
       title="Issue logging in? Report it to us"
-      modalGraphic={{ src: '/triton.svg', alt: 'LogInNotSupported' }}
+      modalGraphic={miscIcons.triton}
     >
       <div className={cn(styles.wrapper, styles.inputWrapper)}>
         <Input
@@ -47,7 +47,7 @@ const AfterReportIssue: FunctionComponent = () => {
             if (!validEmail) return;
 
             await sendEmail(userEmail);
-            await dispatch(hideReportIssue());
+            dispatch(hideReportIssue());
             dispatch(showEmailConfirmation());
           }}
         >

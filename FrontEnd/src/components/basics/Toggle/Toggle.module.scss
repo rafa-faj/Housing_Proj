@@ -38,8 +38,8 @@
     &,
     &:hover {
       border-color: $primary-light-color;
-      background-color: $primary-light-color;
-      color: white;
+      background-color: $primary-light-color !important;
+      color: white !important;
     }
     @include svg-fill(white);
     svg {
@@ -52,7 +52,7 @@
 
   .readOnly {
     border-color: $primary-50-color;
-    color: $disabled-low-emphasis-color !important;
+    color: $disabled-low-emphasis-color;
     background-color: $primary-50-color;
     @include svg-fill($disabled-low-emphasis-color);
   }

@@ -39,7 +39,11 @@ const NavBar: FunctionComponent = () => {
         <Row className="align-items-center">
           {user.isLoggedIn ? (
             <>
-              <Button variant="wrapper" onClick={() => dispatch(showPost())}>
+              <Button
+                variant="wrapper"
+                onClick={() => dispatch(showPost())}
+                className={styles.postImgWrap}
+              >
                 <miscIcons.post />
               </Button>
               <ImageDropdown

@@ -1,6 +1,6 @@
 $base-padding: 1rem;
 .orangeBox {
-  background: #fdf4f0;
+  background: $primary-50-color;
   border-radius: 0.5rem;
   margin-top: 0.8rem;
 }
@@ -14,6 +14,7 @@ $base-padding: 1rem;
 .amenities {
   display: flex;
   margin-top: 1rem;
+  margin-left: -0.9375rem;
 
   div {
     padding-right: 0.5rem;

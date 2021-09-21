@@ -19,6 +19,7 @@ def generate_response(elem={}, status_code=200):
     response = make_response(jsonify(elem), status_code)
     return response
 
+
 def generate_message(message, status_code=200):
     """Use generate_response to for simple response with only a message entry"""
     json_response = {"message": message}
@@ -161,6 +162,7 @@ def check_verify_token(request, login_session):
     # if successfully checked, return true, None(indicating to proceed next actions)
     return True, None
 
+
 def convert_to_underscore(json_form):
     """
     Convert all the keys from camelCase to underscore case (snake_case)
@@ -258,6 +260,7 @@ def verify_image(upload_file):
     except UnidentifiedImageError:
         return "error"
 
+
 def check_attributes_str(value_pairs):
     """
     verify attributes exist in the request form and all attributes are strings
@@ -315,11 +318,18 @@ def generate_user_login_data(user, test=False):
 
 
 def make_a_post_processor(request_json):
-    # utility to none if conversion error
+    # utility to -1 if conversion error
     try:
         request_json["utility"] = int(request_json["utility"])
     except:
         request_json["utility"] = -1
+    # looking for to -1 if conversion
+    try:
+        request_json["looking_for_count"] = int(
+            request_json["looking_for_count"])
+    except:
+        request_json["looking_for_count"] = -1
+
     # move in is optional and so we just set them to none if invalid
     try:
         request_json["start_date"] = datetime.strptime(

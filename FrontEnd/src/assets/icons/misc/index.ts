@@ -28,3 +28,7 @@ export { default as directions } from './directions.svg';
 export { default as plus } from './plus.svg';
 export { default as house } from './house.svg';
 export { default as post } from './post.svg';
+export { default as login } from './login.svg';
+export { default as congrats } from './congrats.svg';
+export { default as triton } from './triton.svg';
+export { default as paperAirplane } from './paperAirplane.svg';

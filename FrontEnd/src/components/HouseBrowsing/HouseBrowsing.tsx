@@ -1,14 +1,13 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import Header from './Header';
-import { Body2, Head } from '@basics';
-import HouseCardList from '@components/HouseCardList';
-import { TriggerPageView } from '@components/ga';
+import { Head, ToggleSwitchBar } from '@basics';
+import { HouseCardList } from '@components';
+import { useShowPostType, setShowPostType } from '@redux';
+import { useDispatch } from 'react-redux';
 
 const Housing: FunctionComponent = () => {
-  useEffect(() => {
-    TriggerPageView('housing');
-  }, []);
-
+  const showPostType = useShowPostType();
+  const dispatch = useDispatch();
   return (
     <>
       <Head title="Housing" />
@@ -18,13 +17,21 @@ const Housing: FunctionComponent = () => {
       </div>
 
       <div className="px-md-0 px-3 pb-3">
-        <Body2>
-          Posts are arranged by earliest to latest <b>available time</b>{' '}
-        </Body2>
+        <ToggleSwitchBar
+          leftText="Leasing Office"
+          rightText="Subleases by Students"
+          onSwitchLeft={() => {
+            dispatch(setShowPostType('landlord'));
+          }}
+          onSwitchRight={() => {
+            dispatch(setShowPostType('student'));
+          }}
+          defaultRight={showPostType === 'student'}
+        />
       </div>
 
       <div>
-        <HouseCardList />
+        <HouseCardList postType={showPostType} />
       </div>
     </>
   );

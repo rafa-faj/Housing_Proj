@@ -35,35 +35,43 @@ const LookingFor: FunctionComponent<LookingFor> = ({
     <div className={styles.gender}>
       <div className={styles.header}>Gender</div>
       <div className={styles.chipWrap}>
-        {genders.map((gender) => (
-          <Chip
-            state={'default'}
-            text={gender}
-            dismiss={false}
-            icon={
-              IconKeys.includes(gender as iconKey)
-                ? LookingForIconMap[gender as iconKey]
-                : undefined
-            }
-          />
-        ))}
+        {genders.length > 0 ? (
+          genders.map((gender) => (
+            <Chip
+              state={'default'}
+              text={gender}
+              dismiss={false}
+              icon={
+                IconKeys.includes(gender as iconKey)
+                  ? LookingForIconMap[gender as iconKey]
+                  : undefined
+              }
+            />
+          ))
+        ) : (
+          <div className="d-flex align-items-center">N/A</div>
+        )}
       </div>
     </div>
     <div className={styles.habits}>
       <div className={styles.header}>Habits</div>
       <div className={styles.chipWrap}>
-        {habits.map((habit) => (
-          <Chip
-            state={'default'}
-            text={habit}
-            dismiss={false}
-            icon={
-              IconKeys.includes(habit as iconKey)
-                ? LookingForIconMap[habit as iconKey]
-                : undefined
-            }
-          />
-        ))}
+        {habits.length > 0 ? (
+          habits.map((habit) => (
+            <Chip
+              state={'default'}
+              text={habit}
+              dismiss={false}
+              icon={
+                IconKeys.includes(habit as iconKey)
+                  ? LookingForIconMap[habit as iconKey]
+                  : undefined
+              }
+            />
+          ))
+        ) : (
+          <div className="d-flex align-items-center">N/A</div>
+        )}
       </div>
     </div>
     <Body2 className={styles.description}>{placeDescription}</Body2>

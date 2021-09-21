@@ -16,6 +16,7 @@ $middle-max-height: calc(
   height: $wizard-form-height;
   max-height: $wizard-form-max-height;
   overflow: hidden;
+  padding: 0;
 
   @include bp-down('sm') {
     width: 90%;

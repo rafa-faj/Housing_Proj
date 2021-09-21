@@ -1,5 +1,5 @@
 .orangeBox {
-  background: #fdf4f0;
+  background: $primary-50-color;
   border-radius: 0.5rem;
   min-height: 14.5rem;
   padding: 1.5rem;
@@ -17,6 +17,10 @@
 
 .userName {
   @include font-type('subtitle 2');
+}
+
+.userMajor {
+  @include text-overflow-ellipsis;
 }
 
 .userInfo {

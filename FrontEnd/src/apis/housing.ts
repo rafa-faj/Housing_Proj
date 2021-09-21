@@ -1,4 +1,4 @@
-import { HousePost, LandlordHousePost, StudentHousePost } from '@models';
+import { HousePost, LandlordHousePost, StudentHousePostConsume } from '@models';
 import { backendAPI } from '@apis';
 
 /**
@@ -29,7 +29,7 @@ export const getRecentStudentHousingPostIds = async () => {
  * @returns Student Room JSONs of a particular room
  */
 export const getRecentStudentHousingJSONs = async (roomId: number) => {
-  const response = await backendAPI.get<StudentHousePost>(
+  const response = await backendAPI.get<StudentHousePostConsume>(
     `/getRecentStudentRooms/${roomId}`,
   );
 

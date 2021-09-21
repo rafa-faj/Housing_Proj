@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Modal, Button, Tooltip, Caption } from '@basics';
+import { Modal, Button, Tooltip } from '@basics';
 import {
   GoogleLogin,
   GoogleLoginResponse,
@@ -59,9 +59,11 @@ const LoginUI: FunctionComponent = () => {
       open={shouldShowLogin}
       onClose={() => dispatch(hideLogin())}
       className={styles.wrapper}
-      modalGraphic={{ src: '/login.svg', alt: 'LogIn' }}
+      modalGraphic={miscIcons.login}
     >
-      <Tooltip title={TooltipContent} isSingleLine><>Why school account?</></Tooltip>
+      <Tooltip title={TooltipContent} isSingleLine={false}>
+        <>Why school account?</>
+      </Tooltip>
 
       <GoogleLogin
         className={styles.gAuth}

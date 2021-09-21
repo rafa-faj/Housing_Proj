@@ -52,13 +52,14 @@ interface WizardFormProps<T = {}> {
   title: string;
   pageTitles?: string[];
   pageNavigationIcons?: Icon[];
-  onSubmit: (store: T) => boolean;
+  onSubmit: (store: T) => boolean | Promise<boolean>;
   initialStore: Partial<T>[];
   schemas: ZodSchema<Partial<T>>[];
   lastButtonAsInactiveArrow?: boolean;
   lastButtonText?: string;
   customModifierFuncs?: customModifierFunc<T>[]; // customized functions for overriding/adding fields to enable advanced validation behaviors like grouping
   externalFunction?: (s: Partial<T>[]) => void; // external function for utilizing internal store and will be called during set store
+  cleanUpReset?: () => void; // must be provided to reset clean up
 }
 
 // Not using FunctionComponent as a work around to allow for generics for Wizard Form. Do not do this normally.
@@ -79,6 +80,7 @@ const WizardForm = <T extends {}>({
   lastButtonText = 'Submit',
   customModifierFuncs,
   externalFunction,
+  cleanUpReset,
 }: WizardFormProps<T>) => {
   const [curIndex, setCurIndex] = useState<number>(0);
   const [isFirst, setIsFirst] = useState<boolean>(true);
@@ -95,10 +97,18 @@ const WizardForm = <T extends {}>({
   >(children.map(() => undefined));
 
   useEffect(() => {
+    if (cleanUpReset) {
+      setCompleteStore(initialStore);
+      setCurIndex(0);
+      cleanUpReset();
+    }
+  }, [cleanUpReset]);
+
+  useEffect(() => {
     setCurStep(children[curIndex]);
     setIsFirst(curIndex === 0);
     setIsLast(curIndex === children.length - 1);
-  }, [curIndex, children]);
+  }, [curIndex, children, cleanUpReset]);
 
   /**
    * Use this to exit the wizard form without submitting.
@@ -430,9 +440,12 @@ const WizardForm = <T extends {}>({
   );
 
   return (
-    <Modal open={show} onClose={onHide} className={styles.modal}>
-      <TopBar />
-
+    <Modal
+      open={show}
+      onClose={onHide}
+      className={styles.modal}
+      topBar={<TopBar />}
+    >
       <div className={styles.middle}>
         {pageTitles && (
           <div className={styles.pageTitle}>

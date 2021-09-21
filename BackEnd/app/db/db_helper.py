@@ -2,6 +2,7 @@ from sqlalchemy import cast, Integer, select
 from sqlalchemy.orm import sessionmaker
 from database_setup import Room, Base
 from sqlalchemy import create_engine
+from crud import remove_all
 from alembic import op
 from alembic.migration import MigrationContext
 from alembic.operations import Operations
@@ -22,5 +23,7 @@ def upgrade(engine):
 
 
 if __name__ == "__main__":
-    engine = create_engine("sqlite:///./housing.db")
-    print(upgrade(engine))
+    engine = create_engine("sqlite:///app/db/housing.db")
+    DBSession = sessionmaker(bind=engine)
+    session = DBSession()
+    print(remove_all(Room, session))

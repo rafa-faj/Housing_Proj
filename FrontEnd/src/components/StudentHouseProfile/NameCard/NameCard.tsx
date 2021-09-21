@@ -97,7 +97,8 @@ const NameCard: FunctionComponent<NameCardProps> = ({
         </div>
       </div>
       <div className={styles.userBasicInfo}>
-        {schoolYear} <span className={styles.dot}></span> {major}{' '}
+        {schoolYear} <span className={styles.dot}></span>{' '}
+        <div className={styles.userMajor}>{major}</div>
       </div>
       <div className={styles.userBio}>{userBio}</div>
     </div>

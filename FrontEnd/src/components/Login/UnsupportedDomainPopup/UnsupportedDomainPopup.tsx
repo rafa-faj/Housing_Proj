@@ -10,7 +10,6 @@ import {
 } from '@redux';
 import { miscIcons } from '@icons';
 import styles from './UnsupportedDomainPopup.module.scss';
-import { useUser } from '@hooks';
 import AfterReportIssue from './AfterReportIssue';
 import EmailConfirmation from './AfterReportIssue/EmailConfirmation';
 
@@ -24,7 +23,7 @@ const UnsupportedDomainPopupUI: FunctionComponent = () => {
       onClose={() => dispatch(hideUnsupportedDomainPopup())}
       className={styles.wrapper}
       title="Oops, your email is incorrect..."
-      modalGraphic={{ src: '/triton.svg', alt: 'LogInNotSupported' }}
+      modalGraphic={miscIcons.triton}
     >
       <Subtitle1>
         At the moment, we only allow email ends with <b>ucsd.edu</b> to sign up!
@@ -35,8 +34,8 @@ const UnsupportedDomainPopupUI: FunctionComponent = () => {
           className={styles.tryAgainButton}
           size="secondary"
           variant="wrapper"
-          onClick={async () => {
-            await dispatch(hideUnsupportedDomainPopup());
+          onClick={() => {
+            dispatch(hideUnsupportedDomainPopup());
             dispatch(showReportIssue());
           }}
         >
@@ -48,8 +47,8 @@ const UnsupportedDomainPopupUI: FunctionComponent = () => {
         <Button
           className={styles.tryAgainButton}
           size="secondary"
-          onClick={async () => {
-            await dispatch(hideUnsupportedDomainPopup());
+          onClick={() => {
+            dispatch(hideUnsupportedDomainPopup());
             dispatch(showLogin());
           }}
         >

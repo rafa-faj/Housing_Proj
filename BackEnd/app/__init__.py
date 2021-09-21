@@ -128,7 +128,7 @@ def create_app(test_config=None):
         room_ids = list(range(1, len(app.config["LANDLORD_DB"])+1))
         return generate_response(elem=room_ids)
 
-    @ app.route("/getRecentRoomIds")
+    @ app.route("/getRecentStudentRoomIds")
     def get_recent_rooms():
         """
         Get recent rooms sorted by date created
@@ -140,7 +140,26 @@ def create_app(test_config=None):
         room_ids = [room.id for room in rooms_db]
         return generate_response(elem=room_ids)
 
-    @ app.route("/getRoom/<room_id>")
+    @ app.route("/sendEmail", methods=["POST", "OPTIONS"])
+    def send_email():
+        # handle pre-flight for browsers CORS access
+        if request.method == "OPTIONS":
+            return generate_response()
+        # part2: check json
+        checked_json, response, requested_json = check_json_form(
+            request, MESSAGE_BAD_JSON, MESSAGE_SEND_EMAIL_NO_JSON)
+        if checked_json != True:
+            return response
+        # part3: try send email
+        try:
+            email_content = requested_json["content"]
+            # TODO: Put send email here
+            return generate_message({"message": "successfully sent!"})
+        except KeyError:
+            status_code = 400
+            return generate_message({"message": "No content is provided"}, status_code)
+
+    @ app.route("/getRecentStudentRooms/<room_id>")
     def get_room(room_id):
         """
         Get room of particular id
