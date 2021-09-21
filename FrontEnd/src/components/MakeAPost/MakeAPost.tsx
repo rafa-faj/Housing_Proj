@@ -201,7 +201,7 @@ const MakeAPost: FunctionComponent = () => {
               setPreviewData(undefined);
               setCleanUp(() => () => setCleanUp(undefined));
               dispatch(setShowPostType('student'));
-              mutate('/api/rooms');
+              await mutate('/api/rooms');
             }}
             edit={() => {
               setShowPreview(false); // normally this isn't a problem, but we could use useEffect if there is
