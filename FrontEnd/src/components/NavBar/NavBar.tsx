@@ -7,11 +7,13 @@ import { landingIcons, miscIcons } from '@icons';
 import { Row } from 'react-bootstrap';
 import { useUser } from '@hooks';
 import { useRouter } from 'next/router';
+import { useSWRConfig } from 'swr';
 import styles from './NavBar.module.scss';
 
 const NavBar: FunctionComponent = () => {
   const dispatch = useDispatch();
   const { data: user, logout } = useUser();
+  const { mutate } = useSWRConfig();
   const router = useRouter();
   const currentPathName = router?.pathname.slice(1);
   const itemProps = [
@@ -23,7 +25,10 @@ const NavBar: FunctionComponent = () => {
     {
       label: 'Logout',
       labelClassName: styles.logoutText,
-      onClick: logout,
+      onClick: () => {
+        logout();
+        mutate('/api/user');
+      },
       selected: currentPathName === 'logout',
     },
   ];
