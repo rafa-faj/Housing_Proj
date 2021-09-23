@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
-import { SlideShow } from '@basics';
+import { SlideShow, Subtitle1 } from '@basics';
 import { formatHouseCardRent, formatAvail, formatUrlsWithAws } from '@utils';
 import { useLandlordRoomData, useStudentRoomData } from '@hooks';
 import styles from './HouseCard.module.scss';
@@ -37,9 +37,7 @@ const RightTxtColumn: FunctionComponent<RightTxtColumnProps> = ({
         <miscIcons.RoundArrow /> 1 day ago
       </div>
 
-      <div className={styles.price}>
-        <b>{rent}+ /mo</b>
-      </div>
+      <Subtitle1 className={styles.price}>{rent}+ /mo</Subtitle1>
 
       <div className={styles.distance}>
         <miscIcons.busIcon /> <b>~ {distance} to Price Center </b>

@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Modal, Button, Subtitle1 } from '@basics';
-import { useDispatch } from 'react-redux';
+import { Modal, Button, Subtitle2 } from '@basics';
 import {
   useShowUnsupportedDomainPopup,
   hideUnsupportedDomainPopup,
@@ -12,6 +11,9 @@ import { miscIcons } from '@icons';
 import styles from './UnsupportedDomainPopup.module.scss';
 import AfterReportIssue from './AfterReportIssue';
 import EmailConfirmation from './AfterReportIssue/EmailConfirmation';
+const TritonPng: FunctionComponent = () => (
+  <img src={miscIcons.tritonPng}></img>
+);
 
 const UnsupportedDomainPopupUI: FunctionComponent = () => {
   const dispatch = useThunkDispatch();
@@ -23,11 +25,11 @@ const UnsupportedDomainPopupUI: FunctionComponent = () => {
       onClose={() => dispatch(hideUnsupportedDomainPopup())}
       className={styles.wrapper}
       title="Oops, your email is incorrect..."
-      modalGraphic={miscIcons.triton}
+      modalGraphic={TritonPng}
     >
-      <Subtitle1>
+      <div className={styles.onlyUCSDText}>
         At the moment, we only allow email ends with <b>ucsd.edu</b> to sign up!
-      </Subtitle1>
+      </div>
 
       <div className={styles.bottomRowButtons}>
         <Button
@@ -40,7 +42,7 @@ const UnsupportedDomainPopupUI: FunctionComponent = () => {
           }}
         >
           <div className={styles.reportIssue}>
-            <div>Report an issue</div>
+            <Subtitle2>Report an issue</Subtitle2>
           </div>
         </Button>
 

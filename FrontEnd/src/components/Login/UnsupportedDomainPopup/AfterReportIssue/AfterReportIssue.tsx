@@ -15,6 +15,10 @@ import cn from 'classnames';
 
 const e = z.string().email('Email is not in a valid format.');
 
+const TritonPng: FunctionComponent = () => (
+  <img src={miscIcons.tritonPng}></img>
+);
+
 const AfterReportIssue: FunctionComponent = () => {
   const dispatch = useThunkDispatch();
   const shouldShowReportIssue = useShowReportIssue();
@@ -26,7 +30,7 @@ const AfterReportIssue: FunctionComponent = () => {
       open={shouldShowReportIssue}
       onClose={() => dispatch(hideReportIssue())}
       title="Issue logging in? Report it to us"
-      modalGraphic={miscIcons.triton}
+      modalGraphic={TritonPng}
     >
       <div className={cn(styles.wrapper, styles.inputWrapper)}>
         <Input

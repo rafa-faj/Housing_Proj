@@ -82,14 +82,12 @@ const Modal: FunctionComponent<ModalProps> = ({
 
         {title && (
           <div className={cn(styles.text, styles.title)}>
-            <h4>{title}</h4>
+            <Subtitle1>{title}</Subtitle1>
           </div>
         )}
 
         {caption && (
-          <Subtitle1 className={cn(styles.text, styles.caption)}>
-            {caption}
-          </Subtitle1>
+          <div className={cn(styles.text, styles.caption)}>{caption}</div>
         )}
 
         {children}

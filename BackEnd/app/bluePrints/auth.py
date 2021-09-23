@@ -27,6 +27,7 @@ def login():
     session = current_app.config["DB_CONNECTION"]
     # PART1: Secure measure to verify identity
     # first check if the origin is allowed
+    print(request.remote_addr)
     if request.remote_addr not in current_app.config["ALLOWED_ORIGINS"]:
         response = generate_message(MESSAGE_WRONG_ORIGIN, 401)
         return response
@@ -183,7 +184,7 @@ def create_user():
                 icon_path = "app/assets/profile_default_icons/"
                 selected_icon = random.choice(
                     os.listdir(icon_path))
-                if current_app.config["TESTING"] == True: # if online testing mode
+                if current_app.config["TESTING"] == True:  # if online testing mode
                     user_prefix = "test_user"
                 else:
                     user_prefix = "user"
@@ -192,7 +193,8 @@ def create_user():
                 upload_file_wname(icon_path+selected_icon,
                                   "houseit", photo_path_name)
             # finally, send the sensitive data to be displayed on frontend/some techie user
-            json_response = generate_user_login_data(user,current_app.config["TESTING"])
+            json_response = generate_user_login_data(
+                user, current_app.config["TESTING"])
             json_response["message"] = "Welcome to be a new HOMIE! CONGRATS!"
             status_code = 201
             response = generate_response(json_response, status_code)

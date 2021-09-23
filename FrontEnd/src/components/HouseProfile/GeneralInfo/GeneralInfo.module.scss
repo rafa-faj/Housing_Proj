@@ -5,20 +5,20 @@
 
 .pic {
   overflow: hidden;
-  padding: 0;    
-  
+  padding: 0;
+
   @include bp-down('sm') {
     height: 16.875rem;
   }
 }
 
 .day {
-  color:#AAAAAA;
+  color: #aaaaaa;
   margin-bottom: 14px;
 }
 
 .name {
-  @include font-type('h4');
+  @include font-type('h3');
   color: $secondary-900-color;
   margin-bottom: 8px;
 }
@@ -27,8 +27,8 @@
   display: flex;
   gap: 0.4rem;
   margin-bottom: 1.25rem;
-  @include font-type('body 2');
-  
+  @include font-type('body 1');
+
   div {
     height: 100%;
   }
@@ -39,12 +39,15 @@
 }
 
 .priceCenterLink {
+  a {
+    @include font-type('body 1');
+  }
   display: inline-block;
 }
 
 .map {
   height: 300px;
-  padding-left: 0rem !important;  
+  padding-left: 0rem !important;
 }
 
 .textPortion {

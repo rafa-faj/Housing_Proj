@@ -29,6 +29,8 @@
 
 .caption {
   margin-bottom: 2rem;
+  @include font-type('body 3');
+  text-align: center;
 }
 
 .md {

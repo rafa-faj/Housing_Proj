@@ -3,6 +3,7 @@
   padding: 0.5rem 0.75rem;
   margin: 0.75rem 0 1.5rem 0;
 
+  @include font-type('subtitle 1');
   @include bp-up('md') {
     padding: 1rem 1.5rem;
   }
@@ -12,7 +13,7 @@ $base-padding: 1rem;
 
 .detailTileWrapper > div {
   padding: $base-padding ($base-padding * 2) $base-padding 0 !important;
-  
+
   @include bp('xs') {
     padding: $base-padding 0 !important;
   }
@@ -24,7 +25,7 @@ $base-padding: 1rem;
 
 .amenitiesWrapper {
   padding: $base-padding ($base-padding * 2) 0 0 !important;
-  
+
   @include bp('xs') {
     padding: $base-padding 0 !important;
   }
@@ -33,7 +34,7 @@ $base-padding: 1rem;
 .amenity {
   padding-right: $base-padding;
   padding-left: 0;
-  
+
   @include bp('xs') {
     padding: $base-padding 0;
   }
@@ -63,4 +64,8 @@ $base-padding: 1rem;
     margin-top: 0;
     padding-left: 0 !important;
   }
+}
+
+.subsectionTitle {
+  @include font-type('subtitle 3');
 }

@@ -10,6 +10,7 @@ import cn from 'classnames';
 import { useDispatch } from 'react-redux';
 import { showOverlay, hideOverlay } from '@redux';
 import { FailurePopUp } from '@components';
+import { useRouter } from 'next/router';
 
 interface StudentHousePostPreviewProps extends StudentHousePost {
   edit: () => void;
@@ -26,6 +27,7 @@ const StudentHousePostPreview: FunctionComponent<StudentHousePostPreviewProps> =
   const [loading, setLoading] = useState(false);
   const [showFailure, setShowFailure] = useState(false);
 
+  const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(showOverlay());
@@ -38,6 +40,7 @@ const StudentHousePostPreview: FunctionComponent<StudentHousePostPreviewProps> =
       await post();
       setTimeout(() => {
         onSuccess();
+        router.push('/housing');
       }, 30);
     } catch (err) {
       setShowFailure(true);
