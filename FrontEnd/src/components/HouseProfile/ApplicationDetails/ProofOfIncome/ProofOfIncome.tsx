@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import { profileIcons } from '@icons';
 import styles from './ProofOfIncome.module.scss';
-import { Subtitle1 } from '@basics';
+import { Subtitle2, Body1 } from '@basics';
 
 const ProofOfIncomeLabel: FunctionComponent = () => (
   <Row className={styles.iconAndLabel}>
@@ -30,7 +30,7 @@ const ProofOfIncome: FunctionComponent<ProofOfIncomeProps> = ({
       </Col>
 
       <Col xs={12} md={8} className="d-flex align-items-center pl-md-2">
-        <Subtitle1>{proofOfIncome}</Subtitle1>
+        <Body1>{proofOfIncome}</Body1>
       </Col>
     </Row>
   </Container>

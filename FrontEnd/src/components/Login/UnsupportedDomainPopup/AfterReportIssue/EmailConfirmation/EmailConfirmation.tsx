@@ -20,12 +20,7 @@ const EmailConfirmation: FunctionComponent = () => {
       modalGraphic={miscIcons.paperAirplane}
     >
       <></>
-      <div
-        className={cn(
-          styles.bottomButtonWrapper,
-          styles.emailConfirmationWrapper,
-        )}
-      >
+      <div className={cn(styles.emailConfirmationWrapper)}>
         <Button
           className={styles.bottomButton}
           variant="solid"

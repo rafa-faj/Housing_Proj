@@ -8,22 +8,23 @@
 }
 
 .postBulletin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-left: 1.5rem;
-  position: relative;
-  svg {
-    z-index: -1;
+  width: 13.25rem;
+  height: 12.1875rem;
+  background-image: url('../../../assets/icons/makeAPost/postwindow.svg');
+  @include bp-down('md') {
+    margin: auto;
   }
 }
 
 .postButton {
-  position: absolute;
-  height: 3rem;
   border: 0.1875rem solid #e7946d;
   box-sizing: border-box;
   border-radius: 0.9375rem;
-  margin: 0 1.2rem;
-  bottom: 38px;
-  left: 0;
+  margin: 0;
 }
 
 .homehubOrange {
@@ -31,9 +32,8 @@
 }
 
 .subtitle3 {
+  padding-top: 3.6875rem;
+  margin-bottom: 1rem;
   @include font-type('subtitle 3');
-  position: absolute;
   color: $primary-500-color;
-  top: 59px;
-  left: 1rem;
 }

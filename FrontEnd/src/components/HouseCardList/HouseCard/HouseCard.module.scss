@@ -54,7 +54,7 @@ $padding-between-icon-and-label: 0.25rem;
 
 .distance {
   margin-bottom: 0.5rem;
-  @include font-type('body 1');
+  @include font-type('subtitle 5');
 
   > svg {
     margin-right: $padding-between-icon-and-label;
@@ -75,11 +75,13 @@ $padding-between-icon-and-label: 0.25rem;
   }
 
   .addressText {
+    @include font-type('body 4');
     @include text-overflow-ellipsis;
   }
 }
 
-.oom {
+.room {
+  @include font-type('body 5');
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
   color: $disabled-medium-emphasis-color;

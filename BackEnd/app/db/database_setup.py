@@ -225,5 +225,5 @@ def createDB(db_path):
 
 
 if __name__ == "__main__":
-    # print(createDB("sqlite:///housing.db"))
-    print(createDBMysql("mysql://root@localhost", "housingtest"))
+    print(createDB("sqlite:///housing.db"))
+    # print(createDBMysql("mysql://root@localhost", "housingtest"))

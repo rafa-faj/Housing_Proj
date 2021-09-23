@@ -18,6 +18,7 @@
 }
 
 .title {
+  @include font-type('subtitle 3');
   color: $primary-dark-color;
   margin-bottom: 0.75rem;
 }

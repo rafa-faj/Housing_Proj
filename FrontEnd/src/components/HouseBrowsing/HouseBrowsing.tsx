@@ -12,11 +12,11 @@ const Housing: FunctionComponent = () => {
     <>
       <Head title="Housing" />
 
-      <div className="px-md-0 pb-5 px-3">
+      <div className="px-md-0 pb-3 px-3">
         <Header />
       </div>
 
-      <div className="px-md-0 px-3 pb-3">
+      <div className="px-md-0 px-3 pb-3 d-flex justify-content-center justify-content-md-start">
         <ToggleSwitchBar
           leftText="Leasing Office"
           rightText="Subleases by Students"

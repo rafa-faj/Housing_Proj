@@ -1,17 +1,17 @@
-.profile-section-divider{
-  color:$primary-100-color;
+.profile-section-divider {
+  color: $primary-100-color;
   &::before {
-    content:"";
+    content: '';
     position: absolute;
-    border-bottom:0.125rem solid $primary-100-color; /*use this to adjust underlin color and size*/
-    width:100%;  /*use this to adjust underline width*/
-    height:1.1em; /*use this to adjust underline position*/
+    border-bottom: 0.125rem solid $primary-100-color; /*use this to adjust underlin color and size*/
+    width: 100%; /*use this to adjust underline width*/
+    height: 1.1em; /*use this to adjust underline position*/
   }
 
   @include font-type('h5');
 }
 
-.application-component{
+.application-component {
   min-height: 9.375rem;
 }
 
@@ -21,4 +21,8 @@
   }
   margin-left: 1rem;
   align-self: flex-end;
+}
+
+.subsectionTitle {
+  @include font-type('subtitle 3');
 }

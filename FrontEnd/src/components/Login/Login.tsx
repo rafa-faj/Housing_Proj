@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Modal, Button, Tooltip } from '@basics';
+import { Modal, Button, Tooltip, Subtitle2 } from '@basics';
 import {
   GoogleLogin,
   GoogleLoginResponse,
@@ -61,8 +61,8 @@ const LoginUI: FunctionComponent = () => {
       className={styles.wrapper}
       modalGraphic={miscIcons.login}
     >
-      <Tooltip title={TooltipContent} isSingleLine={false}>
-        <>Why school account?</>
+      <Tooltip title={TooltipContent} isSingleLine={false} className="mx-auto">
+        <div className={styles.whyText}>Why school account?</div>
       </Tooltip>
 
       <GoogleLogin
@@ -78,8 +78,9 @@ const LoginUI: FunctionComponent = () => {
         <Button
           icon={{ icon: miscIcons.GoogleLogo }}
           onClick={() => TriggerButtonGA('Button', 'Click', 'LogIn')}
+          className={styles.loginButton}
         >
-          Start with school account
+          <Subtitle2>Start with school account</Subtitle2>
         </Button>
       </GoogleLogin>
     </Modal>

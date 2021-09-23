@@ -1,12 +1,9 @@
-import React, {
-  FunctionComponent,
-  DetailedHTMLProps,
-  HTMLAttributes,
-} from 'react';
+import React, { FunctionComponent } from 'react';
 import { amenityIcons, IconProps } from '@icons';
 import Col, { ColProps } from 'react-bootstrap/Col';
 import styles from './Amenities.module.scss';
 import cn from 'classnames';
+import { Body2 } from '@basics';
 
 export const amenityToIcon = {
   'A/C': amenityIcons.CeilingFan,
@@ -109,7 +106,7 @@ const Amenities: FunctionComponent<AmenitiesProps> = ({
         const SelectedIcon = amenityToIcon[s];
         const Icon = () => (variant !== 'onlyLabel' ? <SelectedIcon /> : null);
         const Label = () =>
-          variant !== 'onlyIcon' ? <div className="ml-1">{s}</div> : null;
+          variant !== 'onlyIcon' ? <Body2 className="ml-1">{s}</Body2> : null;
 
         return (
           // TODO should return the icon wrapper... but not sure what the type should be

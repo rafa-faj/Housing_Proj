@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import * as z from 'zod';
 import { SchoolYear, NON_EMPTY_ERR_MSG, majors, phoneRegex } from '@constants';
 import { WizardFormStep, Input, Dropdown, ToggleGroup } from '@basics';
+import styles from './NewUserSetup.module.scss';
 
 export const page1Schema = z.object({
   name: z.string().nonempty(NON_EMPTY_ERR_MSG),
@@ -39,7 +40,7 @@ const Page1: FunctionComponent<WizardFormStep<Page1Store>> = ({
   return (
     <Container>
       <Row className="justify-content-center m-2">
-        <Col md={12}>
+        <Col md={12} className="mb-4">
           <Input
             label="Name"
             type="text"
@@ -52,7 +53,7 @@ const Page1: FunctionComponent<WizardFormStep<Page1Store>> = ({
           />
         </Col>
 
-        <Col sm={12} md={6}>
+        <Col sm={12} md={6} className="mb-4 pr-3">
           <Input label="Email" type="text" value={email} readOnly />
         </Col>
 
@@ -75,6 +76,7 @@ const Page1: FunctionComponent<WizardFormStep<Page1Store>> = ({
             content={Object.values(SchoolYear)}
             label="School Year"
             toggleClassName="my-0"
+            className={styles.schoolYearToggle}
             required
             initialSelected={schoolYear}
             onSelect={({ label, selected }) => {
