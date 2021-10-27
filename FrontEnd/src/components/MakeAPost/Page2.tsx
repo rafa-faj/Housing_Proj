@@ -21,7 +21,6 @@ export const roomTypes = [
   'Guest Bedroom',
   'Den',
   'Living Room',
-  'Other',
 ] as const;
 
 export const roomCapacity = ['Single', 'Double', 'Triple'] as const;
