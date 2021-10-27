@@ -1,10 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import {
-  amenityToIcon,
-  ToggleGroup,
-  WizardFormStep,
-  Subtitle2,
-} from '@basics';
+import { amenityToIcon, ToggleGroup, WizardFormStep, Subtitle2 } from '@basics';
 import * as z from 'zod';
 import styles from './Page.module.scss';
 import cn from 'classnames';
@@ -17,7 +12,7 @@ export type Page5Store = {
 };
 
 export const displayAmenities: Partial<keyof typeof amenityToIcon>[] = [
-  'Common Area',
+  'Living Room',
   'Pet Friendly',
   'Furnished',
   'A/C',
@@ -48,7 +43,7 @@ export const page5Schema = z
   )
   .refine(
     (data) =>
-      !!data['Common Area'] ||
+      !!data['Living Room'] ||
       !!data['Pet Friendly'] ||
       !!data['Furnished'] ||
       !!data['A/C'] ||
@@ -70,7 +65,7 @@ export const zodAmenityGroupSet: customModifierFunc<Page5Store> = (
 ) => {
   if (curIndex == 4) {
     const error =
-      storeValues['Common Area'] ||
+      storeValues['Living Room'] ||
       storeValues['Pet Friendly'] ||
       storeValues['Furnished'] ||
       storeValues['A/C'] ||
@@ -90,7 +85,7 @@ export const zodAmenityGroupSet: customModifierFunc<Page5Store> = (
           };
     const result = { success, error };
     return {
-      'Common Area': result,
+      'Living Room': result,
       'Pet Friendly': result,
       Furnished: result,
       'A/C': result,
@@ -136,7 +131,7 @@ const Page5: FunctionComponent<WizardFormStep<Page5Store>> = ({
           setStore({ [newlySelected.label]: newlySelected.selected });
         }}
         error={
-          validations?.['Common Area']?.error &&
+          validations?.['Living Room']?.error &&
           validations?.['Pet Friendly']?.error &&
           validations?.['Furnished']?.error &&
           validations?.['A/C']?.error &&
