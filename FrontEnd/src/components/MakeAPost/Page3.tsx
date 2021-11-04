@@ -187,8 +187,8 @@ const Part2: FunctionComponent<
 > = ({ setStore, selectedDates }) => (
   <div className={styles.lastSection}>
     <h5 className={cn(styles.title, styles.unbold)}>
-      (optional) Preferred{' '}
-      <span className={styles.bold}> move-in timeframe </span> for renters
+      Preferred <span className={styles.bold}> move-in timeframe </span> for
+      renters
       <span className={cn(styles.inline, styles.tooltipMargin)}>
         <Tooltip isSingleLine={false} title={moveInInfo}>
           <></>
