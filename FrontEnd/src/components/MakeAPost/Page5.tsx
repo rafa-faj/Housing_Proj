@@ -1,11 +1,16 @@
-import React, { FunctionComponent } from 'react';
-import { amenityToIcon, ToggleGroup, WizardFormStep, Subtitle2 } from '@basics';
-import * as z from 'zod';
-import styles from './Page.module.scss';
-import cn from 'classnames';
+import {
+  amenityToIcon,
+  customModifierFunc,
+  Subtitle2,
+  ToggleGroup,
+  WizardFormStep,
+} from '@basics';
 import { NON_EMPTY_ERR_MSG } from '@constants';
 import { TransformArray } from '@utils';
-import { customModifierFunc } from '@basics';
+import cn from 'classnames';
+import React, { FunctionComponent } from 'react';
+import * as z from 'zod';
+import styles from './Page.module.scss';
 
 export type Page5Store = {
   [T in Partial<keyof typeof amenityToIcon>]: boolean;

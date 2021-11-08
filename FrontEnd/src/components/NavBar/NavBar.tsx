@@ -25,8 +25,8 @@ const NavBar: FunctionComponent = () => {
     {
       label: 'Logout',
       labelClassName: styles.logoutText,
-      onClick: () => {
-        logout();
+      onClick: async () => {
+        await logout();
         mutate('/api/user');
       },
       selected: currentPathName === 'logout',
