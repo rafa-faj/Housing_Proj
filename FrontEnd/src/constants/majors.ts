@@ -161,4 +161,4 @@ export const majors = [
   'Real Estate and Development BS',
   'Russian, East European, and Eurasian Studies BA',
   'Study of Religion BA',
-];
+].sort();
