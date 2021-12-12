@@ -1,13 +1,12 @@
 import { generateHousingPost, getDurationInMinutes } from '@apis';
 import { WizardForm } from '@basics';
 import { StudentHousePostPreview } from '@components';
-import { useUser } from '@hooks';
+import { useStudentRoomIds, useUser } from '@hooks';
 import { MakeAPost as MPIcons } from '@icons';
 import { StudentHousePost } from '@models';
 import { hidePost, setShowPostType, showPost, useShouldShowPost } from '@redux';
 import React, { FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSWRConfig } from 'swr';
 import Page1, { page1InitialStore, page1Schema, Page1Store } from './Page1';
 import Page2, {
   page2InitialStore,
@@ -145,22 +144,29 @@ const MakeAPost: FunctionComponent = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [cleanUp, setCleanUp] = useState<() => void>();
   const [previewData, setPreviewData] = useState<StudentHousePost>();
-  const [initialStore, setInitialStore] = useState<Partial<Store>[]>(
-    initialStoreArray,
-  );
+  // Mirrors whatever inside wizard form.
+  const [postStore, setPostStore] =
+    useState<Partial<Store>[]>(initialStoreArray);
 
   const dispatch = useDispatch();
   const ShouldShowPost = useShouldShowPost();
-  const { mutate } = useSWRConfig();
+  const { mutate } = useStudentRoomIds();
 
   const { data: user } = useUser();
-  const major = user.isLoggedIn ? user.major : ''; // it should always be true. used for ts requirement
-  const schoolYear = user.isLoggedIn ? user.schoolYear : '';
-  const userPhone = user.isLoggedIn ? user.phone : '';
-  const userEmail = user.isLoggedIn ? user.email : '';
-  const userBio = user.isLoggedIn ? user.description : '';
-  const userName = user.isLoggedIn ? user.name : '';
-  const userPhoto = user.isLoggedIn ? user.profilePhoto : '';
+
+  // isLoggedIn should always be true. It is used for ts requirement.
+  if (!user.isLoggedIn) {
+    return <></>;
+  }
+  const {
+    major,
+    schoolYear,
+    phone: userPhone,
+    email: userEmail,
+    description: userBio,
+    name: userName,
+    profilePhoto: userPhoto,
+  } = user;
 
   const postFunction = async () => {
     if (previewData) {
@@ -176,12 +182,7 @@ const MakeAPost: FunctionComponent = () => {
 
   return (
     <>
-      <SuccessPopUp
-        open={showSuccess}
-        onClose={() => {
-          setShowSuccess(false);
-        }}
-      />
+      <SuccessPopUp open={showSuccess} onClose={() => setShowSuccess(false)} />
 
       {showPreview &&
         previewData && ( // need the preview data to be processed
@@ -190,11 +191,13 @@ const MakeAPost: FunctionComponent = () => {
             onSuccess={async () => {
               setShowPreview(false);
               setShowSuccess(true);
-              setInitialStore(initialStoreArray); // clean up the form
+              // Cleans up the form
+              setPostStore(initialStoreArray);
               setPreviewData(undefined);
+              // Sets the cleanUp function when posting succeeds. The syntax is required by React Hook.
               setCleanUp(() => () => setCleanUp(undefined));
               dispatch(setShowPostType('student'));
-              await mutate('/api/rooms');
+              await mutate();
             }}
             edit={() => {
               setShowPreview(false); // normally this isn't a problem, but we could use useEffect if there is
@@ -226,7 +229,7 @@ const MakeAPost: FunctionComponent = () => {
           return true;
         }}
         title="Make A Post"
-        initialStore={initialStore}
+        initialStore={postStore}
         schemas={schemas}
         pageNavigationIcons={[
           MPIcons.Amenity,
@@ -238,7 +241,7 @@ const MakeAPost: FunctionComponent = () => {
           MPIcons.Photo,
           MPIcons.Text,
         ]}
-        parentOnStoreChange={(updatedStore) => setInitialStore(updatedStore)}
+        parentOnStoreChange={(updatedStore) => setPostStore(updatedStore)}
         lastButtonText="Preview"
         externalCleanUp={cleanUp}
       >
