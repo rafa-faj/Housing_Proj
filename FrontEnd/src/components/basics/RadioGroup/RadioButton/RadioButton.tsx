@@ -1,8 +1,9 @@
 import React, { FunctionComponent, useRef } from 'react';
 import styles from './RadioButton.module.scss';
 import { useRandomID } from '@hooks';
+import { FormControlProps } from 'react-bootstrap';
 
-export interface RadioButtonProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface RadioButtonProps extends FormControlProps {
   id?: string;
   value: string; // required for value extracting
   withLabel?: boolean; // used when we want to add text on the side
