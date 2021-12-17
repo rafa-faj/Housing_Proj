@@ -25,6 +25,7 @@
       margin-right: 0 !important;
     }
   }
+
   @include bp-down('md') {
     > div {
       margin-right: 0 !important;
@@ -73,6 +74,7 @@
   position: relative;
   margin-left: 1.25rem;
   margin-bottom: 2rem;
+
   .offset {
     // used for components group to make sure error state stays outside
     margin-left: -1.25rem;
@@ -90,6 +92,7 @@
 
 .textArea {
   width: 100%;
+
   textarea {
     height: 20.625rem !important;
   }
@@ -145,10 +148,6 @@
   margin-left: 0.5rem;
 }
 
-.top4NoMargin {
-  > div:nth-child(-n + 4) {
-    button {
-      margin-top: 0;
-    }
-  }
+.top4NoMargin > div:nth-child(-n + 4) button {
+  margin-top: 0;
 }

@@ -17,4 +17,4 @@ export const joinObjects = <T extends {}>(...objects: T[]) =>
  * (starting from `0` and increasing until `n - 1`)
  */
 export const runNTimes = (n: number, f: (i: number) => any) =>
-  [...Array(n)].map(f);
+  Array.from({ length: n }, (_, i) => i).map(f);
