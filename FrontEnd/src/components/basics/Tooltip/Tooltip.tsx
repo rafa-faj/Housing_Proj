@@ -7,8 +7,10 @@ import cn from 'classnames';
 import { Body2, Caption } from '@basics';
 import styles from './Tooltip.module.scss';
 import { makeStyles } from '@material-ui/core/styles';
+import { Optional } from 'utility-types';
 
-export interface TooltipProps extends MaterialUITooltipProps {
+export interface TooltipProps
+  extends Optional<MaterialUITooltipProps, 'children'> {
   hideInfoIcon?: boolean; // hides the info icon
   isSingleLine: boolean;
   title: string | React.ReactFragment;

@@ -6,29 +6,15 @@ import {
   Tooltip,
   WizardFormStep,
 } from '@basics';
-import { NON_EMPTY_ERR_MSG } from '@constants';
+import { Month, months, NON_EMPTY_ERR_MSG } from '@constants';
+import { runNTimes } from '@utils';
 import cn from 'classnames';
 import moment from 'moment';
-import React, { FunctionComponent, useEffect, useRef } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import * as z from 'zod';
 import styles from './Page.module.scss';
 
 export type Page3Store = z.infer<typeof page3Schema>;
-
-const month = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
 
 export const page3Schema = z
   .object({
@@ -41,13 +27,14 @@ export const page3Schema = z
   })
   .refine((data) => {
     if (
-      !!data.availMonth &&
-      !!data.availYear &&
-      !!data.untilMonth &&
-      !!data.untilYear
+      data.availMonth &&
+      data.availYear &&
+      data.untilMonth &&
+      data.untilYear
     ) {
       return (
-        (month.indexOf(data.availMonth) <= month.indexOf(data.untilMonth) &&
+        (months.indexOf(data.availMonth as Month) <=
+          months.indexOf(data.untilMonth as Month) &&
           parseInt(data.availYear) == parseInt(data.untilYear)) ||
         parseInt(data.availYear) < parseInt(data.untilYear)
       );
@@ -73,14 +60,9 @@ const roomType = [
   'Other',
 ] as const;
 
-const year = Array.from({ length: 5 }, (_, i) =>
+const year = runNTimes(5, (i) =>
   (new Date().getFullYear().valueOf() + i).toString(),
 );
-
-interface PartProps {
-  setStore: SetStore<Page3Store>;
-  validations?: any;
-}
 
 const combineErrors = (validations: any) =>
   validations?.availMonth?.error ||
@@ -88,123 +70,119 @@ const combineErrors = (validations: any) =>
   validations?.untilMonth?.error ||
   validations?.untilYear?.error;
 
-const Part1: FunctionComponent<
-  PartProps & { selectedValues: Partial<Page3Store> }
-> = ({ setStore, validations, selectedValues }) => {
-  const stayPeriodValidation = useRef<string | z.ZodIssue | undefined>(
-    combineErrors(validations),
-  );
+const moveInInfo: string =
+  'This is an optional input that can help renters know when they are able to move into the place.\n\n Click “Start” to open a calendar to select a range of dates.';
+
+const Page3: FunctionComponent<WizardFormStep<Page3Store>> = ({
+  setStore,
+  validations,
+  availMonth,
+  availYear,
+  untilMonth,
+  untilYear,
+  startDate,
+  endDate,
+}) => {
+  const [stayPeriodValidation, setStayPeriodValidation] = useState<
+    string | z.ZodIssue | undefined
+  >(combineErrors(validations));
 
   useEffect(() => {
-    stayPeriodValidation.current = combineErrors(validations);
+    setStayPeriodValidation(combineErrors(validations));
   }, [validations]);
 
-  return (
+  const leasePeriodInitialSelects = {
+    availMonth,
+    availYear,
+    untilMonth,
+    untilYear,
+  };
+
+  const leasePeriodUI = (
     <div className={styles.section}>
       <h5 className={styles.title}>
         Available from <span className={styles.required}>*</span>
       </h5>
-      <div className={cn('d-flex')}>
+      <div className="d-flex">
         <Dropdown
-          options={month}
+          options={months}
           placeholder="--"
-          onSelect={(e) => setStore({ availMonth: e ? e : undefined })}
-          initialSelected={selectedValues.availMonth}
-        ></Dropdown>
+          onSelect={(e) => setStore({ availMonth: e || undefined })}
+          initialSelected={leasePeriodInitialSelects.availMonth}
+        />
         <Dropdown
           options={year}
           placeholder="--"
           className={styles.small}
-          onSelect={(e) => setStore({ availYear: e ? e : undefined })}
-          initialSelected={selectedValues.availYear}
-        ></Dropdown>
+          // Needs to do `|| undefined` since no value for e means null but for availYear means undefined
+          onSelect={(e) => setStore({ availYear: e || undefined })}
+          initialSelected={leasePeriodInitialSelects.availYear}
+        />
       </div>
       <h5 className={cn(styles.body, styles.title2)}>
         Until <span className={styles.required}>*</span>
       </h5>
       <div className={cn('d-flex', styles.test)}>
         <Dropdown
-          options={month}
+          options={months}
           placeholder="--"
           onSelect={(e) => setStore({ untilMonth: e ? e : undefined })}
-          initialSelected={selectedValues.untilMonth}
-        ></Dropdown>
+          initialSelected={leasePeriodInitialSelects.untilMonth}
+        />
         <Dropdown
           options={year}
           placeholder="--"
           className={styles.small}
           onSelect={(e) => setStore({ untilYear: e ? e : undefined })}
-          error={stayPeriodValidation.current}
-          initialSelected={selectedValues.untilYear}
-        ></Dropdown>
+          error={stayPeriodValidation}
+          initialSelected={leasePeriodInitialSelects.untilYear}
+        />
       </div>
     </div>
   );
-};
-const moveInInfo: string =
-  'This is an optional input that can help renters know when they are able to move into the place.\n\n Click “Start” to open a calendar to select a range of dates.';
-const Part2: FunctionComponent<
-  PartProps & { selectedDates: Partial<Page3Store> }
-> = ({ setStore, selectedDates }) => (
-  <div className={styles.lastSection}>
-    <h5 className={cn(styles.title, styles.unbold)}>
-      Preferred <span className={styles.bold}> move-in timeframe </span> for
-      renters
-      <span className={cn(styles.inline, styles.tooltipMargin)}>
-        <Tooltip isSingleLine={false} title={moveInInfo}>
-          <></>
-        </Tooltip>
-      </span>
-    </h5>
-    <DatePicker
-      onChange={(startDate, endDate) =>
-        setStore({
-          startDate: startDate ? startDate.format('MMM/DD/YYYY') : '',
-          endDate: endDate ? endDate.format('MMM/DD/YYYY') : '',
-        })
-      }
-      defaultStartDate={
-        selectedDates.startDate ? moment(selectedDates.startDate) : null
-      }
-      defaultEndDate={
-        selectedDates.endDate ? moment(selectedDates.endDate) : null
-      }
-    ></DatePicker>
-  </div>
-);
 
-const Page3: FunctionComponent<WizardFormStep<Page3Store>> = ({
-  setStore,
-  validations,
-  availMonth = '',
-  availYear = '',
-  untilMonth = '',
-  untilYear = '',
-  startDate = '',
-  endDate = '',
-}) => {
+  const moveInInitialSelects = { startDate, endDate };
+  const moveInUI = (
+    <div className={styles.lastSection}>
+      <h5 className={cn(styles.title, styles.unbold)}>
+        Preferred <span className={styles.bold}> move-in timeframe </span> for
+        renters
+        <span className={cn(styles.inline, styles.tooltipMargin)}>
+          <Tooltip isSingleLine={false} title={moveInInfo}></Tooltip>
+        </span>
+      </h5>
+      <DatePicker
+        onChange={(startDate, endDate) =>
+          setStore({
+            startDate: startDate?.format('MMM/DD/YYYY') || '',
+            endDate: endDate?.format('MMM/DD/YYYY') || '',
+          })
+        }
+        defaultStartDate={
+          moveInInitialSelects.startDate
+            ? moment(moveInInitialSelects.startDate)
+            : null
+        }
+        defaultEndDate={
+          moveInInitialSelects.endDate
+            ? moment(moveInInitialSelects.endDate)
+            : null
+        }
+      />
+    </div>
+  );
+
   return (
     <div className={styles.pageHeight}>
       <Subtitle2 className={styles.subtitle2}>
         Rental period &amp; move-in timeframe
       </Subtitle2>
       <div className={styles.description}>
-        <Part1
-          setStore={setStore}
-          validations={validations}
-          selectedValues={{
-            availMonth,
-            availYear,
-            untilMonth,
-            untilYear,
-          }}
-        ></Part1>
-        <Part2
-          setStore={setStore}
-          selectedDates={{ startDate, endDate }}
-        ></Part2>
+        {leasePeriodUI}
+        {moveInUI}
       </div>
     </div>
   );
 };
+
 export default Page3 as FunctionComponent;

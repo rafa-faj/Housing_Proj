@@ -1,20 +1,15 @@
-import React, { FunctionComponent } from 'react';
 import {
-  WizardFormStep,
-  GooglePlaceAutoComplete,
-  SetStore,
-  Dropdown,
-  Subtitle2,
-  Input,
-  RequiredAsterisk,
+  Dropdown, GooglePlaceAutoComplete, Input,
+  RequiredAsterisk, Subtitle2, WizardFormStep
 } from '@basics';
+import { NON_EMPTY_ERR_MSG } from '@constants';
 import { amenityIcons, miscIcons } from '@icons';
 import { ArrayUnionTransform, runNTimes } from '@utils';
 import cn from 'classnames';
+import React, { FunctionComponent } from 'react';
 import { Row } from 'react-bootstrap';
 import * as z from 'zod';
 import styles from './Page.module.scss';
-import { NON_EMPTY_ERR_MSG } from '@constants';
 
 const housingType = ['House', 'Apartment', 'Condo'] as const;
 const rooms = runNTimes(6, (i) => (i + 1).toString());
@@ -36,13 +31,6 @@ export const page1InitialStore: Page1Store = {
   placeName: '',
 };
 
-interface DropDownProps {
-  setStore: SetStore<Page1Store>;
-  type: string;
-  validations: any;
-  initialSelected: string;
-}
-
 const Page1: FunctionComponent<WizardFormStep<Page1Store>> = ({
   setStore,
   validations,
@@ -51,10 +39,7 @@ const Page1: FunctionComponent<WizardFormStep<Page1Store>> = ({
   numBed,
   numBath,
 }) => {
-  const RoomDropdown: FunctionComponent<DropDownProps> = ({
-    type,
-    initialSelected,
-  }) => (
+  const roomDropdown = (type: string, initialSelected: string) => (
     <Dropdown
       options={rooms}
       placeholder="--"
@@ -111,23 +96,13 @@ const Page1: FunctionComponent<WizardFormStep<Page1Store>> = ({
           <div className={cn(styles.svgFilled, styles.iconWithDropdown)}>
             <amenityIcons.Furnished />
           </div>
-          <RoomDropdown
-            setStore={setStore}
-            validations={validations}
-            type="numBed"
-            initialSelected={numBed || ''}
-          />
+          {roomDropdown('numBed', numBed || '')}
         </div>
         <div className="d-flex">
           <div className={cn(styles.svgFilled, styles.iconWithDropdown)}>
             <amenityIcons.Bath />
           </div>
-          <RoomDropdown
-            setStore={setStore}
-            validations={validations}
-            type="numBath"
-            initialSelected={numBath || ''}
-          />
+          {roomDropdown('numBath', numBath || '')}
         </div>
       </Row>
     </div>
