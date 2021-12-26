@@ -18,3 +18,18 @@ export const joinObjects = <T extends {}>(...objects: T[]) =>
  */
 export const runNTimes = (n: number, f: (i: number) => any) =>
   Array.from({ length: n }, (_, i) => i).map(f);
+
+/**
+ * objectFilter takes in an object with string as keys and a function that does a condition check
+ * it would return a subset of the original object
+ */
+export const objectFilter = (
+  obj: { [key: string]: any },
+  f: (i: any) => boolean,
+) =>
+  Object.keys(obj)
+    .filter((key) => f(obj[key]))
+    .reduce(
+      (res, key) => ((res[key] = obj[key]), res),
+      {} as { [key: string]: any },
+    );

@@ -1,16 +1,14 @@
 import {
   DatePicker,
-  Dropdown,
-  SetStore,
-  Subtitle2,
+  Dropdown, RequiredAsterisk, Subtitle2,
   Tooltip,
-  WizardFormStep,
+  WizardFormStep
 } from '@basics';
 import { Month, months, NON_EMPTY_ERR_MSG } from '@constants';
 import { runNTimes } from '@utils';
 import cn from 'classnames';
 import moment from 'moment';
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import * as z from 'zod';
 import styles from './Page.module.scss';
 
@@ -101,7 +99,7 @@ const Page3: FunctionComponent<WizardFormStep<Page3Store>> = ({
   const leasePeriodUI = (
     <div className={styles.section}>
       <h5 className={styles.title}>
-        Available from <span className={styles.required}>*</span>
+        Available from <RequiredAsterisk />
       </h5>
       <div className="d-flex">
         <Dropdown
@@ -120,7 +118,7 @@ const Page3: FunctionComponent<WizardFormStep<Page3Store>> = ({
         />
       </div>
       <h5 className={cn(styles.body, styles.title2)}>
-        Until <span className={styles.required}>*</span>
+        Until <RequiredAsterisk />
       </h5>
       <div className={cn('d-flex', styles.test)}>
         <Dropdown

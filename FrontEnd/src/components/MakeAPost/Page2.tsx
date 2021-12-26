@@ -5,9 +5,14 @@ import {
   Subtitle2,
   ToggleGroup,
   Tooltip,
-  WizardFormStep,
+  WizardFormStep
 } from '@basics';
-import { NON_EMPTY_ERR_MSG, RoomCapacity, RoomType } from '@constants';
+import {
+  NON_EMPTY_ERR_MSG,
+  roomCapacities,
+  RoomCapacity,
+  roomTypes
+} from '@constants';
 import { Icon as IconType, roomTypeIconsTemp } from '@icons';
 import { runNTimes } from '@utils';
 import cn from 'classnames';
@@ -15,15 +20,12 @@ import React, { FunctionComponent } from 'react';
 import * as z from 'zod';
 import styles from './Page.module.scss';
 
-export const roomTypes = Object.keys(RoomType);
-export const roomCapacity = Object.keys(RoomCapacity);
-
 export type RoomCapacityStore = Record<RoomCapacity, boolean>;
 export type RoomCapacityStoreZod = Record<RoomCapacity, z.ZodBoolean>;
 
 const roomCapacityMap: RoomCapacityStoreZod = Object.assign(
   {},
-  ...roomCapacity.map((rc) => ({ [rc]: z.boolean() })),
+  ...roomCapacities.map((rc) => ({ [rc]: z.boolean() })),
 );
 
 export const page2Schema = z
@@ -41,7 +43,7 @@ export type Page2Store = z.infer<typeof page2Schema> & RoomCapacityStore;
 
 const defaultRoomCapacity = Object.assign(
   {},
-  ...roomCapacity.map((rc) => ({ [rc]: false })),
+  ...roomCapacities.map((rc) => ({ [rc]: false })),
 ) as RoomCapacityStore;
 
 export const page2InitialStore: Page2Store = {
@@ -83,7 +85,7 @@ const Page2: FunctionComponent<WizardFormStep<Page2Store>> = ({
       </h5>
       <div className={cn(styles.offset, 'mt-3')}>
         <ToggleGroup
-          content={roomCapacity.map((room) => ({
+          content={roomCapacities.map((room) => ({
             icon: roomToIcon[room],
             label: room,
           }))}

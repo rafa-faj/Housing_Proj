@@ -1,4 +1,10 @@
-import { amenityToIcon, Subtitle2, ToggleGroup, WizardFormStep } from '@basics';
+import {
+  amenityToIcon,
+  RequiredAsterisk,
+  Subtitle2,
+  ToggleGroup,
+  WizardFormStep,
+} from '@basics';
 import { NON_EMPTY_ERR_MSG } from '@constants';
 import { TransformArray } from '@utils';
 import cn from 'classnames';
@@ -32,34 +38,31 @@ export type AmenityStoreZod = TransformArray<
 
 export const page5Schema = z
   .object(
-    displayAmenities.reduce(
-      (prev, curr) => ({
-        ...prev,
-        [curr]: z.boolean(),
-      }),
+    Object.assign(
       {},
+      ...displayAmenities.map((da) => ({ [da]: z.boolean() })),
     ) as AmenityStoreZod,
   )
   .refine(
     (data) =>
-      !!data['Living Room'] ||
-      !!data['Pet Friendly'] ||
-      !!data['Furnished'] ||
-      !!data['A/C'] ||
-      !!data['No Smoking'] ||
-      !!data['Indoor Laundry'] ||
-      !!data['Outdoor Parking'] ||
-      !!data['Indoor Parking'] ||
-      !!data['Swimming Pool'] ||
-      !!data['Hardwood Floor'] ||
-      !!data['Elevator'] ||
-      !!data['Gym'],
+      data['Living Room'] ||
+      data['Pet Friendly'] ||
+      data['Furnished'] ||
+      data['A/C'] ||
+      data['No Smoking'] ||
+      data['Indoor Laundry'] ||
+      data['Outdoor Parking'] ||
+      data['Indoor Parking'] ||
+      data['Swimming Pool'] ||
+      data['Hardwood Floor'] ||
+      data['Elevator'] ||
+      data['Gym'],
     NON_EMPTY_ERR_MSG,
   );
 
-export const page5InitialStore: Page5Store = displayAmenities.reduce(
-  (prev, curr) => ({ ...prev, [curr]: false }),
+export const page5InitialStore: Page5Store = Object.assign(
   {},
+  ...displayAmenities.map((da) => ({ [da]: false })),
 ) as Page5Store;
 
 const Page5: FunctionComponent<WizardFormStep<Page5Store>> = ({
@@ -75,7 +78,7 @@ const Page5: FunctionComponent<WizardFormStep<Page5Store>> = ({
       <Subtitle2 className={styles.subtitle2}>Amenities</Subtitle2>
       <div className={styles.description}>
         <Subtitle2 className={cn(styles.subtitle2, styles.sectionSubtitle2)}>
-          What does your home offer? <span className={styles.required}>*</span>
+          What does your home offer? <RequiredAsterisk />
         </Subtitle2>
         <div className={styles.body3}>Please select all that apply</div>
       </div>
@@ -90,7 +93,7 @@ const Page5: FunctionComponent<WizardFormStep<Page5Store>> = ({
         }}
         error={
           // Error UI should only be displayed when there is nothing selected in the current group and there is an zod error.
-          !!initialSelected.current &&
+          initialSelected.current &&
           (validations?.['Living Room']?.error ||
             validations?.['Pet Friendly']?.error ||
             validations?.['Furnished']?.error ||
@@ -110,4 +113,5 @@ const Page5: FunctionComponent<WizardFormStep<Page5Store>> = ({
     </div>
   );
 };
+
 export default Page5 as FunctionComponent;

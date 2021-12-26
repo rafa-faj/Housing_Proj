@@ -1,6 +1,7 @@
 import { generateHousingPost, getDurationInMinutes } from '@apis';
 import { WizardForm } from '@basics';
 import { StudentHousePostPreview } from '@components';
+import { genders } from '@constants';
 import { useStudentRoomIds, useUser } from '@hooks';
 import { MakeAPost as MPIcons } from '@icons';
 import { StudentHousePost } from '@models';
@@ -8,12 +9,7 @@ import { hidePost, setShowPostType, showPost, useShouldShowPost } from '@redux';
 import React, { FunctionComponent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Page1, { page1InitialStore, page1Schema, Page1Store } from './Page1';
-import Page2, {
-  page2InitialStore,
-  page2Schema,
-  Page2Store,
-  roomCapacity,
-} from './Page2';
+import Page2, { page2InitialStore, page2Schema, Page2Store } from './Page2';
 import Page3, { page3InitialStore, page3Schema, Page3Store } from './Page3';
 import Page4, { page4InitialStore, page4Schema, Page4Store } from './Page4';
 import Page5, {
@@ -23,8 +19,6 @@ import Page5, {
   Page5Store,
 } from './Page5';
 import Page6, {
-  genders,
-  habits,
   page6InitialStore,
   page6Schema,
   Page6Store,
@@ -32,6 +26,8 @@ import Page6, {
 import Page7, { page7InitialStore, page7Schema, Page7Store } from './Page7';
 import Page8, { page8InitialStore, page8Schema, Page8Store } from './Page8';
 import { SuccessPopUp } from './PopUps';
+import { roomCapacities as rCapacities, habits } from '@constants';
+
 export type Store = Page1Store &
   Page2Store &
   Page3Store &
@@ -67,7 +63,7 @@ const dataProcessHelper = async (
   const amenities = displayAmenities.filter((elem) => data[elem]);
   const genderSelections = genders.filter((elem) => data[elem]);
   const habitSelections = habits.filter((elem) => data[elem]);
-  const roomCapacities = roomCapacity.filter((elem) => data[elem]);
+  const roomCapacities = rCapacities.filter((elem) => data[elem]);
   const {
     availMonth,
     availYear,
