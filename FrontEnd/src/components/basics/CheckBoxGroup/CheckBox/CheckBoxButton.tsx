@@ -6,8 +6,8 @@ import { useRandomID } from '@hooks';
 export interface CheckBoxButtonProps {
   id?: string;
   value: string;
-  withLabel: boolean;
-  onChange?: (value: string, state: boolean) => void;
+  withLabel?: boolean;
+  onChange?: (state: boolean) => void;
   defaultChecked?: boolean;
 }
 
@@ -19,29 +19,20 @@ const CheckBoxButton: FunctionComponent<CheckBoxButtonProps> = ({
   defaultChecked,
 }) => {
   const buttonID = useRandomID(id);
-  const [checked, changeState] = useState(!!defaultChecked);
+  const [checked, setChecked] = useState(!!defaultChecked);
+  const onClick = () => {
+    setChecked(!checked);
+    if (onChange) {
+      onChange(!checked);
+    }
+  };
+
   return (
     <div className="d-flex" id={buttonID}>
       {checked ? (
-        <checkboxIcons.checked
-          className={styles.checkbox}
-          onClick={() => {
-            changeState(false);
-            if (onChange) {
-              onChange(value, false);
-            }
-          }}
-        />
+        <checkboxIcons.checked className={styles.checkbox} onClick={onClick} />
       ) : (
-        <div
-          className={styles.notChecked}
-          onClick={() => {
-            changeState(true);
-            if (onChange) {
-              onChange(value, true);
-            }
-          }}
-        ></div>
+        <div className={styles.notChecked} onClick={onClick}></div>
       )}
       {withLabel && (
         <label htmlFor={buttonID}>

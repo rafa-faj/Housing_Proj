@@ -1,7 +1,7 @@
 .notChecked {
   width: 1.25rem;
   height: 1.25rem;
-  border: 0.125rem solid $disabled-low-emphasis-color;
+  border: $x-border-width solid $disabled-low-emphasis-color;
   border-radius: 0.25rem;
 }
 

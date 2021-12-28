@@ -3,6 +3,7 @@
   border-radius: 0.5rem;
   min-height: 14.5rem;
   padding: 1.5rem;
+
   @include bp-up('md') {
     margin-top: 3.5rem;
   }
@@ -29,11 +30,12 @@
 }
 
 .userBasicInfo {
-  @include font-type('body 3');
   display: flex;
   color: $coral-400-color;
   margin-top: 0.625rem;
   margin-bottom: 0.625rem;
+
+  @include font-type('body 3');
 }
 
 .userBio {

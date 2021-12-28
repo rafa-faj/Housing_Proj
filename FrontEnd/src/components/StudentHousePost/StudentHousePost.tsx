@@ -16,6 +16,7 @@ const StudentHousePost: FunctionComponent<StudentHousePostProps> = ({
   if (error) {
     return <div>Error occurred!</div>; // TODO handle error in a different way
   }
+
   if (!data) {
     return (
       <>
@@ -24,6 +25,7 @@ const StudentHousePost: FunctionComponent<StudentHousePostProps> = ({
       </>
     );
   }
+
   return (
     <Row className={styles.wrapperRow}>
       <StudentHouseProfile {...data} />

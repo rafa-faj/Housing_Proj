@@ -16,7 +16,7 @@
 .content {
   @include font-type('body 3');
   resize: none;
-  border: 0.125rem solid $primary-300-color;
+  border: $x-border-width solid $primary-300-color;
   &:focus {
     border-color: $primary-300-color !important;
     box-shadow: none;

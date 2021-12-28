@@ -4,7 +4,7 @@
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
-  border: 0.125rem solid rgba(170, 170, 170);
+  border: $x-border-width solid rgba(170, 170, 170);
 
   &:before {
     content: '';

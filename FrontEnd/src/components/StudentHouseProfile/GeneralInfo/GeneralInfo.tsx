@@ -10,12 +10,16 @@ interface GeneralInfoProps {
   placeName: string;
 }
 
+const getTransitRoute = (address: string) =>
+  `https://www.google.com/maps/dir/?api=1&origin=${address}&destination=Price+Center,+La+Jolla,+CA+92093&travelmode=transit`;
+
 const GeneralInfo: FunctionComponent<GeneralInfoProps> = ({
   address,
   distance,
   placeName,
 }) => {
   const [copied, setCopy] = useState(false);
+
   return (
     <div className={styles.textPortion}>
       <div className={styles.name}>{placeName}</div>
@@ -47,7 +51,7 @@ const GeneralInfo: FunctionComponent<GeneralInfoProps> = ({
         </div>
         <Link
           className={styles.directionLink}
-          href={`https://www.google.com/maps/dir/?api=1&origin=${address}&destination=Price+Center,+La+Jolla,+CA+92093&travelmode=transit`}
+          href={getTransitRoute(address)}
           external
         >
           <miscIcons.directions className="mr-auto" />

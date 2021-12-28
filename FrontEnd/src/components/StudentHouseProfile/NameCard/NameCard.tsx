@@ -32,6 +32,7 @@ const NameCard: FunctionComponent<NameCardProps> = ({
   const dispatch = useDispatch();
   const [copiedPhone, setCopiedPhone] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
+
   return (
     <div className={styles.orangeBox}>
       <div className="d-flex align-items-center">

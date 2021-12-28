@@ -4,7 +4,7 @@ import { Modal, Subtitle1, Button, Subtitle2 } from '@basics';
 import { miscIcons } from '@icons';
 import cn from 'classnames';
 export interface PopUpProps {
-  onClose: () => void;
+  onClose: () => any;
   open?: boolean;
 }
 
@@ -23,7 +23,6 @@ const SuccessPopUp: FunctionComponent<PopUpProps> = ({
       You’ve successfully posted it!
     </Subtitle1>
     <div className={styles.supportText}>
-      {' '}
       Peers who are interested will contact through your email or phone! Please
       remember to check!
     </div>

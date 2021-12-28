@@ -195,7 +195,7 @@ const MakeAPost: FunctionComponent = () => {
               dispatch(setShowPostType('student'));
               await mutate();
             }}
-            edit={() => {
+            onEdit={() => {
               setShowPreview(false); // normally this isn't a problem, but we could use useEffect if there is
               dispatch(showPost());
             }}

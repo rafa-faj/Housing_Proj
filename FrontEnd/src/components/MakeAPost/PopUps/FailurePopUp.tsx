@@ -6,7 +6,7 @@ import { MakeAPost } from '@icons';
 import cn from 'classnames';
 
 interface FailurePopUpProps extends PopUpProps {
-  retry: () => void;
+  retry: () => any;
 }
 
 const FailurePopUp: FunctionComponent<FailurePopUpProps> = ({
@@ -25,7 +25,6 @@ const FailurePopUp: FunctionComponent<FailurePopUpProps> = ({
       Post failed due to server error
     </Subtitle1>
     <div className={styles.supportText}>
-      {' '}
       Please do NOT refresh the page and try posting again. If the problem
       persists, please contact our support ASAP! Thank you!
     </div>

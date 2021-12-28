@@ -18,7 +18,7 @@
     height: 3rem;
     padding-left: 2.75rem;
     @include font-type('body 2');
-    border: 0.125rem solid $border-color;
+    border: $x-border-width solid $border-color;
     border-radius: $input-border-radius;
     box-shadow: none !important; // TODO set the flag in bootstrap instead of doing this
     background-color: white !important;

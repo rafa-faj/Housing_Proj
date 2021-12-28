@@ -30,19 +30,23 @@ $base-padding: 1rem;
 }
 
 .rent {
+  color: $primary-900-color;
+
   @include font-type('subtitle 1');
-  color: #a64919;
 }
 
 .utility {
+  color: $primary-900-color;
+
   @include font-type('subtitle 4');
-  color: #a64919;
 }
 
 .roomType {
-  @include font-type('subtitle 2');
   color: $black-color;
   margin: auto auto;
+
+  @include font-type('subtitle 2');
+
   @include bp-down('sm') {
     padding-left: 1.5rem !important;
     padding-bottom: 1rem;
@@ -55,12 +59,11 @@ $base-padding: 1rem;
 
 .wrapper {
   position: relative;
+
   @include bp-up('md') {
     margin-top: 3.5rem;
-    > div {
-      &:nth-child(n + 3) {
-        margin-top: 2.5rem !important;
-      }
+    > div:nth-child(n + 3) {
+      margin-top: 2.5rem !important;
     }
   }
 }

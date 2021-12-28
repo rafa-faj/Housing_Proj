@@ -1,6 +1,8 @@
 .distanceText {
   display: flex;
+
   @include font-type('subtitle 2');
+
   svg {
     margin-right: 0.25rem;
   }
@@ -11,28 +13,33 @@
 }
 
 .day {
-  @include font-type('body 4');
   color: $disabled-low-emphasis-color;
   margin-bottom: 1rem;
+  height: 1.875rem;
+
+  @include font-type('body 4');
+
   svg {
     margin-right: 0.375rem;
   }
-  height: 1.875rem;
 }
 
 .name {
-  @include font-type('h3');
-  @include text-overflow-ellipsis;
   color: $secondary-900-color;
   height: 2.125rem;
   margin-bottom: 1rem;
+
+  @include font-type('h3');
+  @include text-overflow-ellipsis;
 }
 
 .address {
   height: 3rem;
   display: flex;
   margin-bottom: 1rem;
+
   @include font-type('subtitle 2');
+
   svg {
     margin-right: 0.25rem;
     flex-shrink: 0;
@@ -40,9 +47,10 @@
 }
 
 .addressText {
-  @include multiLineEllipsis(1.2em, 2);
   margin-right: 1.25rem;
   height: fit-content;
+
+  @include multiLineEllipsis(1.2em, 2);
 }
 
 .distanceWrapper {
@@ -55,6 +63,7 @@
   align-items: center;
   justify-content: center;
   margin-left: auto;
+
   &:hover {
     cursor: pointer;
   }
@@ -66,9 +75,11 @@
 
 .copy {
   margin-left: auto;
+
   &:hover {
     cursor: pointer;
   }
+
   svg {
     margin-right: 0 !important; // offset the default mr of svg set on this row
   }

@@ -28,17 +28,20 @@
 }
 
 .supportText {
-  @include font-type('body 3');
   margin-top: 0.5rem;
   text-align-last: center;
+
+  @include font-type('body 3');
 }
 
 .failPopUpBottom {
   display: flex;
   align-items: center;
+
   > div:first-child {
     margin-right: auto;
   }
+  
   > div:last-child {
     margin-left: auto;
   }

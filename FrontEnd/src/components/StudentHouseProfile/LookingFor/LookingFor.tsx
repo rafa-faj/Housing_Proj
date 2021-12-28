@@ -1,15 +1,16 @@
 import React, { FunctionComponent } from 'react';
 import { SectionTitle, Body2, Chip } from '@basics';
 import styles from './LookingFor.module.scss';
-import { chipIcons } from '@icons';
+import { chipIcons, Icon } from '@icons';
+import { Gender, Habit } from '@constants/preferences';
 
 interface LookingFor {
-  genders: string[];
-  habits: string[];
+  genders: Gender[];
+  habits: Habit[];
   placeDescription: string;
 }
 
-export const LookingForIconMap = {
+export const LookingForIconMap: Partial<{ [key in Gender | Habit]: Icon }> = {
   '420 Friendly': chipIcons._420Friendly,
   Clean: chipIcons.Clean,
   'Prefer female': chipIcons.FemaleOnly,
@@ -18,12 +19,12 @@ export const LookingForIconMap = {
   'Prefer male': chipIcons.Male,
   'No Drinking': chipIcons.NoDrinking,
   'No Party': chipIcons.NoParty,
-  'Overnight Guest Ok': chipIcons.OvernightGuest,
+  'Overnight Guest OK': chipIcons.OvernightGuest,
 };
 
-type iconKey = Partial<keyof typeof LookingForIconMap>;
+export type IconKey = Partial<keyof typeof LookingForIconMap>;
 
-const IconKeys = Object.keys(LookingForIconMap) as iconKey[];
+const IconKeys = Object.keys(LookingForIconMap) as IconKey[];
 
 const LookingFor: FunctionComponent<LookingFor> = ({
   genders,
@@ -42,8 +43,8 @@ const LookingFor: FunctionComponent<LookingFor> = ({
               text={gender}
               dismiss={false}
               icon={
-                IconKeys.includes(gender as iconKey)
-                  ? LookingForIconMap[gender as iconKey]
+                IconKeys.includes(gender)
+                  ? LookingForIconMap[gender]
                   : undefined
               }
             />
@@ -63,9 +64,7 @@ const LookingFor: FunctionComponent<LookingFor> = ({
               text={habit}
               dismiss={false}
               icon={
-                IconKeys.includes(habit as iconKey)
-                  ? LookingForIconMap[habit as iconKey]
-                  : undefined
+                IconKeys.includes(habit) ? LookingForIconMap[habit] : undefined
               }
             />
           ))

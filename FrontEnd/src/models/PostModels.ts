@@ -1,5 +1,5 @@
 import { Amenity } from '@basics';
-import { RoomType } from '../constants';
+import { Gender, Habit, RoomType } from '@constants';
 
 export interface HousePost {
   name: string;
@@ -78,8 +78,8 @@ export interface StudentHousePost {
   amenities: Amenity[];
   startDate: string;
   endDate: string;
-  genders: string[];
-  habits: string[];
+  genders: Gender[];
+  habits: Habit[];
   placeDescription: string;
   userName: string;
   major: string;

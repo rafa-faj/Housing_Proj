@@ -13,6 +13,7 @@ export enum Habit {
   noParty = 'No Party',
   _420Friendly = '420 Friendly',
   overnightGuestOk = 'Overnight Guest OK',
+  Inclusive = 'Inclusive',
 }
 
 export const habits = Object.values(Habit);

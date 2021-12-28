@@ -70,9 +70,9 @@ const Part2: FunctionComponent<PartProps & HabitStore> = ({
             withLabel: true,
             name: 'habit',
             defaultChecked: selectedHabits[habit],
-            onChange: (value, state) =>
+            onChange: (state) =>
               setStore({
-                [value]: state,
+                [habit]: state,
               }),
           }))}
         />
@@ -106,9 +106,9 @@ const Page6: FunctionComponent<WizardFormStep<Page6Store>> = ({
             value: genderOption,
             withLabel: true,
             name: 'gender',
-            onChange: (value, state) =>
+            onChange: (state) =>
               setStore({
-                [value]: state,
+                [genderOption]: state,
               }),
             checked: selectedGenderPreferences[genderOption],
           }))}
