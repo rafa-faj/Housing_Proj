@@ -30,11 +30,12 @@ const TextArea: FunctionComponent<TextAreaProps> = ({
   onChange,
   className,
 }) => {
-  const RandomID = useRandomID(controlId); // random id if controlId isn't specified
+  const randomID = useRandomID(controlId);
   var [content, setContent] = useState<string>(defaultContent);
+
   return (
     <Form.Row className={className}>
-      <Form.Group as={Col} controlId={RandomID} className="pl-0">
+      <Form.Group as={Col} controlId={randomID} className="pl-0">
         {label && <Form.Label className={styles.label}>{label}</Form.Label>}
         <Form.Control
           placeholder={placeHolder}
@@ -61,7 +62,7 @@ const TextArea: FunctionComponent<TextAreaProps> = ({
           {content.length}/{maxLength.toString()}
         </Body2>
         {error && <miscIcons.alert className={styles.inputStatus} />}
-        {error && <Form.Label className={cn(styles.error)}>{error}</Form.Label>}
+        {error && <Form.Label className={styles.error}>{error}</Form.Label>}
       </Form.Group>
     </Form.Row>
   );

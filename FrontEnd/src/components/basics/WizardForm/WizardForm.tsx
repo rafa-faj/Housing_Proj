@@ -9,11 +9,9 @@ export type ValidationError =
   | { success: true; error: undefined; data?: string }
   | { success: false; error: ZodIssue; data?: string }; // TODO maybe make data just undefined here
 
-export type ValidationErrors<P> = Partial<
-  {
-    [key in keyof P]: ValidationError;
-  }
->;
+export type ValidationErrors<P> = Partial<{
+  [key in keyof P]: ValidationError;
+}>;
 
 /**
  * Each child component will be given:
@@ -59,9 +57,9 @@ interface WizardFormProps<T = {}> {
   // External function for parent for utilizing internal store and will be called during set store.
   parentOnStoreChange?: (s: Partial<T>[]) => void;
   // External clean up function to be invoked when defined, e.g. when a post request succeeds.
-  // This also indicates the current store and index needs to be reset. 
+  // This also indicates the current store and index needs to be reset.
   // TODO: decouple this with default cleanup as well.
-  externalCleanUp?: () => void; 
+  externalCleanUp?: () => void;
 }
 
 // Not using FunctionComponent as a work around to allow for generics for Wizard Form. Do not do this normally.
@@ -184,7 +182,7 @@ const WizardForm = <T extends {}>({
       return { ...prevErrors, [curKey]: { success: !!!error, error } };
     };
 
-    var validatedResults = toValidate.reduce(
+    const validatedResults = toValidate.reduce(
       combineErrorsReducer,
       initialValidationErrors,
     );

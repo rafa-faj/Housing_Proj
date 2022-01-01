@@ -12,3 +12,4 @@ const Template: Story<ComponentProps<typeof ImageUpload>> = (args) => (
 );
 
 export const Default = Template.bind({});
+Default.args = { initialFiles: [] };

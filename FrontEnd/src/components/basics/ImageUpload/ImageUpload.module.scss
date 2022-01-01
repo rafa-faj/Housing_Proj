@@ -76,12 +76,12 @@ $border-radius: 0.1875rem;
 }
 
 .error {
-  @include font-type('caption');
-
   color: $error-color;
   display: block;
   text-align: center;
   margin-top: 1rem;
+
+  @include font-type('caption');
 }
 
 .inputStatus {

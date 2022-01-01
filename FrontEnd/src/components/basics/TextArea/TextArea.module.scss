@@ -14,13 +14,15 @@
 }
 
 .content {
-  @include font-type('body 3');
   resize: none;
   border: $x-border-width solid $primary-300-color;
+
   &:focus {
     border-color: $primary-300-color !important;
     box-shadow: none;
   }
+
+  @include font-type('body 3');
 }
 
 .inputStatus {
@@ -33,10 +35,10 @@
 }
 
 .error {
-  @include font-type('caption');
-
   color: $error-color;
   margin-top: 0.125rem;
+
+  @include font-type('caption');
 }
 
 .unfilled {

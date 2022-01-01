@@ -4,8 +4,9 @@ export const formatAvail = (
   availYear: string,
   untilMonth: string,
   untilYear: string,
-) =>
-  `${availMonth.slice(0, 3)} ${availYear} - ${untilMonth.slice(
-    0,
-    3,
-  )} ${untilYear}`;
+) => {
+  const availMonthAbbr = availMonth.slice(0, 3);
+  const untilMonthAbbr = untilMonth.slice(0, 3);
+
+  return `${availMonthAbbr} ${availYear} - ${untilMonthAbbr} ${untilYear}`;
+};

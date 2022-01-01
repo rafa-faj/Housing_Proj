@@ -1,7 +1,9 @@
+@import './ToggleSwitchItem/ToggleSwitchItem.module.scss';
+
 .switchWrapper {
   background: $primary-50-color;
   border: 0.0625rem solid #dedede;
-  border-radius: 3.125rem;
+  border-radius: $toggle-border-radius;
   display: flex;
   padding: 0.5rem 0.75rem;
   width: fit-content;

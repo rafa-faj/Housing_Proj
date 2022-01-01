@@ -1,8 +1,10 @@
+$toggle-border-radius: 3.125rem;
+
 .active {
   color: $primary-700-color;
   background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0.0625rem 0.5rem rgba(0, 0, 0, 0.18);
-  border-radius: 3.125rem;
+  box-shadow: 0 0.0625rem 0.5rem $box-shadow-color;
+  border-radius: $toggle-border-radius;
 }
 
 .inactive {
@@ -12,5 +14,6 @@
 .switchItem {
   padding: 0.5rem 1.5rem;
   cursor: pointer;
+
   @include font-type('subtitle 3');
 }

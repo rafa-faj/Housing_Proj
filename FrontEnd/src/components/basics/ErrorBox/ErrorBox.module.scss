@@ -1,6 +1,6 @@
 .error {
-  border: 0.1875rem solid $error-color !important;
-  border-radius: 0.25rem;
+  border: $default-border-width solid $error-color !important;
+  border-radius: $x-border-radius;
   position: absolute; // parent that uses this components need to be set relative
   width: 100%;
   height: 100%;

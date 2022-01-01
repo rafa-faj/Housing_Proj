@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import PlacesAutocomplete, { PropTypes } from 'react-places-autocomplete';
-import { Input, Body2 } from '@basics';
-import { Form, FormControlProps } from 'react-bootstrap';
-import * as z from 'zod';
-import styles from './GooglePlaceAutoComplete.module.scss';
+import { Body2, Input } from '@basics';
 import { miscIcons } from '@icons';
 import cn from 'classnames';
+import React, { useState } from 'react';
+import { Form } from 'react-bootstrap';
+import PlacesAutocomplete, { PropTypes } from 'react-places-autocomplete';
+import * as z from 'zod';
+import styles from './GooglePlaceAutoComplete.module.scss';
 
-interface GooglePlaceAutoCompleteProps extends Partial<PropTypes> {
+interface GooglePlaceAutoCompleteProps
+  extends Pick<PropTypes, 'onChange' | 'onSelect'> {
   className?: string;
   error?: string | z.ZodIssue; // Will make the input border red as well
   isInvalid?: boolean;
@@ -29,7 +30,6 @@ const GooglePlaceAutoComplete: React.FC<GooglePlaceAutoCompleteProps> = ({
         value={address}
         onChange={(address) => {
           setAddress(address);
-          console.log('changing: ' + address);
           if (onChange) {
             onChange(address);
           }
@@ -50,7 +50,7 @@ const GooglePlaceAutoComplete: React.FC<GooglePlaceAutoCompleteProps> = ({
                 className: styles.input,
               })}
               className={cn({ [styles.invalid]: isInvalid || error })}
-            ></Input>
+            />
             <div className={styles.suggestionWrapper}>
               {suggestions.map((suggestion) => (
                 // TODO: Missing "key" prop for element in iterator

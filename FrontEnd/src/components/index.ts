@@ -39,3 +39,5 @@ export * from './StudentHousePost';
 
 export { default as MakeAPost } from './MakeAPost';
 export * from './MakeAPost';
+
+export * from './ga';

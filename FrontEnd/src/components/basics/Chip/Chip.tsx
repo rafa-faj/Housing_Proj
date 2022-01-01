@@ -7,22 +7,26 @@ import { miscIcons } from '@icons';
 export type ChipState = 'default' | 'hover' | 'disabled';
 
 export interface ChipProps {
-  state: Partial<ChipState>;
+  state: ChipState;
   text: string;
-  dismiss: boolean;
-  onClose?: () => void;
+  shouldDismiss: boolean;
+  onClose?: () => any;
   icon?: IconType;
 }
 
-const Chip: FunctionComponent<ChipProps> = ({ state, icon, text, dismiss }) => {
-  const Icon = icon;
+const Chip: FunctionComponent<ChipProps> = ({
+  state,
+  icon: Icon,
+  text,
+  shouldDismiss,
+}) => {
   return (
     <div
       className={cn(styles.chip, styles[state], {
-        [styles.chipWithIcon]: !!icon,
+        [styles.chipWithIcon]: Icon,
       })}
     >
-      {!!Icon && (
+      {Icon && (
         <div>
           <Icon />
         </div>
@@ -30,7 +34,7 @@ const Chip: FunctionComponent<ChipProps> = ({ state, icon, text, dismiss }) => {
       <div className={cn({ [styles.opacity]: state === 'disabled' })}>
         {text}
       </div>
-      {dismiss && (
+      {shouldDismiss && (
         <div
           className={cn(styles.cross, {
             [styles.opacity]: state === 'disabled',

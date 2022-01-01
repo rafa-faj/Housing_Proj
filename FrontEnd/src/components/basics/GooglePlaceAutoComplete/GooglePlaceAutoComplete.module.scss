@@ -2,7 +2,7 @@ $complete-width: 100%;
 
 .suggestionWrapper {
   width: $complete-width;
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.18);
+  box-shadow: 0 0.125rem 0.5rem $box-shadow-color;
 }
 
 .suggestion {
@@ -37,9 +37,10 @@ $complete-width: 100%;
 }
 
 .error {
-  @include font-type('caption');
   color: $error-color;
   position: absolute;
+
+  @include font-type('caption');
 }
 
 .wrapper {

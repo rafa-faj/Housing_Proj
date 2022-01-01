@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 import { getRecentStudentHousingJSONs } from '@apis';
 import { TEN_MINUTES } from '@constants';
+
 /**
  * Used to fetch student post data
  * @param roomId room id, used to fetch a json for a particular room

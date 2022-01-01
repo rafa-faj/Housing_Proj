@@ -19,7 +19,7 @@ interface ModalProps
   title?: string;
   caption?: string;
   modalGraphic?: Icon;
-  topBar?: ReactElement; // whether we need the default cross button
+  topBar: ReactElement | undefined | false;
   parentClassName?: string;
 }
 
@@ -39,7 +39,7 @@ interface ModalProps
 const Modal: FunctionComponent<ModalProps> = ({
   title,
   caption,
-  modalGraphic,
+  modalGraphic: ModalGraphic,
   children,
   onClose,
   open,
@@ -51,7 +51,6 @@ const Modal: FunctionComponent<ModalProps> = ({
   parentClassName,
   ...passedProps
 }) => {
-  const ModalGraphic = modalGraphic;
   return (
     <MaterialUIModal
       onClose={onClose}

@@ -12,6 +12,10 @@ import styles from './NavBar.module.scss';
 const NavBar: FunctionComponent = () => {
   const dispatch = useDispatch();
   const { data: user, logout } = useUser();
+  const logoutWithReload = () => {
+    logout();
+    window.location.reload();
+  };
   const router = useRouter();
   const currentPathName = router?.pathname.slice(1);
   const itemProps = [
@@ -23,7 +27,7 @@ const NavBar: FunctionComponent = () => {
     {
       label: 'Logout',
       labelClassName: styles.logoutText,
-      onClick: logout,
+      onClick: logoutWithReload,
       selected: currentPathName === 'logout',
     },
   ];

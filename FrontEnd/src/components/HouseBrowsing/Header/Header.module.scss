@@ -22,7 +22,7 @@
 }
 
 .postButton {
-  border: 0.1875rem solid $primary-300-color;
+  border: $default-border-width solid $primary-300-color;
   box-sizing: border-box;
   border-radius: $button-border-radius;
   margin: 0;

@@ -1,4 +1,4 @@
-import { useShouldOverlay } from '@redux';
+import { useshouldOverlayCurrentPage } from '@redux';
 import cn from 'classnames';
 import React, { FunctionComponent } from 'react';
 import Footer from '../Footer';
@@ -10,12 +10,14 @@ import styles from './Layout.module.scss';
  * the body of the website. Wrapped across all pages.
  */
 const Layout: FunctionComponent = ({ children }) => {
-  const shouldOverlay = useShouldOverlay();
+  const shouldOverlayCurrentPage = useshouldOverlayCurrentPage();
 
   return (
     <>
       <NavBar />
-      <div className={cn(styles.layout, { 'd-none': shouldOverlay })}>
+      <div
+        className={cn(styles.layout, { 'd-none': shouldOverlayCurrentPage })}
+      >
         {children}
       </div>
       <Footer />

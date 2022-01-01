@@ -1,27 +1,32 @@
 import { useState, useEffect } from 'react';
+
 const useScrollDirection = () => {
-  const [scrollDir, setScrollDir] = useState<string>('up');
+  const threshold = 0;
+  const [scrollDir, setScrollDir] = useState<'up' | 'down'>('up');
+
   useEffect(() => {
-    const threshold = 0;
+    // The below varibles are reset everytime scrollDir changes.
     let lastScrollY = window.pageYOffset;
-    let ticking = false; // flag to make sure we only run event listener once in every AnimationFrame
+    // Makes sure we request AnimationFrame for onScroll.
+    let animationFrameRequested = false;
 
     const updateScrollDir = () => {
       const scrollY = window.pageYOffset;
 
       if (Math.abs(scrollY - lastScrollY) < threshold) {
-        ticking = false;
+        animationFrameRequested = false;
         return;
       }
       setScrollDir(scrollY > lastScrollY ? 'down' : 'up');
       lastScrollY = scrollY > 0 ? scrollY : 0;
-      ticking = false;
+      animationFrameRequested = false;
     };
 
     const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(updateScrollDir); // requestAnimationFrame makes sure we are calculating offset before page got completely rendered
-        ticking = true;
+      if (!animationFrameRequested) {
+        // Makes sure we are calculating offset before page got completely rendered.
+        window.requestAnimationFrame(updateScrollDir);
+        animationFrameRequested = true;
       }
     };
 
@@ -29,6 +34,7 @@ const useScrollDirection = () => {
 
     return () => window.removeEventListener('scroll', onScroll);
   }, [scrollDir]);
+
   return scrollDir;
 };
 

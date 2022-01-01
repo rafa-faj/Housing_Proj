@@ -2,10 +2,10 @@
   width: 100%;
   background-color: white;
   color: black;
-  border-radius: 0.5rem;
+  border-radius: $sm-border-radius;
   border: 1px solid $border-color;
   padding: 0.75rem;
-  box-shadow: 0rem 0.0625rem 0.5rem rgba(0, 0, 0, 0.18);
+  box-shadow: 0rem 0.0625rem 0.5rem $box-shadow-color;
   white-space: pre-line;
   justify-content: left;
 
@@ -14,10 +14,6 @@
     line-height: 150%;
     letter-spacing: 0.03em;
     white-space: pre-line;
-  }
-
-  @include bp-down('sm') {
-    // max-width: 80vw;
   }
 }
 
@@ -31,15 +27,14 @@
   background: none !important;
   background-color: none !important;
   width: 100%;
-  max-width: none;
 }
 
 .wrapper {
   display: flex;
   text-align: center;
-  // justify-content: center;
   align-items: center;
   align-content: center;
+  z-index: 2; // Makes sure tooltip takes precedence over other elements.
 }
 
 .infoIcon {

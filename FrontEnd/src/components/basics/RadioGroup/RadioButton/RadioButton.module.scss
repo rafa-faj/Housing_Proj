@@ -1,8 +1,9 @@
+$radioDimension: 1.5rem;
+
 .radioInput {
-  z-index: 2;
   -webkit-appearance: none;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: $radioDimension;
+  height: $radioDimension;
   border-radius: 50%;
   border: $x-border-width solid rgba(170, 170, 170);
 
@@ -25,7 +26,6 @@
 }
 
 .radioLabelBody {
-  @include font-type('body 3');
   max-width: 10rem;
   align-self: center;
   margin-left: 0.75rem;
@@ -35,4 +35,6 @@
   @include bp-down('xs') {
     max-width: 10rem;
   }
+
+  @include font-type('body 3');
 }

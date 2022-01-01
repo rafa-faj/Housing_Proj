@@ -87,6 +87,7 @@
   position: absolute;
   left: 0.75rem;
   top: 0.75rem;
+
   @include svg-fill($black-color, 1.5rem, 1.5rem);
 }
 

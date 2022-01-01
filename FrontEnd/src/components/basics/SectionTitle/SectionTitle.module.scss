@@ -1,6 +1,4 @@
 .section {
-  @include font-type('h5');
-
   color: $primary-800-color;
 
   &::before {
@@ -13,4 +11,6 @@
     // font size
     height: 1.25em;
   }
+
+  @include font-type('h5');
 }

@@ -1,8 +1,10 @@
 import {
   DatePicker,
-  Dropdown, RequiredAsterisk, Subtitle2,
+  Dropdown,
+  RequiredAsterisk,
+  Subtitle2,
   Tooltip,
-  WizardFormStep
+  WizardFormStep,
 } from '@basics';
 import { Month, months, NON_EMPTY_ERR_MSG } from '@constants';
 import { runNTimes } from '@utils';
@@ -150,7 +152,7 @@ const Page3: FunctionComponent<WizardFormStep<Page3Store>> = ({
         </span>
       </h5>
       <DatePicker
-        onChange={(startDate, endDate) =>
+        onChange={({ startDate, endDate }) =>
           setStore({
             startDate: startDate?.format('MMM/DD/YYYY') || '',
             endDate: endDate?.format('MMM/DD/YYYY') || '',

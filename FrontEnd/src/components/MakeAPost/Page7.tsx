@@ -38,7 +38,7 @@ const Page7: FunctionComponent<WizardFormStep<Page7Store>> = ({
       <ImageUpload
         initialFiles={photos || []}
         error={validations?.photos?.error}
-        arrayHandler={(photos) => setStore({ photos })}
+        photosHandler={(photos) => setStore({ photos })}
       />
     </div>
   </div>

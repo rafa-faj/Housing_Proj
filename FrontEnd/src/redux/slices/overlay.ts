@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { useSelector } from '@redux';
 
 interface OverlayState {
-  shouldOverlay: boolean;
+  shouldOverlayCurrentPage: boolean;
 }
 
 const initialState: OverlayState = {
-  shouldOverlay: false,
+  shouldOverlayCurrentPage: false,
 };
 
 /**
@@ -18,10 +18,10 @@ export const overlaySlice = createSlice({
   initialState,
   reducers: {
     showOverlay: (state) => {
-      state.shouldOverlay = true;
+      state.shouldOverlayCurrentPage = true;
     },
     hideOverlay: (state) => {
-      state.shouldOverlay = false;
+      state.shouldOverlayCurrentPage = false;
     },
   },
 });
@@ -34,8 +34,8 @@ export const { showOverlay, hideOverlay } = overlaySlice.actions;
 /**
  * Exporting select hooks for this slice.
  */
-export const useShouldOverlay = () => {
-  return useSelector((state) => state.overlay.shouldOverlay);
+export const useshouldOverlayCurrentPage = () => {
+  return useSelector((state) => state.overlay.shouldOverlayCurrentPage);
 };
 
 export default overlaySlice.reducer;

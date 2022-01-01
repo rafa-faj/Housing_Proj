@@ -1,11 +1,16 @@
+$svg-dimension: 0.8125rem;
+
 .chip {
   display: flex;
-  border-radius: 1.25rem;
-  @include font-type('body 5');
+  border-radius: $lg-border-radius;
   padding: 0.5625rem 1rem;
   align-items: center;
+
+  @include font-type('body 5');
+
   > div {
     margin-left: 0.5rem;
+
     &:nth-child(1) {
       margin-left: 0 !important;
     }
@@ -17,12 +22,17 @@
 }
 
 .cross {
-  @include svg-fill(black, 0.8125rem, 0.8125rem);
+  @include svg-fill(black, $svg-dimension, $svg-dimension);
 }
 
 .opacity {
   color: $disabled-medium-emphasis-color;
-  @include svg-fill($disabled-medium-emphasis-color, 0.8125rem, 0.8125rem);
+
+  @include svg-fill(
+    $disabled-medium-emphasis-color,
+    $svg-dimension,
+    $svg-dimension
+  );
 }
 
 .default {

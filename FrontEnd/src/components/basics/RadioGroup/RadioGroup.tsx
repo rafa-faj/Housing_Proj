@@ -24,9 +24,9 @@ const RadioGroup: FunctionComponent<RadioGroupProps> = ({
   return (
     <Row className={cn(className, styles.wrapperRow)}>
       {(isInvalid || error) && <ErrorBox />}
-      {buttonProps.map((props, index) => (
+      {buttonProps.map((props) => (
         <div
-          key={index.toString()}
+          key={props.value}
           className={cn(wrapperClass, styles.buttonGroupChild)}
         >
           <RadioButton {...props} />

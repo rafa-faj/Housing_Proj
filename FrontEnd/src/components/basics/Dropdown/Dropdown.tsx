@@ -1,14 +1,13 @@
 // TODO change this to use the "Autocomplete" component in MaterialUI
-import React, { useState, useEffect, useRef, FunctionComponent } from 'react';
+import { Body2, RequiredAsterisk } from '@basics';
+import { useClickAwayListener } from '@hooks';
+import { miscIcons } from '@icons';
+import cn from 'classnames';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import BootstrapDropdown, * as BootstrapDropdownMetadata from 'react-bootstrap/Dropdown';
 import * as z from 'zod';
-import { useClickAwayListener } from '@hooks';
-import cn from 'classnames';
 import styles from './Dropdown.module.scss';
-import RequiredAsterisk from '../RequiredAsterisk';
-import { Body2 } from '@basics';
-import { Icon as IconType, miscIcons } from '@icons';
 
 interface DropdownProps extends BootstrapDropdownMetadata.DropdownProps {
   options: string[];

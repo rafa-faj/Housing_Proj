@@ -1,4 +1,5 @@
 // reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_switch
+$transitionDuration: 0.4s;
 
 .switch {
   position: relative;
@@ -21,8 +22,8 @@
   right: 0;
   bottom: 0;
   background-color: $disabled-low-emphasis-color;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: $transitionDuration;
+  transition: $transitionDuration;
   border-radius: 1.875rem;
 }
 
@@ -34,8 +35,8 @@
   left: 0.25rem;
   bottom: 0.25rem;
   background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: $transitionDuration;
+  transition: $transitionDuration;
   border-radius: 50%;
 }
 

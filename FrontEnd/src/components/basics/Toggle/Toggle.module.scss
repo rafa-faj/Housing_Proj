@@ -1,6 +1,5 @@
 .root {
   .toggle {
-    @include font-type('subtitle 4');
     color: $primary-light-color;
     margin: 0.9375rem 0.625rem;
     margin-bottom: 0;
@@ -8,6 +7,8 @@
     border-radius: $sm-border-radius;
     word-break: keep-all;
     box-shadow: none;
+
+    @include font-type('subtitle 4');
   }
 
   .vertical {
@@ -17,21 +18,25 @@
 
   .label {
     align-self: center;
+
     @include text-overflow-ellipsis;
   }
 
   .unselected {
     background-color: white;
+
     &:hover {
       background-color: $primary-50-color;
       color: $primary-200-color;
     }
-    @include svg-fill($primary-300-color);
+
     svg {
       rect {
         stroke: $primary-300-color;
       }
     }
+
+    @include svg-fill($primary-300-color);
   }
 
   .selected {
@@ -41,19 +46,15 @@
       background-color: $primary-light-color !important;
       color: white !important;
     }
+
     @include svg-fill(white);
-    svg {
-      // override the rectangle stroke
-      rect {
-        stroke: white;
-      }
-    }
   }
 
   .readOnly {
     border-color: $primary-50-color;
     color: $disabled-low-emphasis-color;
     background-color: $primary-50-color;
+
     @include svg-fill($disabled-low-emphasis-color);
   }
 }

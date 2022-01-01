@@ -40,6 +40,7 @@ const IndividualImage: FunctionComponent<IndividualImageProps> = ({
 }) => {
   const fileUrl = URL.createObjectURL(file);
   const buttonID = useRandomID(undefined);
+
   return (
     <div className={styles.singleImage} id={buttonID}>
       <div className={styles.deleteWrapperBackground}>
@@ -53,7 +54,7 @@ const IndividualImage: FunctionComponent<IndividualImageProps> = ({
       </div>
       <FilledImage
         src={fileUrl}
-        alt={'uploaded images'}
+        alt="uploaded images"
         className={styles.roundImage}
       />
     </div>
@@ -61,43 +62,42 @@ const IndividualImage: FunctionComponent<IndividualImageProps> = ({
 };
 
 interface ImageUploadProps {
-  arrayHandler?: (photos: File[]) => any;
+  photosHandler?: (photos: File[]) => any;
   initialFiles: File[];
-  isInvalid?: boolean;
   error?: string | z.ZodIssue;
 }
+
+const UPLOAD_SIZE_LIMIT = 6;
 
 /* The Beautiful Image Uploader
 Notes: the limit of this uploader is 6 due to how it was designed. 
 It has a fixed width and height and would resize based on different screen sizes.
-Usage: to use it, simply provide it with an optional arrayHandler for handling the files updated inside the image uploader
+Usage: to use it, simply provide it with an optional photosHandler for handling the files updated inside the image uploader
 */
 const ImageUpload: FunctionComponent<ImageUploadProps> = ({
-  arrayHandler,
-  isInvalid,
+  photosHandler,
   error,
-  initialFiles = [],
+  initialFiles,
 }) => {
-  const UploadSizeLimit = 6;
   const [files, setFiles] = useState<File[]>(initialFiles);
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
-      let newFiles = [...files, ...Array.from(e.target.files)].slice(
+      const newFiles = [...files, ...Array.from(e.target.files)].slice(
         0,
-        UploadSizeLimit,
+        UPLOAD_SIZE_LIMIT,
       );
       setFiles(newFiles); // only keep 6 files if user attempt to upload more than 6
-      if (arrayHandler) {
-        arrayHandler(newFiles);
+      if (photosHandler) {
+        photosHandler(newFiles);
       }
       e.target.value = ''; // set the value to empty string so that we allow people upload the same images multiple times
     }
   };
   const onDelete = (currentIndex: number) => {
-    let newFiles = files.filter((file, index) => index !== currentIndex);
+    const newFiles = files.filter((_, index) => index !== currentIndex);
     setFiles(newFiles);
-    if (arrayHandler) {
-      arrayHandler(newFiles);
+    if (photosHandler) {
+      photosHandler(newFiles);
     }
   };
 
@@ -109,10 +109,10 @@ const ImageUpload: FunctionComponent<ImageUploadProps> = ({
             file={file}
             index={index}
             onDelete={onDelete}
-            key={index}
+            key={file.name}
           />
         ))}
-        {files.length !== UploadSizeLimit &&
+        {files.length !== UPLOAD_SIZE_LIMIT &&
           (files.length ? (
             <div className={cn(styles.singleImage, 'd-flex')}>
               <UploadButton onChange={onChange} />

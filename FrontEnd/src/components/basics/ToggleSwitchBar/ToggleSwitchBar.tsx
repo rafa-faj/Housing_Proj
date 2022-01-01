@@ -17,10 +17,12 @@ const ToggleSwitchBar: FunctionComponent<ToggleSwitchBarProps> = ({
   rightText,
   defaultRight,
 }) => {
-  const [leftActive, setLeftActive] = useState(!!!defaultRight);
+  const [leftActive, setLeftActive] = useState(!defaultRight);
+
   useEffect(() => {
-    setLeftActive(!!!defaultRight);
+    setLeftActive(!defaultRight);
   }, [defaultRight]);
+
   return (
     <div className={styles.switchWrapper}>
       <ToggleSwitchItem
@@ -30,7 +32,7 @@ const ToggleSwitchBar: FunctionComponent<ToggleSwitchBarProps> = ({
         }}
         isActive={leftActive}
       >
-        <>{leftText}</>
+        {leftText}
       </ToggleSwitchItem>
       <ToggleSwitchItem
         onSwitch={() => {
@@ -39,7 +41,7 @@ const ToggleSwitchBar: FunctionComponent<ToggleSwitchBarProps> = ({
         }}
         isActive={!leftActive}
       >
-        <>{rightText}</>
+        {rightText}
       </ToggleSwitchItem>
     </div>
   );

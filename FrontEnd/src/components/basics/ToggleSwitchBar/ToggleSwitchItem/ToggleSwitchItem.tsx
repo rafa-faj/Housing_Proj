@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 interface ToggleSwitchItemProps {
   isActive: boolean;
-  onSwitch: () => void;
+  onSwitch: () => any;
 }
 
 const ToggleSwitchItem: FunctionComponent<ToggleSwitchItemProps> = ({

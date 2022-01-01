@@ -1,31 +1,17 @@
-import React, { FunctionComponent } from 'react';
 import { Subtitle2 } from '@basics';
-import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import cn from 'classnames';
+import React, { FunctionComponent } from 'react';
 import styles from './Loading.module.scss';
 
 interface LoadingProps {
   text: string;
 }
 
-const useStyles = makeStyles(() => ({
-  root: {
-    position: 'relative',
-  },
-  bottom: {
-    color: '#FDF4F0',
-  },
-  top: {
-    color: '#E7946D',
-    animationDuration: '900ms',
-    position: 'absolute',
-    left: 0,
-  },
-}));
+const PROGRESS_THICKNESS = 4;
+const PROGRESS_SIZE = 40;
 
 const Loading: FunctionComponent<LoadingProps> = ({ text }) => {
-  const classes = useStyles();
   return (
     <div
       className={cn(
@@ -34,20 +20,20 @@ const Loading: FunctionComponent<LoadingProps> = ({ text }) => {
       )}
     >
       <div className={styles.loadingBackground}></div>
-      <div className={classes.root}>
+      <div className={styles.root}>
         <CircularProgress
           variant="determinate"
-          className={classes.bottom}
-          size={40}
-          thickness={4}
+          className={styles.bottom}
+          size={PROGRESS_SIZE}
+          thickness={PROGRESS_THICKNESS}
           value={100}
         />
         <CircularProgress
           variant="indeterminate"
           disableShrink
-          className={classes.top}
-          size={40}
-          thickness={4}
+          className={styles.top}
+          size={PROGRESS_SIZE}
+          thickness={PROGRESS_THICKNESS}
         />
       </div>
       <Subtitle2>{text}</Subtitle2>

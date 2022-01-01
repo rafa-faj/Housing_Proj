@@ -21,8 +21,8 @@ Default.args = {
         variant="success"
         title="Alert Title"
         text="Text"
-        button="button"
-      ></Alert>
+        buttonText="button"
+      />
       <Button>hello</Button>
     </>
   ),
