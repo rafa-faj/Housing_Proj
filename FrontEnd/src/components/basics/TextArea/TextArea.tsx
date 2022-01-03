@@ -37,30 +37,32 @@ const TextArea: FunctionComponent<TextAreaProps> = ({
     <Form.Row className={className}>
       <Form.Group as={Col} controlId={randomID} className="pl-0">
         {label && <Form.Label className={styles.label}>{label}</Form.Label>}
-        <Form.Control
-          placeholder={placeHolder}
-          readOnly={readOnly}
-          as="textarea"
-          className={cn(styles.content, {
-            [styles.unfilled]: content.length === 0,
-            [styles.readOnly]: readOnly,
-            [styles.invalid]: isInvalid || error,
-          })}
-          type="text"
-          maxLength={maxLength}
-          value={content}
-          onChange={(e) => {
-            setContent(e.target.value);
-            if (onChange) onChange(e);
-          }}
-        />
-        <Body2
-          className={cn(styles.charCheck, {
-            [styles.charCheckError]: error,
-          })}
-        >
-          {content.length}/{maxLength.toString()}
-        </Body2>
+        <div className={styles.formControlWrapper}>
+          <Form.Control
+            placeholder={placeHolder}
+            readOnly={readOnly}
+            as="textarea"
+            className={cn(styles.content, {
+              [styles.unfilled]: content.length === 0,
+              [styles.readOnly]: readOnly,
+              [styles.invalid]: isInvalid || error,
+            })}
+            type="text"
+            maxLength={maxLength}
+            value={content}
+            onChange={(e) => {
+              setContent(e.target.value);
+              if (onChange) onChange(e);
+            }}
+          />
+          <Body2
+            className={cn(styles.charCheck, {
+              [styles.charCheckError]: error,
+            })}
+          >
+            {content.length}/{maxLength.toString()}
+          </Body2>
+        </div>
         {error && <miscIcons.alert className={styles.inputStatus} />}
         {error && <Form.Label className={styles.error}>{error}</Form.Label>}
       </Form.Group>
