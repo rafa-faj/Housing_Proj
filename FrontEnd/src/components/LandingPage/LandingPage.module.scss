@@ -125,6 +125,51 @@
   display: inline-block;
 }
 
-.container {
+#landing.container {
   max-width: 100%;
+  margin: auto;
+}
+
+.homePageCardCol {
+  height: 51.75rem;
+  position: relative;
+}
+
+.homePageCard {
+  height: 72%;
+  width: 80%;
+  background-color: red;
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  margin-top: -36%;
+  transition: all 1s;
+
+  &:hover {
+    left: 32px;
+    top: calc(50% - 32px);
+  }
+
+  > div {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.stepImage {
+  transition: all 1s;
+}
+
+.postStep {
+  &Arrow {
+    visibility: hidden;
+  }
+
+  &Arrow.currentStep {
+    visibility: visible;
+  }
+
+  &Text {
+    background-color: $primary-300-color;
+  }
 }
