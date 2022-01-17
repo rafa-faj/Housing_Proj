@@ -156,20 +156,125 @@
   }
 }
 
-.stepImage {
-  transition: all 1s;
+.stepsHeading {
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 5rem;
+
+  @include font-type('h3');
 }
 
-.postStep {
-  &Arrow {
-    visibility: hidden;
+.stepsWrapper {
+  position: relative;
+
+  .stepImage {
+    background-size: contain;
+
+    &LargeScreen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all 1s;
+      max-width: 43.75rem;
+    }
+
+    &NormalScreen {
+      height: 0;
+
+      @include respond(tab-land) {
+        height: 40vh;
+      }
+    }
   }
 
-  &Arrow.currentStep {
-    visibility: visible;
+  .postStep {
+    &NormalScreen {
+      visibility: hidden;
+      height: 0;
+
+      &Description {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      &Text {
+        color: $primary-300-color;
+
+        @include font-type('subtitle 1');
+      }
+    }
+
+    &LargeScreen {
+      width: 27rem;
+      height: 6rem;
+
+      &:not(:last-child) {
+        margin-bottom: 1.5rem;
+      }
+
+      &Arrow {
+        visibility: hidden;
+
+        @include absCenter();
+      }
+
+      &Arrow.currentStep {
+        visibility: visible;
+      }
+
+      &Description {
+        width: 25rem;
+        height: 100%;
+        display: inline-block;
+        position: relative;
+        background-color: white;
+        border-radius: $sm-border-radius;
+
+        &Active {
+          box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.18);
+          background-color: $primary-300-color;
+        }
+
+        @include font-type('subtitle 1');
+      }
+
+      &ArrowWrapper {
+        width: 2rem;
+        height: 100%;
+        display: inline-block;
+        position: relative;
+      }
+
+      &Text {
+        color: $primary-300-color;
+        width: fit-content;
+
+        &Active {
+          color: white;
+        }
+
+        @include absCenter {
+          transform: translate(0, -50%);
+          left: 2rem;
+        }
+      }
+    }
   }
 
-  &Text {
-    background-color: $primary-300-color;
+  @include respond(tab-land) {
+    & .postStepLargeScreen,
+    & .stepImageLargeScreen {
+      visibility: hidden;
+      height: 0;
+    }
+
+    & .postStepLargeScreenArrow.currentStep {
+      visibility: hidden;
+    }
+
+    & .postStepNormalScreen {
+      visibility: visible;
+      height: fit-content;
+    }
   }
 }
