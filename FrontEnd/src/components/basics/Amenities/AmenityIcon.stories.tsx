@@ -1,5 +1,5 @@
 import React, { ComponentProps } from 'react';
-import FallbackIcon from './Fallback';
+import FallbackIcon from './AmenityIcon';
 import { StoryTemplate } from '@utils';
 
 export default {
