@@ -6,7 +6,6 @@ import * as z from 'zod';
 import cn from 'classnames';
 import { Icon as IconType, miscIcons } from '@icons';
 import { useRandomID } from '@hooks';
-import { EPERM } from 'constants';
 
 interface TextAreaProps extends FormControlProps {
   maxLength: number;
