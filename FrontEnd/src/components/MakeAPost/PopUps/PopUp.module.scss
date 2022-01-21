@@ -1,0 +1,52 @@
+.successModalWrapper {
+  > div:first-child {
+    background-color: $secondary-900-color !important;
+    opacity: 0.2;
+  }
+}
+
+.failModelWrapper {
+  backdrop-filter: blur(1.25rem);
+  > div:first-child {
+    background-color: $error-color !important; // TODO same syntax as successModalWrapper, might need a mixin
+    opacity: 0.2;
+  }
+}
+
+.modal {
+  padding: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+.modalBottomWrapper {
+  margin-top: 2rem;
+}
+
+.modalButton {
+  border-radius: $button-border-radius;
+  padding: 0.75rem 1.5rem;
+}
+
+.supportText {
+  margin-top: 0.5rem;
+  text-align-last: center;
+
+  @include font-type('body 3');
+}
+
+.failPopUpBottom {
+  display: flex;
+  align-items: center;
+
+  > div:first-child {
+    margin-right: auto;
+  }
+  
+  > div:last-child {
+    margin-left: auto;
+  }
+}
+
+.supportEmail {
+  @include font-type('body 5');
+}

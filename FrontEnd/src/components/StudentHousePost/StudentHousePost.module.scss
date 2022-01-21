@@ -1,0 +1,23 @@
+.postButton {
+  border-radius: $button-border-radius;
+  margin: 0;
+  height: 100%;
+
+  @include bp-down('md') {
+    width: 100%;
+  }
+}
+
+.wrapperRow {
+  background: #ffffff;
+  padding-bottom: 12.5rem;
+  width: 100%;
+  padding-top: 2rem;
+
+  @include bp-down('md') {
+    > div:nth-child(n + 2) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+}

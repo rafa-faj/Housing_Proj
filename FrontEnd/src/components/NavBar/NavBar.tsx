@@ -1,17 +1,21 @@
-import React, { FunctionComponent } from 'react';
 import { Button, ImageDropdown, Link } from '@basics';
+import { useUser } from '@hooks';
+import { landingIcons, miscIcons } from '@icons';
+import { showLogin, showPost } from '@redux';
+import { useRouter } from 'next/router';
+import React, { FunctionComponent } from 'react';
+import { Row } from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
 import { useDispatch } from 'react-redux';
-import { showLogin } from '@redux';
-import { landingIcons } from '@icons';
-import { Row } from 'react-bootstrap';
-import { useUser } from '@hooks';
-import { useRouter } from 'next/router';
 import styles from './NavBar.module.scss';
 
 const NavBar: FunctionComponent = () => {
   const dispatch = useDispatch();
   const { data: user, logout } = useUser();
+  const logoutWithReload = () => {
+    logout();
+    window.location.reload();
+  };
   const router = useRouter();
   const currentPathName = router?.pathname.slice(1);
   const itemProps = [
@@ -23,7 +27,7 @@ const NavBar: FunctionComponent = () => {
     {
       label: 'Logout',
       labelClassName: styles.logoutText,
-      onClick: logout,
+      onClick: logoutWithReload,
       selected: currentPathName === 'logout',
     },
   ];
@@ -37,23 +41,34 @@ const NavBar: FunctionComponent = () => {
           </a>
         </div>
         <Row className="align-items-center">
-          <Link href="/about" undecorated>
-            <h5 className="mb-0">About</h5>
-          </Link>
           {user.isLoggedIn ? (
-            <ImageDropdown
-              items={itemProps}
-              profileIcon={user.profilePhoto}
-              className="ml-4"
-            />
+            <>
+              <Button
+                variant="wrapper"
+                onClick={() => dispatch(showPost())}
+                className={styles.postImgWrap}
+              >
+                <miscIcons.post />
+              </Button>
+              <ImageDropdown
+                items={itemProps}
+                profileIcon={user.profilePhoto}
+                className="ml-4"
+              />
+            </>
           ) : (
-            <Button
-              size="secondary"
-              variant="solid"
-              onClick={() => dispatch(showLogin())}
-            >
-              Get Started
-            </Button>
+            <>
+              <Link href="/about" undecorated>
+                <h5 className="mb-0">About</h5>
+              </Link>
+              <Button
+                size="secondary"
+                variant="solid"
+                onClick={() => dispatch(showLogin())}
+              >
+                Get Started
+              </Button>
+            </>
           )}
         </Row>
       </div>

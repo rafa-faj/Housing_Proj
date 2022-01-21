@@ -1,10 +1,9 @@
 import React, { FunctionComponent, useState } from 'react';
 import { Modal, Button, Input } from '@basics';
-import { useDispatch } from 'react-redux';
 import {
-  useShowReportIssue,
   hideReportIssue,
   showEmailConfirmation,
+  useShowReportIssue,
   useThunkDispatch,
 } from '@redux';
 import { contactIcons, unsupportedDomainPopup, miscIcons } from '@icons';
@@ -26,8 +25,8 @@ const AfterReportIssue: FunctionComponent = () => {
       open={shouldShowReportIssue}
       onClose={() => dispatch(hideReportIssue())}
       title="Issue logging in? Report it to us"
-      modalGraphic={{
-        icon: unsupportedDomainPopup.triton,
+      ModalGraphic={{
+        src: unsupportedDomainPopup.triton,
         alt: 'LogInNotSupported',
       }}
     >
@@ -50,7 +49,7 @@ const AfterReportIssue: FunctionComponent = () => {
             if (!validEmail) return;
 
             await sendEmail(userEmail);
-            await dispatch(hideReportIssue());
+            dispatch(hideReportIssue());
             dispatch(showEmailConfirmation());
           }}
         >

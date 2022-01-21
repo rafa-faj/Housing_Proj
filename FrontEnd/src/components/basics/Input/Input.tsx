@@ -62,6 +62,7 @@ const Input: FunctionComponent<InputProps> = ({
               [styles.readOnly]: readOnly,
               [styles.invalid]: (isInvalid || error) && !readOnly,
               [styles.isValid]: isValid,
+              'pl-3': !icon,
             })}
             isValid={!readOnly && isValid}
             readOnly={readOnly}
@@ -70,7 +71,11 @@ const Input: FunctionComponent<InputProps> = ({
               if (onChange) onChange(e);
             }}
           />
-          {icon && <Icon className={styles.inputIcon} />}
+          {icon && (
+            <div className={styles.inputIcon}>
+              <Icon />
+            </div>
+          )}
           {(isInvalid || error) && (
             <miscIcons.alert className={styles.inputStatus} />
           )}

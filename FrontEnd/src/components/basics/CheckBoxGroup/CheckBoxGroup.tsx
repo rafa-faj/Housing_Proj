@@ -12,7 +12,7 @@ const CheckBoxGroup: FunctionComponent<CheckBoxGroupProps> = ({
   return (
     <Row className="w-100">
       {buttonProps.map((props) => (
-        <Col xs={4} lg={3}>
+        <Col xs={6} md={4} key={props.value}>
           <CheckBoxButton {...props} />
         </Col>
       ))}

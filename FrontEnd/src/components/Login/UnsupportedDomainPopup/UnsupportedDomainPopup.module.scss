@@ -25,12 +25,15 @@
 }
 
 .reportIssue {
-  color: $disabled-medium-emphasis-color;
-  font-weight: $bold-font-weight;
   margin: 0.5rem 1rem;
 }
 
 .messages {
   text-align: center;
   align-content: center;
+}
+
+.onlyUCSDText {
+  @include font-type('body 3');
+  text-align: center;
 }

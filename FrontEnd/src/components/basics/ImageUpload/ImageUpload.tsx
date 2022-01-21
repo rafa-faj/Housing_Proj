@@ -1,9 +1,11 @@
 import React, { FunctionComponent, ChangeEvent, useState } from 'react';
-import { Row } from 'react-bootstrap';
+import { Form, Row } from 'react-bootstrap';
 import { FilledImage, Button } from '@basics';
-import { imageUpload } from '@icons';
+import * as z from 'zod';
+import { imageUpload, miscIcons } from '@icons';
 import styles from './ImageUpload.module.scss';
 import cn from 'classnames';
+import { useRandomID } from '@hooks';
 
 interface UploadButtonProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -19,7 +21,7 @@ const UploadButton: FunctionComponent<UploadButtonProps> = ({ onChange }) => (
       type="file"
       onChange={onChange}
       multiple
-      accept="image/*"
+      accept="image/png, image/jpeg"
       className={styles.imageInput}
     />
   </div>
@@ -37,9 +39,10 @@ const IndividualImage: FunctionComponent<IndividualImageProps> = ({
   onDelete,
 }) => {
   const fileUrl = URL.createObjectURL(file);
+  const buttonID = useRandomID(undefined);
 
   return (
-    <div className={styles.singleImage}>
+    <div className={styles.singleImage} id={buttonID}>
       <div className={styles.deleteWrapperBackground}>
         <Button
           variant="wrapper"
@@ -51,7 +54,7 @@ const IndividualImage: FunctionComponent<IndividualImageProps> = ({
       </div>
       <FilledImage
         src={fileUrl}
-        alt={'uploaded images'}
+        alt="uploaded images"
         className={styles.roundImage}
       />
     </div>
@@ -59,52 +62,70 @@ const IndividualImage: FunctionComponent<IndividualImageProps> = ({
 };
 
 interface ImageUploadProps {
-  arrayHandler?: (photos: File[]) => any;
+  photosHandler?: (photos: File[]) => any;
+  initialFiles: File[];
+  error?: string | z.ZodIssue;
 }
+
+const UPLOAD_SIZE_LIMIT = 6;
 
 /* The Beautiful Image Uploader
 Notes: the limit of this uploader is 6 due to how it was designed. 
 It has a fixed width and height and would resize based on different screen sizes.
-Usage: to use it, simply provide it with an optional arrayHandler for handling the files updated inside the image uploader
+Usage: to use it, simply provide it with an optional photosHandler for handling the files updated inside the image uploader
 */
-const ImageUpload: FunctionComponent<ImageUploadProps> = ({ arrayHandler }) => {
-  const UploadSizeLimit = 6;
-  const [files, setFiles] = useState<File[]>([]);
+const ImageUpload: FunctionComponent<ImageUploadProps> = ({
+  photosHandler,
+  error,
+  initialFiles,
+}) => {
+  const [files, setFiles] = useState<File[]>(initialFiles);
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
-      let newFiles = [...files, ...Array.from(e.target.files)].slice(
+      const newFiles = [...files, ...Array.from(e.target.files)].slice(
         0,
-        UploadSizeLimit,
+        UPLOAD_SIZE_LIMIT,
       );
       setFiles(newFiles); // only keep 6 files if user attempt to upload more than 6
-      if (arrayHandler) {
-        arrayHandler(newFiles);
+      if (photosHandler) {
+        photosHandler(newFiles);
       }
       e.target.value = ''; // set the value to empty string so that we allow people upload the same images multiple times
     }
   };
   const onDelete = (currentIndex: number) => {
-    let newFiles = files.filter((file, index) => index !== currentIndex);
+    const newFiles = files.filter((_, index) => index !== currentIndex);
     setFiles(newFiles);
-    if (arrayHandler) {
-      arrayHandler(newFiles);
+    if (photosHandler) {
+      photosHandler(newFiles);
     }
   };
 
   return (
-    <Row className={styles.imagesWrapper}>
-      {files.map((file, index) => (
-        <IndividualImage file={file} index={index} onDelete={onDelete} />
-      ))}
-      {files.length !== UploadSizeLimit &&
-        (files.length ? (
-          <div className={cn(styles.singleImage, 'd-flex')}>
-            <UploadButton onChange={onChange} />
-          </div>
-        ) : (
-          <UploadButton onChange={onChange} />
+    <div className={styles.contentWrapper}>
+      <Row className={styles.imagesWrapper}>
+        {files.map((file, index) => (
+          <IndividualImage
+            file={file}
+            index={index}
+            onDelete={onDelete}
+            key={file.name}
+          />
         ))}
-    </Row>
+        {files.length !== UPLOAD_SIZE_LIMIT &&
+          (files.length ? (
+            <div className={cn(styles.singleImage, 'd-flex')}>
+              <UploadButton onChange={onChange} />
+            </div>
+          ) : (
+            <UploadButton onChange={onChange} />
+          ))}
+      </Row>
+      <div className={cn(styles.error)}>
+        {error && <miscIcons.alert className={styles.inputStatus} />}
+        {error && <Form.Label>Please upload at least 2 pictures.</Form.Label>}
+      </div>
+    </div>
   );
 };
 

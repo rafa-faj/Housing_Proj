@@ -1,0 +1,16 @@
+.section {
+  color: $primary-800-color;
+
+  &::before {
+    content: '';
+    position: absolute;
+    border-bottom: 2px solid $primary-100-color; // This is the underline
+    width: 100%;
+    // This is the height the underline starts at. To make it just below the text,
+    // we use em (relative to parent's font size) and make it slightly more than the parent's
+    // font size
+    height: 1.25em;
+  }
+
+  @include font-type('h5');
+}

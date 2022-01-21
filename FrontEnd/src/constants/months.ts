@@ -2,7 +2,6 @@
  * Months in the year
  */
 export enum Month {
-  Anytime = 'Anytime',
   January = 'January',
   February = 'February',
   March = 'March',
@@ -23,7 +22,6 @@ export const months = Object.values(Month);
  * Months in the year, abbreviated
  */
 export enum MonthAbrv {
-  Anytime = 'Anytime',
   January = 'Jan',
   February = 'Feb',
   March = 'Mar',
@@ -42,7 +40,6 @@ export enum MonthAbrv {
  * object of month (unabbreviated) to month (abbreviated)
  */
 export const monthsUnabrvToAbrv = {
-  [Month.Anytime]: MonthAbrv.Anytime,
   [Month.January]: MonthAbrv.January,
   [Month.February]: MonthAbrv.February,
   [Month.March]: MonthAbrv.March,

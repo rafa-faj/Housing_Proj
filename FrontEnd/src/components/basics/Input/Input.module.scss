@@ -17,8 +17,8 @@
   .unfilled {
     height: 3rem;
     padding-left: 2.75rem;
-    @include font-type('body 1');
-    border: 0.125rem solid $border-color;
+    @include font-type('body 2');
+    border: $x-border-width solid $border-color;
     border-radius: $input-border-radius;
     box-shadow: none !important; // TODO set the flag in bootstrap instead of doing this
     background-color: white !important;
@@ -26,7 +26,7 @@
       color: $disabled-low-emphasis-color;
     }
     &:focus {
-      @include font-type('body 1');
+      @include font-type('body 2');
       border-color: $primary-light-color;
       &,
       &::placeholder {
@@ -74,18 +74,21 @@
     @include font-type('caption');
 
     color: $error-color;
+    position: absolute;
   }
 }
 
 .inputRow {
   position: relative;
 }
+
 .inputIcon {
+  z-index: 2;
   position: absolute;
   left: 0.75rem;
   top: 0.75rem;
-  width: 1.5rem;
-  height: 1.5rem;
+
+  @include svg-fill($black-color, 1.5rem, 1.5rem);
 }
 
 .inputStatus {

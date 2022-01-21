@@ -1,0 +1,45 @@
+.header {
+  margin-right: 3.25rem;
+  width: 4.125rem;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 2rem;
+
+  @include font-type('subtitle 3');
+}
+
+//TODO(cris): might need to generalize the below two for chip group
+.chipWrap {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -0.5rem;
+
+  > div {
+    &:nth-child(n):not(:last-child) {
+      margin-right: 0.5rem;
+    }
+    &:nth-child(n) {
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+.gender {
+  display: flex;
+  margin-top: 2.5rem;
+}
+
+.habits {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.description {
+  display: flex;
+  margin-top: 2.5rem;
+}
+
+.wrapper {
+  position: relative;
+}

@@ -1,13 +1,14 @@
 .root {
   .toggle {
-    @include font-type('body 1');
     color: $primary-light-color;
-    margin: 15px 10px;
+    margin: 0.9375rem 0.625rem;
     margin-bottom: 0;
     border: 0.0625rem $primary-300-color solid;
     border-radius: $sm-border-radius;
     word-break: keep-all;
     box-shadow: none;
+
+    @include font-type('subtitle 4');
   }
 
   .vertical {
@@ -17,32 +18,43 @@
 
   .label {
     align-self: center;
+
     @include text-overflow-ellipsis;
   }
 
   .unselected {
     background-color: white;
+
     &:hover {
       background-color: $primary-50-color;
       color: $primary-200-color;
     }
-    @include svg-fill($primary-200-color);
+
+    svg {
+      rect {
+        stroke: $primary-300-color;
+      }
+    }
+
+    @include svg-fill($primary-300-color);
   }
 
   .selected {
     &,
     &:hover {
       border-color: $primary-light-color;
-      background-color: $primary-light-color;
-      color: white;
+      background-color: $primary-light-color !important;
+      color: white !important;
     }
+
     @include svg-fill(white);
   }
 
   .readOnly {
     border-color: $primary-50-color;
-    color: $disabled-low-emphasis-color !important;
+    color: $disabled-low-emphasis-color;
     background-color: $primary-50-color;
+
     @include svg-fill($disabled-low-emphasis-color);
   }
 }

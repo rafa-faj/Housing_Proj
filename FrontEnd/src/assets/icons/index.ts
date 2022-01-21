@@ -23,6 +23,7 @@ export * as checkboxIcons from './checkbox';
 export * as unsupportedDomainPopup from './unsupportedDomainPopup';
 export * as MakeAPost from './makeAPost';
 export * as aboutIcons from './about';
+export * as chipIcons from './chipIcons';
 
 // import any logo to be used in the `Icon` type below
 import { default as ExampleIcon } from './misc/logo.svg';

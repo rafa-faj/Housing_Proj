@@ -1,20 +1,19 @@
-export enum Preference {
-  femaleOnly = 'Female only',
-  maleOnly = 'Male only',
-  coed = 'Co-ed',
-  clean = 'Clean',
-  quiet = 'Quiet',
-  partyOk = 'Party OK',
-  noParty = 'No party',
-  extrovert = 'Extrovert',
-  introvert = 'Introvert',
-  nightOwl = 'Night owl',
-  earlyBird = 'Early bird',
-  _420Friendly = '420 friendly',
-  smokeFree = 'Smoke free',
-  lgbtqFriendly = 'LGBTQ+ friendly',
-  overnightGuestOk = 'Overnight guest OK',
-  noOvernightGuest = 'No overnight Guest',
+export enum Gender {
+  female = 'Prefer female',
+  male = 'Prefer male',
+  anyone = 'Anyone',
 }
 
-export const preferences = Object.values(Preference);
+export const genders = Object.values(Gender);
+
+export enum Habit {
+  clean = 'Clean',
+  lgbtqFriendly = 'LGBTQ+ Friendly',
+  noDrinking = 'No Drinking',
+  noParty = 'No Party',
+  _420Friendly = '420 Friendly',
+  overnightGuestOk = 'Overnight Guest OK',
+  Inclusive = 'Inclusive',
+}
+
+export const habits = Object.values(Habit);

@@ -1,19 +1,29 @@
+import { useshouldOverlayCurrentPage } from '@redux';
+import cn from 'classnames';
 import React, { FunctionComponent } from 'react';
-import NavBar from '../NavBar';
 import Footer from '../Footer';
+import NavBar from '../NavBar';
 import styles from './Layout.module.scss';
 
 /**
  * Layout component which provides the navbar, footer, and margin around
  * the body of the website. Wrapped across all pages.
  */
-const Layout: FunctionComponent = ({ children }) => (
-  <>
-    <NavBar />
-    <div className={styles.layout}>{children}</div>
-    <Footer />
-  </>
-);
+const Layout: FunctionComponent = ({ children }) => {
+  const shouldOverlayCurrentPage = useshouldOverlayCurrentPage();
+
+  return (
+    <>
+      <NavBar />
+      <div
+        className={cn(styles.layout, { 'd-none': shouldOverlayCurrentPage })}
+      >
+        {children}
+      </div>
+      <Footer />
+    </>
+  );
+};
 
 export default Layout;
 

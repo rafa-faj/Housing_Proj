@@ -1,7 +1,7 @@
-import React, { ComponentProps } from 'react';
-import ToggleGroup from './ToggleGroup';
 import { amenityIcons } from '@icons';
 import { StoryTemplate } from '@utils';
+import { ComponentProps } from 'react';
+import ToggleGroup from './ToggleGroup';
 
 export default {
   title: 'ToggleGroup',

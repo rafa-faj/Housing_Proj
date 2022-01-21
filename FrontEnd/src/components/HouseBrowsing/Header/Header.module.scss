@@ -7,6 +7,35 @@
   border-radius: $input-border-radius;
 }
 
+.postBulletin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 1.5rem;
+  width: 13.25rem;
+  height: 12.1875rem;
+  background-image: url('../../../assets/icons/makeAPost/postwindow.svg');
+
+  @include bp-down('md') {
+    margin: auto;
+  }
+}
+
+.postButton {
+  border: $default-border-width solid $primary-300-color;
+  box-sizing: border-box;
+  border-radius: $button-border-radius;
+  margin: 0;
+}
+
 .homehubOrange {
   color: $primary-400-color;
+}
+
+.subtitle3 {
+  padding-top: 3.6875rem;
+  margin-bottom: 1rem;
+  color: $primary-500-color;
+
+  @include font-type('subtitle 3');
 }

@@ -1,0 +1,30 @@
+.loadingWrapper {
+  position: fixed;
+  // TODO(cris): have a new project where we agree on a set of z-indexes to use
+  z-index: 1300;
+  inset: 0px;
+  color: white;
+}
+
+.loadingBackground {
+  z-index: -1;
+  position: fixed;
+  inset: 0px;
+  background-color: rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(1.25rem);
+}
+
+.root {
+  position: relative;
+
+  .bottom {
+    color: #fdf4f0;
+  }
+
+  .top {
+    color: #e7946d;
+    animation-duration: 900ms;
+    position: absolute;
+    left: 0;
+  }
+}

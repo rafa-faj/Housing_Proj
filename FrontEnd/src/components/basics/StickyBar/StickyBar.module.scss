@@ -1,0 +1,17 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+
+  > div:nth-child(1) > div:nth-child(1) {
+    padding-top: 1.3125rem;
+    padding-bottom: 1.3125rem;
+  }
+}
+
+.wrapperRow {
+  padding: 0 !important;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.74);
+}

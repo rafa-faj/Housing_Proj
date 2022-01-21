@@ -32,6 +32,10 @@
   stroke: none;
 }
 
+.ellipses {
+  @include font-type('body 5');
+}
+
 .homehubLabel {
   display: flex;
   align-items: flex-end;
@@ -39,4 +43,8 @@
 
 .email {
   word-break: break-word;
+}
+
+.childrenText {
+  @include font-type('body 3');
 }

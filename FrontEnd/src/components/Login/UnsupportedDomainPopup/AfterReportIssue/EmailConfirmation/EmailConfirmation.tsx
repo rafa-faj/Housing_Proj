@@ -17,17 +17,13 @@ const EmailConfirmation: FunctionComponent = () => {
       className={styles.wrapper}
       title="Email sent!"
       caption="Thanks for reporting. We hope to get back to you within 7 days."
-      modalGraphic={{
-        icon: unsupportedDomainPopup.emailSent,
+      ModalGraphic={{
+        src: unsupportedDomainPopup.emailSent,
         alt: 'Email Sent',
       }}
     >
-      <div
-        className={cn(
-          styles.bottomButtonWrapper,
-          styles.emailConfirmationWrapper,
-        )}
-      >
+      <></>
+      <div className={cn(styles.emailConfirmationWrapper)}>
         <Button
           className={styles.bottomButton}
           variant="solid"

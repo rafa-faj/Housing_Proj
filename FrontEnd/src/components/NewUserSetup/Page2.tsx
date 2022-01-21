@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import * as z from 'zod';
 import { Container } from 'react-bootstrap';
-import { WizardFormStep, Input } from '@basics';
+import { WizardFormStep, TextArea } from '@basics';
+import styles from './NewUserSetup.module.scss';
 
 export const page2Schema = z.object({
   description: z
@@ -23,16 +24,16 @@ const PostPage2: FunctionComponent<WizardFormStep<Page2Store>> = ({
 }) => {
   return (
     <Container>
-      <Input
+      <TextArea
         label="What's your lifestyle like?"
         as="textarea"
         value={description}
-        placeholder="Introduce yourself to your potential roommates!"
-        rows={10}
+        placeHolder="Introduce yourself to your potential roommates!"
         onChange={(e) => setStore({ description: e.target.value })}
         isValid={validations?.description?.success}
         error={validations?.description?.error}
-        required
+        maxLength={300}
+        className={styles.textArea}
       />
     </Container>
   );

@@ -84,3 +84,21 @@ export * from './TextArea';
 
 export { default as GooglePlaceAutoComplete } from './GooglePlaceAutoComplete';
 export * from './GooglePlaceAutoComplete';
+
+export { default as Chip } from './Chip';
+export * from './Chip';
+
+export { default as SectionTitle } from './SectionTitle';
+export * from './SectionTitle';
+
+export { default as StickyBar } from './StickyBar';
+export * from './StickyBar';
+
+export { default as ErrorBox } from './ErrorBox';
+export * from './ErrorBox';
+
+export { default as Loading } from './Loading';
+export * from './Loading';
+
+export { default as ToggleSwitchBar } from './ToggleSwitchBar';
+export * from './ToggleSwitchBar';

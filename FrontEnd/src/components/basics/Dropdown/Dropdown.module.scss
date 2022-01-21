@@ -16,7 +16,7 @@
     .unfilled {
       height: 3.125rem;
       color: $black-color;
-      border: 0.125rem solid $border-color !important;
+      border: $x-border-width solid $border-color !important;
       border-radius: $input-border-radius;
       box-shadow: none !important; // TODO set the flag in bootstrap instead of doing this
 
@@ -62,6 +62,10 @@
       @include font-type('caption');
 
       color: $error-color;
+    }
+
+    .inputStatus {
+      margin-right: 0.25rem;
     }
 
     .straightenRight {
@@ -121,13 +125,15 @@
 
     .dropdown {
       flex-grow: 1;
+
       .dropdownMenu {
+        width: 100%;
         min-width: 7.75rem;
         max-height: 12.5rem;
         overflow-y: auto;
         background-color: white;
         border: none;
-        box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.18);
+        box-shadow: 0 0.125rem 0.5rem $box-shadow-color;
         .selected {
           background-color: $primary-50-color !important;
           &:before {
@@ -151,6 +157,7 @@
           background-color: white;
           color: $disabled-high-emphasis-color;
           text-decoration-line: none;
+          min-width: 2rem;
 
           &:active,
           &.active,

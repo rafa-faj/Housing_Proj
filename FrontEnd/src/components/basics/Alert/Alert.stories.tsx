@@ -1,6 +1,6 @@
-import React, { ComponentProps } from 'react';
-import Alert from './Alert';
 import { StoryTemplate } from '@utils';
+import { ComponentProps } from 'react';
+import Alert from './Alert';
 
 export default {
   title: 'Alert',

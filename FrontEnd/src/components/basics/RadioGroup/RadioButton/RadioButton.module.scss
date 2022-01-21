@@ -1,9 +1,11 @@
+$radioDimension: 1.5rem;
+
 .radioInput {
   -webkit-appearance: none;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: $radioDimension;
+  height: $radioDimension;
   border-radius: 50%;
-  border: 0.125rem solid rgba(170, 170, 170);
+  border: $x-border-width solid rgba(170, 170, 170);
 
   &:before {
     content: '';
@@ -31,6 +33,8 @@
   @include text-overflow-ellipsis;
 
   @include bp-down('xs') {
-    max-width: 5rem;
+    max-width: 10rem;
   }
+
+  @include font-type('body 3');
 }

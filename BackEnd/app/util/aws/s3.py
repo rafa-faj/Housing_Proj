@@ -13,7 +13,9 @@ except KeyError:
     # path not yet set
     set_aws_config()
     aws_config = json.loads(os.environ["AWS_CONFIG"])
-s3_client = boto3.client("s3",**aws_config)
+s3_client = boto3.client("s3", **aws_config)
+
+
 def upload_file_wname(file_name, bucket, object_name=None):
     """Upload a file to an S3 bucket
 
@@ -39,7 +41,7 @@ def upload_file_wname(file_name, bucket, object_name=None):
     return True
 
 
-def upload_file_wobject(file_object, bucket, object_name=None):
+def upload_file_wobject(file_object, bucket, object_name=None, content_type=None):
     """Upload a file to an S3 bucket
 
     :param file_object: File object to upload
@@ -59,8 +61,11 @@ def upload_file_wobject(file_object, bucket, object_name=None):
 
     # Upload the file
     try:
+        file_object.seek(0)
+        extra_args = {"ACL": "public-read",
+                      "ContentType": file_object.mimetype}
         response = s3_client.upload_fileobj(
-            file_object, bucket, object_name, ExtraArgs={"ACL": "public-read"})
+            file_object, bucket, object_name, ExtraArgs=extra_args)
     except ClientError as e:
         logging.error(e)
         return False
@@ -81,7 +86,8 @@ def get_images(user_name, category="housing", extra_path=""):
         return links
     return links
 
-def delete_file_wname(file_key,bucket):
+
+def delete_file_wname(file_key, bucket):
     """Delete a file to an S3 bucket
     return: True if file was deleted, else False
     """
@@ -93,7 +99,8 @@ def delete_file_wname(file_key,bucket):
         return False
     return True
 
-def delete_folder(prefix,bucket):
+
+def delete_folder(prefix, bucket):
     """
     Delete all files that share the same prefixes
     """
@@ -108,6 +115,7 @@ def delete_folder(prefix,bucket):
         logging.error(e)
         return False
     return True
+
 
 def main(argv):
     try:

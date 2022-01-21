@@ -74,3 +74,16 @@ $border-radius: 0.1875rem;
 .imageInputWrapper {
   margin: auto !important;
 }
+
+.error {
+  color: $error-color;
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+
+  @include font-type('caption');
+}
+
+.inputStatus {
+  margin-right: 0.25rem;
+}

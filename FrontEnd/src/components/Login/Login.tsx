@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Modal, Button, Tooltip } from '@basics';
+import { Modal, Button, Tooltip, Subtitle2 } from '@basics';
 import {
   GoogleLogin,
   GoogleLoginResponse,
@@ -41,15 +41,12 @@ const LoginUI: FunctionComponent = () => {
       const { name, email } = userInfo;
 
       const result = await login(tokenId);
-
       if (result.unsupportedDomain) return;
-
       if (result.isNewUser) {
         TriggerButtonGA('Button', 'Click', 'LogInNewUser');
         dispatch(startNewUserFlow({ name, email }));
         return;
       }
-
       TriggerButtonGA('Button', 'Click', 'LogInSuccess');
     } else {
       console.log('User is offline');
@@ -62,12 +59,14 @@ const LoginUI: FunctionComponent = () => {
       open={shouldShowLogin}
       onClose={() => dispatch(hideLogin())}
       className={styles.wrapper}
-      modalGraphic={{
-        icon: unsupportedDomainPopup.login,
+      ModalGraphic={{
+        src: unsupportedDomainPopup.login,
         alt: 'Login',
       }}
     >
-      <Tooltip title={TooltipContent}>Why school account?</Tooltip>
+      <Tooltip title={TooltipContent} isSingleLine={false} className="mx-auto">
+        <div className={styles.whyText}>Why school account?</div>
+      </Tooltip>
 
       <GoogleLogin
         className={styles.gAuth}
@@ -82,8 +81,9 @@ const LoginUI: FunctionComponent = () => {
         <Button
           icon={{ icon: miscIcons.GoogleLogo }}
           onClick={() => TriggerButtonGA('Button', 'Click', 'LogIn')}
+          className={styles.loginButton}
         >
-          Start with school account
+          <Subtitle2>Start with school account</Subtitle2>
         </Button>
       </GoogleLogin>
     </Modal>

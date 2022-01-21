@@ -1,19 +1,16 @@
-import React, { FunctionComponent } from 'react';
-import { Modal, Button, Subtitle1 } from '@basics';
-import { useDispatch } from 'react-redux';
+import { Button, Modal, Subtitle2 } from '@basics';
+import { unsupportedDomainPopup } from '@icons';
 import {
-  useShowUnsupportedDomainPopup,
   hideUnsupportedDomainPopup,
-  showReportIssue,
   showLogin,
+  showReportIssue,
+  useShowUnsupportedDomainPopup,
   useThunkDispatch,
 } from '@redux';
-import { miscIcons } from '@icons';
-import styles from './UnsupportedDomainPopup.module.scss';
-import { useUser } from '@hooks';
+import React, { FunctionComponent } from 'react';
 import AfterReportIssue from './AfterReportIssue';
 import EmailConfirmation from './AfterReportIssue/EmailConfirmation';
-import { unsupportedDomainPopup } from '@icons';
+import styles from './UnsupportedDomainPopup.module.scss';
 
 const UnsupportedDomainPopupUI: FunctionComponent = () => {
   const dispatch = useThunkDispatch();
@@ -25,35 +22,35 @@ const UnsupportedDomainPopupUI: FunctionComponent = () => {
       onClose={() => dispatch(hideUnsupportedDomainPopup())}
       className={styles.wrapper}
       title="Oops, your email is incorrect..."
-      modalGraphic={{
-        icon: unsupportedDomainPopup.triton,
+      ModalGraphic={{
+        src: unsupportedDomainPopup.triton,
         alt: 'LogInNotSupported',
       }}
     >
-      <Subtitle1>
+      <div className={styles.onlyUCSDText}>
         At the moment, we only allow email ends with <b>ucsd.edu</b> to sign up!
-      </Subtitle1>
+      </div>
 
       <div className={styles.bottomRowButtons}>
         <Button
           className={styles.tryAgainButton}
           size="secondary"
           variant="wrapper"
-          onClick={async () => {
-            await dispatch(hideUnsupportedDomainPopup());
+          onClick={() => {
+            dispatch(hideUnsupportedDomainPopup());
             dispatch(showReportIssue());
           }}
         >
           <div className={styles.reportIssue}>
-            <div>Report an issue</div>
+            <Subtitle2>Report an issue</Subtitle2>
           </div>
         </Button>
 
         <Button
           className={styles.tryAgainButton}
           size="secondary"
-          onClick={async () => {
-            await dispatch(hideUnsupportedDomainPopup());
+          onClick={() => {
+            dispatch(hideUnsupportedDomainPopup());
             dispatch(showLogin());
           }}
         >

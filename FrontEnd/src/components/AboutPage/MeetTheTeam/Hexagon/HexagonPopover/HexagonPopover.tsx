@@ -28,8 +28,13 @@ const HexagonPopover: FunctionComponent<HexagonPopoverProps> = ({
   // TODO `className` is the wrong prop to use for the tooltip div wrapper (i think...)
   // TODO either need to pass a classname thorugh to the popper wrapper OR allow for a custom popper wrapper
   return (
-    <Tooltip className={styles.tooltip} title={<div></div>} hideInfoIcon>
-      {children}
+    <Tooltip
+      className={styles.tooltip}
+      title={<div></div>}
+      hideInfoIcon
+      isSingleLine
+    >
+      {children as React.ReactElement}
     </Tooltip>
   );
 };

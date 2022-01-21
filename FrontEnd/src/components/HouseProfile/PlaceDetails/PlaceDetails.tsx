@@ -45,7 +45,7 @@ const RentAndHouseDetails: FunctionComponent<RentAndHouseDetailsProps> = ({
   <Row className={styles.detailTileWrapper}>
     {Object.entries(details).map(([label, value]) => (
       <Col xs={xs} sm={sm} md={md} lg={lg}>
-        <Subtitle2>{label}</Subtitle2>
+        <div className={styles.subsectionTitle}>{label}</div>
         <Body2>{value}</Body2>
       </Col>
     ))}
@@ -99,19 +99,15 @@ const PlaceDetails: FunctionComponent<PlaceDetailsProps> = ({ roomId }) => {
 
   const AmenitiesSection: FunctionComponent = () => (
     <Row className={styles.amenitiesWrapper}>
-      <Subtitle2>Amenities</Subtitle2>
-
+      <div className={styles.subsectionTitle}>Amenities</div>
       <Container className={styles_parent.container}>
         <Row>
-          <Col xs={9}>
+          <Col>
             <Body2>
               <Row>
                 <Amenities
                   selected={facility}
-                  sm={6}
-                  md={4}
-                  lg={3}
-                  xl={4}
+                  sm={4}
                   className={styles.amenities}
                   colClassName={styles.amenity}
                   extraContent={

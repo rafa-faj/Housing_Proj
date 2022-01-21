@@ -14,7 +14,7 @@
   padding: 1rem;
 }
 
-.modalGraphic {
+.ModalGraphic {
   display: flex;
   justify-content: center;
 }
@@ -29,15 +29,13 @@
 
 .caption {
   margin-bottom: 2rem;
+  text-align: center;
+
+  @include font-type('body 3');
 }
 
-// TODO need to add appropriate breakpoints for different screen sizes
 .md {
-  width: 450px;
-
-  @include bp-down('sm') {
-    width: 90%;
-  }
+  width: 30rem;
 }
 
 .lg {

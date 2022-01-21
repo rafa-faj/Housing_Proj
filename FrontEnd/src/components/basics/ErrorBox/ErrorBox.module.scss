@@ -1,0 +1,8 @@
+.error {
+  border: $default-border-width solid $error-color !important;
+  border-radius: $x-border-radius;
+  position: absolute; // parent that uses this components need to be set relative
+  width: 100%;
+  height: 100%;
+  z-index: 1; // other components that need to use the error box needs to set z-index bigger than this, e.g. 2
+}

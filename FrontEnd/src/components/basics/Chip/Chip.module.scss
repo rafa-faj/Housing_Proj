@@ -1,0 +1,48 @@
+$svg-dimension: 0.8125rem;
+
+.chip {
+  display: flex;
+  border-radius: $lg-border-radius;
+  padding: 0.5625rem 1rem;
+  align-items: center;
+
+  @include font-type('body 5');
+
+  > div {
+    margin-left: 0.5rem;
+
+    &:nth-child(1) {
+      margin-left: 0 !important;
+    }
+  }
+}
+
+.chipWithIcon {
+  padding: 0.25rem 0.75rem;
+}
+
+.cross {
+  @include svg-fill(black, $svg-dimension, $svg-dimension);
+}
+
+.opacity {
+  color: $disabled-medium-emphasis-color;
+
+  @include svg-fill(
+    $disabled-medium-emphasis-color,
+    $svg-dimension,
+    $svg-dimension
+  );
+}
+
+.default {
+  background-color: $secondary-200-color;
+}
+
+.hover {
+  background-color: $secondary-100-color;
+}
+
+.disabled {
+  background-color: $secondary-50-color;
+}

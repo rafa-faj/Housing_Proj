@@ -1,20 +1,17 @@
-import React, { useEffect, useState, FunctionComponent } from 'react';
 import { Button, Modal } from '@basics';
-import { Icon } from '@icons';
-import { ZodSchema, ZodIssue } from 'zod';
-import { miscIcons } from '@icons';
-import styles from './WizardForm.module.scss';
+import { Icon, miscIcons } from '@icons';
 import cn from 'classnames';
+import React, { useEffect, useState } from 'react';
+import { ZodIssue, ZodSchema } from 'zod';
+import styles from './WizardForm.module.scss';
 
-type ValidationError =
+export type ValidationError =
   | { success: true; error: undefined; data?: string }
   | { success: false; error: ZodIssue; data?: string }; // TODO maybe make data just undefined here
 
-type ValidationErrors<P> = Partial<
-  {
-    [key in keyof P]: ValidationError;
-  }
->;
+export type ValidationErrors<P> = Partial<{
+  [key in keyof P]: ValidationError;
+}>;
 
 /**
  * Each child component will be given:
@@ -24,7 +21,7 @@ type ValidationErrors<P> = Partial<
  * // TODO
  */
 type SubmitForm = () => Promise<{ success: boolean; message?: string }>;
-type SetStore<P> = (value: Partial<P>) => void;
+export type SetStore<P> = (value: Partial<P>) => void;
 export type WizardFormStep<P> = Partial<P> & {
   exitWizardForm: () => void;
   nextStep: () => void;
@@ -35,6 +32,15 @@ export type WizardFormStep<P> = Partial<P> & {
   setStore: SetStore<P>;
 };
 
+export type customModifierFunc<P> = (
+  curIndex: number,
+  success: boolean,
+  storeValues: Partial<P>,
+  validations?: ValidationErrors<P> | undefined,
+) => {
+  [k: string]: { success: boolean; error: ZodIssue | undefined } | undefined;
+};
+
 // T is whatever is in the store
 interface WizardFormProps<T = {}> {
   children: React.ReactElement[]; // the steps of the form (needs to be of length at least 0)
@@ -43,11 +49,17 @@ interface WizardFormProps<T = {}> {
   title: string;
   pageTitles?: string[];
   pageNavigationIcons?: Icon[];
-  onSubmit: (store: T) => boolean;
+  onSubmit: (store: T) => boolean | Promise<boolean>;
   initialStore: Partial<T>[];
   schemas: ZodSchema<Partial<T>>[];
   lastButtonAsInactiveArrow?: boolean;
   lastButtonText?: string;
+  // External function for parent for utilizing internal store and will be called during set store.
+  parentOnStoreChange?: (s: Partial<T>[]) => void;
+  // External clean up function to be invoked when defined, e.g. when a post request succeeds.
+  // This also indicates the current store and index needs to be reset.
+  // TODO: decouple this with default cleanup as well.
+  externalCleanUp?: () => void;
 }
 
 // Not using FunctionComponent as a work around to allow for generics for Wizard Form. Do not do this normally.
@@ -66,6 +78,8 @@ const WizardForm = <T extends {}>({
   schemas,
   lastButtonAsInactiveArrow,
   lastButtonText = 'Submit',
+  parentOnStoreChange,
+  externalCleanUp,
 }: WizardFormProps<T>) => {
   const [curIndex, setCurIndex] = useState<number>(0);
   const [isFirst, setIsFirst] = useState<boolean>(true);
@@ -80,6 +94,14 @@ const WizardForm = <T extends {}>({
   const [validations, setValidations] = useState<
     Array<ValidationErrors<Partial<T>> | undefined>
   >(children.map(() => undefined));
+
+  useEffect(() => {
+    if (externalCleanUp) {
+      setCompleteStore(initialStore);
+      setCurIndex(0);
+      externalCleanUp();
+    }
+  }, [externalCleanUp]);
 
   useEffect(() => {
     setCurStep(children[curIndex]);
@@ -116,19 +138,19 @@ const WizardForm = <T extends {}>({
    * @param schema is the schema used to validate toParse
    * @param toParse holds the values that should be validated/parsed
    * @param toValidate is an array of keys within toParse that should be validated/parsed
+   * @param idxToValidate is the index of the page to validate
    * @returns
    */
   const validatePickedValues = <P extends Partial<T>>(
     schema: ZodSchema<P>,
     toParse: P,
     toValidate: Array<keyof P>,
+    idxToValidate: number,
   ): ValidationErrors<P> => {
     const parseResult = schema.safeParse(toParse);
-    const { success } = parseResult;
     const initialValidationErrors: ValidationErrors<P> = {
-      ...validations[curIndex],
+      ...validations[idxToValidate],
     };
-
     // extractFirstError returns the first error from all the errors in a field `key` (if there are any errors in that field)
     const extractFirstError = (
       fieldErrors: { [k: string]: string[] },
@@ -145,15 +167,27 @@ const WizardForm = <T extends {}>({
       prevErrors: ValidationErrors<P>,
       curKey: keyof P,
     ): ValidationErrors<P> => {
-      // use parseResult.success instead of success because TypeScript can't compute discriminated unions from destructured values
-      const error = parseResult.success
-        ? undefined
-        : extractFirstError(parseResult.error.formErrors.fieldErrors, curKey);
-
-      return { ...prevErrors, [curKey]: { success, error } };
+      // Use parseResult.success instead of success because TypeScript can't compute discriminated unions from destructured values
+      let error;
+      if (!parseResult.success) {
+        const fieldError = extractFirstError(
+          parseResult.error.formErrors.fieldErrors,
+          curKey,
+        );
+        // This formError assumes there is only one refine check in the schema.
+        // Multiple schemas might need to be defined and merged for multiple refines.
+        const formError = parseResult.error.formErrors.formErrors[0];
+        error = fieldError || formError;
+      }
+      return { ...prevErrors, [curKey]: { success: !!!error, error } };
     };
 
-    return toValidate.reduce(combineErrorsReducer, initialValidationErrors);
+    const validatedResults = toValidate.reduce(
+      combineErrorsReducer,
+      initialValidationErrors,
+    );
+
+    return validatedResults;
   };
 
   /**
@@ -167,6 +201,7 @@ const WizardForm = <T extends {}>({
       schemas[i],
       store[i],
       Object.keys(store[i]) as (keyof T)[],
+      i,
     );
 
     setValidations({
@@ -218,7 +253,6 @@ const WizardForm = <T extends {}>({
    */
   const nextStep = () => {
     const dataIsValid = validateCurrent();
-
     if (dataIsValid && curIndex + 1 < children.length) {
       setCurIndex(curIndex + 1);
     }
@@ -250,7 +284,6 @@ const WizardForm = <T extends {}>({
       ...pre,
       ...cur,
     }));
-
     const success = await onSubmit(combined as T);
     if (success) exitWizardForm();
     return { success };
@@ -266,6 +299,10 @@ const WizardForm = <T extends {}>({
     const changedValues = { ...store[curIndex], ...value };
     setCompleteStore({ ...store, [curIndex]: changedValues });
 
+    if (parentOnStoreChange) {
+      parentOnStoreChange({ ...store, [curIndex]: changedValues });
+    }
+
     // get the changed edited fields and set that they were changed
     const changedEditedFields = (Object.keys(value) as Array<keyof T>).reduce<
       Partial<{ [key in keyof T]: boolean }>
@@ -279,6 +316,7 @@ const WizardForm = <T extends {}>({
       schemas[curIndex],
       changedValues,
       Object.keys(changedEditedFields) as (keyof T)[],
+      curIndex,
     );
 
     setValidations({
@@ -389,9 +427,12 @@ const WizardForm = <T extends {}>({
   );
 
   return (
-    <Modal open={show} onClose={onHide} className={styles.modal}>
-      <TopBar />
-
+    <Modal
+      open={show}
+      onClose={onHide}
+      className={styles.modal}
+      topBar={<TopBar />}
+    >
       <div className={styles.middle}>
         {pageTitles && (
           <div className={styles.pageTitle}>

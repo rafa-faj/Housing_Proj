@@ -19,3 +19,7 @@
 .logoutText {
   color: $background-blur-dark;
 }
+
+.postImgWrap {
+  @include svg-fill($primary-200-color, 2.5rem, 2.5rem);
+}

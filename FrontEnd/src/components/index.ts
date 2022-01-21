@@ -30,3 +30,14 @@ export * from './NewUserSetup';
 
 export { default as Profile } from './Profile';
 export * from './Profile';
+
+export { default as StudentHouseProfile } from './StudentHouseProfile';
+export * from './StudentHouseProfile';
+
+export { default as StudentHousePost } from './StudentHousePost';
+export * from './StudentHousePost';
+
+export { default as MakeAPost } from './MakeAPost';
+export * from './MakeAPost';
+
+export * from './ga';

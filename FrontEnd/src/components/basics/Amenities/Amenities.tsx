@@ -1,15 +1,12 @@
-import React, {
-  FunctionComponent,
-  DetailedHTMLProps,
-  HTMLAttributes,
-} from 'react';
+import React, { FunctionComponent } from 'react';
 import { amenityIcons, IconProps } from '@icons';
 import Col, { ColProps } from 'react-bootstrap/Col';
 import styles from './Amenities.module.scss';
 import cn from 'classnames';
+import { Body2 } from '@basics';
 
 export const amenityToIcon = {
-  'Air Conditioning': amenityIcons.AC,
+  'A/C': amenityIcons.CeilingFan,
   'Balcony / Patio': amenityIcons.BalconyPatio,
   Bath: amenityIcons.Bath,
   Calendar: amenityIcons.Calendar,
@@ -25,16 +22,20 @@ export const amenityToIcon = {
   'Walk-in Closets': amenityIcons.Hanger,
   'Hardwood Floor': amenityIcons.HardwoodFloor,
   'Parking Garage': amenityIcons.IndoorParking,
+  'Indoor Parking': amenityIcons.IndoorParking,
   'Indoor Laundry': amenityIcons.IndoorWasher,
   'In-unit Laundry': amenityIcons.IndoorWasher,
   'On-site Movie Theater': amenityIcons.MovieTheater,
   'On-site Storage': amenityIcons.OnsiteStorage,
   'Outdoor Parking': amenityIcons.OutdoorParking,
   Parking: amenityIcons.Parking,
+  'Pet Friendly': amenityIcons.PetsFriendly,
   'Pets Friendly': amenityIcons.PetsFriendly,
   'Pool Tables': amenityIcons.Pool,
   'Common Space': amenityIcons.SharedCommonSpace,
   'Smoke Free': amenityIcons.SmokeFree,
+  'Living Room': amenityIcons.SharedCommonSpace,
+  'No Smoking': amenityIcons.SmokeFree,
   'Swimming Pool': amenityIcons.SwimmingPool,
   'Tennis Courts': amenityIcons.TennisCourt,
 };
@@ -104,7 +105,8 @@ const Amenities: FunctionComponent<AmenitiesProps> = ({
       {selected.map((s) => {
         const SelectedIcon = amenityToIcon[s];
         const Icon = () => (variant !== 'onlyLabel' ? <SelectedIcon /> : null);
-        const Label = () => (variant !== 'onlyIcon' ? <div>{s}</div> : null);
+        const Label = () =>
+          variant !== 'onlyIcon' ? <Body2 className="ml-1">{s}</Body2> : null;
 
         return (
           // TODO should return the icon wrapper... but not sure what the type should be

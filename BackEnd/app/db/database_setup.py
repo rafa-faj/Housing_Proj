@@ -13,8 +13,10 @@ Base = declarative_base()
 
 class User(Base):
     __tablename__ = "user"
-    __user_write_permission_field__ = {"phone","name","school_year","major","description"}
-    __user_read_permission_field__ = {"email","phone","name","school_year","major","description"}
+    __user_write_permission_field__ = {
+        "phone", "name", "school_year", "major", "description"}
+    __user_read_permission_field__ = {
+        "email", "phone", "name", "school_year", "major", "description"}
 
     id = Column(Integer, primary_key=True)
     email = Column(String(250), nullable=False)
@@ -43,21 +45,25 @@ class User(Base):
 
 class Room(Base):
     __tablename__ = "room"
-    __user_write_permission_field__ = {"room_type","price_per_month","negotiable","room_description","num_beds","num_baths"}
-    __user_read_permission_field__ = {"id","date_created","room_type","price_per_month","negotiable","room_description","num_beds","num_baths","user_id"}
+    __user_write_permission_field__ = {
+        "room_type", "rent", "negotiable", "place_description", "num_beds", "num_baths", "utility", "roommate"}
+    __user_read_permission_field__ = {"id", "date_created", "room_type", "rent",
+                                      "negotiable", "place_description", "num_beds", "num_baths", "user_id", "utility", "roommate"}
 
     id = Column(Integer, primary_key=True)
     date_created = Column(DateTime, nullable=False)
     user_id = Column(Integer, ForeignKey("user.id"))
     room_type = Column(String(250), nullable=False)
-    price_per_month = Column(Integer, nullable=False)
-    negotiable = Column(Boolean, nullable=False)
-    room_description = Column(String(1000), nullable=False)
+    rent = Column(Integer, nullable=False)
+    negotiable = Column(Boolean, nullable=True)
+    place_description = Column(String(1000), nullable=False)
     move_in_id = Column(Integer, ForeignKey("move_in.id"))
     address_id = Column(Integer, ForeignKey("address.id"))
     stay_period_id = Column(Integer, ForeignKey("stay_period.id"))
-    num_beds = Column(Integer, nullable=False)
-    num_baths = Column(FLOAT, nullable=False)
+    num_bed = Column(Integer, nullable=False)
+    num_bath = Column(FLOAT, nullable=False)
+    utility = Column(Integer)
+    looking_for_count = Column(Integer, nullable=False)
     house_attribute = relationship("House_Attribute", backref="room")
     move_in = relationship("Move_In", backref="room")
     favorite = relationship("Favorite", backref="room")
@@ -71,22 +77,25 @@ class Room(Base):
             "id": self.id,
             "user_id": self.user_id,
             "room_type": self.room_type,
-            "price_per_month": self.price_per_month,
+            "rent": self.rent,
             "negotiable": self.negotiable,
-            "room_description": self.room_description,
-            "num_beds": self.num_beds,
-            "num_baths": self.num_baths
+            "place_description": self.place_description,
+            "num_bed": self.num_bed,
+            "num_bath": self.num_bath,
+            "utility": self.utility,
+            "looking_for_count": self.looking_for_count,
         }
 
 
 class Address(Base):
     __tablename__ = "address"
-    __user_write_permission_field__ = {"address"}
-    __user_read_permission_field__ = {"distance","address"}
+    __user_write_permission_field__ = {"address", "place_name"}
+    __user_read_permission_field__ = {"distance", "address", "place_name"}
 
     id = Column(Integer, primary_key=True)
     distance = Column(String(250), nullable=False)
     address = Column(String(250), nullable=False)
+    place_name = Column(String(250), nullable=False)
 
     @property
     def serialize(self):
@@ -95,51 +104,52 @@ class Address(Base):
             "id": self.id,
             "distance": self.distance,
             "address": self.address,
+            "place_name": self.place_name
         }
 
 
 class Stay_Period(Base):
     __tablename__ = "stay_period"
-    __user_write_permission_field__ = {"from_month","to_month"}
-    __user_read_permission_field__ = {"from_month","to_month"}
+    __user_write_permission_field__ = {"avail_time", "until_time"}
+    __user_read_permission_field__ = {"avail_time", "until_time"}
 
     id = Column(Integer, primary_key=True)
-    from_month = Column(DateTime, nullable=False)
-    to_month = Column(DateTime, nullable=False)
+    avail_time = Column(DateTime, nullable=False)
+    until_time = Column(DateTime, nullable=False)
 
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
             "id": self.id,
-            "from_month": self.from_month,
-            "to_month": self.to_month,
+            "avail_time": self.avail_time,
+            "until_time": self.until_time,
         }
 
 
 class Move_In(Base):
     __tablename__ = "move_in"
-    __user_write_permission_field__ = {"early_date","late_date"}
-    __user_read_permission_field__ = {"early_date","late_date"}
+    __user_write_permission_field__ = {"start_date", "end_date"}
+    __user_read_permission_field__ = {"start_date", "end_date"}
 
     id = Column(Integer, primary_key=True)
-    early_date = Column(DateTime, nullable=False)
-    late_date = Column(DateTime, nullable=False)
+    start_date = Column(DateTime, nullable=True)
+    end_date = Column(DateTime, nullable=True)
 
     @property
     def serialize(self):
         """Return object data in easily serializeable format"""
         return {
             "id": self.id,
-            "early_date": self.early_date,
-            "late_date": self.late_date,
+            "start_date": self.start_date,
+            "end_date": self.end_date,
         }
 
 
 class House_Attribute(Base):
     __tablename__ = "house_attribute"
     __user_write_permission_field__ = {"attribute_name"}
-    __user_read_permission_field__ = {"room_id","attribute_name"}
+    __user_read_permission_field__ = {"room_id", "attribute_name"}
 
     id = Column(Integer, primary_key=True)
     room_id = Column(Integer, ForeignKey("room.id"))
@@ -160,7 +170,7 @@ class House_Attribute(Base):
 class Attribute(Base):
     __tablename__ = "attribute"
     __user_write_permission_field__ = {}
-    __user_read_permission_field__ = {"name","category"}
+    __user_read_permission_field__ = {"name", "category"}
 
     name = Column(String(250), primary_key=True)
     category = Column(String(250), nullable=False)
@@ -177,7 +187,7 @@ class Attribute(Base):
 class Favorite(Base):
     __tablename__ = "favorite"
     __user_write_permission_field__ = {}
-    __user_read_permission_field__ = {"room_id","user_id"}
+    __user_read_permission_field__ = {"room_id", "user_id"}
 
     id = Column(Integer, primary_key=True)
     room_id = Column(Integer, ForeignKey("room.id"))
@@ -193,13 +203,19 @@ class Favorite(Base):
         }
 
 
+def createDBMysql(db_path, db_name):
+    # mysql server must be running for this to work
+    engine = create_engine(db_path)
+    engine.execute(f"CREATE DATABASE {db_name}")  # create db
+    engine.execute(f"USE {db_name}")  # select new db
+    Base.metadata.create_all(engine)
+
+
 def createDB(db_path):
     """
     create a DB given the database schema
     return True if the db is created successfully
     """
-    engine = create_engine(db_path)
-    Base.metadata.create_all(engine)
     try:
         engine = create_engine(db_path)
         Base.metadata.create_all(engine)
@@ -210,3 +226,4 @@ def createDB(db_path):
 
 if __name__ == "__main__":
     print(createDB("sqlite:///housing.db"))
+    # print(createDBMysql("mysql://root@localhost", "housingtest"))

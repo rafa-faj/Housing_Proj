@@ -50,7 +50,7 @@ $modal-default-margin: map-get($spacers, 3);
 
 // Changing the indicator of the carousel to dot instead of a default rectangle
 .carousel-indicators li {
-  background-color: #E7936D;
+  background-color: #e7936d;
   //background-image: url('../../icons/carousel/dotCarousel.svg');
   height: 10px;
   width: 10px;
@@ -69,6 +69,17 @@ $modal-default-margin: map-get($spacers, 3);
 }
 
 // get rid of default margin for these
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
   margin: 0;
 }

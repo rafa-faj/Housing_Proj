@@ -1,15 +1,15 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import { Button, Subtitle1 } from '@basics';
+import { Icon as IconType, miscIcons } from '@icons';
 import {
   default as MaterialUIModal,
   ModalProps as MaterialUIModalProps,
 } from '@material-ui/core/Modal';
 import cn from 'classnames';
+import React, { FunctionComponent, ReactElement } from 'react';
 import styles from './Modal.module.scss';
-import { Subtitle1, Button } from '@basics';
-import { Icon as IconType, miscIcons } from '@icons';
 
-type ModalGraphicImage = { src: string; alt?: string };
-type ModalGraphicIcon = { icon: IconType; alt?: string };
+export type ModalGraphicImage = { src: string; alt?: string };
+export type ModalGraphicIcon = { icon: IconType; alt?: string };
 
 const isModalGraphicImage = (
   t: ModalGraphicImage | ModalGraphicIcon,
@@ -24,17 +24,19 @@ interface ModalProps
   size?: 'md' | 'lg';
   title?: string;
   caption?: string;
-  modalGraphic?: string | ModalGraphicImage | ModalGraphicIcon;
+  ModalGraphic?: string | ModalGraphicImage | ModalGraphicIcon;
   onClose?: (
     event: {},
     reason: 'backdropClick' | 'escapeKeyDown' | 'exitButtonClick',
   ) => any;
+  topBar?: ReactElement; // whether we need the default cross button
+  parentClassName?: string;
 }
 
 /**
  * Modal component. Used for popups. size is 'md' (medium) by default
  *
- * Can optionally provide a a modalGraphic, a visual/image for the popup,
+ * Can optionally provide a a ModalGraphic, a visual/image for the popup,
  * a title, displayed under modal graphic (if provided), and a caption,
  * brief explanation of modal.
  *
@@ -47,26 +49,28 @@ interface ModalProps
 const Modal: FunctionComponent<ModalProps> = ({
   title,
   caption,
-  modalGraphic,
+  ModalGraphic,
   children,
   onClose,
   open,
   className,
   size = 'md',
+  topBar,
   // default keepMounted is true (necessary for SSR/nextjs, so that it will be sent to client)
   keepMounted = true,
+  parentClassName,
   ...passedProps
-}) => {
-  return (
-    <MaterialUIModal
-      onClose={onClose}
-      open={open}
-      keepMounted={keepMounted}
-      {...passedProps}
-      className={styles.materialUIModal}
-      disableBackdropClick
-    >
-      <div className={cn(styles.modal, styles[size], className)}>
+}) => (
+  <MaterialUIModal
+    onClose={onClose}
+    open={open}
+    keepMounted={keepMounted}
+    {...passedProps}
+    className={cn(styles.materialUIModal, parentClassName)}
+    disableBackdropClick
+  >
+    <div className={cn(styles.modal, styles[size], className)}>
+      {topBar || (
         <div>
           <Button
             variant="wrapper"
@@ -78,34 +82,32 @@ const Modal: FunctionComponent<ModalProps> = ({
             <miscIcons.orangeX />
           </Button>
         </div>
-        {modalGraphic && (
-          <div className={styles.modalGraphic}>
-            {typeof modalGraphic === 'string' ? (
-              <img src={modalGraphic} />
-            ) : isModalGraphicImage(modalGraphic) ? (
-              <img src={modalGraphic.src} alt={modalGraphic.alt} />
-            ) : (
-              <img src={modalGraphic.icon} alt={modalGraphic.alt} />
-            )}
-          </div>
-        )}
+      )}
+      {ModalGraphic && (
+        <div className={styles.ModalGraphic}>
+          {typeof ModalGraphic === 'string' ? (
+            <img src={ModalGraphic} />
+          ) : isModalGraphicImage(ModalGraphic) ? (
+            <img src={ModalGraphic.src} alt={ModalGraphic.alt} />
+          ) : (
+            <ModalGraphic.icon alt={ModalGraphic.alt} />
+          )}
+        </div>
+      )}
 
-        {title && (
-          <div className={cn(styles.text, styles.title)}>
-            <h4>{title}</h4>
-          </div>
-        )}
+      {title && (
+        <div className={cn(styles.text, styles.title)}>
+          <Subtitle1>{title}</Subtitle1>
+        </div>
+      )}
 
-        {caption && (
-          <Subtitle1 className={cn(styles.text, styles.caption)}>
-            {caption}
-          </Subtitle1>
-        )}
+      {caption && (
+        <div className={cn(styles.text, styles.caption)}>{caption}</div>
+      )}
 
-        {children}
-      </div>
-    </MaterialUIModal>
-  );
-};
+      {children}
+    </div>
+  </MaterialUIModal>
+);
 
 export default Modal;

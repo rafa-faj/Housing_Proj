@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, FunctionComponent } from 'react';
 import { Form } from 'react-bootstrap';
 import * as z from 'zod';
-import { Toggle } from '@basics';
+import { Toggle, ErrorBox } from '@basics';
 import RequiredAsterisk from '@basics/RequiredAsterisk';
 import { Icon } from '@icons';
 import cn from 'classnames';
@@ -32,6 +32,7 @@ interface ToggleGroupProps
   required?: boolean;
   readOnly?: boolean;
   vertical?: boolean;
+  isInvalid?: boolean;
 }
 
 /**
@@ -71,6 +72,7 @@ const ToggleGroup: FunctionComponent<ToggleGroupProps> = ({
   singleSelect,
   hideLabels,
   center,
+  isInvalid,
   onSelect,
   label,
   labelClassName,
@@ -94,6 +96,7 @@ const ToggleGroup: FunctionComponent<ToggleGroupProps> = ({
     <Form.Group
       className={cn(styles.lineUpToggle, { [styles.center]: center })}
     >
+      {(isInvalid || error) && <ErrorBox />}
       {(label || required) && (
         <Form.Label className={cn(styles.label, labelClassName)}>
           {label} {required && <RequiredAsterisk />}
@@ -143,12 +146,6 @@ const ToggleGroup: FunctionComponent<ToggleGroupProps> = ({
           );
         })}
       </div>
-
-      {error && (
-        <Form.Label className={cn(styles.error, errorClassName)}>
-          {error}
-        </Form.Label>
-      )}
     </Form.Group>
   );
 };

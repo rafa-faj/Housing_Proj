@@ -32,7 +32,7 @@ const Contact: FunctionComponent<ContactProps> = ({ roomId }) => {
       </div>
 
       <div className={styles.textWrapper}>
-        <Body1 className={styles.title}>Contact {name}</Body1>
+        <div className={styles.title}>Contact {name}</div>
 
         <Body2 className={styles.contactInfo}>
           <contactIcons.phone /> {phone}
@@ -41,7 +41,7 @@ const Contact: FunctionComponent<ContactProps> = ({ roomId }) => {
         <div className={styles.contactInfo}>
           <Link href={`mailto:${email}`} external>
             <Body2>
-              <contactIcons.email /> Email
+              <contactIcons.email />Email
             </Body2>
           </Link>
         </div>
@@ -49,7 +49,7 @@ const Contact: FunctionComponent<ContactProps> = ({ roomId }) => {
         <div className={styles.contactInfo}>
           <Link href={website} external>
             <Body2>
-              <contactIcons.internetGlobe /> Website
+              <contactIcons.internetGlobe />Website
             </Body2>
           </Link>
         </div>
