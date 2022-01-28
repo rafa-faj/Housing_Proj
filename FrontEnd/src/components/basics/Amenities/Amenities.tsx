@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { amenityIcons, IconProps } from '@icons';
 import Col, { ColProps } from 'react-bootstrap/Col';
 import styles from './Amenities.module.scss';
+import { AmenityIcon } from '@basics/Amenities';
 import cn from 'classnames';
 import { Body2 } from '@basics';
 
@@ -103,8 +104,8 @@ const Amenities: FunctionComponent<AmenitiesProps> = ({
   return (
     <div className={cn(styles.wrapperDefault, className)}>
       {selected.map((s) => {
-        const SelectedIcon = amenityToIcon[s];
-        const Icon = () => (variant !== 'onlyLabel' ? <SelectedIcon /> : null);
+        const selectedIcon = <AmenityIcon amenity={s} />;
+        const Icon = () => (variant !== 'onlyLabel' ? selectedIcon : null);
         const Label = () =>
           variant !== 'onlyIcon' ? <Body2 className="ml-1">{s}</Body2> : null;
 
