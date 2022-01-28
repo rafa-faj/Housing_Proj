@@ -1,4 +1,4 @@
-import { FilledImage } from '@basics';
+import { FilledImage, Link } from '@basics';
 import { RemoveLayoutMargin } from '@components';
 import Button from '@components/basics/Button';
 import { TriggerPageView } from '@components/ga';
@@ -185,6 +185,38 @@ const PostYourPlace: FunctionComponent = () => {
   );
 };
 
+const OurMission: FunctionComponent = () => {
+  return (
+    <>
+      <Row className={styles.ourMissonWrapper}>
+        <Col className={styles.ourMissionTextCol} xl={5}>
+          <div className={styles.ourMissionTextColHeader}>Our Mission</div>
+          <div className={styles.ourMissionTextColDescription}>
+            {`To reduce the hassle of living off-campus and dealing with real-world problems for students.`}
+          </div>
+          <Link href="/about" undecorated>
+            <Button
+              variant="outline"
+              className={styles.ourMissionTextColButton}
+            >
+              Learn About Homehub
+            </Button>
+          </Link>
+        </Col>
+        <Col xl={7}>
+          <FilledImage
+            src={landingIcons.ourMission}
+            className={styles.ourMissionImage}
+          />
+        </Col>
+      </Row>
+      <Row className={styles.backgroundHouse}>
+        <landingIcons.backgroundHouse />
+      </Row>
+    </>
+  );
+};
+
 const Landing: FunctionComponent = () => {
   return (
     <RemoveLayoutMargin>
@@ -194,6 +226,8 @@ const Landing: FunctionComponent = () => {
         <HomePageCard />
 
         <PostYourPlace />
+
+        <OurMission />
       </div>
     </RemoveLayoutMargin>
   );

@@ -3,7 +3,7 @@
   background-color: white;
   padding-top: 3rem;
   padding-bottom: 3rem;
-  margin-top: $filter-top-margin;
+  padding-top: $filter-top-margin;
 
   @include bp-down('sm') {
     padding: 3rem 0;

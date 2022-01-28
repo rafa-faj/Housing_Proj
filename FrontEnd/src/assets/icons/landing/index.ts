@@ -7,3 +7,5 @@ export { default as community } from './community.svg';
 export { default as bannerGeisel } from './landingBanner_geisel.svg';
 export { default as cardHouse } from './cardHouse.png';
 export { default as cardPeople } from './cardPeople.png';
+export { default as backgroundHouse } from './background-house.svg';
+export { default as ourMission } from './our-mission.png';
