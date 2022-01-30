@@ -25,6 +25,7 @@ export { default as footerStart } from './footerStart.svg';
 export { default as GoogleLogo } from './GoogleLogo.svg';
 export { default as check } from './check.svg';
 export { default as dollar } from './dollar.svg';
+export { default as fallback } from './fallback.svg';
 export { default as alert } from './alert.svg';
 export { default as valid } from './valid.svg';
 export { default as copy } from './copy.svg';
