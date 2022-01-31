@@ -42,7 +42,7 @@ const HomehubWelcomeInfo: FunctionComponent = () => {
 const HomePageCard: FunctionComponent = () => {
   return (
     <Row className={styles.homePageCardRow}>
-      <Col lg={12} xl={5} className={styles.homePageCardCol}>
+      <Col md={12} lg={5} className={styles.homePageCardCol}>
         <div className={styles.homePageCard}>
           <FilledImage
             alt={`house illustration`}
@@ -62,7 +62,7 @@ const HomePageCard: FunctionComponent = () => {
         </div>
       </Col>
       <Col className={styles.middleGap} />
-      <Col lg={12} xl={5} className={styles.homePageCardCol}>
+      <Col md={12} lg={5} className={styles.homePageCardCol}>
         <div className={styles.homePageCard}>
           <FilledImage
             alt={`people illustration`}
@@ -87,97 +87,80 @@ const HomePageCard: FunctionComponent = () => {
   );
 };
 
+interface postStepProps {
+  stepNumber: number;
+  stepDescription: string;
+}
+
 const PostYourPlace: FunctionComponent = () => {
   const [currentPostStep, setCurrentPostStep] = useState(1);
+  const isCurrentStep = (step: number) => step === currentPostStep;
 
   type HowToPostKey = keyof typeof howToPost;
 
+  const PostStep: FunctionComponent<postStepProps> = ({
+    stepNumber,
+    stepDescription,
+  }) => (
+    <>
+      <div className={styles.postStepNormalScreen}>
+        <div className={styles.postStepNormalScreenDescription}>
+          <span
+            className={styles.postStepNormalScreenText}
+          >{`${stepNumber} - ${stepDescription}`}</span>
+        </div>
+        <div className={cn(styles.stepImageNormalScreen)}>
+          <FilledImage
+            src={howToPost[`step${stepNumber}` as HowToPostKey]}
+            className={styles.stepImage}
+          />
+        </div>
+      </div>
+      <div
+        className={styles.postStepLargeScreen}
+        onMouseEnter={() => setCurrentPostStep(stepNumber)}
+      >
+        <div
+          className={cn(styles.postStepLargeScreenDescription, {
+            [styles.postStepLargeScreenDescriptionActive]:
+              isCurrentStep(stepNumber),
+          })}
+        >
+          <span
+            className={cn(styles.postStepLargeScreenText, {
+              [styles.postStepLargeScreenTextActive]: isCurrentStep(stepNumber),
+            })}
+          >
+            {`${stepNumber} - ${stepDescription}`}
+          </span>
+        </div>
+        <div className={styles.postStepLargeScreenArrowWrapper}>
+          <span
+            className={cn(styles.postStepLargeScreenArrow, {
+              [styles.currentStep]: isCurrentStep(stepNumber),
+            })}
+          >
+            <miscIcons.orangeArrow />
+          </span>
+        </div>
+      </div>
+    </>
+  );
+
   return (
     <div className={styles.postPlace}>
-      <h3> Post Your Place</h3>
-      <Row>
-        <Col xs={5}>
-          <div
-            className={styles.postStep}
-            onMouseEnter={() => setCurrentPostStep(1)}
-          >
-            <span
-              className={cn({
-                [styles.postStepText]: 1 === currentPostStep,
-              })}
-            >
-              1 - Start with school email
-            </span>
-            <span
-              className={cn(styles.postStepArrow, {
-                [styles.currentStep]: 1 === currentPostStep,
-              })}
-            >
-              <miscIcons.orangeArrow />
-            </span>
-          </div>
-          <div
-            className={styles.postStep}
-            onMouseEnter={() => setCurrentPostStep(2)}
-          >
-            <span
-              className={cn({
-                [styles.postStepText]: 2 === currentPostStep,
-              })}
-            >
-              1 - Start with school email
-            </span>
-            <span
-              className={cn(styles.postStepArrow, {
-                [styles.currentStep]: 2 === currentPostStep,
-              })}
-            >
-              <miscIcons.orangeArrow />
-            </span>
-          </div>
-          <div
-            className={styles.postStep}
-            onMouseEnter={() => setCurrentPostStep(3)}
-          >
-            <span
-              className={cn({
-                [styles.postStepText]: 3 === currentPostStep,
-              })}
-            >
-              1 - Start with school email
-            </span>
-            <span
-              className={cn(styles.postStepArrow, {
-                [styles.currentStep]: 3 === currentPostStep,
-              })}
-            >
-              <miscIcons.orangeArrow />
-            </span>
-          </div>
-          <div
-            className={styles.postStep}
-            onMouseEnter={() => setCurrentPostStep(4)}
-          >
-            <span
-              className={cn({
-                [styles.postStepText]: 4 === currentPostStep,
-              })}
-            >
-              1 - Start with school email
-            </span>
-            <span
-              className={cn(styles.postStepArrow, {
-                [styles.currentStep]: 4 === currentPostStep,
-              })}
-            >
-              <miscIcons.orangeArrow />
-            </span>
-          </div>
+      <h3 className={styles.stepsHeading}> Post Your Place</h3>
+      <Row className={styles.stepsWrapper}>
+        <Col md={5}>
+          <PostStep stepNumber={1} stepDescription="Start with school email" />
+          <PostStep stepNumber={2} stepDescription="Introduce your place" />
+          <PostStep stepNumber={3} stepDescription="Preview and post" />
+          <PostStep stepNumber={4} stepDescription="Contact via phone/email" />
         </Col>
         <Col>
           <FilledImage
             src={howToPost[`step${currentPostStep}` as HowToPostKey]}
-            className={styles.stepImage}
+            className={cn(styles.stepImage, styles.stepImageLargeScreen)}
           />
         </Col>
       </Row>

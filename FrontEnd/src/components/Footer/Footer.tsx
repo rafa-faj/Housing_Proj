@@ -11,9 +11,9 @@ import { miscIcons } from '@icons';
 
 const FirstColumn: FunctionComponent = () => {
   return (
-    <div className={cn(styles.marginBottomProvider)}>
-      <Link href="/housing" undecorated>
-        <miscIcons.newLogo />
+    <div className={styles.marginBottomProvider}>
+      <Link href="/housing" undecorated className={styles.footerLogoWrapper}>
+        <miscIcons.newLogo className={styles.logo} />
       </Link>
       <div className={styles.logoTextWrap}>
         <div className={styles.logoText}>By Students</div>

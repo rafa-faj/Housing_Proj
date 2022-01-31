@@ -35,9 +35,9 @@ const NavBar: FunctionComponent = () => {
   return (
     <Navbar sticky="top" className={`${styles.wrapper} p-0 m-0 mb-4`}>
       <div className={styles.container}>
-        <div className="mr-auto">
+        <div className={styles.imageContainer}>
           <a href="/housing">
-            <landingIcons.newLogo className={styles.giLogo} />
+            <landingIcons.newLogo className={styles.logo} />
           </a>
         </div>
         <Row className="align-items-center">

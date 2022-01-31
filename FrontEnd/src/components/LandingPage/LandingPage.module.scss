@@ -25,7 +25,7 @@
 }
 
 .logo {
-  min-width: 330px;
+  min-width: 250px;
   max-width: 800px;
   width: 38vw;
   height: auto;
@@ -75,10 +75,10 @@ div.homePageCardRow {
 }
 
 .homePageCardCol {
-  height: 30vh;
+  min-height: 600px;
 
-  @include bp-down('lg') {
-    height: 600px;
+  @include bp-down('xl') {
+    height: fit-content;
     margin-bottom: 1.5rem;
   }
 
@@ -89,7 +89,7 @@ div.homePageCardRow {
 
 .homePageCard {
   left: 0;
-  top: 50%;
+  top: 10%;
   background-color: white;
   box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.18);
   border-radius: 8px;
@@ -101,7 +101,7 @@ div.homePageCardRow {
   &:hover {
     @include bp-up('md') {
       left: 32px;
-      top: calc(50% - 32px);
+      top: calc(10% - 32px);
     }
   }
 
@@ -110,13 +110,21 @@ div.homePageCardRow {
   }
 
   @include bp-down('xl') {
-    width: 80vw;
-    position: relative;
+    width: 40vw;
     margin: auto;
   }
+
   @include bp-down('md') {
-    width: auto;
-    top: 20%;
+    position: relative;
+    width: 42vw;
+  }
+
+  @media only screen and (max-width: 991px) {
+    width: 80vw;
+  }
+
+  @include bp-down('sm') {
+    top: 0;
   }
 }
 
@@ -125,6 +133,7 @@ div.homePageCardRow {
   margin-right: auto;
   min-height: 350px;
   background-size: contain;
+  height: auto;
 }
 
 .cardBottom {
@@ -150,26 +159,138 @@ div.homePageCardRow {
   margin-top: 10rem;
 }
 
-.stepImage {
-  transition: all 1s;
+.stepsHeading {
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 5rem;
+
+  @include font-type('h3');
 }
 
-.postStep {
-  &Arrow {
-    visibility: hidden;
+.stepsWrapper {
+  position: relative;
+  padding-left: 8vw;
+  padding-right: 8vw;
+
+  .stepImage {
+    background-size: contain;
+
+    &LargeScreen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all 1s;
+      max-width: 43.75rem;
+    }
+
+    &NormalScreen {
+      height: 0;
+
+      @include bp-down('xl') {
+        height: 40vh;
+      }
+    }
   }
 
-  &Arrow.currentStep {
-    visibility: visible;
+  .postStep {
+    &NormalScreen {
+      visibility: hidden;
+      height: 0;
+
+      &Description {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      &Text {
+        color: $primary-300-color;
+
+        @include font-type('subtitle 1');
+      }
+    }
+
+    &LargeScreen {
+      width: 27rem;
+      height: 6rem;
+
+      &:not(:last-child) {
+        margin-bottom: 1.5rem;
+      }
+
+      &Arrow {
+        visibility: hidden;
+
+        @include absCenter();
+      }
+
+      &Arrow.currentStep {
+        visibility: visible;
+      }
+
+      &Description {
+        width: 25rem;
+        height: 100%;
+        display: inline-block;
+        position: relative;
+        background-color: white;
+        border-radius: $sm-border-radius;
+
+        &Active {
+          box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.18);
+          background-color: $primary-300-color;
+        }
+
+        @include font-type('subtitle 1');
+
+        @include bp-down('lg') {
+          width: 20rem;
+          @include font-type('subtitle 3');
+        }
+      }
+
+      &ArrowWrapper {
+        width: 2rem;
+        height: 100%;
+        display: inline-block;
+        position: relative;
+      }
+
+      &Text {
+        color: $primary-300-color;
+        width: fit-content;
+
+        &Active {
+          color: white;
+        }
+
+        @include absCenter {
+          transform: translate(0, -50%);
+          left: 2rem;
+        }
+      }
+    }
   }
 
-  &Text {
-    background-color: $primary-300-color;
+  @include bp-down('sm') {
+    & .postStepLargeScreen,
+    & .stepImageLargeScreen {
+      visibility: hidden;
+      height: 0;
+    }
+
+    & .postStepLargeScreenArrow.currentStep {
+      visibility: hidden;
+    }
+
+    & .postStepNormalScreen {
+      visibility: visible;
+      height: fit-content;
+    }
   }
 }
 
 .ourMissonWrapper {
-  margin-top: 120px;
+  margin-top: 5rem;
   padding-left: 8vw;
   padding-right: 8vw;
   min-height: 700px;
@@ -193,6 +314,10 @@ div.homePageCardRow {
       margin-bottom: 48px;
 
       @include font-type('body 1');
+
+      @include bp-down('md') {
+        @include font-type('body 2');
+      }
     }
 
     &Button {
