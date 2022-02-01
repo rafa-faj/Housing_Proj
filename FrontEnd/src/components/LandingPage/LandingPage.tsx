@@ -3,6 +3,7 @@ import { RemoveLayoutMargin } from '@components';
 import Button from '@components/basics/Button';
 import { TriggerPageView } from '@components/ga';
 import { howToPost, landingIcons, miscIcons } from '@icons';
+import { spawn } from 'child_process';
 import cn from 'classnames';
 import { useRouter } from 'next/dist/client/router';
 import React, { FunctionComponent, useEffect, useState } from 'react';
@@ -61,8 +62,7 @@ const HomePageCard: FunctionComponent = () => {
           </div>
         </div>
       </Col>
-      <Col className={styles.middleGap} />
-      <Col md={12} lg={5} className={styles.homePageCardCol}>
+      <Col md={12} lg={{span: 5, offset: 2}} className={styles.homePageCardCol}>
         <div className={styles.homePageCard}>
           <FilledImage
             alt={`people illustration`}
