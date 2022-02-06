@@ -357,3 +357,115 @@ div.ourMissonWrapper {
     margin-top: 0;
   }
 }
+
+.loginWrapper {
+  margin-top: 7.5rem;
+  margin-left: 7.5rem;
+}
+
+.loginDescriptionWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.bearlMessageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.loginFrame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+
+  width: fit-content;
+
+  border-style: solid;
+  border-width: thin;
+  border-color: $border-color;
+  border-radius: 0.5rem 0.5rem 0.5rem 0;
+
+  padding: 2rem;
+  margin-top: 2rem;
+
+  transition: all 3s;
+
+  &Moved {
+    top: 50%;
+  }
+
+  @include absCenter {
+    top: 100%;
+  }
+}
+
+.loginText {
+  width: 29rem;
+  color: $primary-400-color;
+
+  @include bp-up('lg') {
+    width: 40rem;
+  }
+}
+
+.bearlImage {
+  width: 5.875rem;
+  height: 6.5rem;
+  background-size: contain;
+  align-self: flex-end;
+}
+
+.sunGodImage {
+  width: 12.1875rem;
+  height: 13.625rem;
+  background-size: contain;
+}
+
+.findHeading {
+  text-align: center;
+
+  @include font-type('h3');
+}
+
+.findWrapper {
+  padding: 4rem 0 5rem;
+  background-color: white; //need to change entire landing page to white later
+}
+
+.exploreButton {
+  padding: 3rem 0 8rem 0;
+}
+
+.houseCardWrapper {
+  & > div {
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    &::-webkit-scrollbar {
+      visibility: hidden;
+      display: block;
+      width: 1px;
+      height: 5px;
+      background-color: #aaa;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      visibility: hidden;
+      background: #000;
+    }
+
+    &:hover {
+      &::-webkit-scrollbar,
+      &::-webkit-scrollbar-thumb {
+        visibility: visible;
+      }
+    }
+
+    & > div {
+      flex-wrap: unset;
+    }
+  }
+}

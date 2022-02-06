@@ -10,4 +10,7 @@ export * from './useScrollDirection';
 export { default as useRouterParams } from './useRouterParams';
 export * from './useRouterParams';
 
+export { default as useViewPortDistance } from './useViewPortDistance';
+export * from './useViewPortDistance';
+
 export * from './swr';

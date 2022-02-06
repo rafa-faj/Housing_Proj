@@ -3,7 +3,7 @@ import { useUser } from '@hooks';
 import { filterIcons } from '@icons';
 import { showLogin, showPost } from '@redux';
 import cn from 'classnames';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import styles from './Header.module.scss';
@@ -11,6 +11,13 @@ import styles from './Header.module.scss';
 const Filter: FunctionComponent = () => {
   const { data: user } = useUser();
   const dispatch = useDispatch();
+  const [isPosting, setisPosting] = useState(false);
+
+  useEffect(() => {
+    if (!(user.isLoggedIn && isPosting)) return;
+    dispatch(showPost());
+    setisPosting(false);
+  }, [user.isLoggedIn]);
 
   return (
     <Row>
@@ -33,7 +40,9 @@ const Filter: FunctionComponent = () => {
             size="secondary"
             variant="outline"
             onClick={() =>
-              user.isLoggedIn ? dispatch(showPost()) : dispatch(showLogin())
+              user.isLoggedIn
+                ? dispatch(showPost())
+                : (setisPosting(true), dispatch(showLogin()))
             }
           >
             <Subtitle2>Post it Now</Subtitle2>

@@ -1,15 +1,23 @@
-import { FilledImage, Link } from '@basics';
+import { FilledImage, Link, Body2, Subtitle2, Button } from '@basics';
 import { RemoveLayoutMargin } from '@components';
-import Button from '@components/basics/Button';
 import { TriggerPageView } from '@components/ga';
-import { howToPost, landingIcons, miscIcons } from '@icons';
+import { howToPost, landingIcons, miscIcons, landingLogin } from '@icons';
 import { spawn } from 'child_process';
 import cn from 'classnames';
 import { useRouter } from 'next/dist/client/router';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, {
+  FunctionComponent,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Typewriter from 'typewriter-effect';
 import styles from './LandingPage.module.scss';
+import { useUser, useViewPortDistance } from '@hooks';
+import { useDispatch } from 'react-redux';
+import { showLogin, useShowPostType } from '@redux';
+import { BrowsingStudentList, HouseCardList } from '@components';
 
 const HomehubWelcomeInfo: FunctionComponent = () => {
   useEffect(() => {
@@ -62,7 +70,11 @@ const HomePageCard: FunctionComponent = () => {
           </div>
         </div>
       </Col>
-      <Col md={12} lg={{span: 5, offset: 2}} className={styles.homePageCardCol}>
+      <Col
+        md={12}
+        lg={{ span: 5, offset: 2 }}
+        className={styles.homePageCardCol}
+      >
         <div className={styles.homePageCard}>
           <FilledImage
             alt={`people illustration`}
@@ -168,6 +180,80 @@ const PostYourPlace: FunctionComponent = () => {
   );
 };
 
+const LogIn: FunctionComponent = () => {
+  const { data: user } = useUser();
+  const dispatch = useDispatch();
+  const [loginMoved, setLoginMoved] = useState(false);
+  const [windowHeight, elementDistanceToTop] =
+    useViewPortDistance('#loginFrame');
+
+  useEffect(() => {
+    if (
+      windowHeight &&
+      elementDistanceToTop &&
+      windowHeight - elementDistanceToTop > 0
+    ) {
+      setLoginMoved(true);
+    }
+  }, [windowHeight, elementDistanceToTop]);
+
+  return (
+    <div className={styles.loginWrapper}>
+      <div className={styles.loginDescriptionWrapper}>
+        <div className={styles.bearlMessageWrapper}>
+          <FilledImage src={landingLogin.Bearl} className={styles.bearlImage} />
+          <div
+            className={cn(styles.loginFrame, {
+              [styles.loginFrameMoved]: loginMoved,
+            })}
+            id="loginFrame"
+          >
+            <Body2 className={styles.loginText}>
+              Homehub requests a
+              <span className="font-weight-bold"> UCSD email</span> to ensure
+              the authenticity of people signing up!
+            </Body2>
+            {/* also move sungod when logged in */}
+            {!user.isLoggedIn && (
+              <Button
+                className={styles.postButton}
+                icon={{ icon: miscIcons.GoogleLogo }}
+                onClick={() => dispatch(showLogin())}
+              >
+                <Subtitle2> Start with school account</Subtitle2>
+              </Button>
+            )}
+          </div>
+        </div>
+      </div>
+      <FilledImage src={landingLogin.SunGod} className={styles.sunGodImage} />
+    </div>
+  );
+};
+
+const BrowseListing: FunctionComponent = () => {
+  const showPostType = useShowPostType();
+  const router = useRouter();
+  return (
+    <div className={styles.findWrapper}>
+      {/* change backgorund color, plain cards (no data) -> animation -> data */}
+      {/* slide show */}
+      <h3 className={styles.findHeading}>Find Your Spot</h3>
+      <Row className={styles.findWrapper}></Row>
+      <div>
+        <div className={styles.houseCardWrapper}>
+          <HouseCardList postType={showPostType}></HouseCardList>
+        </div>
+        <div className={cn(styles.center, styles.exploreButton)}>
+          <Button onClick={() => router.push('/housing')}>
+            <div>Explore listings</div>
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const OurMission: FunctionComponent = () => {
   return (
     <>
@@ -209,6 +295,8 @@ const Landing: FunctionComponent = () => {
         <HomePageCard />
 
         <PostYourPlace />
+
+        <LogIn />
 
         <OurMission />
       </div>
