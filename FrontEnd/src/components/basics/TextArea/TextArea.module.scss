@@ -1,7 +1,8 @@
 .charCheck {
   position: absolute;
-  right: 0.75rem;
+  right: 0;
   bottom: 0;
+  padding-top: 100px;
   color: $primary-dark-color;
 }
 
@@ -51,4 +52,8 @@
 
 .placeHolder {
   color: $disabled-medium-emphasis-color;
+}
+
+.formControlWrapper {
+  padding-bottom: 30px;
 }
