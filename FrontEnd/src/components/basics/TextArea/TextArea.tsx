@@ -33,72 +33,106 @@ const TextArea: FunctionComponent<TextAreaProps> = ({
   const randomID = useRandomID(controlId);
   const [content, setContent] = useState<string>(defaultContent);
 
-  // contentLength contains the length of content without any whitespace (excluding spaces)
-  const [contentLength, setContentLength] = useState<number>(0);
+  // Contains the length of content without any whitespace (excluding spaces)
+  const [contentLengthNoWhiteSpace, setContentLengthNoWhiteSpace] =
+    useState<number>(0);
 
-  // bulletpoints keeps track of if the textarea is in bulletpoints mode
-  const [bulletpoints, setBulletpoints] = useState<Boolean>(false);
+  // Keeps track of if the textarea is in inBulletpointsMode mode
+  const [inBulletpointsMode, setInBulletpointsMode] = useState<Boolean>(false);
+  // setMaxLengthPlusWhiteSpace(maxLength + whiteSpaceLength);
 
-  // dynamicMaxLength is dependent on how much whitespace (excluding spaces) there are in the content
-  const dynamicMaxLength = maxLength + (content.length - contentLength);
+  // Get the amount of characters that are whitespace (excluding spaces)
+  const whiteSpaceLength = content.length - contentLengthNoWhiteSpace;
+
+  // Need this for Form.Control maxLength since we don't want to count whitespace (excluding spaces) as part of the input.
+  const maxLengthPlusWhiteSpace = maxLength + whiteSpaceLength;
+
+  const handleNotInBulletpointsMode = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>,
+  ) => {
+    if (e.key === '*') {
+      // Make sure keyboard event doesn't propagate to onChange handler
+      e.preventDefault();
+      setInBulletpointsMode(true);
+
+      if (
+        contentLengthNoWhiteSpace === 0 ||
+        content[content.length - 1] === '\n'
+      ) {
+        // Start a new list on the same line
+        setContent((prevContent) => prevContent + '* ');
+      } else if (contentLengthNoWhiteSpace + 2 <= maxLengthPlusWhiteSpace) {
+        // Start a new list on the next line, as long as maxLengthPlusWhiteSpace has not been hit
+        setContent((prevContent) => prevContent + '\n* ');
+      }
+
+      setContentLengthNoWhiteSpace((prevLength) => prevLength + 2);
+    } else if (['Backspace', 'Delete'].includes(e.key)) {
+      // If the deleted character is a newline
+      if (content[content.length - 1] === '\n') {
+        // Search for the index of the second to last newline
+        const lastNewlineIndex = content.lastIndexOf('\n', content.length - 2);
+
+        // No second to last newline exists (only one newline in text area exists before deleting it)
+        if (lastNewlineIndex === -1) {
+          return;
+        }
+
+        // Check if the character after this newline is a bulletpoint
+        const isBulletpointLine = content.charAt(lastNewlineIndex + 1) === '*';
+
+        // If it is a '*', then it is a bulletpoint line
+        if (isBulletpointLine) {
+          setInBulletpointsMode(true);
+        }
+      }
+    }
+  };
+
+  const handleInBulletpointsMode = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>,
+  ) => {
+    if (['Backspace', 'Delete'].includes(e.key)) {
+      // If the deleted character is a '*', then turn off bulletpoints mode
+      if (content[content.length - 1] === '*') {
+        setInBulletpointsMode(false);
+      }
+    } else if (
+      e.key === 'Enter' &&
+      contentLengthNoWhiteSpace + 2 <= maxLength
+    ) {
+      // Make sure keyboard event doesn't propagate to onChange handler
+      e.preventDefault();
+
+      // Add another bulletpoint line
+      setContent((prevContent) => prevContent + '\n* ');
+      setContentLengthNoWhiteSpace((prevLength) => prevLength + 2);
+    } else if (e.key === '*') {
+      e.preventDefault();
+
+      // Exit bulletpoints mode
+      setInBulletpointsMode(false);
+
+      // Start cursor on new line
+      setContent((prevContent) => prevContent + '\n');
+    }
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (!bulletpoints) {
-      // Possibly change to check for shift + 8 instead?
-      if (e.key === '*') {
-        e.preventDefault();
-        setBulletpoints(true);
-        setContentLength((prevLength) => prevLength + 2);
-
-        if (contentLength === 0 || content[content.length - 1] === '\n') {
-          setContent((prevContent) => prevContent + '* ');
-        } else if (contentLength + 2 <= dynamicMaxLength) {
-          setContent((prevContent) => prevContent + '\n* ');
-        }
-      } else if (e.key === 'Backspace' || e.key === 'Delete') {
-        if (content[content.length - 1] === '\n') {
-          const lastNewlineIndex = content.lastIndexOf(
-            '\n',
-            content.length - 2,
-          );
-
-          if (lastNewlineIndex === -1) {
-            return;
-          }
-
-          const isBulletpointLine =
-            content.charAt(lastNewlineIndex + 1) === '*';
-
-          if (isBulletpointLine) {
-            setBulletpoints(true);
-          }
-        }
-      }
-    } else if (bulletpoints) {
-      if (e.key === 'Backspace' || e.key === 'Delete') {
-        if (content[content.length - 1] === '*') {
-          setBulletpoints(false);
-        }
-      } else if (e.key === 'Enter' && contentLength + 2 <= maxLength) {
-        e.preventDefault();
-        setContentLength((prevLength) => prevLength + 2);
-        setContent((prevContent) => prevContent + '\n* ');
-      } else if (e.key === '*') {
-        e.preventDefault();
-        setBulletpoints(false);
-        setContentLength((prevLength) => prevLength + 1);
-        setContent((prevContent) => prevContent + '\n');
-      }
+    if (!inBulletpointsMode) {
+      handleNotInBulletpointsMode(e);
+    } else if (inBulletpointsMode) {
+      handleInBulletpointsMode(e);
     }
   };
 
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e) {
-      // Regex to remove all whitespace (excluding spaces) from content
+      // Contains content of text area without whitespace (excluding spaces)
       const noWhitespaceContent = e.target.value.replace(/[^\S ]/g, '');
 
-      // Only count characters, not whitespace (excluding spaces)
-      setContentLength(noWhitespaceContent.length);
+      // Count characters, not whitespace (excluding spaces)
+      setContentLengthNoWhiteSpace(noWhitespaceContent.length);
       setContent(e.target.value);
     }
 
@@ -120,7 +154,7 @@ const TextArea: FunctionComponent<TextAreaProps> = ({
               [styles.invalid]: isInvalid || error,
             })}
             type="text"
-            maxLength={dynamicMaxLength}
+            maxLength={maxLengthPlusWhiteSpace}
             value={content}
             onKeyDown={handleKeyDown}
             onChange={handleOnChange}
@@ -130,7 +164,7 @@ const TextArea: FunctionComponent<TextAreaProps> = ({
               [styles.charCheckError]: error,
             })}
           >
-            {contentLength}/{maxLength.toString()}
+            {contentLengthNoWhiteSpace}/{maxLength.toString()}
           </Body2>
         </div>
         {error && <miscIcons.alert className={styles.inputStatus} />}
