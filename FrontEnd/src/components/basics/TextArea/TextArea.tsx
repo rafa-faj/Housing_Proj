@@ -39,7 +39,6 @@ const TextArea: FunctionComponent<TextAreaProps> = ({
 
   // Keeps track of if the textarea is in inBulletpointsMode mode
   const [inBulletpointsMode, setInBulletpointsMode] = useState<Boolean>(false);
-  // setMaxLengthPlusWhiteSpace(maxLength + whiteSpaceLength);
 
   // Get the amount of characters that are whitespace (excluding spaces)
   const whiteSpaceLength = content.length - contentLengthNoWhiteSpace;
