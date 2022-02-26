@@ -126,14 +126,12 @@ const TextArea: FunctionComponent<TextAreaProps> = ({
   };
 
   const handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (e) {
-      // Contains content of text area without whitespace (excluding spaces)
-      const noWhitespaceContent = e.target.value.replace(/[^\S ]/g, '');
+    // Contains content of text area without whitespace (excluding spaces)
+    const noWhitespaceContent = e.target.value.replace(/[^\S ]/g, '');
 
-      // Count characters without whitespace (excluding spaces)
-      setContentLengthNoWhiteSpace(noWhitespaceContent.length);
-      setContent(e.target.value);
-    }
+    // Count characters without whitespace (excluding spaces)
+    setContentLengthNoWhiteSpace(noWhitespaceContent.length);
+    setContent(e.target.value);
 
     if (onChange) onChange(e);
   };
