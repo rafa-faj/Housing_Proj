@@ -120,7 +120,7 @@ const TextArea: FunctionComponent<TextAreaProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (!inBulletpointsMode) {
       handleNotInBulletpointsMode(e);
-    } else if (inBulletpointsMode) {
+    } else {
       handleInBulletpointsMode(e);
     }
   };
@@ -130,7 +130,7 @@ const TextArea: FunctionComponent<TextAreaProps> = ({
       // Contains content of text area without whitespace (excluding spaces)
       const noWhitespaceContent = e.target.value.replace(/[^\S ]/g, '');
 
-      // Count characters, not whitespace (excluding spaces)
+      // Count characters without whitespace (excluding spaces)
       setContentLengthNoWhiteSpace(noWhitespaceContent.length);
       setContent(e.target.value);
     }
